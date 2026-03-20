@@ -1,5 +1,5 @@
 
-import { Header, Hero, Icons, Leaders } from './components'
+import { Clients, Eslogan, Header, Hero, Icons, Leaders, Soluciones } from './components'
 
 function App() {
 
@@ -11,11 +11,16 @@ function App() {
       
       <section className='m-auto'>
         <Hero/>
+        <Eslogan/>
+        <Clients/>
+      </section>
 
+      <section className='m-auto'>
+        <Soluciones/>
       </section>
 
       <section>
-              <Leaders/>
+        <Leaders/>
         <Icons/>
       </section>
     </main>

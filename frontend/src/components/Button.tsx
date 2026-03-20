@@ -5,7 +5,7 @@ interface Props{
 
 export const Button = ({text, styles}: Props) => {
   return (
-    <button className={`${styles} h-12 rounded-3xl hover:to-Teal-200 cursor-pointer`}>
+    <button className={`${styles} h-11  cursor-pointer`}>
         {text}
     </button>
   )
