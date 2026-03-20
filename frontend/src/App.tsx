@@ -1,5 +1,5 @@
 
-import { Clients, Eslogan, Header, Hero, Icons, Leaders, Soluciones } from './components'
+import { Calculadora, Clients, Eslogan, Header, Hero, Icons, Leaders, Soluciones } from './components'
 
 function App() {
 
@@ -17,6 +17,7 @@ function App() {
 
       <section className='m-auto'>
         <Soluciones/>
+        <Calculadora/>
       </section>
 
       <section>

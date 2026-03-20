@@ -6,3 +6,4 @@ export { Leaders } from "./Leaders"
 export { Eslogan } from "./Eslogan";
 export { Clients } from "./Clients";
 export { Soluciones} from "./Soluciones"
+export { Calculadora } from "./Calculadora/Calculadora"
