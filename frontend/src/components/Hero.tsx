@@ -15,8 +15,11 @@ export const Hero = () => {
           Deje la complejidad informativa en manos de expertos. Diseñamos estrategias tributarias, legales y financieras para mitigar riesgos y proteger su patrimonio corporativo en Ecuador.
         </p>
         <div className="flex gap-7 justify-between mr-23 items-center">
-          <Button styles="bg-orange-500 text-[1rem] font-semibold px-3 shadow-xl/30" text="CALCULAR MI PROYECCIÓN"/>
-        <Button styles="bg-orange-500 text-[1rem] font-semibold w-[230px] shadow-xl/30" text="CONTÁCTANOS"/>
+          <a href="#calculadora">
+            <Button styles="bg-orange-500 text-[1rem] font-semibold px-3 shadow-xl/30" text="CALCULAR MI PROYECCIÓN" />
+          </a>
+
+          <Button styles="bg-orange-500 text-[1rem] font-semibold w-[230px] shadow-xl/30" text="CONTÁCTANOS" />
         </div>
       </div>
 

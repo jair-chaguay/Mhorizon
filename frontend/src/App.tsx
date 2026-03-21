@@ -1,28 +1,37 @@
 
-import { Calculadora, Clients, Eslogan, Header, Hero, Icons, Leaders, Soluciones } from './components'
+import { Calculadora, Clients, Eslogan, Footer, Header, Hero, Impulsa, Informativos, Leaders, Perspectiva, Soluciones } from './components'
 
 function App() {
 
   return (
     <main className='m-auto'>
       <section >
-        <Header/>
-      </section>
-      
-      <section className='m-auto'>
-        <Hero/>
-        <Eslogan/>
-        <Clients/>
+        <Header />
       </section>
 
       <section className='m-auto'>
-        <Soluciones/>
-        <Calculadora/>
+        <Hero />
+        <Eslogan />
+        <Clients />
       </section>
 
-      <section>
-        <Leaders/>
-        <Icons/>
+      <section className='m-auto'>
+        <Soluciones />
+        <Calculadora />
+      </section>
+
+      <section className='m-auto'>
+        <Perspectiva />
+      </section>
+
+      <section className='m-auto'>
+        <Leaders />
+        <Informativos />
+
+      </section>
+      <section className='m-auto bg-blue-200'>
+        <Impulsa />
+        <Footer />
       </section>
     </main>
   )

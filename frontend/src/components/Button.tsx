@@ -5,6 +5,7 @@ interface Props{
 
 export const Button = ({text, styles}: Props) => {
   return (
+    
     <button className={`${styles} h-11  cursor-pointer`}>
         {text}
     </button>

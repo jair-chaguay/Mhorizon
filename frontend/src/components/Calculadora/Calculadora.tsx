@@ -21,9 +21,9 @@ export const Calculadora = () => {
   };
 
   return (
-    <section className="max-w-5xl mx-auto py-16 px-6">
+    <section id="calculadora" className="max-w-5xl mx-auto mt-16 px-6 ">
       <div className="flex flex-col gap-4">
-        <h1 className="text-[1.563rem] underline underline-offset-8 decoration-orange-500 font-bold text-center">
+        <h1 className="text-[1.563rem] text-blue-200 underline underline-offset-8 decoration-orange-500 font-bold text-center">
           CALCULADORA DE IMPUESTO A LA RENTA
         </h1>
 
@@ -31,11 +31,11 @@ export const Calculadora = () => {
           HERRAMIENTA GRATUITA
         </p>
 
-        <p className="text-center text-[1rem]  text-gray-600">
+        <p className="text-center text-[1rem] font-semibold  text-blue-200">
           ¿Conoce el impacto real de su Impuesto a la Renta de este año?
         </p>
 
-        <p className="text-[1rem]  text-justify">No deje las finanzas de su empresa al azar. Anticípese a sus obligaciones fiscales con nuestra Calculadora Tributaria preliminar. Ingrese sus datos básicos y obtenga una proyección instantánea para planificar su flujo de caja con seguridad jurídica.</p>
+        <p className="text-[1rem] text-blue-200 text-justify">No deje las finanzas de su empresa al azar. Anticípese a sus obligaciones fiscales con nuestra Calculadora Tributaria preliminar. Ingrese sus datos básicos y obtenga una proyección instantánea para planificar su flujo de caja con seguridad jurídica.</p>
 
       </div>
 

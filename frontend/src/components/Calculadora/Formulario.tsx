@@ -10,14 +10,14 @@ interface Props {
 
 export const Formulario = ({ data, onChange, onSubmit }: Props) => {
     return (
-        <div className="border mt-10 p-8 rounded-md shadow-sm flex gap-4 items-center">
-            <div>
+        <div className="border mt-10 p-8 rounded-sm shadow-sm flex gap-25 items-center">
+            <div >
                 <TipoPersonaSelector
                     value={data.tipo}
                     onChange={(tipo) => onChange({ ...data, tipo })}
                 />
 
-                <div className="grid md:grid-cols-1 gap-6">
+                <div className="grid md:grid-cols-1 gap-6 items-center">
                     <InputField styles="w-[350px] ml-2"
                         label="Nombre Completo:"
                         value={data.nombre}
@@ -62,8 +62,8 @@ export const Formulario = ({ data, onChange, onSubmit }: Props) => {
                 </div>
             </div>
 
-            <div className="w-[40%] flex items-center">
-                <img src="images/ICONO3.png" alt="tmp" />
+            <div className="w-[40%]  justify-center flex flex-col">
+                <img className="size-60 " src="images/0320.gif" alt="tmp" />
             </div>
 
 

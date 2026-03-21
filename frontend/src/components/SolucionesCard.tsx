@@ -26,7 +26,7 @@ export const SolucionesCard = ({
 
         <div className="w-[65%] px-10 ml-20 flex flex-col gap-4">
           <h2 className="font-bold text-blue-200 text-[1.28rem]">{title}</h2>
-          <p className={`text-[1.13rem] text-gray-700 font-light pr-20 `}>{paragraph}</p>
+          <p className={`text-[1.13rem] text-blue-200 font-light pr-20 `}>{paragraph}</p>
           <Button
             text="Conocer más ➔"
             styles="bg-orange-500 text-[1rem] text-white w-[180px]"

@@ -4,7 +4,7 @@ import React from 'react'
 
 export const Icon = () => {
     return (
-        <li className='flex gap-6 items-center '>
+        <li className='flex gap-6 items-center'>
             <a
             className='border-1 rounded-full'
                 href="https://www.facebook.com/Mhorizon-Ecuador-1695538914050588/" target='blank'>

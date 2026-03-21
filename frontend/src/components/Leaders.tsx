@@ -14,43 +14,41 @@ const leadersProp: LeaderProps[] = [
     {
         name: 'Milton Montecé Q.',
         cargo: "Presidente y Socio de Impuestos",
-        urlImg: 'images/milton.jpg',
-        telf: '999999999',
-        email: 'example@gmail.com',
+        urlImg: 'images/MILTON.png',
+        telf: '+593 972-638-4937',
+        email: 'mmontece@mhorizon.com.ec',
         link: 'https://ec.linkedin.com/in/milton-montec%C3%A9-94283029'
-    },
-    {
-        name: 'Carlos Velecela L.',
-        cargo: "Presidente y Socio de Impuestos",
-        urlImg: 'images/carlos.jpg',
-        telf: '999999999',
-        email: 'example@gmail.com',
-        link: 'https://ec.linkedin.com/in/carlos-velecela-lalama-72568111a'
     },
     {
         name: 'Violeta Rodriguez',
         cargo: "Supervisora de Impuestos",
-        urlImg: 'images/Violeta.jfif',
-        telf: '999999999',
-        email: 'example@gmail.com',
+        urlImg: 'images/VIOLETA.png',
+        telf: '+593 972-638-4937',
+        email: 'vrodriguez@mhorizon.com.ec',
         link: 'https://ec.linkedin.com/in/violeta-rodriguez-35a658a1'
     },
 ]
 
 export const Leaders = () => {
     return (
-        <div className='mt-20 mx-auto max-w-[960px]'>
-            <h1 className='text-center font-bold text-[1.875rem] text-cyan-800'>Nuestros Líderes</h1>
-            <div className="grid grid-cols-2 gap-10 mt-10">
+        <div className='mt-23 mx-auto max-w-[1080px]'>
+            <h1 className='text-center font-bold text-[1.625rem] text-blue-200
+            underline underline-offset-10 decoration-3 decoration-orange-500'>
+                NUESTROS LÍDERES</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 justify-items-center mt-23">
                 {leadersProp.map((leader: LeaderProps, index) => (
                     <div
                         key={leader.name}
-                        className={index === 2 ? "col-span-2 flex justify-center" : ""}
+                        className="shadow-2xl"
                     >
                         <LeaderCard {...leader} />
                     </div>
                 ))}
             </div>
+
+            <hr className="mt-25 border-t border-gray-300 mx-auto " />
+
+
         </div>
     )
 }

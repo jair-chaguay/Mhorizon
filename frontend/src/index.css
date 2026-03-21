@@ -1,18 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  --color-blue-200: #1F2124;
+  --color-blue-200: #151E28 ;
   --color-orange-500: #F28705;
+  --color-blue-100: #0A2C5E;
   --font--Inter: "Inter";
 }
 
 
 /*format("opentype");*/
 
+@font-face{
+  font-family: "Inter";
+  src: url("./assets/fonts/inter/Inter-ExtraLight-BETA.otf") format("opentype");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+
+
+@font-face{
+  font-family: "Inter";
+  src: url("./assets/fonts/inter/Inter-ExtraBold.otf") format("opentype");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
 @font-face {
     font-family: "Inter";
     font-style: normal;
-    font-weight: 200 300 500 700;
+    font-weight: 500 700;
+    font-display: swap;
+    src: url("./assets/fonts/inter/Inter-Bold.otf") format("woff2");
+}
+
+@font-face {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 300 500 700;
     font-display: swap;
     src: url("./assets/fonts/inter/Inter-Regular.otf") format("woff2");
 }
@@ -32,3 +58,8 @@ body{
 .clients-swiper .swiper-wrapper {
   transition-timing-function: linear !important;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
