@@ -1,4 +1,5 @@
 import { SolucionesCard } from "./SolucionesCard"
+import { motion} from "framer-motion";
 
 interface SolucionesProp {
   urlImg: string
@@ -36,10 +37,11 @@ const solucionProp: SolucionesProp[] = [
 export const Soluciones = () => {
   return (
     <div className="mt-20">
-      <h1 className="text-[1.563rem] text-blue-200 font-bold text-center underline underline-offset-10 decoration-3 decoration-orange-500">
+      <motion.h1 initial={{opacity: 0}} whileInView={{opacity:1}} viewport={{once:false}} transition={{duration:0.8}}
+      className="text-[1.563rem] text-blue-200 font-bold text-center underline underline-offset-10 decoration-3 decoration-orange-500">
         SOLUCIONES INTEGRALES
-      </h1>
-
+      </motion.h1>
+    
       <div className="mt-15 flex flex-col gap-3">
         {solucionProp.map((solucion, index) => (
           <SolucionesCard

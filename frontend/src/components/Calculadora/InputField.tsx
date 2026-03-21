@@ -6,16 +6,22 @@ interface Props {
     onChange: (value: string) => void;
 }
 
-export const InputField = ({label, type = "", value, onChange, styles=''}: Props) => {
-    return (
-        <div className="flex items-center gap-3 ">
-            <label className=" mb-1">{label}</label>
-            <input
-                type={type}
-                className={`${styles} border border-orange-500 border-2 px-3 py-1 rounded`}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-            />
-        </div>
-    );
+export const InputField = ({
+  label,
+  type = "text",
+  value,
+  onChange,
+}: Props) => {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <label className="text-sm w-[60%]">{label}</label>
+
+      <input
+        type={type}
+        className="w-[40%] bg-white text-black px-2 py-1 rounded"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+    </div>
+  );
 };

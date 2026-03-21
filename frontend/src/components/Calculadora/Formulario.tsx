@@ -10,63 +10,58 @@ interface Props {
 
 export const Formulario = ({ data, onChange, onSubmit }: Props) => {
     return (
-        <div className="border mt-10 p-8 rounded-sm shadow-sm flex gap-25 items-center">
-            <div >
-                <TipoPersonaSelector
-                    value={data.tipo}
-                    onChange={(tipo) => onChange({ ...data, tipo })}
+        <div className="bg-[#0f1c2e] text-white p-8 rounded shadow-lg relative">
+
+            {/* Línea naranja lateral */}
+            <div className="absolute right-0 top-0 h-full w-1 bg-orange-500"></div>
+
+            <TipoPersonaSelector
+                value={data.tipo}
+                onChange={(tipo) => onChange({ ...data, tipo })}
+            />
+
+            <div className="flex flex-col gap-4">
+
+                <InputField
+                    label="Nombre Completo:"
+                    value={data.nombre}
+                    onChange={(value) => onChange({ ...data, nombre: value })}
                 />
 
-                <div className="grid md:grid-cols-1 gap-6 items-center">
-                    <InputField styles="w-[350px] ml-2"
-                        label="Nombre Completo:"
-                        value={data.nombre}
-                        onChange={(value) => onChange({ ...data, nombre: value })}
-                    />
+                <InputField
+                    label="Correo Corporativo:"
+                    type="email"
+                    value={data.correo}
+                    onChange={(value) => onChange({ ...data, correo: value })}
+                />
 
-                    <InputField styles="w-[350px]"
-                        label="Correo Corporativo:"
-                        type="email"
-                        value={data.correo}
-                        onChange={(value) => onChange({ ...data, correo: value })}
-                    />
+                <InputField
+                    label="Ingresos Gravables Estimados (Anuales):"
+                    type="number"
+                    value={data.ingresos}
+                    onChange={(value) =>
+                        onChange({ ...data, ingresos: Number(value) })
+                    }
+                />
 
-                    <InputField styles="w-[190px]"
-                        label="Ingresos Gravables Estimados (Anuales):"
-                        type="number"
-                        value={data.ingresos}
-                        onChange={(value) =>
-                            onChange({ ...data, ingresos: Number(value) })
-                        }
-                    />
+                <InputField
+                    label="Gastos Deducibles Estimados (Anuales):"
+                    type="number"
+                    value={data.gastos}
+                    onChange={(value) =>
+                        onChange({ ...data, gastos: Number(value) })
+                    }
+                />
 
-                    <InputField styles="w-[190px] ml-1"
-                        label="Gastos Deducibles Estimados (Anuales): "
-                        type="number"
-                        value={data.gastos}
-                        onChange={(value) =>
-                            onChange({ ...data, gastos: Number(value) })
-                        }
-                    />
+                <button
+                    onClick={onSubmit}
+                    className="bg-orange-500 hover:bg-orange-600  cursor-pointer transition 
+                    px-6 py-2 mt-4 w-fit justify-center"
+                >
+                    Calcular
+                </button>
 
-                    <div className="flex justify-start pl-[20%]">
-                        <button
-                            onClick={onSubmit}
-                            className="cursor-pointer  bg-orange-500 text-white px-6 py-2 
-                                    rounded hover:bg-orange-600 transition-colors duration-300
-                                    w-[220px] "
-                            >
-                            Calcular
-                        </button>
-                    </div>
-                </div>
             </div>
-
-            <div className="w-[40%]  justify-center flex flex-col">
-                <img className="size-60 " src="images/0320.gif" alt="tmp" />
-            </div>
-
-
         </div>
     );
 };
