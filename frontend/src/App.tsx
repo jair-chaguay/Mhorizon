@@ -17,18 +17,19 @@ function App() {
 
       <section className='m-auto'>
         <Soluciones />
-        <Calculadora />
+        
       </section>
 
-      <section className='m-auto'>
-        <Perspectiva />
+      <section className='mt-auto bg-blue-200 h-[450px]'>
+        <Calculadora />
       </section>
 
       <section className='m-auto'>
         <Leaders />
         <Informativos />
-
       </section>
+      
+
       <section className='m-auto bg-blue-200'>
         <Impulsa />
         <Footer />

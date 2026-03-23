@@ -102,7 +102,7 @@ const props : ClientProps [] = [
 
 export const Clients = () => {
   return (
-    <section className="mt-15">
+    <section className="mt-10">
       <Swiper
         modules={[Autoplay, FreeMode]}
         loop={true}

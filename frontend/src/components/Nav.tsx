@@ -7,6 +7,8 @@ export const Nav = () => {
         <li className="hover:text-orange-500 hover:transition-colors duration-300"><a href="#">SECTORES</a></li>
         <li className="hover:text-orange-500 hover:transition-colors duration-300"><a href="#">NOVEDADES</a></li>
         <li className="hover:text-orange-500 hover:transition-colors duration-300"><a href="#">NOSOTROS</a></li>
+        <li className="hover:text-orange-500 hover:transition-colors duration-300 bg-orange-500 rounded-sm p-1"><a href="#">CONTÁCTANOS</a></li>
+
         <li><img className="size-8 cursor-pointer" src="images/usuario-2.png" alt="" /></li>
       </ul>
     </nav>
