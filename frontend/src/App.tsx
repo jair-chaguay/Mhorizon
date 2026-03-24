@@ -6,14 +6,18 @@ import { NovedadesPage } from "./components/pages/NovedadesPage";
 import { NosotrosPage } from "./components/pages/NosotrosPage";
 import { ContactanosPage } from "./components/pages/ContactanosPage";
 import { ConsultoriaEmpresarial } from "./components/pages/ConsultoriaEmpresarial";
+import { GestionPage } from "./components";
+import { ScrollToTop } from "./components/ScrollTop";
 
 function App() {
   return (
     <BrowserRouter>
+    <ScrollToTop/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/soluciones" element={<SolucionesPage />} />
         <Route path="/soluciones/consultoria-empresarial" element={<ConsultoriaEmpresarial />} />
+        <Route path="/soluciones/gestion-tributaria" element={<GestionPage />} />
 
         <Route path="/sectores" element={<SectoresPage />} />
         <Route path="/novedades" element={<NovedadesPage />} />

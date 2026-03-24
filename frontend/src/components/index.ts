@@ -5,15 +5,21 @@ export { Hero } from "./Hero/Hero"
 export { Leaders } from "./Leaders/Leaders"
 export { Eslogan } from "./Hero/Eslogan";
 export { Clients } from "./Clients/Clients";
-export { Soluciones} from "./Soluciones/Soluciones"
+export { Soluciones } from "./Soluciones/Soluciones"
 export { Calculadora } from "./Calculadora/Calculadora"
 export { Perspectiva } from "./Leaders/Perspectiva"
-export {Informativos} from "./Informativos/Informativos"
-export {Impulsa} from "./Footer/Impulsa"
-export {Footer} from "./Footer/Footer"
+export { Informativos } from "./Informativos/Informativos"
+export { Impulsa } from "./Footer/Impulsa"
+export { Footer } from "./Footer/Footer"
 export { Integrales } from "./SolucionesPage/Integrales"
 export { ServiciosEsp } from "./SolucionesPage/ServiciosEsp";
 export { Metodologia } from "./SolucionesPage/Metodologia";
 export { HeroEx } from "./ConsultoriaEmpresarial/HeroEx";
 export { Method } from "./ConsultoriaEmpresarial/Method";
 export { Estrategia } from "./ConsultoriaEmpresarial/Estrategia";
+export { Experiencia } from "./ConsultoriaEmpresarial/Experiencia";
+export { GestionPage } from "./pages/GestionPage";
+export { HeroGestion } from "./GestionTributaria/HeroGestion"
+export { AuditoriaPlan } from "./GestionTributaria/AuditoriaPlan";
+export { EstrIm } from "./GestionTributaria/EstrIm";
+export { CumplimientoNorm } from "./GestionTributaria/CumplimientoNorm";

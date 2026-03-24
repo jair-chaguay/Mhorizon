@@ -1,4 +1,4 @@
-import { Header, Footer, Impulsa, HeroEx, Method, Estrategia } from '../../components'
+import { Header, Footer, Impulsa, HeroEx, Method, Estrategia, Experiencia } from '../../components'
 
 export const ConsultoriaEmpresarial = () => {
     return (
@@ -11,7 +11,10 @@ export const ConsultoriaEmpresarial = () => {
             <section className='mx-20'>
                 <Estrategia />
             </section>
-            <section className='bg-blue-200 mt-21'>
+            <section className='mt-21'>
+                <Experiencia />
+            </section>
+            <section className='bg-blue-200 '>
                 <Impulsa />
                 <Footer />
             </section>

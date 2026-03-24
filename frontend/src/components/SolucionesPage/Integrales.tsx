@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from '../Button'
 
 export const Integrales = () => {
     return (
@@ -28,6 +29,7 @@ export const Integrales = () => {
                     <p className='font-medium'>+45% Eficiencia Operativa</p>
                 </div>
             </div>
+            
         </section>
     )
 }

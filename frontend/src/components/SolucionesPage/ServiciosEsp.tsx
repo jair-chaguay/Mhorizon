@@ -22,7 +22,7 @@ const solucionProp: SolucionesProp[] = [
         title: "GESTIÓN TRIBUTARIA",
         paragraph:
             "Convertimos su carga fiscal en eficiencia operativa. Le guiamos para cumplir estrictamente con las normativas del SRI, previniendo contingencias legales.",
-        ruta: "/soluciones/consultoria-empresarial"
+        ruta: "/soluciones/gestion-tributaria"
     },
     {
         urlImg: "images/ICONO3.png",

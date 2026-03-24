@@ -22,7 +22,7 @@ const calculadora: CalculadoraProps[] = [
 
 export const Calculadora = () => {
   return (
-    <div className=' flex items-center'>
+    <div id="calculadora" className=' flex items-center'>
       <div className="py-22 px-30 w-190">
         <h2 className='text-white font-bold text-[1.563rem]'>
           CALCULADORA DE <span className='text-orange-500'>IMPUESTO A LA RENTA</span>

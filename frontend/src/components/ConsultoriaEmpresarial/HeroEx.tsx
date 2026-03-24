@@ -1,3 +1,4 @@
+import { Button } from "../Button"
 import { HeroExCard } from "./HeroExCard"
 
 interface HeroProps {
@@ -30,7 +31,7 @@ export const HeroEx = () => {
 
             <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-transparent"></div>
             <div className="relative">
-                <h3 className='bg-blue-200 text-white text-[12px] font-light p-1 text-center w-[180px] rounded-sm'>
+                <h3 className='bg-blue-200 text-white text-[0.75rem] font-light p-1 text-center w-[180px] rounded-sm'>
                     EXCELENCIA EMPRESARIAL
                 </h3>
                 <h1 className='text-white font-extrabold text-[2.9rem] text-shadow-lg  w-[500px] mt-5'>
@@ -41,6 +42,8 @@ export const HeroEx = () => {
                     Impulsar el crecimiento institucional mediante una estrategia empresarial
                     sofisticada, excelencia operativa y liderazgo transformador.
                 </p>
+                <Button text="Agenda una asesoría" 
+                styles="bg-orange-500 text-white font-medium mt-4 w-[220px] rounded-sm"/>
             </div>
 
 
