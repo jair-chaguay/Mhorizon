@@ -22,17 +22,17 @@ export const Estrategia = () => {
                     </div>
                 </div>
                 <div className='flex flex-col gap-10 w-[40%]'>
-                    <div className='bg-orange-500 text-white p-6 rounded-md'>
-                        <h2>42%</h2>
+                    <div className='bg-orange-500 text-white py-10 px-12 rounded-md w-[70%]'>
+                        <h2 className='font-bold text-[2.2rem] pt-5'>42%</h2>
                         <p>de aumento en la eficiencia</p>
-                        <p>
+                        <p className='mt-4 font-light w-[85%] mb-10'>
                             Benchmarks operativos propietarios
                             que superan los estándares de la industria por márgenes significativos.
                         </p>
                     </div>
-                    <div className='flex flex-col gap-1 p-6 shadow-xl rounded-md'>
-                        <p>Informe de Mercado 2026</p>
-                        <p>
+                    <div className='flex flex-col gap-3 py-10 px-12 shadow-2xl rounded-md w-[70%]'>
+                        <p className='font-medium'>Informe de Mercado 2026</p>
+                        <p className='text-blue-200/90 font-light'>
                             Descargue nuestro último análisis sobre las tendencias coorporativas
                             globales.
                         </p>
