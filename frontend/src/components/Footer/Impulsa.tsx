@@ -1,11 +1,11 @@
 import React from 'react'
-import { Button } from './Button'
+import { Button } from '../Button'
 
 export const Impulsa = () => {
     return (
-        <div className=' mt-23 pb-10'>
+        <div className=' pb-10'>
             <div className='flex flex-col gap-4 text-center'>
-                <h2 className='text-white font-bold text-[1.625rem] mt-10'>
+                <h2 className='text-white font-bold text-[1.625rem] mt-20'>
                     IMPULSA TU EMPRESA CON
                     <span className='text-orange-500 tracking-widest'> ASESORÍA EXPERTA.</span>
                 </h2>

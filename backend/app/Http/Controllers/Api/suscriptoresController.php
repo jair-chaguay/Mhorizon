@@ -4,18 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Admin;
+use App\Models\Suscriptores;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Hash;
 
 
-class adminController extends Controller
+class suscriptoresController extends Controller
 {
     public function index()
     {
-        $admins = Admin::all();
+        $suscriptores = Suscriptores::all();
         $data = [
-            'admins' => $admins,
+            'suscriptores' => $suscriptores,
             'status'=> 200
         ];
 
@@ -25,9 +24,8 @@ class adminController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nick'=> 'required|string|max:255',
-            'email'=> 'required|email|unique:admin',
-            'password'=> 'required|string|min:5',
+            'name'=> 'required|string|max:255',
+            'email'=> 'required|email',
         ]);
 
         if($validator->fails()){
@@ -38,23 +36,22 @@ class adminController extends Controller
             ], 400);
         }
 
-        $admin = Admin::create([
-            'nick'=> $request->nick,
+        $suscriptores = Suscriptores::create([
+            'name'=> $request->name,
             'email'=> $request->email,
-            'password' => Hash::make($request->password)
         ]);
 
         return response()->json([
-            'admin'=>$admin,
+            'suscriptores'=>$suscriptores,
             'status'=>201
         ], 201);
     }
  
     public function show($id)
     {
-        $admin = Admin::find($id);
+        $suscriptores = Suscriptores::find($id);
 
-        if(!$admin){
+        if(!$suscriptores){
             $data = [
                 'message' => 'Usuario no encontrado',
                 'status' => 404
@@ -63,7 +60,7 @@ class adminController extends Controller
         }
 
         $data = [
-            'admin' => $admin,
+            'suscriptores' => $suscriptores,
             'status' => 200
         ];
 
@@ -72,9 +69,9 @@ class adminController extends Controller
 
     public function destroy($id)
     {
-        $admin = Admin::find($id);
+        $suscriptores = Suscriptores::find($id);
 
-        if(!$admin){
+        if(!$suscriptores){
             $data = [
                 'message' => 'Usuario no encontrado',
                 'status'=> 404
@@ -82,7 +79,7 @@ class adminController extends Controller
             return response()->json($data, 404);
         }
 
-        $admin->delete();
+        $suscriptores->delete();
 
         $data = [
             'message'=> 'Usuario eliminado',
@@ -94,8 +91,8 @@ class adminController extends Controller
 
     public function update(Request $request, $id)
     {
-        $admin = Admin::find($id);
-        if(!$admin){
+        $suscriptores = Suscriptores::find($id);
+        if(!$suscriptores){
             $data = [
                 'message'=> 'Usuario no encontrado',
                 'status'=> 404
@@ -104,9 +101,8 @@ class adminController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'nick'=> 'required|string|max:255',
-            'email'=> 'required|email|unique:admin,email,'.$id,
-            'password'=> 'nullable|string|min:5'
+            'name'=> 'required|string|max:255',
+            'email' => 'required|email|unique:suscriptores,email,'.$id
         ]);
 
         if($validator->fails()){
@@ -118,17 +114,14 @@ class adminController extends Controller
             return response()->json($data, 400);
         }
 
-        $admin->nick = $request->nick;
-        $admin->email = $request->email;
-        if($request->filled('password')){
-            $admin->password = Hash::make($request->password);
-        }
+        $suscriptores->name = $request->name;
+        $suscriptores->email = $request->email;
 
-        $admin->save();
+        $suscriptores->save();
 
         $data = [
             'message' => 'Usuario actualizado',
-            'admin' => $admin,
+            'suscriptores' => $suscriptores,
             'status'=>200
         ];
 
@@ -137,8 +130,8 @@ class adminController extends Controller
 
     public function updatePartial(Request $request, $id)
     {
-        $admin = Admin::find($id);
-        if(!$admin){
+        $suscriptores = Suscriptores::find($id);
+        if(!$suscriptores){
             $data = [
                 'message'=> 'Usuario no encontrado',
                 'status'=> 404
@@ -146,14 +139,10 @@ class adminController extends Controller
             return response()->json($data, 404);
         }
 
-        return response()->json($request->all(), 200);
-
         $validator = Validator::make($request->all(), [
-            'nick'=> 'sometimes|string|max:255',
-            'email'=> 'sometimes|email|unique:admin,email,'.$id,
-            'password'=> 'sometimes|string|min:5'
+            'name'=> 'sometimes|string|max:255',
+            'email'=> 'sometimes|email'.$id,
         ]);
-
 
         if($validator->fails()){
             $data = [
@@ -164,23 +153,20 @@ class adminController extends Controller
             return response()->json($data, 400);
         }
 
-        if($request->has('nick')){
-            $admin->nick = $request->nick;
+        if($request->has('name')){
+            $suscriptores->name = $request->name;
         }
 
         if($request->has('email')){
-            $admin->email = $request->email;
+            $suscriptores->email = $request->email;
         }
 
-        if($request->has('password')){
-            $admin->password = Hash::make($request->password);
-        }
 
-        $admin->save();
+        $suscriptores->save();
 
         $data = [
             'message' => 'Usuario actualizado',
-            'admin' => $admin,
+            'suscriptores' => $suscriptores,
             'status' => 200
         ];
 

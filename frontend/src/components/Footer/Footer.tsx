@@ -1,5 +1,3 @@
-import React from 'react'
-import { Icons } from './Icons'
 
 export const Footer = () => {
     return (
@@ -14,10 +12,10 @@ export const Footer = () => {
                 <li className='text-white/70 pr-4 '><a href="">AUDITORÍA</a></li>
             </ul>
             <ul className='flex gap-5 my-4'>
-                <li><a href=""><img className='size-8' src="images/fb.png" alt="" /></a></li>
-                <li><a href=""><img className='size-8' src="images/ig.png" alt="" /></a></li>
-                <li><a href=""><img className='size-8' src="images/in.png" alt="" /></a></li>
-                <li><a href=""><img className='size-8' src="images/tk.png" alt="" /></a></li>
+                <li><a href=""><img className='size-8' src="/images/fb.png" alt="" /></a></li>
+                <li><a href=""><img className='size-8' src="/images/ig.png" alt="" /></a></li>
+                <li><a href=""><img className='size-8' src="/images/in.png" alt="" /></a></li>
+                <li><a href=""><img className='size-8' src="/images/tk.png" alt="" /></a></li>
             </ul>
             <hr className="border-t border-white/50 mx-40 mt-10" />
 

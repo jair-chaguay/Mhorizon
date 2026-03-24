@@ -5,6 +5,7 @@ interface SolucionesProp {
   urlImg: string
   title: string
   paragraph: string
+  ruta: string
 }
 
 const solucionProp: SolucionesProp[] = [
@@ -13,24 +14,28 @@ const solucionProp: SolucionesProp[] = [
     title: "CONSULTORÍA EMPRESARIAL",
     paragraph:
       "Transformamos los desafíos de su industria en ventajas competitivas. Evaluamos la estructura de su organización para diseñar estrategias de mejora continua.",
+    ruta:"soluciones/consultoria-empresarial"
   },
   {
     urlImg: "images/ICONO2.png",
     title: "GESTIÓN TRIBUTARIA",
     paragraph:
       "Convertimos su carga fiscal en eficiencia operativa. Le guiamos para cumplir estrictamente con las normativas del SRI, previniendo contingencias legales.",
+      ruta:"/soluciones/consultoria-empresarial"
   },
   {
     urlImg: "images/ICONO3.png",
     title: "OUTSOURCING",
     paragraph:
       "Enfoque toda su energía en el núcleo de su negocio mientras nosotros gestionamos su back-office.",
+      ruta:"/soluciones/consultoria-empresarial"
   },
   {
     urlImg: "images/ICONO4.png",
     title: "AUDITORÍA FINANCIERA",
     paragraph:
       "Datos claros, transparentes y confiables. Evaluamos la salud financiera de su empresa con rigurosidad internacional, detectando oportunidades de mejora.",
+      ruta:"/solucione/consultoria-empresarial"
   },
 ]
 

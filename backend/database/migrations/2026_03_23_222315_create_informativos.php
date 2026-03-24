@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
+
 return new class extends Migration
 {
     /**
@@ -12,11 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin', function (Blueprint $table) {
+        Schema::create('informativos', function (Blueprint $table) {
             $table->id();
-            $table->string('nick');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->string('titulo');
+            $table->string('descripcion');
+            $table->string('archivo');
+            $table->date('fechaRegistro')->default(DB::raw('CURRENT_DATE'));
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin');
+        Schema::dropIfExists('informativos');
     }
 };

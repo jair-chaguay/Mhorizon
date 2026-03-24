@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Admin extends Model
+
+class Suscriptores extends Model
 {
     //
     use HasFactory;
 
-    protected $table = 'admin';
-
-    protected $fillable =[
-        'nick',
+    protected $fillable = [
+        'name',
         'email',
-        'password'
+        'fechaRegistro'
     ];
+
 }

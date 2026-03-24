@@ -30,7 +30,7 @@ const informativo: InformativoProps[] = [
 
 export const Informativos = () => {
     return (
-        <div className='mt-40 mx-auto'>
+        <div className='pt-18 pb-22 mt-25 bg-gray-800 mx-auto'>
             <h2 className='text-[1.625rem] text-blue-200 font-bold text-center underline 
         decoration-3 decoration-orange-500 underline-offset-8'>
                 BOLETÍN INFORMATIVO

@@ -1,13 +1,19 @@
-export { Header } from "./Header";
-export { Nav } from "./Nav"
-export { Icons } from "./Icons"
-export { Hero } from "./Hero"
-export { Leaders } from "./Leaders"
-export { Eslogan } from "./Eslogan";
-export { Clients } from "./Clients";
-export { Soluciones} from "./Soluciones"
+export { Header } from "./Hero/Header";
+export { Nav } from "./Hero/Nav"
+export { Icons } from "./Footer/Icons"
+export { Hero } from "./Hero/Hero"
+export { Leaders } from "./Leaders/Leaders"
+export { Eslogan } from "./Hero/Eslogan";
+export { Clients } from "./Clients/Clients";
+export { Soluciones} from "./Soluciones/Soluciones"
 export { Calculadora } from "./Calculadora/Calculadora"
-export { Perspectiva } from "./Perspectiva"
-export {Informativos} from "./Informativos"
-export {Impulsa} from "./Impulsa"
-export {Footer} from "./Footer"
+export { Perspectiva } from "./Leaders/Perspectiva"
+export {Informativos} from "./Informativos/Informativos"
+export {Impulsa} from "./Footer/Impulsa"
+export {Footer} from "./Footer/Footer"
+export { Integrales } from "./SolucionesPage/Integrales"
+export { ServiciosEsp } from "./SolucionesPage/ServiciosEsp";
+export { Metodologia } from "./SolucionesPage/Metodologia";
+export { HeroEx } from "./ConsultoriaEmpresarial/HeroEx";
+export { Method } from "./ConsultoriaEmpresarial/Method";
+export { Estrategia } from "./ConsultoriaEmpresarial/Estrategia";

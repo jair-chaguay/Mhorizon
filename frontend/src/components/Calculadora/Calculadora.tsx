@@ -9,12 +9,12 @@ interface CalculadoraProps {
 
 const calculadora: CalculadoraProps[] = [
   {
-    image: 'images/tmp.png',
+    image: 'images/Recurso10.png',
     title: 'Análisis Predictivo',
     subtitle: 'Proyecte sus obligaciones fiscales antes del cierre del ejercicio.',
   },
   {
-    image: 'images/tmp.png',
+    image: 'images/Recurso10.png',
     title: 'Cumplimiento Legal',
     subtitle: 'Basado en las normativas vigentes del SRI para el período actual.',
   }
@@ -22,7 +22,7 @@ const calculadora: CalculadoraProps[] = [
 
 export const Calculadora = () => {
   return (
-    <div className='mt-21 flex'>
+    <div className=' flex items-center'>
       <div className="py-22 px-30 w-190">
         <h2 className='text-white font-bold text-[1.563rem]'>
           CALCULADORA DE <span className='text-orange-500'>IMPUESTO A LA RENTA</span>
@@ -41,7 +41,7 @@ export const Calculadora = () => {
 
 
       <div>
-        <div className='bg-white mt-23 ml-2 py-8 px-15 rounded-lg w-[550px]'>
+        <div className='bg-white mt-10  py-8 px-15 rounded-lg w-[550px]'>
           <h3 className="font-bold text-center text-[1.24rem]">
             ANTICIPE SU FUTURO FINANCIERO
           </h3>

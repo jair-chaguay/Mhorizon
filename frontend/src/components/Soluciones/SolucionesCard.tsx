@@ -1,10 +1,11 @@
-import { Button } from "./Button"
 import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
 
 interface SolucionesProp {
   urlImg: string
   title: string
   paragraph: string
+  ruta: string
 }
 
 
@@ -12,6 +13,7 @@ export const SolucionesCard = ({
   urlImg,
   title,
   paragraph,
+  ruta
 }: SolucionesProp) => {
   return (
     <motion.div className="bg-white rounded-lg shadow-xl overflow-hidden flex flex-col h-full">
@@ -30,11 +32,11 @@ export const SolucionesCard = ({
         <p className="text-[1.1rem] px-9 text-blue-200 font-light text-center flex-1">
           {paragraph}
         </p>
-        <a href="" className="mt-9 text-orange-500 text-sm font-medium self-end cursor-pointer">
-          <p >
-            Conocer más →
-          </p>
-        </a>
+
+        <Link className="mt-9 text-orange-500 text-sm font-medium self-end cursor-pointer" to={ruta}>
+          Conocer más →
+        </Link>
+        
 
       </div>
     </motion.div>
