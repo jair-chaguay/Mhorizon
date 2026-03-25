@@ -3,7 +3,7 @@ export const Footer = () => {
     return (
         <div className='flex flex-col items-center gap-5 text-center pb-10'>
             <div>
-                <img className='w-[200px]' src="images/MHORIZONBOCETO.png" alt="" />
+                <img className='w-[200px]' src="/images/MHORIZONBOCETO.png" alt="" />
             </div>
             <ul className='flex gap-2 mt-4 justify-center-safe text-[0.93rem]'>
                 <li className='text-white/70 border-r border-r-white/70 pr-4'><a href="">INICIO</a></li>

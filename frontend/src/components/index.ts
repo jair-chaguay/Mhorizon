@@ -29,3 +29,5 @@ export { Login } from "./login/Login";
 export { HeroOutsourcing } from "./Outsourcing.tsx/HeroOutsourcing";
 export { ExceOpera } from "./Outsourcing.tsx/ExceOpera";
 export { ConsultoriaEje } from "./Outsourcing.tsx/ConsultoriaEje";
+export { HeroAuditoria } from "./Auditoria/HeroAuditoria";
+export { IntegAudit } from "./Auditoria/IntegAudit";
