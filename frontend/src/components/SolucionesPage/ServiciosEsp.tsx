@@ -29,14 +29,14 @@ const solucionProp: SolucionesProp[] = [
         title: "OUTSOURCING",
         paragraph:
             "Enfoque toda su energía en el núcleo de su negocio mientras nosotros gestionamos su back-office.",
-        ruta: "/soluciones/consultoria-empresarial"
+        ruta: "/soluciones/outsourcing"
     },
     {
         urlImg: "images/ICONO4.png",
         title: "AUDITORÍA FINANCIERA",
         paragraph:
             "Datos claros, transparentes y confiables. Evaluamos la salud financiera de su empresa con rigurosidad internacional, detectando oportunidades de mejora.",
-        ruta: "/soluciones/consultoria-empresarial"
+        ruta: "/soluciones/auditoria"
     },
 ]
 

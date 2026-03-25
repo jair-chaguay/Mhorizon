@@ -23,3 +23,9 @@ export { HeroGestion } from "./GestionTributaria/HeroGestion"
 export { AuditoriaPlan } from "./GestionTributaria/AuditoriaPlan";
 export { EstrIm } from "./GestionTributaria/EstrIm";
 export { CumplimientoNorm } from "./GestionTributaria/CumplimientoNorm";
+export { OutsourcingPage } from "./pages/OutsourcingPage";
+export { AuditoriaPage } from "./pages/AuditoriaPage";
+export { Login } from "./login/Login";
+export { HeroOutsourcing } from "./Outsourcing.tsx/HeroOutsourcing";
+export { ExceOpera } from "./Outsourcing.tsx/ExceOpera";
+export { ConsultoriaEje } from "./Outsourcing.tsx/ConsultoriaEje";

@@ -7,7 +7,7 @@ export const Integrales = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
 
             <div className='w-[50%] relative mt-10'>
-                                <p className='w-[180px] bg-white/70 py-1 text-blue-200 text-center rounded-sm'>EXPERTISE GLOBAL</p>
+                <p className='w-[160px] bg-white/70 py-1 text-blue-200 text-center rounded-sm text-[0.88rem]'>EXPERTISE GLOBAL</p>
 
                 <div className='w-[80px] mt-5'>
                     <h2 className='font-bold text-white text-[2.5rem]'>SOLUCIONES{" "}
@@ -29,7 +29,7 @@ export const Integrales = () => {
                     <p className='font-medium'>+45% Eficiencia Operativa</p>
                 </div>
             </div>
-            
+
         </section>
     )
 }
