@@ -31,3 +31,6 @@ export { ExceOpera } from "./Outsourcing.tsx/ExceOpera";
 export { ConsultoriaEje } from "./Outsourcing.tsx/ConsultoriaEje";
 export { HeroAuditoria } from "./Auditoria/HeroAuditoria";
 export { IntegAudit } from "./Auditoria/IntegAudit";
+export { MetodologiaAud } from "./Auditoria/MetodologiaAud";
+export { FaseAuditoria } from "./Auditoria/FaseAuditoria";
+export { Analisis } from "./Auditoria/Analisis";

@@ -35,7 +35,7 @@ const solucionProp: SolucionesProp[] = [
     title: "AUDITORÍA FINANCIERA",
     paragraph:
       "Datos claros, transparentes y confiables. Evaluamos la salud financiera de su empresa con rigurosidad internacional, detectando oportunidades de mejora.",
-      ruta:"/solucione/auditoria"
+      ruta:"/soluciones/auditoria"
   },
 ]
 
