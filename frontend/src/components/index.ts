@@ -44,3 +44,5 @@ export { Methodology } from "./Suministro/Methodology";
 export { Estructura } from "./Suministro/Estructura";
 export { FinanzasPage } from "./pages/FinanzasPage";
 export { HeroFinanzas } from "./Finanzas/HeroFinanzas";
+export { Operamos } from "./Finanzas/Operamos";
+import { EstrctFinan } from "./Finanzas/EstrctFinan";
