@@ -146,8 +146,6 @@ class adminController extends Controller
             return response()->json($data, 404);
         }
 
-        return response()->json($request->all(), 200);
-
         $validator = Validator::make($request->all(), [
             'nick'=> 'sometimes|string|max:255',
             'email'=> 'sometimes|email|unique:admin,email,'.$id,
@@ -185,5 +183,32 @@ class adminController extends Controller
         ];
 
         return response()->json($data, 200);
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'nick' => 'required',
+            'password' => 'required'
+        ]);
+
+        $admin = Admin::where('nick', $request->nick)->first();
+
+        if (!$admin) {
+            return response()->json([
+                'message' => 'Usuario no encontrado'
+            ], 404);
+        }
+
+        if (!Hash::check($request->password, $admin->password)) {
+            return response()->json([
+                'message' => 'Contraseña incorrecta'
+            ], 401);
+        }
+
+        return response()->json([
+            'message' => 'Login correcto',
+            'admin' => $admin
+        ], 200);
     }
 }

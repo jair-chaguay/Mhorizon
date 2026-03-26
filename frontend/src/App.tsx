@@ -6,7 +6,7 @@ import { NovedadesPage } from "./components/pages/NovedadesPage";
 import { NosotrosPage } from "./components/pages/NosotrosPage";
 import { ContactanosPage } from "./components/pages/ContactanosPage";
 import { ConsultoriaEmpresarial } from "./components/pages/ConsultoriaEmpresarial";
-import { AuditoriaPage, GestionPage, Login, OutsourcingPage } from "./components";
+import { AuditoriaPage, Crud, FinanzasPage, GestionPage, Login, OutsourcingPage, SuministroPage } from "./components";
 import { ScrollToTop } from "./components/ScrollTop";
 
 function App() {
@@ -25,6 +25,9 @@ function App() {
         <Route path="/novedades" element={<NovedadesPage />} />
         <Route path="/nosotros" element={<NosotrosPage />} />
         <Route path="/contactanos" element={<ContactanosPage />} />
+        <Route path="/crud" element={<Crud />} />
+        <Route path="/sectores/cadena-suminsitros" element={<SuministroPage />} />
+        <Route path="/sectores/cadena-finanzas" element={<FinanzasPage />} />
       </Routes>
     </BrowserRouter>
   );

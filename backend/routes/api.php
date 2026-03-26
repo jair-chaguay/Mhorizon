@@ -6,6 +6,9 @@ use App\Http\Controllers\Api\adminController;
 use App\Http\Controllers\Api\suscriptoresController;
 use App\Http\Controllers\Api\informativosController;
 
+//LOGIN
+Route::post('/login', [adminController::class, 'login']);
+
 //ADMINS
 Route::get('/admins', [adminController::class, 'index']);
 Route::get('/admins/{id}', [adminController::class, 'show']);
