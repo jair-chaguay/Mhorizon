@@ -1,4 +1,23 @@
-import React from 'react'
+import { Recurso67, Recurso68 } from "../IconosSVG"
+
+interface estructurasFinancieras {
+    icon: React.ElementType, 
+    title: string,
+    content: string
+}
+
+const estrucutras : estructurasFinancieras[] = [
+    {
+        icon: Recurso67,
+        title: "Titulo1",
+        content: "Content1"
+    },
+    {
+        icon: Recurso68,
+        title: "Titulo 2",
+        content: "Content2"
+    }
+]
 
 export const EstrctFinan = () => {
     return (
@@ -20,28 +39,11 @@ export const EstrctFinan = () => {
                         <div className="space-y-12">
                                     
                             
-                            
-                            
-                            <div className="flex gap-8 group cursor-default Item Arquitectura 1">
-                                <div className="flex-shrink-0 w-16 h-16 rounded-full border border-mh-orange flex items-center justify-center group-hover:bg-mh-orange transition-colors duration-300 Icono Circular Naranja">
-                                    <span className="material-symbols-outlined text-mh-orange group-hover:text-white transition-colors duration-300">trending_up</span>
-                                </div>
-                                <div>
-                                    <h4 className="text-xl font-headline font-bold mb-3 text-white">Resiliencia Estructural</h4>
-                                    <p className="text-slate-400 font-body font-light leading-relaxed max-w-lg">Diseño de estructuras de capital y flujos de caja capaces de absorber choques macroeconómicos sin comprometer la liquidez operativa.</p>
-                                </div>
-                            </div>
-                            <div className="flex gap-8 group cursor-default Item Arquitectura 2">
-                                <div className="flex-shrink-0 w-16 h-16 rounded-full border border-mh-orange flex items-center justify-center group-hover:bg-mh-orange transition-colors duration-300 Icono Circular Naranja">
-                                    <span className="material-symbols-outlined text-mh-orange group-hover:text-white transition-colors duration-300">handshake</span>
-                                </div>
-                                <div>
-                                    <h4 className="text-xl font-headline font-bold mb-3 text-white">Estrategia de Transformación (M&A)</h4>
-                                    <p className="text-slate-400 font-body font-light leading-relaxed max-w-lg">Asesoramiento integral en fusiones, adquisiciones y reestructuraciones corporativas, desde la debida diligencia hasta la integración post-transacción.</p>
-                                </div>
-                            </div>
+                    
                         </div>
                     </div>
+
+
                     <div className="relative Layout Imágenes Arquitectura">
                         <div className="relative z-10 w-4/5 aspect-[4/5] rounded-xl overflow-hidden shadow-2xl editoral-shadow translate-x-12 bg-mh-light Img Arquitectura grayscale MixBlend">
                             <img alt="Detail view of global stock market screens and tickers showing financial data" className="w-full h-full object-cover grayscale opacity-80 MixBlend Mix-blend-multiply" src="https://images.pexels.com/photos/187041/pexels-photo-187041.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
