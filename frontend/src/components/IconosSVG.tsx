@@ -29,3 +29,112 @@ export const Recurso68 = ({className = "w-6 h-6"}: {className?: string}) =>(
         <path d="M88.21,237.48Q49.87,226.27,24.94,192.7T0,115.35V33.93L88.21,0l88.2,33.93v81.42q0,42.74-24.93,76.33T88.21,237.48Zm0-40.71q23.07-10.19,38.67-36t15.61-59V50.89l-54.28-21-54.28,21v50.89q0,33.24,15.6,59T88.21,196.77Zm0-30.54a20.26,20.26,0,0,0,20.35-20.35,20.78,20.78,0,0,0-2.88-10.69,16.48,16.48,0,0,0-7.3-6.95V112H78v16.29a16.53,16.53,0,0,0-7.3,6.95,20.78,20.78,0,0,0-2.88,10.69,20.26,20.26,0,0,0,20.36,20.35Z"/>
     </svg>
 );
+
+export const Recurso69 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 0 198.79 133.47"
+    className={`fill-current ${className}`}
+    >
+        <path d="M14.2,133.47,0,119.27l71-71,37.86,37.86,67.21-67.21H151.46V0h47.33V47.33H179.86V22.72l-71,87.09L71,71.94Z"/>
+    </svg>
+);
+
+export const Recurso70 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M280-80q-33 0-56.5-23.5T200-160v-520q0-33 23.5-56.5T280-760h80v-40q0-50 35-85t85-35q50 0 85 35t35 85v40h80q33 0 56.5 23.5T760-680v520q0 33-23.5 56.5T680-80H280Zm0-80h400v-520H600v120h-80v-120H440v120h-80v-120H280v520Zm160-560h80v-40q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v40Zm-160 560v-520 520Z"/>
+    </svg>
+);
+
+export const Recurso71 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M440-280h80v-120h120v-80H520v-120h-80v120H320v80h120v120Zm40 200q-113-34-186.5-132.5T220-480v-240l260-100 260 100v240q0 126-73.5 224.5T480-80Zm0-85q88-33 144-110t56-185v-176l-200-76-200 76v176q0 108 56 185t144 110Zm0-315Z"/>
+    </svg>
+);
+
+export const Recurso72 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M440-240h80v-40h40q17 0 28.5-11.5T600-320v-120q0-17-11.5-28.5T560-480H440v-40h160v-80h-80v-40h-80v40h-40q-17 0-28.5 11.5T360-560v120q0 17 11.5 28.5T400-400h120v40H360v80h80v40Zm-240 80q-33 0-56.5-23.5T120-240v-560q0-33 23.5-56.5T200-880h320l240 240v400q0 33-23.5 56.5T680-160H200Zm280-520v-120H200v560h480v-400H480ZM200-800v120-120 560-560Z"/>
+    </svg>
+);
+
+export const Recurso73 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+    </svg>
+);
+
+export const Recurso74 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/>
+    </svg>
+);
+
+export const Recurso75 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M260-260v-80h324L268-656l56-56 316 316v-324h80v460H260Z"/>
+    </svg>
+);
+
+export const Recurso76 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+    </svg>
+);
+
+export const Recurso77 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/>
+    </svg>
+);
+
+export const Recurso78 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z"/>
+    </svg>
+);
+
+export const Recurso79 = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
+    </svg>
+);
+
+export const Eyee = ({className = "w-6 h-6"}: {className?: string}) =>(
+    <svg
+    viewBox="0 -960 960 960"
+    className={`fill-current ${className}`}
+    >
+        <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/>
+    </svg>
+);
+

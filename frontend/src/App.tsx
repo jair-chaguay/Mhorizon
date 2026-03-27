@@ -8,6 +8,8 @@ import { ContactanosPage } from "./components/pages/ContactanosPage";
 import { ConsultoriaEmpresarial } from "./components/pages/ConsultoriaEmpresarial";
 import { AuditoriaPage, Crud, FinanzasPage, GestionPage, Login, OutsourcingPage, SuministroPage } from "./components";
 import { ScrollToTop } from "./components/ScrollTop";
+import { MercadoPage } from "./components/pages/MercadoPage";
+import { NovedadeSubPage } from "./components/pages/NovedadeSubPage";
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
         <Route path="/crud" element={<Crud />} />
         <Route path="/sectores/cadena-suminsitros" element={<SuministroPage />} />
         <Route path="/sectores/cadena-finanzas" element={<FinanzasPage />} />
+        <Route path="/sectores/mercado-financiero" element={<MercadoPage />} />
+        <Route path="/novedades-sub" element={<NovedadeSubPage />} />
       </Routes>
     </BrowserRouter>
   );

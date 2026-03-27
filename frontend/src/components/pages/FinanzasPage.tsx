@@ -10,8 +10,8 @@ export const FinanzasPage = () => {
             <EstrctFinan/>
             <section className='bg-blue-200 '>
                 <Frase
-                    blanco='POTENCIE SU '
-                    naranja='CADENA DE SUMINISTRO'
+                    blanco='¿Listo para fortalecer su '
+                    naranja='horizonte financiero?'
                     styles='text-[1.8rem]'
                 />
                 <Footer />

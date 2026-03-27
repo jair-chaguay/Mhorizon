@@ -12,7 +12,7 @@ export const Frase = ({blanco, naranja, styles=''}: palabra) => {
             <div className='flex flex-col gap-4 text-center'>
                 <h2 className={`${styles} text-white font-bold mt-20`}>
                     {blanco}
-                    <span className='text-orange-500 tracking-widest block'> {naranja}</span>
+                    <span className='text-orange-500 tracking-widest'> {naranja}</span>
                 </h2>
                 <p className='text-white/88 font-light max-w-[600px] text-[0.93rem] mx-auto'>
                     Agenda una reunión con nuestros especialistas y lleva tu negocio al siguiente nivel de cumplimiento y rentabilidad.

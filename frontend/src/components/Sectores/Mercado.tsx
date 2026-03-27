@@ -22,7 +22,8 @@ export const Mercado = () => {
                     <p className='bg-gray-800 rounded-sm text-center py-1'>Farmaceútica y Salud</p>
                     <p className='bg-gray-800 rounded-sm text-center py-1'>Hospitalidad y ONGs</p>
                 </div>
-                <Link className='text-orange-500 text-[1.2rem} mt-4' to={"/"}>Conocer más →</Link>
+                <Link className='text-orange-500 text-[1.2rem} mt-4' to={"/sectores/mercado-financiero"}>
+                Conocer más →</Link>
             </div>
         </div>
         <div className='w-[40%]'>
