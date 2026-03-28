@@ -1,31 +1,31 @@
-interface palabra{
+import { Button } from './Button'
+
+interface palabra {
     blanco: string,
     naranja: string,
     styles?: string
 }
 
-import { Button } from './Button'
-
-export const Frase = ({blanco, naranja, styles=''}: palabra) => {
+export const Frase = ({ blanco, naranja, styles = '' }: palabra) => {
     return (
-        <div className=' pb-10'>
-            <div className='flex flex-col gap-4 text-center'>
-                <h2 className={`${styles} text-white font-bold mt-20`}>
+        <div className='pb-10'>
+            <div className='flex flex-col gap-4 text-center px-6 md:px-0'>             
+                <h2 className={`${styles} text-white font-bold mt-12 md:mt-20 leading-tight md:leading-normal`}>
                     {blanco}
-                    <span className='text-orange-500 tracking-widest'> {naranja}</span>
-                </h2>
-                <p className='text-white/88 font-light max-w-[600px] text-[0.93rem] mx-auto'>
+                    <span className='text-orange-500 tracking-widest block sm:inline mt-1 sm:mt-0'> {naranja}</span>
+                </h2>            
+                <p className='text-white/90 font-light max-w-150 text-[0.95rem] md:text-[0.93rem] mx-auto leading-relaxed'>
                     Agenda una reunión con nuestros especialistas y lleva tu negocio al siguiente nivel de cumplimiento y rentabilidad.
-                </p>
-                <div className='flex justify-center my-3'>
+                </p>        
+                <div className='flex justify-center mt-4 md:my-3 w-full sm:w-auto mx-auto'>
                     <Button text='AGENDAR UNA CITA'
-                        styles='text-white bg-orange-500 font-medium w-[220px] rounded-sm ' />
+                        styles='text-white bg-orange-500 font-medium w-full sm:w-[220px] py-3 md:py-2 rounded-sm' />
                 </div>
-                <p className='text-white/80 font-extralight text-[0.90rem]'>
-                Guayaquil: Carchi 601 y Quisquis Edificio Quil 1 Piso 12
+                <p className='text-white/80 font-extralight text-[0.85rem] md:text-[0.90rem] mt-2 md:mt-0 px-4 md:px-0'>
+                    Guayaquil: Carchi 601 y Quisquis Edificio Quil 1 Piso 12
                 </p>
-            </div>
-            <hr className= "border-t border-white/50 mx-40 mt-10" />
+            </div>            
+            <hr className="border-t border-white/50 mx-8 md:mx-20 lg:mx-40 mt-10 md:mt-12" />
         </div>
     )
 }

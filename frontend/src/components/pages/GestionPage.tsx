@@ -11,7 +11,7 @@ export const GestionPage = () => {
         <AuditoriaPlan />
       </section>
 
-      <section className='bg-blue-200 py-20'>
+      <section className='bg-blue-200 py-10'>
         <EstrIm />
       </section>
 

@@ -13,7 +13,7 @@ export const Home = () => {
         <Soluciones />
       </section>
 
-      <section className='mt-auto bg-blue-200 h-[450px]'>
+      <section className='mt-auto bg-blue-200 min-h-[450px]'>
         <Calculadora />
       </section>
 

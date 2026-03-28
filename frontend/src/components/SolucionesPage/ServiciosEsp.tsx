@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 interface SolucionesProp {
     urlImg: string
     title: string
-    paragraph: string,
+    paragraph: string
     ruta: string
 }
 
@@ -15,7 +15,6 @@ const solucionProp: SolucionesProp[] = [
         paragraph:
             "Transformamos los desafíos de su industria en ventajas competitivas. Evaluamos la estructura de su organización para diseñar estrategias de mejora continua.",
         ruta: "/soluciones/consultoria-empresarial"
-
     },
     {
         urlImg: "images/ICONO2.png",
@@ -42,16 +41,19 @@ const solucionProp: SolucionesProp[] = [
 
 export const ServiciosEsp = () => {
     return (
-        <div className="mt-20">
-            <h2 className='ml-23 font-bold text-[1.63rem] text-blue-200'>SERVICIOS ESPECIALIZADOS</h2>
-            <div className="mt-13 grid grid-cols-4 gap-6 px-23">
+        <div className="mt-14 md:mt-20">
+            <h2 className="px-5 sm:px-8 md:px-23 font-bold text-[1.35rem] sm:text-[1.5rem] md:text-[1.63rem] text-blue-200">
+                SERVICIOS ESPECIALIZADOS
+            </h2>
+
+            <div className="mt-10 md:mt-13 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 px-5 sm:px-8 md:px-23">
                 {solucionProp.map((solucion) => (
                     <SolucionesCard
                         key={solucion.title}
-                        {...solucion} />
+                        {...solucion}
+                    />
                 ))}
             </div>
         </div>
-
     )
 }

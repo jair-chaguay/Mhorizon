@@ -7,11 +7,11 @@ export const SolucionesPage = () => {
       <Integrales />
       <ServiciosEsp />
 
-      <section className='bg-blue-200'>
+      <section className='bg-blue-200 pt-4 pb-15'>
         <Metodologia/>
       </section>
 
-      <section className='bg-blue-200 mt-20'>
+      <section className='bg-blue-200 mt-10'>
         <Impulsa />
         <Footer />
       </section>

@@ -6,10 +6,10 @@ import { NovedadesPage } from "./components/pages/NovedadesPage";
 import { NosotrosPage } from "./components/pages/NosotrosPage";
 import { ContactanosPage } from "./components/pages/ContactanosPage";
 import { ConsultoriaEmpresarial } from "./components/pages/ConsultoriaEmpresarial";
-import { AuditoriaPage, Crud, FinanzasPage, GestionPage, Login, OutsourcingPage, SuministroPage } from "./components";
-import { ScrollToTop } from "./components/ScrollTop";
+import { AuditoriaPage, CalculadoraPage, Crud, FinanzasPage, GestionPage, Login, OutsourcingPage, SuministroPage } from "./components";
 import { MercadoPage } from "./components/pages/MercadoPage";
 import { NovedadeSubPage } from "./components/pages/NovedadeSubPage";
+import { ScrollToTop } from "./components/ScrollTop";
 
 function App() {
   return (
@@ -25,13 +25,15 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/sectores" element={<SectoresPage />} />
         <Route path="/novedades" element={<NovedadesPage />} />
-        <Route path="/nosotros" element={<NosotrosPage />} />
-        <Route path="/contactanos" element={<ContactanosPage />} />
-        <Route path="/crud" element={<Crud />} />
         <Route path="/sectores/cadena-suminsitros" element={<SuministroPage />} />
         <Route path="/sectores/cadena-finanzas" element={<FinanzasPage />} />
         <Route path="/sectores/mercado-financiero" element={<MercadoPage />} />
         <Route path="/novedades-sub" element={<NovedadeSubPage />} />
+        <Route path="/calculadora" element={<CalculadoraPage />} />
+        <Route path="/nosotros" element={<NosotrosPage />} />
+        <Route path="/contactanos" element={<ContactanosPage />} />
+        <Route path="/crud" element={<Crud />} />
+
       </Routes>
     </BrowserRouter>
   );

@@ -8,7 +8,7 @@ export const ConsultoriaEmpresarial = () => {
             <section className='bg-gray-800 py-10'>
                 <Method />
             </section>
-            <section className='mx-20'>
+            <section className='mx-2'>
                 <Estrategia />
             </section>
             <section className='mt-21'>

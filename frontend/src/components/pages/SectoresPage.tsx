@@ -13,7 +13,7 @@ export const SectoresPage = () => {
                 <Frase 
                 blanco='TRANSFORME LOS DESAFÍOS DE SU INDUSTRIA EN' 
                 naranja='VENTAJAS COMPETITIVAS'
-                styles='text-[1.8rem] px-58'
+                styles='text-[1.4rem]'
                 />
                 <Footer />
             </section>
