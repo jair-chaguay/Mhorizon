@@ -1,6 +1,10 @@
 import { Button } from '../Button'
+import { useState } from 'react'
+import { ContactModal } from "../ContactModal"
 
 export const HeroSuministro = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <section className="px-20 flex gap-6 items-center relative 
             bg-[url('/images/Recurso61.jpg')] bg-cover bg-center min-h-[500px]">
@@ -23,7 +27,9 @@ export const HeroSuministro = () => {
                         Aportamos rigor analítico y optimización a los procesos críticos de empresas que sostienen la infraestructura, la producción y el comercio exterior a gran escala.
                     </p>
                     <Button text='AGENDAR CONSULTORIA'
-                        styles='text-white font-bold bg-orange-500 min-w-[240px] mt-5 rounded-sm' />
+                        styles='text-white font-bold bg-orange-500 min-w-[240px] mt-5 rounded-sm'
+                        onClick={() => setIsModalOpen(true)}
+                    />
                 </div>
             </div>
 
@@ -50,6 +56,8 @@ export const HeroSuministro = () => {
                     </div>
                 </div>
             </div>
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </section>
     )
 }

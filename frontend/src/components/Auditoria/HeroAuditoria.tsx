@@ -1,43 +1,41 @@
-import React from 'react'
 import { Button } from '../Button'
+import { useState } from 'react'
+import { ContactModal } from "../ContactModal"
 
 export const HeroAuditoria = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
-        // Aumentamos ligeramente la altura en móvil (h-[550px]) para que la caja inferior no asfixie el texto
         <section className="px-6 md:px-12 lg:px-20 flex gap-6 items-center relative h-[550px] md:h-[500px] bg-[url('/images/Recurso52.png')] bg-cover bg-center opacity-95">
-            
-            {/* Overlay oscurecido un poco más en móviles para mejorar la legibilidad */}
+
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-transparent md:from-black/70 md:via-black/40">
             </div>
-            
+
             <div className="relative z-10 w-full">
-                {/* Etiqueta */}
                 <p className='bg-white/60 text-blue-200 w-[160px] md:w-[180px] rounded-sm text-center p-1 text-[0.65rem] md:text-[0.75rem] font-semibold tracking-wider'>
                     AUTORIDAD ESTRATÉGICA
                 </p>
 
-                {/* Título Principal */}
                 <h1 className='text-white text-shadow-lg text-[2.2rem] md:text-[2.9rem] font-bold mt-4 md:mt-5 w-full md:w-[400px] tracking-wide leading-tight md:leading-normal'>
                     Auditoría <br className="md:hidden" />
                     <span className='text-orange-500'>
                         <span className='underline underline-offset-8 md:underline-offset-12 decoration-4 decoration-orange-500'>Fina</span>nciera
                     </span>
                 </h1>
-                
-                {/* Párrafo */}
+
                 <p className='text-white mt-4 md:mt-6 font-light text-shadow-md text-[1.1rem] md:text-[1.2rem] w-full md:w-[70%] lg:w-[45%] text-left md:text-justify'>
                     Integridad absoluta en cada registro contable.
                 </p>
-                
-                {/* Botón */}
+
                 <div className="mt-8 md:mt-4">
                     <Button text="AGENDAR CONSULTORÍA"
-                        styles="bg-orange-500 text-white font-medium w-full md:w-[220px] py-3 md:py-2 rounded-sm" />
+                        styles="bg-orange-500 text-white font-medium w-full md:w-[220px] py-3 md:py-2 rounded-sm"
+                        onClick={() => setIsModalOpen(true)}
+                    />
+
                 </div>
             </div>
 
-            {/* Caja de Estadística (99.8%) */}
-            {/* Ocupa el 100% del ancho abajo en móvil, y se va a la derecha en escritorio */}
             <div className='absolute bg-white/80 md:bg-white/40 bottom-0 md:bottom-4 left-0 right-0 md:left-auto px-6 md:px-10 py-4 md:py-4 text-center z-10 flex flex-col md:block items-center justify-center'>
                 <h2 className='text-orange-500 md:text-orange-500 text-shadow-lg text-[2rem] md:text-[2.5rem] font-extrabold leading-none'>
                     99.8%
@@ -46,6 +44,8 @@ export const HeroAuditoria = () => {
                     Precisión de los informes
                 </p>
             </div>
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </section>
     )
 }

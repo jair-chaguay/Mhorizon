@@ -1,7 +1,6 @@
 export const Footer = () => {
   return (
     <footer className="flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 py-10">
-      {/* Logo */}
       <div>
         <img
           className="w-[160px] sm:w-[180px] md:w-[200px]"
@@ -10,7 +9,6 @@ export const Footer = () => {
         />
       </div>
 
-      {/* Menú */}
       <ul className="flex flex-wrap justify-center gap-y-3 gap-x-4 sm:gap-x-6 mt-6 text-[0.85rem] sm:text-[0.93rem]">
         <li className="text-white/70 sm:border-r sm:border-r-white/70 sm:pr-4">
           <a href="">INICIO</a>
@@ -25,8 +23,6 @@ export const Footer = () => {
           <a href="">AUDITORÍA</a>
         </li>
       </ul>
-
-      {/* Redes */}
       <ul className="flex gap-4 sm:gap-5 my-6">
         <li>
           <a href="">
@@ -49,11 +45,7 @@ export const Footer = () => {
           </a>
         </li>
       </ul>
-
-      {/* Línea */}
       <hr className="border-t border-white/50 w-full max-w-6xl mt-4 mb-6" />
-
-      {/* Parte inferior */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6 w-full max-w-6xl text-center md:text-left">
         <p className="text-white/70 text-[0.75rem] sm:text-[0.80rem]">
           © 2026 MHORIZON. TODOS LOS DERECHOS RESERVADOS | POLÍTICAS DE PRIVACIDAD

@@ -11,7 +11,6 @@ export const Header = () => {
           <img src="/images/MHORIZONBOCETO.png" alt="logo" />
         </a>
 
-        {/* Botón hamburguesa solo móvil */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden text-white"
@@ -41,13 +40,11 @@ export const Header = () => {
           </svg>
         </button>
 
-        {/* Nav desktop */}
         <div className="hidden md:block">
           <Nav />
         </div>
       </div>
 
-      {/* Nav móvil */}
       {menuOpen && (
         <div className="mt-4 md:hidden">
           <Nav mobile />

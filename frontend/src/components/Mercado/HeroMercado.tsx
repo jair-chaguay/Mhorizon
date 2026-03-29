@@ -1,6 +1,10 @@
 import { Button } from '../Button'
+import { useState } from 'react'
+import { ContactModal } from "../ContactModal"
 
 export const HeroMercado = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
         <section className="px-6 md:px-12 lg:px-20 flex items-center relative bg-[url('/images/Recurso01.jpg')] bg-cover bg-center min-h-[500px] py-16 lg:py-0">
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/70 to-black/30 lg:bg-linear-to-r lg:from-black/90 lg:via-black/80 lg:to-transparent">
@@ -15,15 +19,19 @@ export const HeroMercado = () => {
                         <span className="text-orange-500 block mt-1 md:mt-0">Bienestar</span>
                     </h1>
                     <p className="text-[1.05rem] md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl text-balance">
-                        Respaldamos el área comercial y el crecimiento de marcas globales, asegurando estructuras contables, 
+                        Respaldamos el área comercial y el crecimiento de marcas globales, asegurando estructuras contables,
                         tributarias y financieras sólidas y escalables.
                     </p>
                     <div className="mt-8 md:mt-6">
                         <Button text='AGENDAR CONSULTORIA'
-                            styles='text-white font-bold bg-orange-500 w-full sm:w-[240px] py-3 md:py-2 rounded-sm' />
+                            styles='text-white font-bold bg-orange-500 w-full sm:w-[240px] py-3 md:py-2 rounded-sm'
+                            onClick={() => setIsModalOpen(true)}
+                        />
                     </div>
                 </div>
             </div>
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </section>
     )
 }

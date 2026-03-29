@@ -1,5 +1,7 @@
 import { Button } from "../Button"
 import { HeroExCard } from "./HeroExCard"
+import { useState } from 'react'
+import { ContactModal } from "../ContactModal"
 
 interface HeroProps {
     img: string
@@ -8,6 +10,7 @@ interface HeroProps {
 }
 
 const hero: HeroProps[] = [
+
     {
         img: "/images/Recurso32.png",
         title: "Dominancia del mercado",
@@ -26,6 +29,7 @@ const hero: HeroProps[] = [
 ]
 
 export const HeroEx = () => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <section className="px-5 sm:px-8 md:px-20 flex flex-col md:flex-row gap-10 md:gap-6 items-center relative h-auto md:h-[500px] bg-[url('/images/Recurso35.png')] bg-cover bg-center py-12 md:py-0">
 
@@ -54,6 +58,7 @@ export const HeroEx = () => {
                 <Button
                     text="Agenda una asesoría"
                     styles="bg-orange-500 text-white font-medium mt-6 w-full sm:w-[220px] rounded-sm"
+                    onClick={() => setIsModalOpen(true)}
                 />
             </div>
 
@@ -66,6 +71,8 @@ export const HeroEx = () => {
                     }
                 </div>
             </div>
+            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+
         </section>
     )
 }

@@ -1,7 +1,12 @@
-import React from 'react'
+import { ContactModal } from '../ContactModal'
 import { Button } from '../Button'
+import { useState } from 'react'
+
 
 export const Impulsa = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+
   return (
     <section className="pb-10 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col gap-4 text-center items-center">
@@ -20,6 +25,7 @@ export const Impulsa = () => {
           <Button
             text="AGENDAR UNA CITA"
             styles="text-white bg-orange-500 font-medium w-full max-w-[260px] sm:max-w-[220px] rounded-sm py-3 hover:scale-105 transition-transform duration-300"
+            onClick={() => setIsModalOpen(true)}
           />
         </div>
 
@@ -29,6 +35,7 @@ export const Impulsa = () => {
       </div>
 
       <hr className="border-t border-white/50 w-full max-w-6xl mx-auto mt-10" />
+      <ContactModal isOpen={isModalOpen} onClose={()=>setIsModalOpen(false)}/>
     </section>
   )
 }
