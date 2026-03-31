@@ -6,12 +6,11 @@ interface cumplimientoProp {
 
 export const CumplimientoCard = ({ title, content }: cumplimientoProp) => {
     return (
-        // Añadí una ligera sombra y ajusté un poco el padding vertical para móviles
-        <div className="border-l-4 border-l-orange-500 py-3 md:py-2 px-5 md:px-6 bg-gray-800 shadow-md md:shadow-none">
-            <h3 className="text-blue-200 font-medium text-[1.05rem] md:text-[1.1rem]">
+        <div className="border-l-4 border-l-orange-500 py-6 px-6 bg-white shadow-md rounded-r-lg hover:shadow-xl transition-shadow">
+            <h3 className="text-blue-200 font-medium text-[1.1rem]">
                 {title}
             </h3>
-            <p className="text-blue-200 font-light mt-1 text-[0.9rem] md:text-[0.94rem] leading-snug">
+            <p className="text-gray-500 mt-2 text-[0.95rem] leading-relaxed">
                 {content}
             </p>
         </div>

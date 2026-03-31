@@ -7,18 +7,17 @@ interface inteProps {
 
 export const IntegCard = ({ image, title, content }: inteProps) => {
     return (
-        <div className="bg-white shadow-xl p-6 md:p-8 flex flex-col sm:flex-row gap-4 sm:gap-2 items-start sm:items-center rounded-md border border-gray-500/20">
+        <div className="bg-white pt-14 pb-10 px-8 md:px-10 shadow-lg rounded-xl relative border border-gray-200 reveal-element delay-100 hover:shadow-2xl transition-shadow group">
             
-            <div className="bg-orange-500 w-[64px] h-[64px] md:w-[84px] md:h-[60px] p-3 flex flex-col items-center justify-center shrink-0 rounded-sm">
-                <img className="w-full h-full object-contain" src={image} alt={title} />
+            <div className="absolute -top-6 left-8 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 transition-transform">
+                <img className="w-7 h-7  object-contain" src={image} alt={title} />
             </div>
             
-            {/* Textos */}
-            <div className="ml-0 sm:ml-3 w-full">
-                <p className="text-blue-200 md:text-blue-200 font-bold text-[1.1rem] md:text-[1.2rem] leading-tight">
+           <div className="mt-2 text-blue-200">
+                <h3 className="font-bold text-[1.3rem] md:text-[1.4rem]">
                     {title}
-                </p>
-                <p className="font-light text-gray-600 md:text-blue-200/80 mt-2 sm:mt-1 text-[0.95rem] md:text-base">
+                </h3>
+                <p className="mt-4 text-gray-600 text-[1rem] leading-relaxed">
                     {content}
                 </p>
             </div>

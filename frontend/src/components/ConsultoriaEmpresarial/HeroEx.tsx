@@ -1,7 +1,5 @@
-import { Button } from "../Button"
+import { ScrollReveal } from "../ScrollReveal"
 import { HeroExCard } from "./HeroExCard"
-import { useState } from 'react'
-import { ContactModal } from "../ContactModal"
 
 interface HeroProps {
     img: string
@@ -14,56 +12,50 @@ const hero: HeroProps[] = [
     {
         img: "/images/Recurso32.png",
         title: "Dominancia del mercado",
-        content: "Ampliación de la huella global a través de la visión basada en datos. Fabricación de ventajas."
+        content: "Ampliación de la huella corporativa a través de estrategias basadas en datos financieros."
     },
     {
         img: "/images/Recurso33.png",
         title: "Agilidad operativa",
-        content: "Optimización de los procesos principales para lograr la máxima eficiencia."
+        content: "Reestructuración de los procesos principales para lograr la máxima eficiencia y reducción de costos."
     },
     {
         img: "/images/Recurso34.png",
         title: "Aceleración del crecimiento",
-        content: "Hoja de ruta estratégica para un valor sostenido a largo plazo."
+        content: "Hoja de ruta estratégica para un valor sostenido a largo plazo ante la SCVS y accionistas."
     }
 ]
 
 export const HeroEx = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
-        <section className="px-5 sm:px-8 md:px-20 flex flex-col md:flex-row gap-10 md:gap-6 items-center relative h-auto md:h-[500px] bg-[url('/images/Recurso35.png')] bg-cover bg-center py-12 md:py-0">
+        <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex flex-col md:flex-row gap-10 md:gap-10 items-center relative h-auto min-h-137.5 bg-[url('/images/Recurso02.avif')] bg-cover bg-center py-16 md:py-0">
 
-            <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/40 to-transparent"></div>
+            <div className="absolute inset-0 bg-linear-to-r from-[#0f172a]/95 via-[#0f172a]/70 to-[#0f172a]/30"></div>
 
-            <div className="relative z-10 w-full md:w-auto">
-                <h3 className="bg-blue-200 text-white text-[0.72rem] sm:text-[0.75rem] font-light p-1 text-center w-[170px] md:w-[180px] rounded-sm">
+            <div className="relative z-10 w-full md:w-[50%] lg:w-[60%] reveal-element">
+                <h3 className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] md:text-[0.85rem] font-medium tracking-widest uppercase mb-4 backdrop-blur-sm">
                     EXCELENCIA EMPRESARIAL
                 </h3>
 
-                <h1 className="text-white font-extrabold text-[2rem] sm:text-[2.4rem] md:text-[2.9rem] text-shadow-lg w-full md:w-[500px] mt-5 leading-tight">
-                    Consultoría{" "}
-                    <span className="text-orange-500">
-                        <span className="underline underline-offset-10 md:underline-offset-12 decoration-4 decoration-orange-500">
-                            Emp
-                        </span>
-                        resarial
+                <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]">
+                    CONSULTORÍA <br/>
+                    <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">
+                        EMPRESARIAL
                     </span>
                 </h1>
 
-                <p className="text-white font-light mt-5 text-[1rem] sm:text-[1.1rem] md:text-[1.2rem] w-full md:w-[510px] leading-relaxed">
-                    Impulsar el crecimiento institucional mediante una estrategia empresarial
-                    sofisticada, excelencia operativa y liderazgo transformador.
+                <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full md:w-[90%] leading-relaxed">
+                    Transformamos la estructura de su organización para asegurar resiliencia, eficiencia operativa y un dominio sostenible en el mercado ecuatoriano y global.
                 </p>
 
-                <Button
-                    text="Agenda una asesoría"
-                    styles="bg-orange-500 text-white font-medium mt-6 w-full sm:w-[220px] rounded-sm"
-                    onClick={() => setIsModalOpen(true)}
-                />
+                <button id="agenda-hero-btn" className="bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-auto rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300">
+                    Agenda una asesoría
+                </button>
+
             </div>
 
-            <div className="relative z-10 w-full md:w-auto">
-                <div className="flex flex-col gap-6 bg-white/50 shadow-2xl rounded-md p-5 sm:p-7 md:p-10 w-full md:w-[80%] md:ml-20">
+            <div className="relative z-10 w-full md:w-[50%] lg:w-[40%] flex justify-end reveal-element delay-200">
+                <div className="flex flex-col gap-6 bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl rounded-xl p-6 sm:p-8 md:p-10 w-full max-w-112.5">
                     {
                         hero.map((heroPr: HeroProps) => (
                             <HeroExCard key={heroPr.title} {...heroPr} />
@@ -71,8 +63,7 @@ export const HeroEx = () => {
                     }
                 </div>
             </div>
-            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-        </section>
+        </ScrollReveal>
     )
 }

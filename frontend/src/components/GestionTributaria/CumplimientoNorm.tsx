@@ -1,4 +1,4 @@
-import React from 'react'
+import { ScrollReveal } from "../ScrollReveal"
 import { CumplimientoCard } from "./CumplimientoCard"
 
 interface cumplimientoProp {
@@ -9,49 +9,49 @@ interface cumplimientoProp {
 const normativos: cumplimientoProp[] = [
     {
         title: "Auditoría Preventiva",
-        content: "Detección proactiva de inconsistencias antes de notificaciones oficiales."
+        content: "Detección proactiva de inconsistencias y simulación de auditorías antes de las notificaciones oficiales del ente de control (SRI)."
     },
     {
         title: "Informes de Transparencia",
-        content: "Preparación técnica de reportes país por país y archivos maestros."
+        content: "Preparación técnica de reportes requeridos para la Superintendencia de Compañías (SCVS) y entidades fiscales gubernamentales."
     }
 ]
 
 export const CumplimientoNorm = () => {
     return (
-        // Cambiamos mx-20 por paddings (px) y pasamos a flex-col en móvil
-        <div className="flex flex-col md:flex-row gap-10 md:gap-12 lg:gap-20 px-6 md:px-12 lg:px-20 py-12 md:py-20 items-center md:items-start">
-            
-            {/* Contenedor de la Imagen */}
-            {/* Quitamos el ml-20 en móvil para que no se salga de la pantalla, w-full para aprovechar espacio */}
-            <div className="bg-blue-200 flex flex-col items-center justify-center rounded-md p-10 md:p-16 w-full md:w-[45%] lg:w-[40%] lg:ml-10">
-                <img 
-                    className="w-full max-w-[200px] md:max-w-full object-contain" 
-                    src="/images/Recurso43.png" 
-                    alt="Recurso43" 
-                />
-            </div>
-            
-            {/* Contenedor del Texto */}
-            <div className="w-full md:w-[55%] lg:w-[50%] mt-2 md:mt-0">
-                <h2 className="text-blue-200 font-bold text-[1.5rem] md:text-[1.7rem] text-center md:text-left">
-                    Cumplimiento normativo
-                </h2>
-                <p className="text-blue-200 font-light mt-4 md:mt-5 text-[1rem] md:text-[1.14rem] text-justify md:text-left">
-                    En un entorno de transparencia fiscal total (OECD/BEPS), el cumplimiento normativo
-                    es la base de la reputación corporativa. Actuamos como su escudo institucional
-                    frente a las autoridades.
-                </p>
+        <section className="py-24 bg-gray-800 relative overflow-hidden">
+            <ScrollReveal as={"div"} className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-20 px-5 sm:px-8 md:px-12 items-center relative z-10">
+                <div className="w-full md:w-[55%] lg:w-[50%] mt-2 md:mt-0">
+                    <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.8rem] uppercase mb-2 block text-center lg:text-left">
+                        Gobernanza Corporativa
+                    </span>
+                    <h2 className="text-blue-200 font-extrabold text-[2rem] md:text-[2.5rem] text-center lg:text-left leading-tight">
+                        CUMPLIMIENTO <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">NORMATIVO ESTRICTO</span>
+                    </h2>
+                    <p className="text-gray-600  mt-6 text-[1.05rem] text-justify lg:text-left leading-relaxed">
+                        En un entorno de transparencia fiscal total impulsado por regulaciones internacionales (convergencia OCDE/BEPS), el cumplimiento normativo es la base innegociable de la reputación corporativa. Actuamos como su principal aliado estratégico.
+                    </p>
 
-                {/* Grid de las Tarjetas */}
-                <div className="grid grid-cols-1 gap-4 md:gap-6 mt-8 w-full md:w-[90%]">
-                    {
-                        normativos.map((prop: cumplimientoProp) => (
-                            <CumplimientoCard key={prop.title} {...prop} />
-                        ))
-                    }
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
+                        {
+                            normativos.map((prop: cumplimientoProp) => (
+                                <CumplimientoCard key={prop.title} {...prop} />
+                            ))
+                        }
+                    </div>
                 </div>
-            </div>
-        </div>
+
+                <div className="w-full lg:w-[45%] h-112.5 relative order-1 lg:order-2 reveal-element delay-200">
+                    <div className="bg-blue-200 flex flex-col items-center justify-center rounded-2xl overflow-hidden shadow-2xl w-full h-full relative group">
+                        <img className="w-full h-full object-cover opacity-40 mix-blend-overlay group-hover:scale-105 transition-transform duration-700" src="/images/Recurso01.avif" alt="Cumplimiento Normativo" />
+                        <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
+                            <img className="w-24 mb-6 drop-shadow-2xl" src="/images/Recurso43.png" alt="Escudo Institucional" />
+                            <h3 className="text-white font-extrabold text-[1.4rem] uppercase tracking-widest drop-shadow-md">Escudo Corporativo</h3>
+                            <div className="w-12 h-1 bg-orange-500 mt-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </ScrollReveal>
+        </section>
     )
 }

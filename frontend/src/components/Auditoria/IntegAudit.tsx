@@ -1,4 +1,4 @@
-import React from 'react'
+import { ScrollReveal } from "../ScrollReveal"
 import { IntegCard } from "./IntegCard"
 
 interface inteProps {
@@ -11,43 +11,40 @@ const integridad: inteProps[] = [
     {
         image: "/images/Recurso50.png",
         title: "Protocolo de Transparencia",
-        content: "Implementamos sistemas avanzados de verificación que van más allá de los métodos de muestreo tradicionales."
+        content: "Implementamos sistemas avanzados de verificación y auditoría digital que van más allá de los métodos de muestreo tradicionales. Garantizamos una trazabilidad absoluta en cada movimiento financiero registrado en sus balances."
     },
     {
         image: "/images/Recurso51.png",
         title: "Mitigación de Riesgos", // Nota: Verifica si este título se repite o si era otro
-        content: "Análisis predictivo diseñado para identificar debilidades estructurales antes de que se conviertan en pasivos financieros."
+        content: "Ejecutamos análisis predictivo diseñado específicamente para identificar debilidades estructurales antes de que se conviertan en pasivos financieros, asegurando la continuidad y rentabilidad de sus operaciones corporativas."
     }
 ]
 
 export const IntegAudit = () => {
     return (
-        <div className="py-12 md:py-20 bg-gray-800 px-6 md:px-12 lg:px-20">
-            
-            <div className="px-4 md:px-5 border-l-4 border-l-orange-500 w-full md:w-[70%] lg:w-[40%] mb-8 md:mb-10">
-                <h1 className="text-blue-200 font-bold text-[1.5rem] md:text-[1.8rem]">
-                    <span className="text-orange-500">Integridad</span> absoluta en cada registro contable.
-                </h1>
-            </div>
-            
-            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-                
-                <div className="grid grid-cols-1 gap-6 md:gap-8 w-full lg:w-[55%]">
+        <section className='py-24 bg-gray-50 border-b border-gray-200 overflow-hidden'>
+            <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
+
+                <div className="mb-16 reveal-element text-center lg:text-left">
+                    <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                        Prevención y Control
+                    </span>
+                    <h2 className="text-blue-200 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
+                        INTEGRIDAD Y SEGURIDAD
+                    </h2>
+                    <p className="mt-4 text-gray-600  text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
+                        Nuestro enfoque trasciende los métodos tradicionales. Detectamos vulnerabilidades antes de que se materialicen para proteger el patrimonio de su corporación.
+                    </p>
+                </div>
+
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10">
                     {
                         integridad.map((props: inteProps, index) => (
                             <IntegCard key={index} {...props} />
                         ))
                     }
                 </div>
-                
-                <div className="w-full lg:w-[45%] flex justify-center lg:justify-end">
-                    <img 
-                        className="w-[80%] md:w-[60%] lg:w-full max-w-[400px] lg:max-w-none object-contain" 
-                        src="/images/Recurso53.png" 
-                        alt="Recurso53" 
-                    />
-                </div>
-            </div>
-        </div>
+            </ScrollReveal>
+        </section>
     )
 }

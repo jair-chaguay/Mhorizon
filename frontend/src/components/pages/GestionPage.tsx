@@ -1,4 +1,4 @@
-import { Header, Footer, Impulsa, HeroGestion, AuditoriaPlan, EstrIm, CumplimientoNorm} from '../../components'
+import { Header, Footer, Impulsa, HeroGestion, AuditoriaPlan, EstrIm, CumplimientoNorm, Frase } from '../../components'
 
 export const GestionPage = () => {
   return (
@@ -6,21 +6,14 @@ export const GestionPage = () => {
       <Header />
 
       <HeroGestion />
+      <AuditoriaPlan />
 
-      <section>
-        <AuditoriaPlan />
-      </section>
+      <EstrIm />
+      <CumplimientoNorm />
 
-      <section className='bg-blue-200 py-10'>
-        <EstrIm />
-      </section>
-
-      <section className='mt-20'>
-        <CumplimientoNorm />
-      </section>
-
-      <section className='bg-blue-200 mt-20'>
-        <Impulsa />
+      <section className='bg-blue-200'>
+        <Frase blanco='ELEVE EL ESTÁNDAR DE SU' naranja='GESTIÓN CORPORATIVA.'
+        styles='text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] leading-tight'/>
         <Footer />
       </section>
     </main>

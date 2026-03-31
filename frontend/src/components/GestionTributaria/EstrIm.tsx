@@ -1,55 +1,68 @@
 import React from 'react'
+import { ScrollReveal } from '../ScrollReveal'
 
 export const EstrIm = () => {
     return (
-        // Cambiamos mx-20 por padding (px) para evitar desbordes. Flex-col para móvil, flex-row para md/desktop
-        <div className='px-6 md:px-12 lg:px-20 py-12 md:py-20 flex flex-col md:flex-row items-center justify-between gap-16 md:gap-8 lg:gap-0'>
-            
-            {/* Contenedor de la Imagen */}
-            <div className='w-full md:w-[50%] h-[320px] sm:h-[400px] md:h-[420px] relative flex flex-col items-center'>
-                <img className='w-[95%] md:w-[80%] h-full object-cover relative rounded-md'
-                    src="/images/Recurso42.png" alt="Recurso42"
-                />
-                
-                {/* Caja Flotante Naranja */}
-                {/* En móvil se centra horizontalmente (left-1/2 -translate-x-1/2) y en desktop vuelve a la izquierda */}
-                <div className='absolute bg-orange-500 py-4 px-6 text-white rounded-md w-[85%] sm:w-[340px] shadow-xl -bottom-10 md:-bottom-8 left-1/2 -translate-x-1/2 md:left-0 md:translate-x-0 md:ml-4 lg:ml-0 z-10'>
-                    <h3 className='font-bold text-[1.5rem] md:text-[1.8rem] leading-tight'>15%</h3>
-                    <p className='font-light text-[0.9rem] md:text-base mt-1'>EN OPTIMIZACIÓN DE IMPUESTOS</p>
-                </div>
-            </div>
+        <section className="bg-white py-20 border-b border-gray-200 overflow-hidden">
+            <ScrollReveal as={"div"} className="px-5 sm:px-8 md:px-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-16 md:gap-12 lg:gap-16">
 
-            {/* Contenedor de Texto */}
-            <div className='text-white w-full md:w-[45%] lg:w-[40%] mt-4 md:mt-0'>
-                <h2 className='text-[1.6rem] md:text-[1.75rem] font-medium'>
-                    Estrategia de <span className='text-orange-500'>impuestos</span>
-                </h2>
-                <p className='font-light mt-4 text-[0.95rem] md:text-base text-justify md:text-left'>
-                    Nuestra metodología de Tax Strategy no se limita al ahorro; buscamos la creación
-                    de valor sostenible. Diseñamos planes que resisten el escrutinio regulatorio
-                    mientras potencian el flujo de caja.
-                </p>
-                
-                <ul className='flex flex-col gap-5 md:gap-6 mt-8 md:mt-10'>
-                    {/* Items de la lista: alineación superior (items-start) en móvil por si el texto salta a 2 líneas */}
-                    <li className='flex items-start md:items-center gap-3 font-light'>
-                        <img className='w-6 h-6 object-contain mt-1 md:mt-0 shrink-0'
-                            src="/images/Recurso10.png" alt="Recurso10" />
-                        <p className='text-[0.95rem] md:text-base'>Planificación de Precios de Transferencia.</p>
-                    </li>
-                    <li className='flex items-start md:items-center gap-3 font-light'>
-                        <img className='w-6 h-6 object-contain mt-1 md:mt-0 shrink-0'
-                            src="/images/Recurso10.png" alt="Recurso10" />
-                        <p className='text-[0.95rem] md:text-base'>Reestructuración Corporativa Internacional.</p>
-                    </li>
-                    <li className='flex items-start md:items-center gap-3 font-light'>
-                        <img className='w-6 h-6 object-contain mt-1 md:mt-0 shrink-0'
-                            src="/images/Recurso10.png" alt="Recurso10" />
-                        <p className='text-[0.95rem] md:text-base'>Incentivos a la I+D y Deducciones Especiales.</p>
-                    </li>
-                </ul>
-            </div>
-            
-        </div>
+                <div className="w-full md:w-[50%] h-87.5 sm:h-100 md:h-120 relative flex flex-col items-center reveal-element">
+                    <img className='w-full h-full object-cover relative rounded-2xl shadow-2xl'
+                        src="/images/Recurso42.png" alt="Estrategia de Impuestos"
+                    />
+                    <div className="absolute inset-0 bg-blue-200/10 rounded-2xl"></div>
+
+                    <div className="absolute bg-white py-6 px-8 rounded-xl w-[85%] sm:w-[340px] shadow-2xl -bottom-8 left-1/2 -translate-x-1/2 md:left-8 md:translate-x-0 z-10 border-l-4 border-orange-500">
+                        <h3 className="font-extrabold text-[2rem] text-blue-200 leading-tight">15%</h3>
+                        <p className="font-bold text-[0.8rem] md:text-[0.85rem] mt-1 text-gray-500 uppercase tracking-widest">
+                            OPTIMIZACIÓN PROMEDIO <br />EN FLUJO DE CAJA
+                        </p>
+                    </div>
+                </div>
+
+                <div className="w-full md:w-[50%] mt-8 md:mt-0 reveal-element delay-200">
+                    <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.8rem] uppercase mb-2 block">
+                        Metodología Financiera
+                    </span>
+                    <h2 className="text-[2rem] md:text-[2.5rem] font-extrabold text-blue-200 leading-tight">
+                        ESTRATEGIA DE <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">IMPUESTOS</span>
+                    </h2>
+                    <p className=" mt-6 text-[1.05rem] text-gray-600 text-justify md:text-left leading-relaxed">
+                        Nuestra metodología de Tax Strategy no se limita al cumplimiento rutinario; buscamos la creación de valor comprobable. Diseñamos estructuras fiscales que resisten el escrutinio de las autoridades de control mientras potencian la rentabilidad corporativa.
+                    </p>
+
+                    <ul className="flex flex-col gap-6 mt-10">
+                        <li className="flex items-start gap-4">
+                            <div className="bg-orange-50 p-2 rounded-full mt-1 border border-orange-100">
+                                <img className="w-5 h-5 object-contain" src="/images/Recurso10.png" alt="Check" />
+                            </div>
+                            <div>
+                                <p className="text-[1.05rem] font-bold text-blue-200">Estudios de Precios de Transferencia</p>
+                                <p className="text-[0.95rem]  text-gray-500 mt-1">Elaboración técnica y soporte de anexos transaccionales para grupos multinacionales.</p>
+                            </div>
+                        </li>
+                        <li className="flex items-start gap-4">
+                            <div className="bg-orange-50 p-2 rounded-full mt-1 border border-orange-100">
+                                <img className="w-5 h-5 object-contain" src="/images/Recurso10.png" alt="Check" />
+                            </div>
+                            <div>
+                                <p className="text-[1.05rem] font-bold text-blue-200">Reclamaciones y Devoluciones</p>
+                                <p className="text-[0.95rem] text-gray-500 mt-1">Gestión ágil para la recuperación de IVA, Pago en Exceso y Reclamos por Pago Indebido.</p>
+                            </div>
+                        </li>
+                        <li className="flex items-start gap-4">
+                            <div className="bg-orange-50 p-2 rounded-full mt-1 border border-orange-100">
+                                <img className="w-5 h-5 object-contain" src="/images/Recurso10.png" alt="Check" />
+                            </div>
+                            <div>
+                                <p className="text-[1.05rem] font-bold text-blue-200">Patrocinio en Determinaciones</p>
+                                <p className="text-[0.95rem] text-gray-500 mt-1">Defensa técnica, financiera y jurídica exhaustiva ante procesos de auditoría del SRI.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </ScrollReveal>
+        </section>
     )
 }

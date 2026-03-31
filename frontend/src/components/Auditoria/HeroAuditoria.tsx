@@ -1,51 +1,44 @@
-import { Button } from '../Button'
-import { useState } from 'react'
-import { ContactModal } from "../ContactModal"
+import { ScrollReveal } from "../ScrollReveal"
 
 export const HeroAuditoria = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-        <section className="px-6 md:px-12 lg:px-20 flex gap-6 items-center relative h-[550px] md:h-[500px] bg-[url('/images/Recurso52.png')] bg-cover bg-center opacity-95">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-162.5 bg-[url('/images/Recurso52.avif')] bg-cover bg-center overflow-hidden">
 
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-transparent md:from-black/70 md:via-black/40">
+            <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent">
             </div>
 
-            <div className="relative z-10 w-full">
-                <p className='bg-white/60 text-blue-200 w-[160px] md:w-[180px] rounded-sm text-center p-1 text-[0.65rem] md:text-[0.75rem] font-semibold tracking-wider'>
+            <div className="relative z-10 w-full md:w-[65%] lg:w-[55%] pt-10 reveal-element">
+                <p className='inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm'>
                     AUTORIDAD ESTRATÉGICA
                 </p>
 
-                <h1 className='text-white text-shadow-lg text-[2.2rem] md:text-[2.9rem] font-bold mt-4 md:mt-5 w-full md:w-[400px] tracking-wide leading-tight md:leading-normal'>
-                    Auditoría <br className="md:hidden" />
-                    <span className='text-orange-500'>
-                        <span className='underline underline-offset-8 md:underline-offset-12 decoration-4 decoration-orange-500'>Fina</span>nciera
-                    </span>
+                <h1 className='text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]'>
+                    AUDITORÍA <br />
+                    <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">FINANCIERA</span>
                 </h1>
 
-                <p className='text-white mt-4 md:mt-6 font-light text-shadow-md text-[1.1rem] md:text-[1.2rem] w-full md:w-[70%] lg:w-[45%] text-left md:text-justify'>
-                    Integridad absoluta en cada registro contable.
+                <p className='text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left'>
+                    Integridad absoluta en cada registro contable. Analizamos su estructura financiera bajo una perspectiva de extremo rigor para garantizar solidez y cumplimiento global.
                 </p>
 
-                <div className="mt-8 md:mt-4">
-                    <Button text="AGENDAR CONSULTORÍA"
-                        styles="bg-orange-500 text-white font-medium w-full md:w-[220px] py-3 md:py-2 rounded-sm"
-                        onClick={() => setIsModalOpen(true)}
-                    />
-
+                <div className="mt-10 md:mt-12 flex">
+                    <button id="agenda-hero-btn" className="bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl transition-all duration-300">
+                        AGENDAR CONSULTORÍA
+                    </button>
                 </div>
             </div>
 
-            <div className='absolute bg-white/80 md:bg-white/40 bottom-0 md:bottom-4 left-0 right-0 md:left-auto px-6 md:px-10 py-4 md:py-4 text-center z-10 flex flex-col md:block items-center justify-center'>
-                <h2 className='text-orange-500 md:text-orange-500 text-shadow-lg text-[2rem] md:text-[2.5rem] font-extrabold leading-none'>
+            <div className='hidden md:flex gap-5 bg-blue-200/80 backdrop-blur-md border border-white/10 shadow-2xl absolute w-90 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300'>
+                <h2 className='text-orange-500 text-[2.8rem] font-extrabold leading-none'>
                     99.8%
                 </h2>
-                <p className='font-medium md:font-extralight italic text-blue-900/50 md:text-blue-200/80 text-[1.1rem] md:text-[1.5rem] mt-1 md:mb-2'>
-                    Precisión de los informes
-                </p>
+                <div>
+                    <p className="text-[0.75rem] font-bold text-gray-300 uppercase tracking-wider">MÁXIMO RIGOR</p>
+                    <p className="font-light text-[0.95rem] text-white leading-tight mt-1">Precisión probada de nuestros informes forenses.</p>
+                </div>
             </div>
-            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-        </section>
+        </ScrollReveal>
     )
 }

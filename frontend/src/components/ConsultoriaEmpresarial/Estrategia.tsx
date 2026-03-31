@@ -1,74 +1,76 @@
-import React from 'react'
+import { ScrollReveal } from "../ScrollReveal"
 
 export const Estrategia = () => {
     return (
-        <div className="mt-14 md:mt-0">
-            <h2 className="text-blue-200 text-[1.45rem] sm:text-[1.55rem] md:text-[1.63rem] text-center font-bold mt-12 md:mt-15 px-4">
-                Estrategia de valor
-            </h2>
-
-            <div className="flex flex-col md:flex-row gap-8 md:gap-16 mt-10 md:mt-15 px-4 sm:px-6 md:px-12">
-
-                {/* IZQUIERDA */}
-                <div className="w-full md:w-[65%] relative rounded-md overflow-hidden">
-                    <img
-                        className="w-full h-[460px] sm:h-[540px] md:h-full object-cover"
-                        src="/images/Recurso36.png"
-                        alt="recurso_36"
-                    />
-
-                    <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
-
-                    <div className="absolute bottom-0 left-0 w-full p-6 sm:p-8 md:p-10">
-                        <p className="bg-orange-500 text-white text-[0.75rem] md:text-[0.80rem] py-1 shadow-2xl rounded-sm w-fit px-2">
-                            Ventaja Central
-                        </p>
-
-                        <h4 className="text-white font-medium mt-3 text-[1.45rem] sm:text-[1.6rem] md:text-[1.6rem] leading-tight">
-                            Transformación institucional
-                        </h4>
-
-                        <p className="text-white font-light text-[0.98rem] sm:text-[1rem] w-full md:w-[70%] mt-3 leading-relaxed">
-                            No solo ofrecemos asesoramiento; rediseñamos la forma en que tu empresa interactúa
-                            con su mercado para asegurar un dominio a largo plazo
-                        </p>
-                    </div>
+        <section className="py-24 bg-white relative overflow-hidden">
+            <ScrollReveal className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
+                <div className="text-center mb-16 reveal-element">
+                    <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                        Resultados Comprobables
+                    </span>
+                    <h2 className="text-blue-200 text-[2rem] sm:text-[2.5rem] font-bold leading-tight">
+                        ESTRATEGIA <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">DE VALOR</span>
+                    </h2>
                 </div>
 
-                {/* DERECHA */}
-                <div className="flex flex-col gap-6 md:gap-10 w-full md:w-[35%]">
+                <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-stretch">
 
-                    <div className="bg-orange-500 text-white py-8 sm:py-10 md:py-10 px-7 sm:px- md:px-12 rounded-md">
-                        <h2 className="font-bold text-[2.2rem] sm:text-[2.4rem] md:text-[2.2rem] pt-2 md:pt-5">
-                            42%
-                        </h2>
-                        <p className="text-[1rem] sm:text-[1.05rem]">de aumento en la eficiencia</p>
-
-                        <p className="mt-4 font-light w-full md:w-[98%] text-[0.97rem] mb-2 md:mb-10 leading-relaxed">
-                            Benchmarks operativos propietarios
-                            que superan los estándares de la industria por márgenes significativos.
-                        </p>
-                    </div>
-
-                    <div className="flex flex-col gap-3 py-8 sm:py-10 md:py-10 px-7 sm:px-9 md:px-12 shadow-2xl rounded-md bg-white">
-                        <p className="font-medium text-[1rem] sm:text-[1.05rem]">
-                            Informe de Mercado 2026
-                        </p>
-
-                        <p className="text-blue-200/90 font-light leading-relaxed text-[0.98rem]">
-                            Descargue nuestro último análisis sobre las tendencias corporativas
-                            globales.
-                        </p>
-
+                    <div className="w-full lg:w-[60%] relative rounded-2xl overflow-hidden shadow-2xl group reveal-element">
                         <img
-                            className="size-7 self-end"
-                            src="/images/Recurso37.png"
-                            alt="recurso_37"
+                            className="w-full h-100 sm:h-125 object-cover group-hover:scale-105 transition-transform duration-700"
+                            src="/images/Recurso36.avif"
+                            alt="recurso_36"
                         />
+
+                        <div className="absolute inset-0 bg-linear-to-t from-[#0f172a] via-[#0f172a]/50 to-transparent"></div>
+
+                        <div className="absolute bottom-0 left-0 w-full p-8 sm:p-10">
+                            <p className="bg-orange-500 text-white text-[0.75rem] md:text-[0.80rem] py-1.5 px-4 font-medium uppercase tracking-widest rounded-sm w-fit mb-4">
+                                Ventaja Central
+                            </p>
+
+                            <h4 className="text-white font-bold text-[1.6rem] sm:text-[2rem] leading-tight">
+                                Transformación institucional
+                            </h4>
+
+                            <p className="text-gray-300 font-light text-[1rem] sm:text-[1.1rem] w-full md:w-[85%] mt-4 leading-relaxed">
+                                No solo asesoramos; reconfiguramos el ADN operativo de su empresa para maximizar la rentabilidad y asegurar el cumplimiento normativo.
+                            </p>
+                        </div>
                     </div>
 
+                    <div className="flex flex-col gap-6 lg:gap-8 w-full lg:w-[40%] justify-center reveal-element delay-200">
+
+                        <div className="bg-orange-500 text-white py-10 px-8 sm:px-10 rounded-2xl shadow-xl transform hover:-translate-y-2 transition-transform duration-300">
+                            <h3 className="font-bold text-[3rem] sm:text-[3.5rem] leading-none">
+                                42%
+                            </h3>
+                            <p className="text-[1.1rem] font-bold uppercase tracking-wide mt-2">Aumento en Eficiencia</p>
+
+                            <p className="mt-4 text-white/90 text-[0.95rem] leading-relaxed">
+                                Benchmarks operativos propietarios que superan los estándares de la industria por márgenes significativos, reduciendo la carga de costos fijos.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col gap-4 py-8 px-8 sm:px-10 shadow-xl rounded-2xl bg-gray-50 border border-gray-100 hover:border-orange-500/50 transition-colors cursor-pointer group">
+                            <p className="font-medium text-[1.1rem] text-blue-200">
+                                Informe de Mercado 2026
+                            </p>
+
+                            <p className="text-gray-500 leading-relaxed text-[0.95rem]">
+                                Descargue nuestro último análisis sobre las tendencias corporativas
+                                globales.
+                            </p>
+
+                            <div className="flex justify-between items-center mt-2">
+                                <span className="text-orange-500 font-bold text-sm uppercase tracking-wider group-hover:text-blue-200 transition-colors">Descargar PDF</span>
+                                <img className="w-8 h-8 opacity-50 group-hover:opacity-100 transition-opacity" src="/images/Recurso37.png" alt="Descargar" />
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-        </div>
+            </ScrollReveal>
+        </section>
     )
 }

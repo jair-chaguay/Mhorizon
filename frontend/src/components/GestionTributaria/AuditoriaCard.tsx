@@ -7,17 +7,19 @@ interface autProps {
 
 export const AuditoriaCard = ({ icon, title, content }: autProps) => {
   return (
-    <div className="shadow-xl border-gray-400/30 border rounded-md p-6 relative bg-gray-800/50 md:bg-transparent">
-      <div className="absolute top-3 left-0 bg-orange-500 w-16 h-8 flex items-center justify-center">
+    <div className="bg-white/5 border-white/10 border rounded-xl p-8 relative hover:bg-white/10 transition-colors backdrop-blur-sm reveal-element delay-100">
+      <div className="absolute -top-5 left-6 bg-orange-500 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
         <img
-          className="w-5 h-5 object-contain"
+          className="w-6 h-6 object-contain invert brightness-0"
           src={icon}
           alt={title}
         />
       </div>
-      <div className="mt-8 px-2 text-justify">
-        <p className="text-blue-200 font-medium text-[1.2rem] md:text-[1.3rem]">{title}</p>
-        <p className="font-light text-blue-200/90 mt-1 text-[0.95rem] md:text-base">{content}</p>
+      <div className="mt-4 px-2">
+        <p className="text-white font-bold text-[1.2rem] md:text-[1.3rem] tracking-wide">Compliance Total</p>
+        <p className="font-light text-gray-400 mt-3 text-[0.95rem] md:text-base leading-relaxed text-justify md:text-left">
+          Aseguramos la integridad de sus operaciones frente a los estrictos marcos normativos del Servicio de Rentas Internas, mitigando riesgos de glosas y multas severas.
+        </p>
       </div>
     </div>
   )

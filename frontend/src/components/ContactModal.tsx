@@ -1,122 +1,140 @@
-import { Call, Location } from "./IconosSVG"
+import { useEffect, useState } from "react";
 
 interface ContactModalProps {
-    isOpen: boolean,
+    isOpen: boolean;
     onClose: () => void;
 }
 
 export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
-    if (!isOpen) return null;
+    const [isMounted, setIsMounted] = useState(false);
+    const [isAnimating, setIsAnimating] = useState(false);
+
+    useEffect(() => {
+        if (isOpen) {
+            setIsMounted(true);
+            setTimeout(() => {
+                setIsAnimating(true);
+                document.body.style.overflow = "hidden";
+            }, 10); 
+        } else {
+            setIsAnimating(false);
+            setTimeout(() => {
+                setIsMounted(false);
+                document.body.style.overflow = "";
+            }, 300);
+        }
+
+        return () => {
+            document.body.style.overflow = "";
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape" && isOpen) {
+                onClose();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+        return () => document.removeEventListener("keydown", handleKeyDown);
+    }, [isOpen, onClose]);
+
+    if (!isMounted) return null;
 
     return (
         <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
-            onClick={onClose}>
+            className={`fixed inset-0 z-[110] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 transition-opacity duration-300 ${
+                isAnimating ? "opacity-100" : "opacity-0"
+            }`}
+            onClick={onClose}
+        >
             <div
-                className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl relative overflow-hidden flex flex-col max-h-[90vh]"
+                className={`bg-white rounded-2xl shadow-2xl w-full max-w-xl p-8 sm:p-10 relative transform transition-transform duration-300 ${
+                    isAnimating ? "scale-100" : "scale-95"
+                }`}
                 onClick={(e) => e.stopPropagation()}
             >
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-orange-500 transition-colors z-10">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    className="absolute top-5 right-5 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none"
+                    aria-label="Cerrar formulario"
+                >
+                    <svg className="w-7 h-7 cursor-pointer" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
-                <div className="overflow-y-auto p-8">
-                    <div className="text-center mb-8">
-                        <h3 className="font-bold text-3xl text-blue-200 leading-none uppercase tracking-tighter">
-                            Agendar <span className="text-orange-500">Asesoría</span>
-                        </h3>
-                        <p className="text-gray-500 mt-2">Déjanos tus datos y nos pondremos en contacto contigo.</p>
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-
-                        <div>
-                            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                                <div>
-                                    <label className="block text-sm font-bold text-blue-200 uppercase tracking-widest mb-2 text-[10px]">Nombre Completo</label>
-                                    <input
-                                        type="text"
-                                        className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 bg-slate-50 transition-colors"
-                                        placeholder="Ej. Juan Pérez"
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-blue-200 uppercase tracking-widest mb-2 text-[10px]">Correo Electrónico</label>
-                                    <input
-                                        type="email"
-                                        className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 bg-slate-50 transition-colors"
-                                        placeholder="tu@correo.com"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-bold text-blue-200 uppercase tracking-widest mb-2 text-[10px]">Asunto</label>
-                                    <input
-                                        type="string"
-                                        className="w-full px-4 py-3 bprder border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 bg-slate-50 transition-colors"
-                                        placeholder="Escribe el asunto aquí..."
-                                    />
-                                </div>
-                                <div>
-                                    <label className="block text-sm font-bold text-blue-200 uppercase tracking-widest mb-2 text-[10px]">¿En qué podemos ayudarte?</label>
-                                    <textarea
-                                        rows={4}
-                                        className="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500 bg-slate-50 transition-colors resize-none"
-                                        placeholder="Escribe tu mensaje aquí...">
-                                    </textarea>
-                                </div>
-                                <button
-                                    type="submit"
-                                    className="w-full py-4 bg-orange-500 text-white font-bold uppercase tracking-[0.2em] text-[12px] rounded-sm hover:bg-blue-200 transition-all duration-300 shadow-xl shadow-orange-500/20 mt-4">
-                                    Enviar Mensaje
-                                </button>
-                            </form>
+                
+                <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.8rem] uppercase mb-2 block text-center sm:text-left">
+                    Formulario de Contacto
+                </span>
+                <h2 className="text-blue-200 font-extrabold text-[1.8rem] sm:text-[2.2rem] leading-tight text-center sm:text-left mb-8 tracking-tight">
+                    AGENDAR CITA O CONSULTA
+                </h2>
+                
+                <form action="#" method="post" className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="modal_nombre" className="text-blue-200 font-semibold text-sm">Nombre</label>
+                            <input 
+                                type="text" 
+                                id="modal_nombre" 
+                                name="nombre" 
+                                required 
+                                placeholder="Ej: Juan" 
+                                className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all" 
+                            />
                         </div>
-
-                        <div className="bg-slate-50 p-8 rounded-xl border border-slate-100 flex flex-col justify-center">
-                            <h4 className="font-bold text-2xl text-blue-200 mb-8 leading-none uppercase tracking-tighter">
-                                Sede <br />
-                                <span className="text-orange-500">Central</span>
-                            </h4>
-
-                            <div className="space-y-8">
-                                <div className="flex items-center group">
-                                    <div className="w-14 h-14 shrink-0 bg-gray-800 rounded-xl flex items-center justify-center border border-slate-200 group-hover:bg-blue-200 transition-colors duration-300">
-                                        <Location className="text-orange-500 group-hover:text-white w-8" />
-                                    </div>
-                                    <div className="ml-6">
-                                        <h6 className="font-bold text-blue-200 uppercase text-[12px] tracking-[0.2em] mb-2">
-                                            Dirección
-                                        </h6>
-                                        <p className="text-gray-500 text-sm leading-relaxed">
-                                            Carchi 601 y Quisquís,<br />Edificio Quil 1, Piso 12.<br />
-                                            Guayaquil, Ecuador.
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="flex items-center group">
-                                    <div className="w-14 h-14 shrink-0 bg-gray-800 rounded-xl flex items-center justify-center border border-slate-200 group-hover:bg-blue-200 transition-colors duration-300">
-                                        <Call className="text-orange-500 group-hover:text-white w-8" />
-                                    </div>
-                                    <div className="ml-6">
-                                        <h6 className="font-bold text-blue-200 uppercase text-[12px] tracking-[0.2em] mb-2">
-                                            Contacto Directo
-                                        </h6>
-                                        <p className="text-gray-500 text-sm mb-1">Telf: 04 269 1453</p>
-                                        <a className="text-gray-500 hover:text-orange-500 transition-colors text-sm"
-                                            href="mailto:news@mhorizon.com.ec">
-                                            Email: news@mhorizon.com.ec
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="modal_apellido" className="text-blue-200 font-semibold text-sm">Apellido</label>
+                            <input 
+                                type="text" 
+                                id="modal_apellido" 
+                                name="apellido" 
+                                required 
+                                placeholder="Ej: Pérez" 
+                                className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all" 
+                            />
                         </div>
                     </div>
-                </div>
+                    
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="modal_correo" className="text-blue-200 font-semibold text-sm">Correo Electrónico</label>
+                        <input 
+                            type="email" 
+                            id="modal_correo" 
+                            name="correo" 
+                            required 
+                            placeholder="Ej: juan.perez@empresa.com" 
+                            className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all" 
+                        />
+                    </div>
+                    
+                    <div className="flex flex-col gap-2">
+                        <label htmlFor="modal_mensaje" className="text-blue-200 font-semibold text-sm">Mensaje (Opcional)</label>
+                        <textarea 
+                            id="modal_mensaje" 
+                            name="mensaje" 
+                            rows={4} 
+                            placeholder="Cuéntanos brevemente sobre tu consulta o disponibilidad..." 
+                            className="bg-gray-50 border border-gray-200 rounded-lg p-3 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all resize-none"
+                        ></textarea>
+                    </div>
+                    
+                    <div className="mt-4 flex justify-center sm:justify-start">
+                        <button 
+                            type="submit" 
+                            className="bg-orange-500 text-white font-bold tracking-wider uppercase px-10 py-4 rounded-md hover:bg-blue-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-auto"
+                        >
+                            ENVIAR SOLICITUD
+                        </button>
+                    </div>
+                </form>
+                
+                <p className="text-center sm:text-left text-gray-400 mt-6 font-medium text-[0.8rem] tracking-wider">
+                    ✓ Responderemos su solicitud en menos de 24 horas laborables.
+                </p>
             </div>
         </div>
-    )
-}
+    );
+};

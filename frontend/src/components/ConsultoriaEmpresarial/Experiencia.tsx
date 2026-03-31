@@ -1,23 +1,26 @@
+import { ScrollReveal } from "../ScrollReveal"
+
 export const Experiencia = () => {
     return (
-        <div>
-            <div className="relative h-[520px] sm:h-[560px] md:h-[470px] bg-[url('/images/Recurso38.png')] bg-cover bg-center flex items-center">
+        <ScrollReveal as={"section"} className="relative h-112.5 sm:h-125 bg-[url('/images/Recurso38.avif')] bg-cover bg-fixed bg-center flex items-center">
+            <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/80 to-transparent"></div>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-200 via-blue-200/50 to-transparent"></div>
-
-                <div className="relative mx-4 sm:mx-6 md:mx-20 bg-white/20 border-l-8 border-l-orange-500 px-6 sm:px-8 md:px-10 py-10 sm:py-12 md:py-15 w-[92%] sm:w-[85%] md:w-[50%] rounded-sm">
-                    <h2 className="text-white font-extrabold text-[1.75rem] sm:text-[1.95rem] md:text-[2.1rem] w-full md:w-[89%] leading-tight">
-                        EXPERIENCIA QUE ESCALE CON TU AMBICIÓN.
+            <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 w-full relative z-10 reveal-element">
+                <div className="bg-white/10 border-l-4 border-l-orange-500 px-8 py-10 sm:py-12 md:py-14 w-full md:w-[60%] lg:w-[50%] rounded-r-xl backdrop-blur-md shadow-2xl">
+                    <h2 className="text-white font-bold text-[1.8rem] sm:text-[2.2rem] leading-tight">
+                        EXPERIENCIA QUE ESCALA <br/><span className="text-orange-500">CON SU AMBICIÓN.</span>
                     </h2>
 
-                    <p className="text-white font-light w-full md:w-[89%] mt-4 text-[1rem] sm:text-[1.05rem] md:text-base leading-relaxed">
-                        <span className="font-bold">MHORIZON</span> nos proporcionó la claridad estratégica que necesitábamos
-                        para navegar una fusión global compleja, resultando en un ahorro inmediato del
-                        15%.
+                    <p className="text-gray-300  mt-6 text-[1.05rem] sm:text-[1.15rem] leading-relaxed">
+                        "El equipo de <span className="font-bold text-white">MHORIZON</span> nos proporcionó la claridad estratégica que necesitábamos para navegar una reestructuración corporativa compleja, resultando en una optimización inmediata del 15%."
+                    </p>
+                    
+                    <p className="text-orange-500 font-bold uppercase tracking-widest text-[0.8rem] mt-6">
+                        — CEO, Corporación Sector Logístico
                     </p>
                 </div>
-
             </div>
-        </div>
+
+        </ScrollReveal>
     )
 }

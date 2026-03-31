@@ -5,15 +5,8 @@ export const AuditoriaPage = () => {
         <main>
             <Header />
             <HeroAuditoria />
-            <section>
                 <IntegAudit/>
-            </section>
-            <section>
                 <MetodologiaAud/>
-            </section>
-            <section>
-                <FaseAuditoria/>
-            </section>
             <section>
                 <Analisis/>
             </section>

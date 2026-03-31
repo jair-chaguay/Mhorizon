@@ -1,4 +1,4 @@
-import { Calculadora, Clients, Eslogan, Footer, Header, Hero, Impulsa, Informativos, Leaders, Soluciones } from '../../components'
+import { Calculadora, Clients, Eslogan, Footer, Header, Hero, Impulsa, InfoRelaci, Informativos, Leaders, Soluciones } from '../../components'
 
 export const Home = () => {
   return (
@@ -18,7 +18,9 @@ export const Home = () => {
       </section>
 
       <Leaders />
-      <Informativos />
+      <div className='mt-10'>
+        <InfoRelaci/>
+      </div>
 
       <section className='bg-blue-200'>
         <Impulsa />

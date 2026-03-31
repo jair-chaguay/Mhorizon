@@ -1,68 +1,53 @@
-import React from 'react'
-import { FaseCard } from "./FaseCard"
 
-interface faseProps {
-    num: string,
-    fase: string,
-    title: string,
-    content: string
-}
-
-const fases: faseProps[] = [
-    {
-        num: "01",
-        fase: "Fase 01",
-        title: "Diagnóstico de Escaneo Profundo",
-        content: "Utilizamos algoritmos patentados impulsados por inteligencia artificial para procesar y categorizar patrones de datos históricos en todas las entidades globales de forma simultánea.",
-    },
-
-    {
-        num: "03",
-        fase: "Fase 03",
-        title: "Perspectivas de Rendimiento",
-        content: "Transformamos los hallazgos de la auditoría en oportunidades estratégicas para la optimización del capital y la reducción de costos.",
-    }
-]
 
 export const FaseAuditoria = () => {
     return (
-        <section className='bg-blue-200 py-12 md:py-16 mt-10'>
-            <div className='max-w-6xl mx-auto px-6 md:px-12 lg:px-8 grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-15'>
-                
-                <div className="col-span-1 lg:col-span-2 space-y-6 lg:space-y-10">
-                    {
-                        fases.map((fase: faseProps) => (
-                            <FaseCard key={fase.title} {...fase} />
-                        ))
-                    }
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-element delay-100">
+
+            <div className="relative bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors group overflow-hidden">
+                <div className="absolute -right-6 -top-6 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
+                    01
                 </div>
-
-                <div className="relative bg-white rounded-md py-6 px-8 md:px-10 w-full md:max-w-sm lg:max-w-none lg:w-[250px] mx-auto lg:mx-0 overflow-hidden flex flex-col justify-between shadow-xl lg:shadow-none">
-                    <div className="relative z-10">
-                        <p className="text-[0.95rem] text-blue-200/70 font-light">Fase 02</p>
-                        <h3 className="text-xl font-bold text-blue-200">
-                            Cumplimiento Estructural
-                        </h3>
-                        <p className="mt-2 text-sm text-gray-600">
-                            Mapeamos sus controles internos frente a marcos internacionales
-                            (NIIF/GAAP) para asegurar una solidez legal total.
-                        </p>
-
-                        <ul className="list-disc pl-5 mt-4 space-y-2 text-sm text-blue-200 marker:text-orange-500 mb-16 lg:mb-20">
-                            <li>Mapeo Regulatorio</li>
-                            <li>Verificación Forense</li>
-                            <li>Prueba de Control</li>
-                        </ul>
-                    </div>
-                    
-                    <div className="absolute -bottom-16 md:-bottom-20 -left-4 md:-left-6 opacity-30">
-                        <span className="text-[120px] md:text-[160px] font-bold leading-none text-gray-300 md:text-blue-200">
-                            02
-                        </span>
-                    </div>
+                <div className="relative z-10">
+                    <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm">Fase 01</h4>
+                    <h3 className="text-white text-[1.2rem] font-bold mb-4">Diagnóstico Profundo</h3>
+                    <p className="text-gray-400 text-[0.95rem] leading-relaxed">
+                        Utilizamos algoritmos y sistemas tecnológicos para procesar y categorizar patrones de datos históricos en todas sus entidades financieras de forma simultánea, detectando anomalías tempranas.
+                    </p>
                 </div>
-
             </div>
-        </section>
+
+            <div className="relative bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors group overflow-hidden">
+                <div className="absolute -right-6 -top-6 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
+                    02
+                </div>
+                <div className="relative z-10">
+                    <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm">Fase 02</h4>
+                    <h3 className="text-white text-[1.2rem] font-bold mb-4">Cumplimiento Estructural</h3>
+                    <p className="text-gray-400 text-[0.95rem] leading-relaxed mb-4">
+                        Mapeamos sus controles internos frente a marcos internacionales (NIIF/GAAP) para asegurar una solidez legal total.
+                    </p>
+                    <ul className="space-y-2 text-[0.9rem] text-gray-300">
+                        <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Mapeo Regulatorio</li>
+                        <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Verificación Forense</li>
+                        <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Pruebas de Control</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div className="relative bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors group overflow-hidden">
+                <div className="absolute -right-6 -top-6 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
+                    03
+                </div>
+                <div className="relative z-10">
+                    <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm">Fase 03</h4>
+                    <h3 className="text-white text-[1.2rem] font-bold mb-4">Perspectivas de Rendimiento</h3>
+                    <p className="text-gray-400 text-[0.95rem] leading-relaxed">
+                        Transformamos los hallazgos de la auditoría en oportunidades estratégicas ejecutables. Entregamos reportes enfocados en la optimización del capital, eficiencia fiscal y la reducción general de costos.
+                    </p>
+                </div>
+            </div>
+
+        </div>
     )
 }

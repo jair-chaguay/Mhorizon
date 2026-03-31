@@ -1,41 +1,32 @@
-import { Button } from '../Button'
-import { useState } from 'react'
-import { ContactModal } from "../ContactModal"
+import { ScrollReveal } from "../ScrollReveal"
 
 export const HeroGestion = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="px-6 md:px-12 lg:px-20 flex gap-6 items-center relative h-[500px] md:h-[450px] bg-[url('/images/Recurso39.png')] bg-cover bg-center">
-      <div className="absolute inset-0 bg-linear-to-t from-mist-950 via-mist-800/50 to-transparent"></div>
+    <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex gap-6 items-center relative min-h-137.5 bg-[url('/images/Recurso39.avif')] bg-cover bg-center overflow-hidden">
+      <div className="absolute inset-0 bg-linear-to-r from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
 
-      <div className="relative z-10 w-full">
-        <p className='bg-white/50 text-blue-200 w-[140px] md:w-[160px] rounded-sm text-center p-1 text-[0.65rem] md:text-[0.75rem] uppercase tracking-wider'>
-          Expertice Global
+      <div className="relative z-10 w-full pt-10 reveal-element">
+        <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] md:text-[0.85rem] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm">
+          INTELIGENCIA TRIBUTARIA
         </p>
 
-        <h1 className='text-white text-shadow-lg text-[2rem] md:text-[2.5rem] lg:text-[2.8rem] font-bold mt-5 w-full md:w-[450px] lg:w-[400px] tracking-wide leading-tight'>
-          Gestion <span className='text-orange-500'>
-            <span className='underline underline-offset-8 md:underline-offset-12 decoration-4 decoration-orange-500'>Trib</span>utaria.
-          </span>
+        <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full md:w-[800px] tracking-tight leading-[1.1]">
+          ESTRATEGIA Y <br />
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">DEFENSA FISCAL</span>
         </h1>
 
-        <p className='text-white mt-6 font-light text-shadow-md text-[1rem] md:text-[1.1rem] lg:text-[1.15rem] w-full md:w-[70%] lg:w-[45%]'>
-          Impulsar el crecimiento institucional mediante una estrategia empresarial sofisticada,
-          excelencia operativa y liderazgo transformador.
+        <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full md:w-[70%] lg:w-[55%] leading-relaxed">
+          Aseguramos el estricto cumplimiento normativo frente al SRI y optimizamos su carga fiscal corporativa mediante una planificación estratégica de clase mundial, mitigando contingencias antes de que ocurran.
         </p>
 
-        <div className="mt-8 md:mt-4">
-          <Button
-            text="Agenda una asesoría"
-            styles="bg-orange-500 text-white font-medium w-full md:w-[220px] py-3 md:py-2 rounded-sm"
-            onClick={() => setIsModalOpen(true)}
-
-          />
+        <div className="mt-10 md:mt-12">
+          <button id="agenda-hero-btn" className="bg-orange-500 text-white font-bold tracking-wider uppercase w-full md:w-[280px] py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300">
+            Agenda una Asesoría
+          </button>
         </div>
       </div>
-      <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-    </section>
+    </ScrollReveal>
   )
 }

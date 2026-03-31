@@ -6,11 +6,14 @@ interface HeroProps {
 
 export const HeroExCard = ({ img, title, content }: HeroProps) => {
     return (
-        <div className="flex gap-4 md:gap-5 items-start md:items-center">
-            <img className="w-12 h-12 sm:w-14 sm:h-14 md:size-15 object-contain shrink-0" src={img} alt={title} />
+        <div className="flex gap-4 md:gap-5 items-start">
+            <div className="bg-orange-500/20 p-3 rounded-lg shrink-0 border border-orange-500/30 shadow-inner">
+                <img className="w-8 h-8 object-contain" src={img} alt={title} />
+
+            </div>
             <div>
-                <h4 className="font-bold text-[1rem] md:text-base">{title}</h4>
-                <p className="text-[0.95rem] md:text-base leading-relaxed">{content}</p>
+                <h4 className="font-bold text-[1.05rem] text-white">{title}</h4>
+                <p className="text-[0.9rem] text-gray-300 leading-relaxed mt-1">{content}</p>
             </div>
         </div>
     )
