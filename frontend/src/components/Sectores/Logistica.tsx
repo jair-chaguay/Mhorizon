@@ -2,35 +2,32 @@ import { Link } from 'react-router-dom'
 
 export const Logistica = () => {
     return (
-        <div className='flex flex-col md:flex-row gap-0 md:gap-2 bg-white shadow-xl border border-gray-400/10 items-stretch rounded-md overflow-hidden h-full'>
-            <div className='w-full md:w-[40%] lg:w-[35%] h-50 md:h-auto shrink-0'>
-                <img className='w-full h-full object-cover' src="/images/Recurso56.png" alt="Logistica" />
+        <div className='flex flex-col lg:flex-row bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden reveal-element hover:shadow-2xl transition-shadow group'>
+            <div className='w-full lg:w-1/2 h-75 lg:h-auto relative overflow-hidden'>
+                <img className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' src="/images/Recurso56.png" alt="Logistica" />
+                <div className="absolute inset-0 bg-blue-200/20"></div>
             </div>
-            
-            <div className='p-6 md:p-10 w-full md:w-[60%] lg:w-[65%] flex flex-col justify-center'>
-                <div className='flex flex-col gap-3'>
-                    <p className='text-orange-500 tracking-wider text-[0.9rem] md:text-base'>
-                        LOGÍSTICA & INDUSTRIA
-                    </p>
-                    <h4 className='text-blue-200 font-bold text-[1.2rem] md:text-[1.4rem] leading-tight'>
-                        Cadena de Suministro y Operaciones
-                    </h4>
-                    <p className='text-blue-200 font-light mt-1 md:mt-2 text-[0.95rem] md:text-base'>
-                        Aportamos rigor analítico y optimización a los procesos críticos de empresas
-                        que sostienen la infraestructura, la producción y el comercio exterior a gran
-                        escala.
-                    </p>
-                    <div className='grid grid-cols-2 lg:grid-cols-2 gap-2 md:gap-3 text-blue-200 font-light text-[0.75rem] md:text-[0.8rem] mt-2'>
-                        <p className='bg-gray-800 rounded-sm text-center py-1.5 px-1'>Logística y Puertos</p>
-                        <p className='bg-gray-800 rounded-sm text-center py-1.5 px-1'>Agroindustria</p>
-                        <p className='bg-gray-800 rounded-sm text-center py-1.5 px-1'>Acuacultura</p>
-                        <p className='bg-gray-800 rounded-sm text-center py-1.5 px-1'>Industria Química</p>
-                    </div>
-                    
-                    <Link className='text-orange-500 text-[1rem] md:text-[1rem] mt-2 md:mt-4' to={"/sectores/cadena-suminsitros"}>
-                        Conocer más →
-                    </Link>
+
+            <div className='w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 relative'>
+                <div className="absolute -top-6 lg:top-10 lg:-left-6 bg-orange-500 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
+                <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Logística & Industria</p>
+                <h3 className="text-blue-200 font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">Cadena de Suministro y Operaciones</h3>
+                <p className="text-gray-600 font-light text-[1.05rem] leading-relaxed mb-6">
+                    Aportamos rigor analítico y optimización a los procesos críticos de empresas que sostienen la infraestructura, la producción y el comercio exterior a gran escala.
+                </p>
+
+                <div className='flex flex-wrap gap-2 mb-8'>
+                    <p className='px-3 py-1 bg-gray-50 border border-gray-200 text-blue-200 text-[0.75rem] uppercase tracking-wider rounded-sm'>Logística y Puertos</p>
+                    <p className='px-3 py-1 bg-gray-50 border border-gray-200 text-blue-200 text-[0.75rem] uppercase tracking-wider rounded-sm'>Agroindustria</p>
+                    <p className='px-3 py-1 bg-gray-50 border border-gray-200 text-blue-200 text-[0.75rem] uppercase tracking-wider rounded-sm'>Acuacultura</p>
+                    <p className='px-3 py-1 bg-gray-50 border border-gray-200 text-blue-200 text-[0.75rem] uppercase tracking-wider rounded-sm'>Industria Química</p>
+                </div>
+
+                <Link className='inline-flex items-center text-orange-500 font-bold uppercase tracking-wide text-[0.9rem] group/link hover:text-blue-200 transition-colors' to={"/sectores/cadena-suminsitros"}>
+                    Conocer más →
+                </Link>
             </div>
         </div>
     )

@@ -1,21 +1,30 @@
+import { ScrollReveal } from '../ScrollReveal'
 import { Estrategia } from './Estrategia'
 import { Logistica } from './Logistica'
 import { Mercado } from './Mercado'
 
 export const SectoresContainer = () => {
     return (
-        <div className='px-6 md:px-12 lg:px-20 py-12 md:py-20 bg-gray-800'>
-            <div className='flex flex-col lg:flex-row gap-8 lg:gap-10'>
-                <div className='w-full lg:w-[60%]'>
+        <section className='py-24 bg-gray-50 border-b border-gray-200 overflow-hidden'>
+            <ScrollReveal className='max-w-350 mx-auto px-5 sm:px-8 md:px-12'>
+                <div className="text-center mb-20 reveal-element">
+                    <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                        Nuestra Experiencia
+                    </span>
+                    <h2 className="text-blue-200 font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight">
+                        SOLUCIONES POR SECTOR
+                    </h2>
+                </div>
+
+
+
+                <div className='flex flex-col gap-16 md:gap-24'>
                     <Logistica />
-                </div>
-                <div className='w-full lg:w-[40%]'>
                     <Estrategia />
+                    <Mercado />
                 </div>
-            </div>
-            <div className='mt-10 lg:mt-16'>
-                <Mercado />
-            </div>
-        </div>
+
+            </ScrollReveal>
+        </section>
     )
 }
