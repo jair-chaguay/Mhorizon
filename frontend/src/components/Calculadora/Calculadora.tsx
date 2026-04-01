@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
 import { CalculadoraProps } from "./CalculadoraProps"
+import { ScrollReveal } from "../ScrollReveal"
 
 interface CalculadoraItem {
   image: string
@@ -22,55 +23,59 @@ const calculadora: CalculadoraItem[] = [
 
 export const Calculadora = () => {
   return (
-    <div
-      id="calculadora"
-      className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-16 px-5 sm:px-8 md:px-12 lg:px-20 py-14 md:py-16"
-    >
-      {/* Texto izquierda */}
-      <div className="w-full max-w-[760px] md:w-190">
-        <h2 className="text-white font-bold text-[1.9rem] sm:text-[2.1rem] md:text-[1.563rem] leading-tight text-center md:text-left">
-          CALCULADORA DE <span className="text-orange-500">IMPUESTO A LA RENTA</span>
-        </h2>
+    <section id="calculadora" className="bg-blue-200 py-24 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
 
-        <p className="text-white font-light text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] mt-3 text-center md:text-left">
-          ¿Conoce el impacto real de su Impuesto a la Renta de este año?
-        </p>
+      <ScrollReveal className="max-w-350 mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20 px-5 sm:px-8 md:px-12 relative z-10">
 
-        <div className="mt-8 flex flex-col gap-5">
-          {calculadora.map((props: CalculadoraItem) => (
-            <CalculadoraProps key={props.title} {...props} />
-          ))}
+
+        <div className="w-full lg:w-[55%] reveal-element">
+          <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+            Herramienta Analítica
+          </span>
+          <h2 className="text-white font-extrabold text-[2.2rem] sm:text-[2.5rem] md:text-[2.8rem] leading-tight text-center lg:text-left">
+            INTELIGENCIA FISCAL: <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">PROYECCIÓN DE RENTA</span>
+          </h2>
+
+          <p className="text-gray-300 text-[1.1rem] sm:text-[1.2rem] mt-6 text-center lg:text-left max-w-2xl leading-relaxed">
+            ¿Conoce el impacto real de su Impuesto a la Renta de este año?
+          </p>
+
+          <div className="mt-10 flex flex-col gap-8">
+            {calculadora.map((props: CalculadoraItem) => (
+              <CalculadoraProps key={props.title} {...props} />
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Card derecha */}
-      <div className="w-full flex justify-center">
-        <div className="bg-white py-8 px-6 sm:px-8 md:px-15 rounded-lg w-full max-w-[550px] md:w-[550px] shadow-xl">
-          <h3 className="font-bold text-center text-[1.15rem] sm:text-[1.2rem] md:text-[1.24rem]">
-            ANTICIPE SU FUTURO FINANCIERO
-          </h3>
+        <div className="w-full lg:w-[45%] flex justify-center lg:justify-end reveal-element delay-200">
+          <div className="bg-white py-12 px-8 sm:px-10 rounded-2xl w-full max-w-125 shadow-2xl relative">
 
-          <p className="mt-3 font-light text-center md:text-left text-[0.98rem] sm:text-[1rem]">
-            Utilice nuestro simulador interactivo para obtener claridad sobre sus
-            deducciones y proyecciones de pago.
-          </p>
+            <div className="absolute -top-6 -right-6 bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center shadow-lg border-4 border-blue-200">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            </div>
 
-          <p className="font-light mb-5 text-center md:text-left text-[0.98rem] sm:text-[1rem]">
-            Tome el control de sus finanzas corporativas hoy mismo.
-          </p>
+            <h3 className="font-bold text-blue-200 text-center text-[1.3rem] md:text-[1.4rem] tracking-tight">
+              ANTICIPE SU FUTURO FINANCIERO
+            </h3>
+            <div className="w-16 h-1 bg-orange-500 mx-auto mt-4 mb-6"></div>
+            <p className="text-gray-600 text-center text-[1.05rem] leading-relaxed mb-8">
+              Acceda a nuestra plataforma analítica exclusiva y tome el control estratégico de sus finanzas corporativas hoy mismo.
+            </p>
 
-          <Link
-            to={"/calculadora"}
-            className="block w-full bg-orange-500 text-white rounded-sm text-[1rem] py-3 hover:bg-blue-200 transition-colors text-center duration-300 cursor-pointer"
-          >
-            ACCEDER AL SIMULADOR
-          </Link>
+            <Link
+              to={"/calculadora"}
+              className="block w-full bg-orange-500 text-white font-bold tracking-wider uppercase rounded-md text-[1.05rem] py-4 hover:bg-blue-200 transition-colors text-center shadow-md hover:shadow-xl duration-300"
+            >
+              ACCEDER AL SIMULADOR
+            </Link>
 
-          <p className="text-center italic mt-5 font-light text-[0.72rem] sm:text-[0.78rem]">
-            Herramienta de uso gratuito para clientes y aliados estratégicos
-          </p>
+            <p className="text-center text-gray-400 mt-6 font-medium text-[0.75rem] uppercase tracking-wider">
+              ✓ Herramienta de uso gratuito para aliados estratégicos
+            </p>
+          </div>
         </div>
-      </div>
-    </div>
+      </ScrollReveal>
+    </section>
   )
 }

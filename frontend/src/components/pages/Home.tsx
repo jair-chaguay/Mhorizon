@@ -1,4 +1,4 @@
-import { Calculadora, Clients, Eslogan, Footer, Header, Hero, Impulsa, InfoRelaci, Informativos, Leaders, Soluciones } from '../../components'
+import { Calculadora, Clients, Eslogan, Footer, Frase, Header, Hero,InfoRelaci, Leaders, Soluciones } from '../../components'
 
 export const Home = () => {
   return (
@@ -9,21 +9,15 @@ export const Home = () => {
       <Eslogan />
       <Clients />
 
-      <section className='bg-gray-800 py-1 mt-10 pb-20'>
-        <Soluciones />
-      </section>
+      <Soluciones />
 
-      <section className='mt-auto bg-blue-200 min-h-[450px]'>
-        <Calculadora />
-      </section>
+      <Calculadora />
 
       <Leaders />
-      <div className='mt-10'>
-        <InfoRelaci/>
-      </div>
+      <InfoRelaci />
 
       <section className='bg-blue-200'>
-        <Impulsa />
+        <Frase  blanco='ELEVE EL ESTÁNDAR DE SU' naranja='GESTIÓN CORPORATIVA' styles='font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[3rem] leading-[1.1] mb-6 tracking-tight uppercase'/>
         <Footer />
       </section>
     </main>

@@ -1,29 +1,30 @@
+import { ScrollReveal } from "../ScrollReveal"
 
 export const HeroSubNov = () => {
     return (
-        <section className="px-6 md:px-12 lg:px-20 flex items-center relative bg-[url('/images/Recurso03.jpeg')] bg-cover bg-center min-h-75 md:min-h-87.5 py-12 md:py-0">
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/70 to-black/30 md:bg-linear-to-r md:from-black/90 md:via-black/80 md:to-transparent">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 bg-[url('/images/Recurso05.avif')] bg-cover bg-center overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/80 to-transparent">
             </div>
-            <div className="relative max-w-7xl mx-auto md:mx-0 w-full z-10">
-                <div className="max-w-3xl">
-                    <span className="inline-block px-3 md:px-4 py-1 mb-4 md:mb-6 text-blue-200 tracking-wide text-[0.65rem] md:text-xs uppercase bg-gray-800/60 rounded-sm">
+            <div className="relative z-10 w-full md:w-[75%] lg:w-[65%] pt-10 pb-20 reveal-element">
+                <div className="flex flex-wrap items-center gap-4 mb-4">
+                    <span className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase backdrop-blur-sm">
                         TRIBUTARIO
                     </span>
-
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-headline font-bold text-white tracking-tighter leading-[1.1] mb-4 md:mb-5 block">
-                        Actualización SRI: Nuevos
-                        <span className="text-orange-500 block mt-1 md:mt-0">Porcentajes de Retención 2026</span>
-                    </h1>
-                    
-                    <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-6">
-                        <div className="w-8 md:w-12 h-1 bg-orange-500 shrink-0"></div>
-                        <span className="text-[0.65rem] md:text-xs font-bold text-slate-400 uppercase tracking-widest">
-                            Publicado: 27 Feb, 2026
-                        </span>
-                    </div>
-                    
+                    <span className="text-gray-300 text-[0.85rem] font-medium tracking-wide flex items-center gap-2">
+                        <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        27 DE FEBRERO, 2026
+                    </span>
                 </div>
+
+                <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[3rem] md:text-[3.8rem] font-extrabold w-full tracking-tight leading-[1.05]">
+                    Actualización SRI: Nuevos <br className="hidden md:block" />
+                    <span className="text-orange-500">Porcentajes de Retención 2026</span>
+                </h1>
+
+                <p className="text-gray-300 mt-6 text-[1.05rem] sm:text-[1.15rem] leading-relaxed max-w-2xl">
+                    Análisis técnico sobre la Resolución NAC-00000009 que redefine el cumplimiento tributario para el presente ejercicio fiscal y su impacto directo en la caja corporativa.
+                </p>
             </div>
-        </section>
+        </ScrollReveal>
     )
 }

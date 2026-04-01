@@ -1,36 +1,35 @@
-import { Button } from '../Button'
-import { useState } from 'react'
-import { ContactModal } from "../ContactModal"
+import { ScrollReveal } from '../ScrollReveal';
 
 export const HeroFinanzas = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     return (
-        <section className="px-6 md:px-12 lg:px-20 flex gap-6 items-center relative bg-[url('/images/bgFinanzas.jpg')] bg-cover bg-center min-h-125 py-16 lg:py-0">
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/70 to-black/30 lg:bg-linear-to-r lg:from-black/90 lg:via-black/80 lg:to-transparent">
-            </div>
-            <div className="relative max-w-7xl mx-auto lg:mx-0 w-full z-10">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-162.5 bg-[url('/images/Recurso07.avif')] bg-cover bg-center overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-r from-blue-200 via-blue-200/80 to-transparent"></div>
+
+            <div className="relative z-10 w-full md:w-[75%] lg:w-[65%] pt-0 reveal-element">
                 <div className="max-w-3xl">
-                    <span className="inline-block px-3 md:px-4 py-1 mb-4 md:mb-6 text-blue-200 tracking-wide text-[0.65rem] md:text-xs uppercase bg-gray-800/60 rounded-sm font-semibold">
-                        Sector Estratégico
-                    </span>
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-headline font-bold text-white tracking-tighter leading-[1.1] mb-4 md:mb-5 block">
-                        Finanzas &
-                        <span className="text-orange-500 block mt-1 md:mt-0">Servicios Corporativos</span>
+                    <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] font-medium tracking-widest uppercase mb-4 backdrop-blur-sm">
+                        SECTOR ESTRATÉGICO
+                    </p>
+
+                    <h1 className="text-white drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[4rem] font-bold w-full tracking-tight leading-[1.05]">
+                        Finanzas & <br className="md:hidden" />
+                        <span className="text-orange-500">Servicios Corporativos</span>
                     </h1>
-                    <p className="text-[1.05rem] md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl text-balance">
+
+                    <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
                         Garantizamos la integridad, el cumplimiento normativo y la eficiencia operativa en instituciones donde la precisión es el núcleo absoluto del negocio.
-                    </p>                  
-                    <div className="mt-8 md:mt-6">
-                        <Button text='AGENDAR CONSULTORIA'
-                            styles='text-white font-bold bg-orange-500 w-full sm:w-[240px] py-3 md:py-2 rounded-sm' 
-                                                    onClick={() => setIsModalOpen(true)}
-/>
+                    </p>
+
+
+                    <div className="mt-10 md:mt-12 flex">
+                        <button id="agenda-hero-btn" className="cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl transition-all duration-300">
+                            AGENDAR CONSULTORÍA
+                        </button>
                     </div>
-                    
+
                 </div>
             </div>
-                        <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-            
-        </section>
+
+        </ScrollReveal>
     )
 }

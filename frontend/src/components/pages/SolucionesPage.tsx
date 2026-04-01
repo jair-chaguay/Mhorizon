@@ -1,4 +1,4 @@
-import { Header, Footer, Impulsa, Integrales, Metodologia, ServiciosEsp, Frase } from '../../components'
+import { Header, Footer, Integrales, Metodologia, ServiciosEsp, Frase } from '../../components'
 
 export const SolucionesPage = () => {
   return (

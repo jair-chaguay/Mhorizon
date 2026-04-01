@@ -21,41 +21,47 @@ export const LeaderCard = ({
   link,
 }: LeaderProps) => {
   return (
-    <div className="flex w-full max-w-[420px] min-h-[140px] bg-[#0f172a] rounded-md shadow-lg overflow-hidden">
-      
-      {/* Imagen */}
-      <div className="w-[32%] sm:w-[30%] relative">
-        <img className="w-full h-full object-cover" src={urlImg} alt={name} />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+    <div className="flex w-full min-h-35 bg-white border border-gray-100 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden group">
+
+      <div className="w-[35%] sm:w-[30%] flex items-center justify-center p-3 sm:p-4 bg-gray-50">
+        
+        <div className="relative w-full aspect-square rounded-full overflow-hidden shrink-0 shadow-md">
+          <img 
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+            src={urlImg} 
+            alt={name} 
+          />
+          <div className="absolute inset-0 bg-linear-to-r from-transparent to-black/40 pointer-events-none"></div>
+        </div>
       </div>
 
-      {/* Info */}
-      <div className="flex flex-col justify-center px-3 sm:px-4 py-3 w-[68%] sm:w-[70%] text-white">
-        <h2 className="font-semibold text-[0.95rem] sm:text-[1rem] text-orange-400 leading-tight">
+      <div className="flex flex-col justify-center px-5 sm:px-6 py-4 w-[65%] sm:w-[70%] bg-blue-200 text-white relative">
+        <h3 className="font-bold text-[1.1rem] text-orange-400">
           {name}
-        </h2>
+        </h3>
 
-        <p className="text-[0.78rem] sm:text-[0.82rem] leading-snug mt-1">
+        <p className="text-[0.85rem] text-gray-300 font-light mt-1">
           {cargo}
         </p>
+        <div className="mt-3 space-y-1">
+          <div className="flex items-center gap-2 text-[0.75rem] sm:text-[0.8rem] text-gray-300">
+            <FontAwesomeIcon className="w-3.5 h-3.5 text-orange-500" icon={faEnvelope} />
+            <span className="break-all">{email}</span>
+          </div>
 
-        <div className="flex gap-2 items-start text-[0.72rem] sm:text-[0.75rem] mt-2 break-all">
-          <FontAwesomeIcon className="text-orange-400 mt-[2px]" icon={faEnvelope} />
-          <span>{email}</span>
-        </div>
-
-        <div className="flex gap-2 items-start text-[0.72rem] sm:text-[0.75rem] mt-1">
-          <FontAwesomeIcon className="text-orange-400 mt-[2px]" icon={faPhone} />
-          <span>{telf}</span>
+          <div className="flex items-center gap-2 text-[0.75rem] sm:text-[0.8rem] text-gray-300">
+            <FontAwesomeIcon className="w-3.5 h-3.5 text-orange-500" icon={faPhone} />
+            <span>{telf}</span>
+          </div>
         </div>
 
         <a
-          className="flex items-center self-end justify-center w-7 h-7 rounded-full bg-orange-400 mt-3 hover:bg-orange-500 hover:scale-105 transition-all duration-300"
+          className="absolute right-4 bottom-4 p-2 rounded-full bg-white/10 hover:bg-orange-500 transition-colors"
           href={link}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <FontAwesomeIcon className="text-white text-[12px]" icon={faLinkedinIn} />
+          <FontAwesomeIcon className="w-4 h-4 text-white" icon={faLinkedinIn} />
         </a>
       </div>
     </div>

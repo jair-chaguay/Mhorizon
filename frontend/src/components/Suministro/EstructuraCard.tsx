@@ -7,17 +7,17 @@ interface estructurasProp {
 
 export const EstructuraCard = ({ numero, title, content }: estructurasProp) => {
     return (
-        <li className="flex gap-4 md:gap-6 items-start md:items-center">
+        <li className="flex gap-6 items-start group">
             
-            <div className="w-12.5 h-12.5 md:w-15 md:h-15 shrink-0 bg-orange-500 flex items-center justify-center font-headline font-black text-white text-lg md:text-xl rounded mt-1 md:mt-0">
+            <div className="w-14 h-14 shrink-0 bg-gray-50 border border-gray-200 text-[#151E28] group-hover:bg-orange-500 group-hover:text-white group-hover:border-orange-500 transition-all duration-300 rounded-xl flex items-center justify-center font-black text-xl shadow-sm">
                 {numero}
             </div>
             
             <div>
-                <h4 className="text-[1.15rem] md:text-xl font-medium text-white mb-1 md:mb-2 leading-tight md:leading-normal">
+                <h4 className="text-blue-200 font-bold text-[1.3rem] mb-2 leading-tight">
                     {title}
                 </h4>
-                <p className="font-light text-white/90 text-[0.95rem] md:text-base leading-relaxed">
+                <p className="text-gray-600 text-[1.05rem] leading-relaxed">
                     {content}
                 </p>
             </div>

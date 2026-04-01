@@ -1,26 +1,25 @@
+import { ScrollReveal } from "../ScrollReveal"
 
 export const HeroNovedades = () => {
     return (
-        <section className="px-6 md:px-12 lg:px-20 flex items-center relative bg-[url('/images/Recurso03.jpeg')] bg-cover bg-center min-h-100 md:min-h-125 py-12 md:py-0">
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/70 to-black/20 md:bg-linear-to-r md:from-black/90 md:via-black/80 md:to-transparent">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 bg-[url('/images/Recurso04.avif')] bg-cover bg-center overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/80 to-transparent">
             </div>
-            <div className="relative max-w-7xl mx-auto md:mx-0 w-full z-10">
-                <div className="max-w-3xl">
-                    <span className="inline-block px-3 md:px-4 py-1 mb-4 md:mb-6 text-blue-200 tracking-wide text-[0.65rem] md:text-xs uppercase bg-gray-800/60 rounded-sm font-semibold">
-                        BOLETINES & ACTUALIZACIONES
-                    </span>
-                    
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-headline font-bold text-white tracking-tighter leading-[1.1] mb-4 md:mb-5 block">
-                        Impulsando el
-                        <span className="text-orange-500 block mt-1 md:mt-0">conocimiento corporativo</span>
-                    </h1>
-                    
-                    <p className="text-[1.05rem] md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl text-balance">
-                        Informativos, actualizaciones tributarias y análisis estratégico del mercado ecuatoriano para una toma de decisiones precisa.
-                    </p>
-                    
-                </div>
+            <div className="relative z-10 w-full md:w-[75%] lg:w-[60%] pt-10 reveal-element">
+                <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] font-medium tracking-widest uppercase mb-4 backdrop-blur-sm">
+                    BOLETINES & ACTUALIZACIONES
+                </p>
+
+                <h1 className="text-white drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[4rem] font-bold w-full tracking-tight leading-[1.05]">
+                    Impulsando el <br className="hidden md:block" />
+                    <span className="text-orange-500">conocimiento corporativo</span>
+                </h1>
+
+                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
+                    Informativos, actualizaciones tributarias y análisis estratégico del mercado ecuatoriano para una toma de decisiones precisa.
+                </p>
+
             </div>
-        </section>
+        </ScrollReveal>
     )
 }

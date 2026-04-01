@@ -1,94 +1,74 @@
+import { ScrollReveal } from "../ScrollReveal"
 
 export const Methodology = () => {
     return (
-        <section className="py-16 md:py-24 bg-gray-800">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
-                
-                <div className="flex flex-col mb-12 md:mb-16 gap-6 md:gap-8">
-                    <div className="max-w-2xl mx-auto md:mx-0 w-full">
-                        <h2 className="text-2xl md:text-3xl font-headline font-bold text-blue-200 tracking-tight mb-4 text-center md:text-left">
+        <section className="py-24 bg-gray-800 border-b border-gray-200 overflow-hidden">
+            <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
+
+                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal-element">
+                    <div className="max-w-2xl w-full">
+                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                             Nuestra Metodología
+                        </span>
+                        <h2 className="text-blue-200 font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight">
+                            ESTABILIDAD ESTRUCTURAL
                         </h2>
-                        <div className="h-1.5 w-24 md:w-74 bg-orange-500 mx-auto md:mx-0"></div>
                     </div>
-                    <p className="text-base md:text-lg text-blue-200 font-light text-center md:text-left text-balance md:max-w-none mx-auto">
-                        Integramos auditoría profunda con ejecución táctica en terreno para asegurar
-                        la estabilidad estructural de sus operaciones.
+                    <p className="text-gray-600 text-[1.1rem] max-w-xl text-balance leading-relaxed">
+                        Integramos auditoría profunda con ejecución táctica en terreno para asegurar la estabilidad estructural de sus operaciones portuarias y logísticas.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-                    
-                    {/* Tarjeta 1: Blanca (Ocupa 8 columnas en md) */}
-                    <div className="md:col-span-8 bg-white border-gray-200 border p-8 md:p-12 shadow-xl relative group overflow-hidden rounded-lg">
-                        
-                        {/* Etiqueta Naranja */}
-                        <div className='bg-orange-500 absolute p-3 w-15 h-15 md:w-18 md:h-18 -top-1 items-end flex rounded-sm z-20'>
-                            <img className="object-contain" src="/images/Recurso63.png" alt="Recurso63" />
+
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 lg:gap-12 mt-12">
+
+
+                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 sm:p-10 relative reveal-element hover:shadow-2xl transition-shadow mt-6 md:mt-0 group">
+                        <div className='absolute -top-6 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:-translate-y-2 transition-transform duration-300'>
+                            <img className="w-7" src="/images/Recurso63.png" alt="Recurso63" />
                         </div>
-                        
-                        <div className="relative z-10 mt-10 md:mt-12">
-                            <h3 className="text-xl md:text-2xl font-headline font-medium text-blue-200 mb-3 md:mb-4">
-                                Optimización Integral de Flujos
-                            </h3>
-                            <p className="text-blue-200 font-light text-[0.95rem] md:text-lg leading-relaxed max-w-xl">
-                                Rediseñamos redes de suministro, control de inventarios y logística
-                                portuaria para reducir fricción y maximizar la resiliencia ante las
-                                volatilidades del mercado ecuatoriano e internacional.
-                            </p>
-                        </div>
-                        
-                        {/* Figura decorativa de la esquina */}
-                        <div className="absolute top-0 right-0 w-24 h-24 md:w-32 md:h-32 bg-orange-200 -mr-12 -mt-12 md:-mr-16 md:-mt-16 rotate-45 group-hover:bg-orange-500/80 transition-colors duration-500 z-0">
-                        </div>
+
+                        <h3 className="text-blue-200 font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight group-hover:text-orange-500 transition-colors">
+                            Optimización Integral de Flujos
+                        </h3>
+                        <p className="text-gray-600 text-[1.05rem] leading-relaxed">
+                            Rediseñamos redes de suministro, control de inventarios y logística para reducir fricción y maximizar la resiliencia ante las volatilidades del mercado.
+                        </p>
                     </div>
 
 
-                    {/* Tarjeta 2: Azul (Ocupa 4 columnas en md) */}
-                    <div className="md:col-span-4 bg-blue-200 p-8 md:p-10 text-white flex flex-col justify-between rounded-lg relative overflow-hidden shadow-xl">
-                        
-                        {/* Etiqueta Naranja */}
-                        <div className='bg-orange-500 absolute p-3 w-15 h-18 md:w-15 md:h-18 -top-1 items-end flex rounded-sm justify-center z-20'>
-                            <img className='w-6 md:w-8 object-contain' src="/images/Recurso64.png" alt="Recurso64" />
+
+
+                    <div className="bg-blue-200 rounded-2xl shadow-xl p-8 sm:p-10 relative reveal-element delay-100 hover:shadow-2xl transition-shadow mt-6 md:mt-0 group">
+
+                        <div className='absolute -top-6 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:-translate-y-2 transition-transform duration-300'>
+                            <img className='w-7 text-orange-500' src="/images/Recurso64.png" alt="Recurso64" />
                         </div>
-                        
-                        <div className="relative z-10 mt-10 md:mt-12">
-                            <h3 className="text-xl md:text-2xl font-medium mb-3 md:mb-4">
-                                Confianza Corporativa
-                            </h3>
-                            <p className="text-white/80 text-sm md:text-[0.95rem] leading-relaxed mb-6">
-                                Nuestra experiencia está respaldada por la gestión y consultoría a
-                                líderes del sector portuario, agroindustrial y marítimo en la región.
-                            </p>
-                            
-                            {/* Ajusté un poco el "MARCAS" por si luego le quieres poner logos o etiquetas */}
-                            <div className="flex flex-wrap gap-2">
-                                <div className="text-xs font-semibold bg-white/20 px-3 py-1 rounded-sm tracking-wider">MARCAS</div>
-                            </div>
-                        </div>
+
+                        <h3 className="text-white font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight">
+                            Confianza Corporativa
+                        </h3>
+                        <p className="text-gray-300 text-[1.05rem] leading-relaxed mb-6">
+                            Nuestra experiencia está respaldada por la gestión y consultoría a líderes del sector portuario, agroindustrial y marítimo en la región.
+                        </p>
+                        <span className="inline-block px-3 py-1 bg-white/10 text-white border border-white/20 text-[0.70rem] font-bold uppercase tracking-widest rounded-sm">MARCAS LÍDERES</span>
+
                     </div>
 
 
-                    {/* Tarjeta 3: Larga de abajo (Ocupa 12 columnas en md) */}
-                    {/* Ajusté el borde naranja para que se vea bien en celulares (border-l-4 vs border-l-8) */}
-                    <div className="md:col-span-12 bg-white shadow-xl p-8 md:p-12 border-l-4 md:border-l-8 border-orange-500 rounded-r-lg rounded-l-sm md:rounded-l-none">
-                        <div className="flex flex-col md:flex-row gap-4 md:gap-8 items-start md:items-center">
-                            <div className="flex-1">
-                                <h3 className="text-xl md:text-2xl text-blue-200 font-bold mb-3 md:mb-4">
-                                    Gestión de Riesgos Operativos
-                                </h3>
-                                <p className="text-blue-200 font-light text-[0.95rem] md:text-lg">
-                                    Identificación proactiva de cuellos de botella para blindar
-                                    la continuidad del negocio. Anticipamos interrupciones en la
-                                    cadena de frío, transporte y abastecimiento antes de que afecten
-                                    su rentabilidad.
-                                </p>
-                            </div>
+                    <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 sm:p-10 relative reveal-element delay-200 hover:shadow-2xl transition-shadow mt-6 md:mt-0 group">
+                        <div className="absolute -top-6 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:-translate-y-2 transition-transform duration-300">
+                            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         </div>
+                        <h3 className="text-blue-200 font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight group-hover:text-orange-500 transition-colors">Gestión de Riesgos Operativos</h3>
+                        <p className="text-gray-600 text-[1.05rem] leading-relaxed">
+                            Identificación proactiva de cuellos de botella para blindar la continuidad del negocio. Anticipamos interrupciones en la cadena de abastecimiento.
+                        </p>
                     </div>
 
                 </div>
-            </div>
+            </ScrollReveal>
         </section>
     )
 }

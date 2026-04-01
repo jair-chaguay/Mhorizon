@@ -3,7 +3,7 @@ import { EstrctFinan } from '../Finanzas/EstrctFinan'
 
 export const FinanzasPage = () => {
     return (
-        <main className='m-auto'>
+        <main className='m-auto overflow-hidden'>
             <Header />
             <HeroFinanzas />
             <Operamos/>
@@ -12,7 +12,7 @@ export const FinanzasPage = () => {
                 <Frase
                     blanco='¿Listo para fortalecer su '
                     naranja='horizonte financiero?'
-                    styles='text-[1.8rem]'
+                    styles='font-extrabold text-[2rem] md:text-[2.6rem] leading-tight mb-4 tracking-tight'
                 />
                 <Footer />
             </section>

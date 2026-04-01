@@ -1,29 +1,26 @@
+import { ScrollReveal } from "../ScrollReveal"
 
 export const HeroCalculadora = () => {
     return (
-        <section className="px-6 md:px-12 lg:px-20 flex items-center relative bg-[url('/images/Recurso03.jpeg')] bg-cover bg-center min-h-87.5 py-12 lg:py-0">
-            
-            <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/70 to-black/30 lg:bg-linear-to-r lg:from-black/90 lg:via-black/80 lg:to-transparent">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 bg-[url('/images/Recurso03.jpeg')] bg-cover bg-center overflow-hidden">
+
+            <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent">
             </div>
 
-            <div className="relative max-w-7xl mx-auto lg:mx-0 w-full z-10">
-                <div className="max-w-3xl">
-                    
-                    <span className="inline-block px-3 md:px-4 py-1 mb-4 md:mb-6 text-blue-200 tracking-wide text-[0.65rem] md:text-xs uppercase bg-gray-800/60 rounded-sm font-semibold">
-                        HERRAMIENTAS PROFESIONALES
-                    </span>
-                    
-                    <h1 className="text-3xl md:text-4xl lg:text-5xl font-headline font-bold text-white tracking-tighter leading-[1.1] mb-4 md:mb-5 block">
-                        Simulador Fiscal
-                        <span className="text-orange-500 block mt-1 md:mt-0">Avanzado</span>
-                    </h1>
-                    
-                    <p className="text-[1.05rem] md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl text-balance">
-                        Proyecte el impacto tributario de su empresa para el ejercicio actual con nuestro análisis algorítmico de alta precisión.
-                    </p>
+            <div className="relative z-10 w-full md:w-[75%] lg:w-[60%] pt-0 reveal-element">
+                <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] fon-medium tracking-widest uppercase mb-4 backdrop-blur-sm">
+                    HERRAMIENTAS PROFESIONALES
+                </p>
+                <h1 className="text-white drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[4rem] font-bold w-full tracking-tight leading-[1.05]">
+                    Simulador Fiscal <br className="hidden md:block" />
+                    <span className="text-orange-500">Avanzado</span>
+                </h1>
 
-                </div>
+                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left max-w-2xl">
+                    Proyecte el impacto tributario de su empresa para el ejercicio actual con nuestro análisis algorítmico de alta precisión, desarrollado por especialistas corporativos.
+                </p>
+
             </div>
-        </section>
+        </ScrollReveal>
     )
 }

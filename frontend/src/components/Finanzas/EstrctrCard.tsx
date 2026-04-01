@@ -1,27 +1,25 @@
-interface estructuraProps{
-    icon: React.ElementType, 
+interface estructuraProps {
+    icon: React.ElementType,
     title: string,
     content: string
 }
 
 
-export const EstrctrCard = ({icon: Icon, title, content}: estructuraProps) => {
+export const EstrctrCard = ({ icon: Icon, title, content }: estructuraProps) => {
     return (
-        <div className="flex gap-8 group cursor-default items-center">
-            <div className="shrink-0 w-16 h-16   
-            flex items-center justify-center hover:bg-orange-500  transition-colors 
-            duration-300 text-orange-500 hover:text-white
-            border-2 rounded-lg hover:border-orange-500">
-                <Icon className=" w-10 h-10 cursor-pointer"/>
-                
-            </div>
-            <div>
-                <h4 className="text-xl font-bold mb-3 text-white">
-                    {title}
-                </h4>
-                <p className="text-white/90 font-light leading-relaxed max-w-lg">
-                    {content}
-                </p>
+        <div className="bg-white/5 border border-white/10 rounded-2xl p-8 md:p-10 reveal-element delay-100 hover:bg-white/10 transition-colors group">
+            <div className="flex items-start gap-6">
+                <div className="shrink-0 w-16 h-16 rounded-xl border border-white/20 bg-white/5 flex items-center justify-center text-orange-500 group-hover:border-orange-500 group-hover:bg-orange-500/10 transition-all duration-300">
+                    <Icon className="w-8 h-8" />
+                </div>
+                <div>
+                    <h3 className="text-white font-bold text-[1.3rem] mb-3">
+                        {title}
+                    </h3>
+                    <p className="text-gray-400 text-[0.95rem] leading-relaxed">
+                        {content}
+                    </p>
+                </div>
             </div>
         </div>
     )

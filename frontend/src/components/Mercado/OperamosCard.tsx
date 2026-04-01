@@ -1,46 +1,46 @@
 import { Recurso73 } from "../IconosSVG"
 
-interface operamosProps{
-    icon: React.ElementType,
-    title: string,
-    content: string,
-    list1: string,
-    list2: string
+interface operamosProps {
+  icon: React.ElementType,
+  title: string,
+  content: string,
+  list1: string,
+  list2: string
 }
 
-export const OperamosCard = ({icon: Icon, title, content, list1, list2}: operamosProps) => {
+export const OperamosCard = ({ icon: Icon, title, content, list1, list2 }: operamosProps) => {
   return (
-    <div className="bg-white p-10 rounded-xl shadow-[0_8px_32px_rgba(25,28,30,0.06)] 
-            hover:shadow-[0_16px_48px_rgba(25,28,30,0.12)]">
-            <div className="w-12 h-12 bg-gray-800 flex items-center justify-center rounded-lg 
-              mb-8 hover:bg-orange-500 hover:text-white transition-colors duration-300 p-2 cursor-pointer">
-              <Icon className=""/>
-            </div>
+    <div className="bg-white pt-14 pb-10 px-8 shadow-lg rounded-xl relative border border-gray-100 reveal-element delay-100 hover:shadow-2xl transition-shadow group">
+      <div className="absolute -top-6 left-8 bg-blue-200 w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 transition-transform">
+        <Icon className="w-7 h-7 text-white" />
+      </div>
 
-            <h3 className="text-xl font-bold mb-4 text-blue-200">
-              {title}
-            </h3>
-            <p className="text-blue-200 font-light text-2sm leading-relaxed mb-6">
-              {content}
-            </p>
-            <ul className="space-y-3">
-              <li className="flex items-center gap-2 text-xs font-medium text-blue-200">
+      <div className="mt-2">
+        <h3 className="font-bold text-blue-200 text-[1.2rem] md:text-[1.3rem] leading-tight">
+          {title}
+        </h3>
+        <p className="mt-4 text-gray-600 text-[0.95rem] leading-relaxed mb-6">
+          {content}
+        </p>
+        <ul className="space-y-3">
+          <li className="flex items-start gap-2 text-[0.9rem] font-medium text-blue-200">
 
-                <span className="text-[16px] text-orange-500">
-                  <Recurso73/>
-                </span>
+            <span className="w-5 h-5 text-orange-500 shrink-0">
+              <Recurso73 />
+            </span>
 
-                {list1}
-              </li>
-              <li className="flex items-center gap-2 text-xs font-semibold text-slate-700">
-                
-                <span className="text-[16px] text-orange-500">
-                  <Recurso73/>
-                </span>
+            {list1}
+          </li>
+          <li className="flex items-start gap-2 text-[0.9rem] font-medium text-blue-200">
 
-                {list2}
-              </li>
-            </ul>
-          </div>
+            <span className="w-5 h-5 text-orange-500 shrink-0">
+              <Recurso73 />
+            </span>
+
+            {list2}
+          </li>
+        </ul>
+      </div>
+    </div>
   )
 }

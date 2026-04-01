@@ -1,3 +1,4 @@
+import { ScrollReveal } from "../ScrollReveal"
 import { EstructuraCard } from "./EstructuraCard"
 
 interface estructurasProp {
@@ -26,18 +27,36 @@ const estructuras: estructurasProp[] = [
 
 export const Estructura = () => {
     return (
-        <section className="bg-blue-200 relative overflow-hidden border-b border-b-gray-100/10 py-12 lg:py-0">
-            <div className="relative z-10">
-                
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                    
-                    <div className="px-6 md:px-12 lg:px-0 lg:pl-20 mt-0 lg:mt-20 lg:mb-20">
-                        <h2 className="text-[2rem] md:text-4xl font-bold text-white tracking-tighter mb-8 md:mb-10 leading-tight">
-                            Estructura <br className="hidden sm:block" />
-                            <span className="text-orange-500">Estratégica</span>
+        <section className="py-24 bg-white overflow-hidden">
+            <div className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
+
+                <ScrollReveal className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-center">
+
+                    <div className="w-full lg:w-[45%] relative reveal-element">
+                        <div className="rounded-2xl overflow-hidden shadow-2xl relative aspect-4/5 lg:aspect-square">
+                            <img alt="Contenedores portuarios"
+                                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                src="/images/Recurso62.jpg" />
+                            <div className="absolute inset-0 bg-blue-200/10 mix-blend-multiply"></div>
+                        </div>
+
+                        <div className="absolute -bottom-8 -right-4 sm:-right-8 bg-blue-200 p-8 sm:p-10 rounded-2xl shadow-2xl max-w-[320px] border-t-4 border-orange-500 hidden sm:block">
+                            <p className="text-white font-light italic text-[1.1rem] leading-relaxed drop-shadow-md">
+                                "La eficiencia operativa no es un objetivo, es el cimiento de nuestra estructura."
+                            </p>
+                            <p className="text-orange-500 font-bold text-[0.75rem] uppercase tracking-widest mt-6">Dirección Técnica</p>
+                        </div>
+                    </div>
+
+                    <div className="w-full lg:w-[55%] reveal-element delay-100 mt-8 lg:mt-0">
+                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                            Procesos Clave
+                        </span>
+                        <h2 className="text-blue-200 font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight mb-12">
+                            ESTRUCTURA ESTRATÉGICA
                         </h2>
-                        
-                        <ul className="space-y-8 md:space-y-12">
+
+                        <ul className="flex flex-col gap-10">
                             {
                                 estructuras.map((estructura: estructurasProp) => (
                                     <EstructuraCard key={estructura.numero} {...estructura} />
@@ -46,30 +65,8 @@ export const Estructura = () => {
                         </ul>
                     </div>
 
-                    <div className="relative h-full">
-                        <div className="aspect-4/5 md:aspect-square lg:h-full overflow-hidden">
-                            <img alt="Contenedores portuarios"
-                                className="w-full h-full object-cover"
-                                src="/images/Recurso62.jpg" />
-                        </div>
 
-                        <div className="absolute inset-0 bg-linear-to-t from-blue-200 via-black/40 lg:via-black/10 to-transparent"></div>
-
-                        <div className="absolute bottom-0 left-0 md:left-4 p-6 md:p-8 max-w-lg w-full">
-                            <p className="text-white italic text-[1.05rem] md:text-lg leading-relaxed text-shadow-md">
-                                "La eficiencia operativa no es un objetivo, es el cimiento de nuestra
-                                estructura."
-                            </p>
-                            <div className="mt-4 flex flex-col gap-2">
-                                <div className="h-1 w-8 bg-orange-500"></div>
-                                <span className="text-orange-500 text-sm md:text-md uppercase tracking-widest font-bold">
-                                    Dirección Técnica
-                                </span>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
+                </ScrollReveal>
             </div>
         </section>
     )

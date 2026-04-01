@@ -11,8 +11,7 @@ interface boletinesProps{
 
 export const BoletinCard = ({etiqueta, fecha, image, titulo, content}: boletinesProps) => {
     return (
-        <article className="group bg-blue-200 flex flex-col rounded-xl overflow-hidden 
-                    hover:shadow-2xl transition-all duration-500 shadow-lg">
+        <article className="bg-blue-200 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col group reveal-element border border-gray-100">
             <div className="relative h-56 overflow-hidden bg-blue-200">
                 <img className="w-full h-full object-cover group-hover:scale-105 
                     transition-transform duration-700 block grayscale mix-blend-luminosity 

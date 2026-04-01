@@ -1,5 +1,7 @@
 import { Recurso77 } from "../IconosSVG"
+import { ScrollReveal } from "../ScrollReveal"
 import { BoletinCard } from "./BoletinCard"
+import { Navegacion } from "./Navegacion"
 
 interface boletinesProps {
     etiqueta: string,
@@ -50,38 +52,47 @@ const boletines: boletinesProps[] = [
 
 export const Boletin = () => {
     return (
-        <section className="max-w-7xl mx-auto px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <section className="py-10 bg-gray-50 pb-24">
+            <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
 
-                {
-                    boletines.map((boletin: boletinesProps) => (
-                        <BoletinCard key={boletin.titulo} {...boletin} />
-                    ))
-                }
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
 
-                <article className="bg-orange-500 rounded-xl overflow-hidden p-8 flex flex-col justify-center 
-                    text-white shadow-lg">
-                    <Recurso77 className="mb-6 w-12 h-12" />
-                    <h3 className="text-2xl font-bold mb-4 leading-tight">
-                        Reciba nuestras novedades en su correo
-                    </h3>
-                    <p className="text-white font-light text-md mb-8 leading-relaxed">
-                        Suscríbase para recibir mensualmente una síntesis de los cambios regulatorios e informativos
-                        más relevantes del país.
-                    </p>
-                    <form className="space-y-3">
-                        <input className="w-full bg-blue-200/5 border border-white/20 rounded-md px-4 py-3 text-md
-                         placeholder:text-white/70 focus:bg-blue-200/10 focus:border-white outline-none 
-                         transition-all" placeholder="Correo electrónico" type="email"
-                        />
-                        <button className="w-full bg-blue-200 text-white font-medium py-3 rounded-md text-sm 
-                        hover:opacity-90 transition-all uppercase tracking-wider shadow cursor-pointer">
-                            SUSCRIBIRME
-                        </button>
-                    </form>
-                </article>
+                    {
+                        boletines.map((boletin: boletinesProps) => (
+                            <BoletinCard key={boletin.titulo} {...boletin} />
+                        ))
+                    }
 
-            </div>
+                    <article className="bg-orange-500 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col justify-center p-10 relative reveal-element delay-200 group text-white">
+                        <div className="absolute -right-10 -bottom-10 opacity-10 pointer-events-none">
+                            <Recurso77 className="w-48 h-48" />
+                        </div>
+                        <div className="relative z-10">
+                            <div className="w-14 h-14 bg-white text-orange-500 flex items-center justify-center rounded-lg shadow-md mb-6">
+                                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 className="text-[1.6rem] font-bold mb-4 leading-tight tracking-tight">
+                                Reciba nuestras novedades en su correo
+                            </h3>
+                            <p className="text-white/90 font-light text-[0.95rem] mb-8 leading-relaxed">
+                                Suscríbase para recibir mensualmente una síntesis de los cambios regulatorios e informativos
+                                más relevantes del país.
+                            </p>
+                            <form className="space-y-4">
+                                <input className="w-full bg-white/10 border border-white/30 rounded-md px-4 py-3 text-[0.95rem] placeholder:text-white/70 focus:bg-white/20 focus:border-white outline-none transition-all" placeholder="Correo electrónico corporativo" type="email" required />
+                                <button type="button" className="w-full bg-blue-200 text-white font-bold py-3.5 rounded-md text-[0.85rem] hover:bg-white hover:text-blue-200 transition-colors duration-300 uppercase tracking-widest shadow-md cursor-pointer">
+                                    SUSCRIBIRME
+                                </button>
+                            </form>
+                        </div>
+
+                    </article>
+
+                </div>
+                <Navegacion/>
+
+            </ScrollReveal>
+
         </section>
     )
 }

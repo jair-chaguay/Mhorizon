@@ -1,63 +1,34 @@
-import { Button } from '../Button'
-import { useState } from 'react'
-import { ContactModal } from "../ContactModal"
+import { ScrollReveal } from "../ScrollReveal"
 
 export const HeroSuministro = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-        <section className="px-20 flex gap-6 items-center relative 
-            bg-[url('/images/Recurso61.jpg')] bg-cover bg-center min-h-[500px]">
-            <div className="absolute inset-0 bg-linear-to-r from-black/90 via-black/80 
-                    to-transparent">
-            </div>
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-162.5 bg-[url('/images/Recurso61.jpg')] bg-cover bg-center overflow-hidden">
+            <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/80 to-transparent"></div>
 
-            <div className="relative max-w-7xl mx-auto px-8 w-full">
-                <div className="max-w-3xl">
-                    <span className="inline-block px-4 py-1 mb-6 text-blue-200  tracking-wide 
-                    text-xs uppercase bg-gray-800/60 rounded-sm">
-                        Especialización Sectorial
-                    </span>
-                    <h1 className="text-5xl md:text-5xl font-headline font-bold text-white tracking-
-                    tighter leading-[1.1] mb-5 block">
-                        Cadena de
-                        <span className="text-orange-500 block">Suministro & Operaciones</span>
-                    </h1>
-                    <p className="text-xl md:text-xl text-slate-300 font-light leading-relaxed max-w-2xl text-balance">
-                        Aportamos rigor analítico y optimización a los procesos críticos de empresas que sostienen la infraestructura, la producción y el comercio exterior a gran escala.
-                    </p>
-                    <Button text='AGENDAR CONSULTORIA'
-                        styles='text-white font-bold bg-orange-500 min-w-[240px] mt-5 rounded-sm'
-                        onClick={() => setIsModalOpen(true)}
-                    />
+
+            <div className="relative z-10 w-full md:w-[75%] lg:w-[60%] reveal-element">
+                <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm">
+                    ESPECIALIZACIÓN SECTORIAL
+                </p>
+
+                <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.8rem] font-bold w-full tracking-tight leading-[1.1]">
+                    CADENA DE <br className="hidden md:block" />
+                    <span className="text-orange-500">SUMINISTRO & OPERACIONES</span>
+                </h1>
+
+                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
+                    Aportamos rigor analítico y optimización a los procesos críticos de empresas que sostienen la infraestructura, la producción y el comercio exterior a gran escala.
+                </p>
+
+                <div className="mt-10 md:mt-12 flex">
+                    <button id="agenda-hero-btn" className="bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl transition-all duration-300">
+                        AGENDAR CONSULTORÍA
+                    </button>
                 </div>
+
             </div>
 
-
-
-            <div className="absolute bottom-0 right-0 hidden lg:block w-1/3 p-12 
-            bg-blue-200/80 text-white">
-                <div className="space-y-8">
-                    <div>
-                        <div className="text-4xl font-headline font-black text-orange-500">
-                            100%
-                        </div>
-                        <div className="text-sm font-label uppercase tracking-widest text-white/80 mt-2">
-                            Trazabilidad Operativa
-                        </div>
-                    </div>
-                    <div>
-                        <div className="text-4xl font-headline font-black text-orange-500">
-                            +35%
-                        </div>
-                        <div className="text-sm font-label uppercase tracking-widest text-white/80 mt-2">
-                            Optimización de Recursos
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ContactModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-
-        </section>
+        </ScrollReveal>
     )
 }

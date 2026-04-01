@@ -1,6 +1,3 @@
-import { Button } from './Button'
-import { useState } from 'react'
-import { ContactModal } from './ContactModal'
 
 import { ScrollReveal } from './ScrollReveal'
 
@@ -11,7 +8,6 @@ interface palabra {
 }
 
 export const Frase = ({ blanco, naranja, styles = '' }: palabra) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <ScrollReveal>
@@ -29,7 +25,7 @@ export const Frase = ({ blanco, naranja, styles = '' }: palabra) => {
                     </button>
                 </div>
                 <div className="mt-12 flex items-center justify-center gap-2 text-gray-400 text-sm">
-                    <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <svg className="w-5 h-5 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     <span>Guayaquil, Ecuador: Carchi 601 y Quisquis, Edificio Quil 1, Piso 12</span>
                 </div>
                 <hr className="border-t border-white/50 mx-8 md:mx-20 lg:mx-40 mt-10 md:mt-12" />

@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom"
 import { Recurso77 } from "../IconosSVG"
 import { BoletinCard } from "../Novedades/BoletinCard"
+import { ScrollReveal } from "../ScrollReveal"
 
 interface boletinesProps {
     etiqueta: string,
@@ -37,19 +39,34 @@ const boletines: boletinesProps[] = [
 export const InfoRelaci = () => {
     return (
 
-        <section className="max-w-7xl mx-auto px-8 py-20">
-            <h2 className="text-4xl text-blue-200 tracking-tighter mb-12 border-l-4 font-medium
-            pl-8 border-l-orange-500">
-                Información Relacionada</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                {
-                    boletines.map((boletin: boletinesProps) => (
-                        <BoletinCard key={boletin.titulo} {...boletin} />
-                    ))
-                }
+        <ScrollReveal as={"section"} className="py-24 bg-white border-b border-gray-200 overflow-hidden">
+            <div className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
+
+                <div className="flex flex-col md:flex-row justify-between items-end mb-16 reveal-element gap-6">
+                    <div className="max-w-2xl">
+                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                            Thought Leadership
+                        </span>
+                        <h2 className="text-blue-200 font-bold text-[2.2rem] sm:text-[2.6rem] uppercase tracking-tight leading-tight">
+                            INFORMATIVOS MHORIZON
+                        </h2>
+                    </div>
+                    <Link to={"/novedades"} className="inline-flex items-center gap-2 text-blue-200 font-bold uppercase tracking-wider text-[0.9rem] border-b-2 border-blue-200 hover:text-orange-500 hover:border-orange-500 transition-colors pb-1">
+                        Ver todos los informatiovs
+                    </Link>
+                </div>
 
 
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {
+                        boletines.map((boletin: boletinesProps) => (
+                            <BoletinCard key={boletin.titulo} {...boletin} />
+                        ))
+                    }
+
+
+                </div>
             </div>
-        </section>
+        </ScrollReveal>
     )
 }

@@ -1,6 +1,7 @@
 import { ValoresCard } from "./ValoresCard"
-import { GavelIcon, Hands, VerifiedUser } from "../IconosSVG"
+import { Eyee, GavelIcon, Hands, VerifiedUser } from "../IconosSVG"
 import { Handshake } from "lucide-react"
+import { ScrollReveal } from "../ScrollReveal"
 
 interface valoresProps {
     icon: React.ElementType,
@@ -9,7 +10,7 @@ interface valoresProps {
 
 }
 
-const valores : valoresProps[] = [
+const valores: valoresProps[] = [
     {
         icon: VerifiedUser,
         title: "Integridad Absoluta",
@@ -21,7 +22,7 @@ const valores : valoresProps[] = [
         content: "Actualización constante frente a las reformas del SRI y Superintendencia de Compañías para mitigar cualquier riesgo legal."
     },
     {
-        icon: GavelIcon,
+        icon: Eyee,
         title: "Visión estratégica",
         content: "No solo auditamos el pasado, proyectamos el futuro financiero de nuestros clientes mediante análisis de datos precisos."
     },
@@ -33,32 +34,35 @@ const valores : valoresProps[] = [
 ]
 
 export const ValoresContainer = () => {
-  return (
-    <section className="py-32 bg-mh-white">
-        <div className="max-w-7xl mx-auto px-8">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 mb-24 items-end">
-                <div className="lg:col-span-5">
-                    <h2 className="font-bold text-4xl md:text-4xl text-blue-200 leading-tight uppercase 
-                        tracking-tighter border-l-4 border-orange-500 pl-6">
-                            Nuestros<br/>Valores
-                    </h2>
-                </div>
-                <div className="lg:col-span-7">
-                    <p className="text-gray-500 text-lg md:text-lg leading-relaxed max-w-2xl md:mb-5">
-                        Principios innegociables que definen nuestra cultura corporativa y garantizan la excelencia 
-                        en cada auditoría, asesoría legal y análisis financiero.
-                    </p>
-                </div>
-            </div>
+    return (
+        <section className="bg-gray-800 py-24 overflow-hidden border-b border-gray-200">
+            <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 border-t border-slate-200 pt-2">
-                {
-                    valores.map((valor: valoresProps)=>(
-                        <ValoresCard key={valor.title} {...valor}/>
-                    ))
-                }
-            </div>
-        </div>
-    </section>
-  )
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-20 items-end reveal-element">
+                    <div className="lg:col-span-5">
+                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                            Nuestra Cultura
+                        </span>
+                        <h2 className="font-extrabold text-[2.2rem] sm:text-[2.6rem] md:text-[3rem] text-[#151E28] leading-tight uppercase tracking-tight">
+                            PRINCIPIOS <br />INNEGOCIABLES
+                        </h2>
+                    </div>
+
+                    <div className="lg:col-span-7">
+                        <p className="text-blue-200/70 text-[1.1rem] leading-relaxed max-w-2xl">
+                            Estos pilares definen nuestra cultura corporativa y garantizan la excelencia probada en cada auditoría, asesoría legal y análisis financiero que entregamos.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                    {
+                        valores.map((valor: valoresProps) => (
+                            <ValoresCard key={valor.title} {...valor} />
+                        ))
+                    }
+                </div>
+            </ScrollReveal>
+        </section>
+    )
 }
