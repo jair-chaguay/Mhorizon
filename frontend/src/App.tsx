@@ -9,6 +9,8 @@ import { AuditoriaPage, CalculadoraPage, Crud, FinanzasPage, GestionPage, Login,
 import { MercadoPage } from "./components/pages/MercadoPage";
 import { NovedadeSubPage } from "./components/pages/NovedadeSubPage";
 import { ScrollToTop } from "./components/ScrollTop";
+import { LoginPage } from "./components/LoginPage/LoginPage";
+import { RecoverCredentials } from "./components/LoginPage/RecoverCredentials";
 
 function App() {
   return (
@@ -31,6 +33,9 @@ function App() {
         <Route path="/calculadora" element={<CalculadoraPage />} />
         <Route path="/nosotros" element={<NosotrosPage />} />
         <Route path="/crud" element={<Crud />} />
+        <Route path="/loginPage" element={<LoginPage />} />
+                <Route path="/login/reset-credentials" element={< RecoverCredentials/>} />
+
 
       </Routes>
     </BrowserRouter>
