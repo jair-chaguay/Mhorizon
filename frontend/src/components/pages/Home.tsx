@@ -1,4 +1,5 @@
 import { Calculadora, Clients, Eslogan, Footer, Frase, Header, Hero,InfoRelaci, Leaders, Soluciones } from '../../components'
+import { Radar } from '../Radar/Radar'
 
 export const Home = () => {
   return (
@@ -14,6 +15,7 @@ export const Home = () => {
       <Calculadora />
 
       <Leaders />
+      <Radar />
       <InfoRelaci />
 
       <section className='bg-blue-200'>

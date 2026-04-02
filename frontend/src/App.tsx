@@ -11,6 +11,11 @@ import { NovedadeSubPage } from "./components/pages/NovedadeSubPage";
 import { ScrollToTop } from "./components/ScrollTop";
 import { LoginPage } from "./components/LoginPage/LoginPage";
 import { RecoverCredentials } from "./components/LoginPage/RecoverCredentials";
+import ResetPassword from "./components/LoginPage/ResetPassword";
+import OTPVerification from "./components/LoginPage/OTPVerification";
+import SuccessVerification from "./components/LoginPage/SuccessVerification";
+import IntranetLayout from "./components/pages/Intranet/IntranetLayout";
+import LayoutCliente from "./components/IntranetClients/LayoutCliente";
 
 function App() {
   return (
@@ -34,7 +39,16 @@ function App() {
         <Route path="/nosotros" element={<NosotrosPage />} />
         <Route path="/crud" element={<Crud />} />
         <Route path="/loginPage" element={<LoginPage />} />
-                <Route path="/login/reset-credentials" element={< RecoverCredentials/>} />
+        <Route path="/login/recover-credentials" element={< RecoverCredentials />} />
+        <Route path="/login/resetPassword" element={< ResetPassword />} />
+        <Route path="/login/OTP" element={< OTPVerification />} />
+        <Route path="/login/success" element={< SuccessVerification />} />
+        <Route path="/intranet" element={< IntranetLayout />} />
+        <Route path="/intranetClientes" element={< LayoutCliente />} />
+
+
+
+
 
 
       </Routes>

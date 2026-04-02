@@ -5,7 +5,7 @@ export const LoginPage = () => {
     return (
         <ScrollReveal as={"section"} className="bg-blue-200 text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative">
 
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-luminosity z-0"></div>
+            <div className="absolute inset-0 bg-[url('/images/Recurso38.avif')] bg-cover bg-center opacity-40 mix-blend-luminosity z-0"></div>
             <div className="absolute inset-0 bg-linear-to-b from-blue-200/95 via-blue-200/90 to-blue-200 z-0"></div>
 
             <header className="relative z-10 w-full py-6 px-5 sm:px-8 md:px-12 flex justify-between items-center reveal-element">
@@ -74,14 +74,14 @@ export const LoginPage = () => {
                                 </div>
 
                                 <div className="text-[0.85rem]">
-                                    <a href="#" className="font-medium text-gray-500 hover:text-orange-500 transition-colors duration-300">
+                                    <Link to={"/login/recover-credentials"} className="font-medium text-gray-500 hover:text-orange-500 transition-colors duration-300">
                                         ¿Olvidó su clave?
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
 
                             <div className="pt-6 border-t border-gray-100">
-                                <button type="submit" className="w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-[#151E28] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                                <button type="submit" className="cursor-pointer w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                                     Iniciar Sesión
                                 </button>
                             </div>

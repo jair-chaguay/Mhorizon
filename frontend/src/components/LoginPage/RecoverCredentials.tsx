@@ -1,14 +1,15 @@
+import { Link } from "react-router-dom";
 import { ScrollReveal } from "../ScrollReveal";
 
 export const RecoverCredentials = () => {
     return (
-        <ScrollReveal className="bg-[#151E28] text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative">
+        <ScrollReveal className="bg-blue-200 text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative">
 
-            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-luminosity z-0"></div>
-            <div className="absolute inset-0 bg-gradient-to-b from-[#151E28]/95 via-[#151E28]/90 to-[#151E28] z-0"></div>
+            <div className="absolute inset-0 bg-[url('/images/Recurso38.avif')] bg-cover bg-center opacity-40 mix-blend-luminosity z-0"></div>
+            <div className="absolute inset-0 bg-linear-to-b from-blue-200/95 via-blue-200/90 to-blue-200 z-0"></div>
 
             <header className="relative z-10 w-full py-6 px-5 sm:px-8 md:px-12 flex justify-between items-center reveal-element">
-                <a href="/home" className="inline-block transition-transform hover:scale-105 duration-300">
+                <a href="/" className="inline-block transition-transform hover:scale-105 duration-300">
                     <img
                         src="images/MHORIZONBOCETO.png"
                         alt="MHorizon Logo"
@@ -25,11 +26,11 @@ export const RecoverCredentials = () => {
                 </div>
             </header>
 
-            <main className="relative z-10 flex-grow flex items-center justify-center px-4 sm:px-6 py-12">
+            <main className="relative z-10 grow flex items-center justify-center px-4 sm:px-6 py-12">
 
-                <div className="w-full max-w-[480px] bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden reveal-element delay-100 border border-white/10 relative">
+                <div className="w-full max-w-120 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden reveal-element delay-100 border border-white/10 relative">
 
-                    <div className="h-1.5 w-full bg-gradient-to-r from-orange-400 to-orange-600"></div>
+                    <div className="h-1.5 w-full bg-linear-to-r from-orange-400 to-orange-600"></div>
 
                     <div className="p-8 sm:p-10 md:p-12">
 
@@ -37,10 +38,10 @@ export const RecoverCredentials = () => {
                             <span className="inline-block bg-orange-500/10 text-orange-500 border border-orange-500/20 px-3 py-1 rounded text-[0.70rem] font-bold tracking-widest uppercase mb-4">
                                 Soporte de Acceso
                             </span>
-                            <h1 className="text-[#151E28] font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight">
+                            <h1 className="text-blue-200 font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight">
                                 Recuperar Credenciales
                             </h1>
-                            <p className="text-[#151E28]/60 font-light mt-3 text-[0.95rem] leading-relaxed">
+                            <p className="text-blue-200/60 font-light mt-3 text-[0.95rem] leading-relaxed">
                                 Ingrese su correo electrónico institucional. Le enviaremos las instrucciones de seguridad para restablecer su contraseña.
                             </p>
                         </div>
@@ -48,7 +49,7 @@ export const RecoverCredentials = () => {
                         <form action="#" method="POST" className="space-y-6">
 
                             <div>
-                                <label htmlFor="email" className="block text-[0.80rem] font-bold text-[#151E28] uppercase tracking-widest mb-2">
+                                <label htmlFor="email" className="block text-[0.80rem] font-bold text-blue-200 uppercase tracking-widest mb-2">
                                     Correo Institucional
                                 </label>
                                 <div className="relative group">
@@ -63,25 +64,25 @@ export const RecoverCredentials = () => {
                                         type="email"
                                         required
                                         autoComplete="email"
-                                        className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-[#151E28] font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300"
+                                        className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300"
                                         placeholder="ejemplo@corporacion.com"
                                     />
                                 </div>
                             </div>
 
                             <div className="pt-2">
-                                <button type="submit" className="w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-[#151E28] hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                                    Enviar Instrucciones
+                                <button type="submit" className="cursor-pointer w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                                    <Link to={"/login/OTP"}>Enviar Instrucciones</Link>
                                 </button>
                             </div>
 
                             <div className="text-center pt-4">
-                                <a href="/login" className="inline-flex items-center gap-2 text-[0.85rem] font-medium text-gray-500 hover:text-orange-500 transition-colors duration-300 group">
+                                <Link to="/loginPage" className="inline-flex items-center gap-2 text-[0.85rem] font-medium text-gray-500 hover:text-orange-500 transition-colors duration-300 group">
                                     <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
                                     </svg>
                                     Volver al Inicio de Sesión
-                                </a>
+                                </Link>
                             </div>
                         </form>
                     </div>
@@ -99,7 +100,7 @@ export const RecoverCredentials = () => {
             </main>
 
             <footer className="relative z-10 w-full py-6 px-5 border-t border-white/10 reveal-element delay-200">
-                <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-[0.75rem] text-white/50 font-light">
+                <div className="max-w-350 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-[0.75rem] text-white/50 font-light">
                     <p>&copy; 2026 MHORIZON ECUADOR. Todos los derechos reservados.</p>
                     <div className="flex gap-6 uppercase tracking-wider">
                         <a href="#" className="hover:text-orange-500 transition-colors duration-300">Privacidad</a>
