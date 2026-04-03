@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import { ContactModal } from "../ContactModal" 
+import { ContactModal } from "../ContactModal"
 
 interface NavProps {
   mobile?: boolean
@@ -29,27 +29,27 @@ export const Nav = ({ mobile = false }: NavProps) => {
           }
         >
           <li className={mobile ? "relative w-full" : "relative group py-4"}>
-            <div 
+            <div
               className={`flex items-center gap-1 cursor-pointer transition-colors duration-300 ${mobile ? 'hover:text-orange-500' : 'text-orange-500 hover:text-orange-400'}`}
               onClick={() => mobile && toggleDropdown('soluciones')}
             >
               <Link to="/soluciones" onClick={(e) => mobile && e.preventDefault()}>SOLUCIONES</Link>
-              <svg 
-                className={`w-4 h-4 transition-transform duration-300 ${!mobile ? 'group-hover:-rotate-180' : (openDropdown === 'soluciones' ? '-rotate-180' : '')}`} 
+              <svg
+                className={`w-4 h-4 transition-transform duration-300 ${!mobile ? 'group-hover:-rotate-180' : (openDropdown === 'soluciones' ? '-rotate-180' : '')}`}
                 fill="none" stroke="currentColor" viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
               </svg>
             </div>
-            
+
             <div className={
-              mobile 
+              mobile
                 ? `overflow-hidden transition-all duration-300 ${openDropdown === 'soluciones' ? 'max-h-96 opacity-100 pt-3' : 'max-h-0 opacity-0'}`
                 : "absolute left-0 top-[100%] pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 z-50"
             }>
               <ul className={
-                mobile 
-                  ? "flex flex-col gap-3 pl-4 text-sm font-normal text-white" 
+                mobile
+                  ? "flex flex-col gap-3 pl-4 text-sm font-normal text-white"
                   : "bg-white text-blue-200 shadow-xl rounded-md overflow-hidden flex flex-col border border-gray-100"
               }>
                 <li><Link to="/soluciones/consultoria-empresarial" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Consultoría Empresarial</Link></li>
@@ -61,13 +61,13 @@ export const Nav = ({ mobile = false }: NavProps) => {
           </li>
 
           <li className={mobile ? "relative w-full" : "relative group py-4"}>
-            <div 
+            <div
               className="hover:text-orange-500 transition-colors duration-300 flex items-center gap-1 cursor-pointer"
               onClick={() => mobile && toggleDropdown('sectores')}
             >
               <Link to="/sectores" onClick={(e) => mobile && e.preventDefault()}>SECTORES</Link>
-              <svg 
-                className={`w-4 h-4 transition-transform duration-300 ${!mobile ? 'group-hover:-rotate-180' : (openDropdown === 'sectores' ? '-rotate-180' : '')}`} 
+              <svg
+                className={`w-4 h-4 transition-transform duration-300 ${!mobile ? 'group-hover:-rotate-180' : (openDropdown === 'sectores' ? '-rotate-180' : '')}`}
                 fill="none" stroke="currentColor" viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
@@ -75,18 +75,20 @@ export const Nav = ({ mobile = false }: NavProps) => {
             </div>
 
             <div className={
-              mobile 
+              mobile
                 ? `overflow-hidden transition-all duration-300 ${openDropdown === 'sectores' ? 'max-h-96 opacity-100 pt-3' : 'max-h-0 opacity-0'}`
                 : "absolute left-0 top-[100%] pt-2 w-[340px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 z-50"
             }>
               <ul className={
-                mobile 
-                  ? "flex flex-col gap-3 pl-4 text-sm font-normal text-white" 
+                mobile
+                  ? "flex flex-col gap-3 pl-4 text-sm font-normal text-white"
                   : "bg-white text-blue-200 shadow-xl rounded-md overflow-hidden flex flex-col border border-gray-100"
               }>
-                <li><Link to="/sectores/cadena-suminsitros" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Cadena de Suministro y Operaciones</Link></li>
-                <li><Link to="/sectores/cadena-finanzas" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Finanzas y Servicios Corporativos</Link></li>
-                <li><Link to="/sectores/mercado-financiero" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Consumo, Tecnología y Bienestar</Link></li>
+                <li><Link to="/sectores/cadena-suminsitros" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Sector Financiero</Link></li>
+                <li><Link to="/sectores/cadena-finanzas" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Industrial y Comercial</Link></li>
+                <li><Link to="/sectores/mercado-financiero" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Servicios Empresariales</Link></li>
+                <li><Link to="/sectores/mercado-financiero" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Logístico y Portuarios</Link></li>
+
               </ul>
             </div>
           </li>
@@ -99,7 +101,7 @@ export const Nav = ({ mobile = false }: NavProps) => {
           </li>
 
           <li className="hover:bg-white hover:text-orange-500 transition-all duration-300 bg-orange-500 rounded-sm px-5 py-2 w-full md:w-auto text-center md:text-left">
-            <button 
+            <button
               onClick={() => setIsModalOpen(true)}
               className="cursor-pointer uppercase w-full outline-none"
             >
@@ -117,8 +119,8 @@ export const Nav = ({ mobile = false }: NavProps) => {
           </li>
         </ul>
       </nav>
-      
-      <ContactModal 
+
+      <ContactModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />

@@ -13,13 +13,20 @@ export const HeroSuministro = () => {
                 </p>
 
                 <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.8rem] font-bold w-full tracking-tight leading-[1.1]">
-                    CADENA DE <br className="hidden md:block" />
-                    <span className="text-orange-500">SUMINISTRO & OPERACIONES</span>
+                    SECTOR <br className="hidden md:block" />
+                    <span className="text-orange-500">FINANCIERO</span>
                 </h1>
 
                 <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
-                    Aportamos rigor analítico y optimización a los procesos críticos de empresas que sostienen la infraestructura, la producción y el comercio exterior a gran escala.
+                    Garantizamos la integridad operativa, el cumplimiento normativo estricto y la eficiencia fiscal para instituciones bancarias, cooperativas, aseguradoras y empresas Fintech en el mercado ecuatoriano.
                 </p>
+
+                <div className="mt-10 md:mt-11 flex flex-wrap gap-4">
+                    <span className="px-4 py-2 bg-white/10 border border-white/20 text-white text-[0.80rem] font-bold uppercase tracking-wider rounded-sm backdrop-blur-md">Bancos & Cooperativas</span>
+                    <span className="px-4 py-2 bg-white/10 border border-white/20 text-white text-[0.80rem] font-bold uppercase tracking-wider rounded-sm backdrop-blur-md">Fintech & Pagos</span>
+                    <span className="px-4 py-2 bg-white/10 border border-white/20 text-white text-[0.80rem] font-bold uppercase tracking-wider rounded-sm backdrop-blur-md">Aseguradoras</span>
+                </div>
+
 
                 <div className="mt-10 md:mt-12 flex">
                     <button id="agenda-hero-btn" className="bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl transition-all duration-300">

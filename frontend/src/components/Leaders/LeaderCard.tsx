@@ -23,7 +23,7 @@ export const LeaderCard = ({
   return (
     <div className="flex w-full min-h-35 bg-white border border-gray-100 rounded-xl shadow-lg hover:shadow-xl transition-shadow overflow-hidden group">
 
-      <div className="w-[35%] sm:w-[30%] flex items-center justify-center p-3 sm:p-4 bg-gray-50">
+      <div className="w-[35%] sm:w-[30%] flex items-center justify-center p-3 sm:p-4 bg-blue-200">
         
         <div className="relative w-full aspect-square rounded-full overflow-hidden shrink-0 shadow-md">
           <img 

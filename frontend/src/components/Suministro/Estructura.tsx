@@ -10,18 +10,18 @@ interface estructurasProp {
 const estructuras: estructurasProp[] = [
     {
         numero: '01',
-        title: 'Auditoría de Procesos e Inventarios',
-        content: 'Implementación de controles rigurosos para la gestión exacta de stocks y reducción de mermas en la agroindustria y manufactura.',
+        title: 'Consultoría Empresarial y Riesgos',
+        content: 'Identificación y mitigación proactiva de riesgos operativos y financieros. Reestructuramos procesos para hacer instituciones más sólidas y rentables.',
     },
     {
         numero: '02',
-        title: 'Eficiencia en Operaciones Portuarias',
-        content: 'Optimización granular de los flujos de carga y descarga para agilizar el comercio exterior y reducir costos de almacenamiento.',
+        title: 'Cumplimiento Normativo (SCVS y SB)',
+        content: 'Alineación total de sus estatutos, manuales y reportes con las exigencias de la Superintendencia de Compañías y la Superintendencia de Bancos del Ecuador.',
     },
     {
         numero: '03',
-        title: 'Cumplimiento y Normativa Aduanera',
-        content: 'Alineación estricta con las regulaciones logísticas y navieras para garantizar un tránsito fluido y sin contingencias legales',
+        title: 'Innovación en Fintech y Pagos',
+        content: 'Asesoría integral para la constitución y escalabilidad tributaria de pasarelas de pago, billeteras digitales y nuevos modelos de negocio tecnológico en el país.',
     }
 ]
 
@@ -42,18 +42,19 @@ export const Estructura = () => {
 
                         <div className="absolute -bottom-8 -right-4 sm:-right-8 bg-blue-200 p-8 sm:p-10 rounded-2xl shadow-2xl max-w-[320px] border-t-4 border-orange-500 hidden sm:block">
                             <p className="text-white font-light italic text-[1.1rem] leading-relaxed drop-shadow-md">
-                                "La eficiencia operativa no es un objetivo, es el cimiento de nuestra estructura."
+                                "La confianza del mercado se construye sobre la solidez financiera y el cumplimiento estricto."
+
                             </p>
-                            <p className="text-orange-500 font-bold text-[0.75rem] uppercase tracking-widest mt-6">Dirección Técnica</p>
+                            <p className="text-orange-500 font-bold text-[0.75rem] uppercase tracking-widest mt-6">Filosofía Corporativa</p>
                         </div>
                     </div>
 
                     <div className="w-full lg:w-[55%] reveal-element delay-100 mt-8 lg:mt-0">
                         <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
-                            Procesos Clave
+                            Serivicios especializados
                         </span>
                         <h2 className="text-blue-200 font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight mb-12">
-                            ESTRUCTURA ESTRATÉGICA
+                            PILARES DEL SERVICIO
                         </h2>
 
                         <ul className="flex flex-col gap-10">

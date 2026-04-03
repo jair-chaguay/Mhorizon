@@ -2,33 +2,79 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\adminController;
-use App\Http\Controllers\Api\suscriptoresController;
-use App\Http\Controllers\Api\informativosController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\RolController;
+use App\Http\Controllers\Api\UsuarioController;
+use App\Http\Controllers\Api\InformativoController;
+use App\Http\Controllers\Api\EmpresaController;
+use App\Http\Controllers\Api\noticiasController;
+use App\Http\Controllers\Api\AuditoriaLogController;
+use App\Http\Controllers\Api\DeclaracionController;
+use App\Http\Controllers\Api\ContactoController;
+use App\Http\Controllers\Api\BibliotecaController;
+
+
 
 //LOGIN
-Route::post('/login', [adminController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'login']);
 
-//ADMINS
-Route::get('/admins', [adminController::class, 'index']);
-Route::get('/admins/{id}', [adminController::class, 'show']);
-Route::post('/admins', [adminController::class, 'store']);
-Route::put('/admins/{id}', [adminController::class, 'update']);
-Route::patch('/admins/{id}', [adminController::class, 'updatePartial']);
-Route::delete('/admins/{id}', [adminController::class, 'destroy']);
 
-//SUSCRIPTORES
-Route::get('/suscriptores', [suscriptoresController::class, 'index']);
-Route::get('/suscriptores/{id}', [suscriptoresController::class, 'show']);
-Route::post('/suscriptores', [suscriptoresController::class, 'store']);
-Route::put('/suscriptores/{id}', [suscriptoresController::class, 'update']);
-Route::patch('/suscriptores/{id}', [suscriptoresController::class, 'updatePartial']);
-Route::delete('/suscriptores/{id}', [suscriptoresController::class, 'destroy']);
+//ROLES
+Route::get('/rol', [RolController::class, 'index']);
+Route::post('/rol', [RolController::class, 'store']);
+Route::get('/rol/{id}', [RolController::class, 'show']);
+Route::put('/rol/{id}', [RolController::class, 'update']);
+Route::delete('/rol/{id}', [RolController::class, 'destroy']);
 
-//INFORMATIVOS
-Route::get('/informativos', [informativosController::class, 'index']);
-Route::get('/informativos/{id}', [informativosController::class, 'show']);
-Route::post('/informativos', [informativosController::class, 'store']);
-Route::put('/informativos/{id}', [informativosController::class, 'update']);
-Route::patch('/informativos/{id}', [informativosController::class, 'updatePartial']);
-Route::delete('/informativos/{id}', [informativosController::class, 'destroy']);
+//EMPRESAS
+Route::get('/empresas', [EmpresaController::class, 'index']);
+Route::get('/empresas/{id}', [EmpresaController::class, 'show']);
+Route::post('/empresas', [EmpresaController::class, 'store']);
+Route::put('/empresas/{id}', [EmpresaController::class, 'update']);
+Route::delete('/empresas/{id}', [EmpresaController::class, 'destroy']);
+
+Route::get('/usuario', [UsuarioController::class, 'index']);
+Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
+Route::post('/usuario', [UsuarioController::class, 'store']);
+Route::put('/usuario/{id}', [UsuarioController::class, 'update']);
+Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/informativo', [InformativoController::class, 'index']);
+Route::get('/informativo/{id}', [InformativoController::class, 'show']);
+Route::post('/informativo', [InformativoController::class, 'store']);
+Route::put('/informativo/{id}', [InformativoController::class, 'update']);
+Route::delete('/informativo/{id}', [InformativoController::class, 'destroy']);
+});
+
+
+
+Route::get('/noticia', [noticiasController::class, 'index']);
+Route::get('/noticia/{id}', [noticiasController::class, 'show']);
+Route::post('/noticia', [noticiasController::class, 'store']);
+Route::put('/noticia/{id}', [noticiasController::class, 'update']);
+Route::delete('/noticia/{id}', [noticiasController::class, 'destroy']);
+
+Route::get('/declaracion', [DeclaracionController::class, 'index']);
+Route::get('/declaracion/{id}', [DeclaracionController::class, 'show']);
+Route::post('/declaracion', [DeclaracionController::class, 'store']);
+Route::put('/declaracion/{id}', [DeclaracionController::class, 'update']);
+Route::delete('/declaracion/{id}', [DeclaracionController::class, 'destroy']);
+
+Route::get('/contacto', [ContactoController::class, 'index']);
+Route::get('/contacto/{id}', [ContactoController::class, 'show']);
+Route::post('/contacto', [ContactoController::class, 'store']);
+Route::put('/contacto/{id}', [ContactoController::class, 'update']);
+Route::delete('/contacto/{id}', [ContactoController::class, 'destroy']);
+
+Route::get('/biblioteca/{id}', [BibliotecaController::class, 'getArbolBiblioteca']);
+Route::post('/storePeriodo', [BibliotecaController::class, 'storePeriodo']);
+Route::post('/storeSubcarpeta', [BibliotecaController::class, 'storeSubcarpeta']);
+Route::post('/uploadDocumento', [BibliotecaController::class, 'uploadDocumento']);
+Route::delete('/deleteDocumento/{id}', [BibliotecaController::class, 'deleteDocumento']);
+
+Route::get('/bitacora', [AuditoriaLogController::class, 'index']);
+Route::get('/bitacora/{id}', [AuditoriaLogController::class, 'show']);
+

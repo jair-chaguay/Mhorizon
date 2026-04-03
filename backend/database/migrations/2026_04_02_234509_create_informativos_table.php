@@ -3,8 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
-
 
 return new class extends Migration
 {
@@ -15,11 +13,16 @@ return new class extends Migration
     {
         Schema::create('informativos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('creado_por_id')->constrained('usuarios')->onDelete('restrict');
+            $table->foreignId('modificado_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
+            
+            $table->string('categoria')->comment('Ej: Tributario, Legal, Auditoría');
             $table->string('titulo');
-            $table->string('descripcion');
-            $table->string('archivo');
-            $table->date('fechaRegistro')->default(DB::raw('CURRENT_DATE'));
-            $table->timestamps();
+            $table->string('resolucion_oficial')->nullable();
+            $table->text('contenido');
+            $table->string('imagen_portada_url')->nullable();
+            
+            $table->timestamps();        
         });
     }
 

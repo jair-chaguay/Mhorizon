@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -12,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin', function (Blueprint $table) {
+        Schema::create('biblioteca_subcarpetas', function (Blueprint $table) {
             $table->id();
-            $table->string('nick');
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->foreignId('periodo_id')->constrained('biblioteca_periodos')->onDelete('cascade');
+            $table->string('nombre')->comment('Ej: Estados Financieros, Declaraciones');
+            $table->foreignId('creado_por_id')->constrained('usuarios')->onDelete('restrict');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin');
+        Schema::dropIfExists('biblioteca_subcarpetas');
     }
 };

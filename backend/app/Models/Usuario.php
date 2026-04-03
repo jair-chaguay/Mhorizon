@@ -1,0 +1,51 @@
+<?php
+
+namespace App\Models;
+use Illuminate\Foundation\Auth\User as Authenticatable; 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Sanctum\HasApiTokens; 
+
+
+class Usuario extends Authenticatable
+{
+        use HasApiTokens, HasFactory, Notifiable;
+
+    protected $table = 'usuarios';
+    protected $fillable = [
+        'rol_id',
+        'empresa_id',
+        'nombre',
+        'apellido',
+        'correo',
+        'password_hash',
+        'cargo',
+        'activo',
+        'ultimo_acceso'
+    ];
+
+    protected $hidden = [
+        'password_hash',
+    ];
+
+    protected $casts = [
+        'activo' => 'boolean',
+        'ultimo_acceso' => 'datetime',
+    ];
+
+    public function getAuthPassword()
+    {
+        return $this->password_hash;
+    }
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'rol_id');
+    }
+
+    public function empresa()
+    {
+        return $this->belongsTo(Empresa::class, 'empresa_id');
+    }
+
+}

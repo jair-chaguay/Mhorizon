@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contactanos', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('asunto');
-            $table->text('mensaje');
-            $table->enum('estado', ['pendiente', 'atendido'])->default('pendiente');
-            $table-date('fechaEnvio')->useCurrent();
+            $table->string('nombre');
+            $table->boolean('es_interno')->default(true);
+            $table->integer('nivel_acceso')->default(1);
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contactanos');
+        Schema::dropIfExists('roles');
     }
 };
