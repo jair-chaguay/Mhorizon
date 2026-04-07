@@ -11,16 +11,16 @@ class Noticias extends Model
     protected $table = 'noticias';
 
     protected $fillable = [
-        'creador_por_id',
+        'creado_por_id',
         'titulo',
         'fuente',
         'descripcion_corta',
         'url_destino',
-        'url_imagen'
+        'imagen_url'
     ];
 
     public function creador()
     {
-        return $this->belongsTo(Usuario::class, 'creador_por')->select(['id', 'nombre', 'apellido']);
+        return $this->belongsTo(Usuario::class, 'creado_por_id')->select(['id', 'nombre', 'apellido']);
     }
 }

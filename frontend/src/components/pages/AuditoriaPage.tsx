@@ -7,9 +7,7 @@ export const AuditoriaPage = () => {
             <HeroAuditoria />
                 <IntegAudit/>
                 <MetodologiaAud/>
-            <section>
-                <Analisis/>
-            </section>
+
             <section className='bg-blue-200'>
                 <Impulsa />
                 <Footer />

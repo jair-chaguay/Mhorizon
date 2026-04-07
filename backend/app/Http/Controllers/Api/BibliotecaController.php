@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Empresa;
+use App\Models\Cliente; // 1. IMPORTANTE: Ahora usamos Cliente
 use App\Models\BibliotecaPeriodo;
 use App\Models\BibliotecaSubcarpeta;
 use App\Models\Documento;
@@ -15,40 +15,50 @@ use Illuminate\Support\Facades\Auth;
 
 class BibliotecaController extends Controller
 {
- 
-    public function getArbolBiblioteca($empresa_id)
+    /**
+     * Obtener todo el árbol de carpetas y archivos de un CLIENTE
+     */
+    public function getArbolBiblioteca($cliente_id) // 2. CAMBIO: $cliente_id
     {
-        $empresa = Empresa::with([
+        $cliente = Cliente::with([
             'periodos.subcarpetas.documentos.subidoPor'
-        ])->find($empresa_id);
+        ])->find($cliente_id);
 
-        if(!$empresa){
-            return response()->json(['message' => 'Empresa no encontrada', 'status' => 404], 404);
+        if(!$cliente){
+            return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
         }
 
+        // Auditoría silenciosa
         if(Auth::user()->rol->es_interno) {
-            AuditoriaLog::registrar('LEER', 'empresas', $empresa->id, "Accedió a la biblioteca del cliente {$empresa->razon_social}");
+            AuditoriaLog::registrar(
+                'LEER', 
+                'clientes', // 3. CAMBIO: Tabla clientes
+                $cliente->id, 
+                "Accedió a la biblioteca del cliente {$cliente->razon_social_nombres}" // 4. CAMBIO: razon_social_nombres
+            );
         }
 
         return response()->json([
-            'empresa' => $empresa->razon_social,
-            'biblioteca' => $empresa->periodos,
+            'cliente' => $cliente->razon_social_nombres,
+            'biblioteca' => $cliente->periodos,
             'status' => 200
         ], 200);
     }
 
-    
+    /**
+     * Crear un nuevo periodo (Ej: 2026)
+     */
     public function storePeriodo(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'empresa_id' => 'required|exists:empresas,id',
+            'cliente_id' => 'required|exists:clientes,id', // 5. CAMBIO: Validar en tabla clientes
             'anio' => 'required|digits:4'
         ]);
 
         if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
         $periodo = BibliotecaPeriodo::create([
-            'empresa_id' => $request->empresa_id,
+            'cliente_id' => $request->cliente_id, // 6. CAMBIO: Asignar cliente_id
             'anio' => $request->anio,
             'creado_por_id' => Auth::id()
         ]);
@@ -58,6 +68,9 @@ class BibliotecaController extends Controller
         return response()->json(['message' => 'Periodo creado', 'periodo' => $periodo], 201);
     }
 
+    /**
+     * Crear una subcarpeta (Ej: Estados Financieros)
+     */
     public function storeSubcarpeta(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -78,6 +91,9 @@ class BibliotecaController extends Controller
         return response()->json(['message' => 'Subcarpeta creada', 'subcarpeta' => $subcarpeta], 201);
     }
 
+    /**
+     * Subir un Documento físico
+     */
     public function uploadDocumento(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -117,7 +133,9 @@ class BibliotecaController extends Controller
         return response()->json(['message' => 'Documento subido', 'documento' => $documento], 201);
     }
 
-   
+    /**
+     * Eliminar Documento
+     */
     public function deleteDocumento($id)
     {
         $documento = Documento::find($id);

@@ -19,27 +19,18 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Datos inválidos',
-                'errors' => $validator->errors(),
-                'status' => 400
-            ], 400);
+            return response()->json(['message' => 'Datos inválidos', 'errors' => $validator->errors(), 'status' => 400], 400);
         }
 
-        $usuario = Usuario::with(['rol', 'empresa'])->where('correo', $request->correo)->first();
+        // ¡EL CAMBIO ESTÁ EN ESTA LÍNEA! Cambiamos 'empresa' por 'cliente'
+        $usuario = Usuario::with(['rol', 'cliente'])->where('correo', $request->correo)->first();
 
         if (!$usuario || !Hash::check($request->password, $usuario->password_hash)) {
-            return response()->json([
-                'message' => 'Credenciales incorrectas.',
-                'status' => 401 // No autorizado
-            ], 401);
+            return response()->json(['message' => 'Credenciales incorrectas.', 'status' => 401], 401);
         }
 
         if (!$usuario->activo) {
-            return response()->json([
-                'message' => 'Esta cuenta ha sido desactivada. Contacte al administrador.',
-                'status' => 403 // Prohibido
-            ], 403);
+            return response()->json(['message' => 'Esta cuenta ha sido desactivada. Contacte al administrador.', 'status' => 403], 403);
         }
 
         $usuario->ultimo_acceso = Carbon::now();
@@ -50,7 +41,7 @@ class AuthController extends Controller
         return response()->json([
             'message' => 'Bienvenido a MHorizon',
             'token' => $token,
-            'usuario' => $usuario, // Trae el rol y la empresa gracias al 'with'
+            'usuario' => $usuario, 
             'status' => 200
         ], 200);
     }
@@ -58,13 +49,6 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
-
-        return response()->json([
-            'message' => 'Sesión cerrada correctamente',
-            'status' => 200
-        ], 200);
+        return response()->json(['message' => 'Sesión cerrada correctamente', 'status' => 200], 200);
     }
 }
-
-
-

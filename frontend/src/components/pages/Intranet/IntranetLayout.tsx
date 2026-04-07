@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './SideBar'; // Verifica si tu archivo es SideBar.tsx o Sidebar.tsx
+import Sidebar from './SideBar'; 
 import Header from './Header';
 import Directorio from './views/Directorio';
 import Biblioteca from './views/Biblioteca';
@@ -18,7 +18,9 @@ import { type ViewID, type Cliente } from './types';
 import ModalAñadirDeclaracion from './modals/ModalAñadirDeclaracion';
 
 const IntranetLayout: React.FC = () => {
-    // Estados principales de navegación
+
+    const [refreshSignal, setRefreshSignal] = useState(0);    // Estados principales de navegación
+    const triggerRefresh = () => setRefreshSignal(prev => prev + 1);
     const [activeView, setActiveView] = useState<ViewID>('view-directorio');
     const [viewTitle, setViewTitle] = useState('Directorio de Clientes');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -33,8 +35,10 @@ const IntranetLayout: React.FC = () => {
     const [isRedactarModalOpen, setIsRedactarModalOpen] = useState(false);
 
     const [isEliminarModalOpen, setIsEliminarModalOpen] = useState(false);
-    const [itemAEliminar, setItemAEliminar] = useState({ id: '', title: '' });
-
+    const [itemAEliminar, setItemAEliminar] = useState<{ id: number | string; title: string }>({
+        id: 0,
+        title: ''
+    });
     // NUEVO: Estado para el modal de subir archivo
     const [isSubirArchivoOpen, setIsSubirArchivoOpen] = useState(false);
     const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
@@ -50,7 +54,7 @@ const IntranetLayout: React.FC = () => {
         setIsGestionModalOpen(true);
     };
 
-    const handleOpenEliminar = (id: string, title: string) => {
+    const handleOpenEliminar = (id: number|string, title: string) => {
         setItemAEliminar({ id, title });
         setIsEliminarModalOpen(true);
     };
@@ -92,6 +96,7 @@ const IntranetLayout: React.FC = () => {
 
                         {activeView === 'view-informativos' && (
                             <Informativos
+                                key={`info-${refreshSignal}`}
                                 onOpenRedactar={() => setIsRedactarModalOpen(true)}
                                 onOpenEliminar={handleOpenEliminar}
                             />
@@ -133,6 +138,8 @@ const IntranetLayout: React.FC = () => {
             <ModalRedactarInformativo
                 isOpen={isRedactarModalOpen}
                 onClose={() => setIsRedactarModalOpen(false)}
+                onSuccess={triggerRefresh}
+
             />
             <ModalAñadirDeclaracion
                 isOpen={isDeclaracionModalOpen}

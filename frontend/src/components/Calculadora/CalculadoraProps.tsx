@@ -7,8 +7,8 @@ interface CalculadoraProps {
 export const CalculadoraProps = ({ image, title, subtitle }: CalculadoraProps) => {
   return (
     <div className="flex items-start gap-5">
-      <div className="bg-orange-500/20 p-3 rounded-lg shrink-0 border border-orange-500/30">
-        <img className="w-7 h-7 object-contain invert brightness-0" src={image} alt={title} />
+      <div className="bg-white/6 hover:bg-orange-500 transition-colors duration-300  p-3 rounded-md shrink-0">
+        <img className="w-6 h-6 object-contain invert brightness-0" src={image} alt={title} />
       </div>
 
       <div className="text-white">

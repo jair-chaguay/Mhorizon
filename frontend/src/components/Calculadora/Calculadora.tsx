@@ -34,7 +34,7 @@ export const Calculadora = () => {
             Herramienta Analítica
           </span>
           <h2 className="text-white font-extrabold text-[2.2rem] sm:text-[2.5rem] md:text-[2.8rem] leading-tight text-center lg:text-left">
-            INTELIGENCIA FISCAL: <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">PROYECCIÓN DE RENTA</span>
+            INTELIGENCIA FISCAL: <br /><span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">PROYECCIÓN DE RENTA</span>
           </h2>
 
           <p className="text-gray-300 text-[1.1rem] sm:text-[1.2rem] mt-6 text-center lg:text-left max-w-2xl leading-relaxed">
@@ -52,7 +52,7 @@ export const Calculadora = () => {
           <div className="bg-white py-12 px-8 sm:px-10 rounded-2xl w-full max-w-125 shadow-2xl relative">
 
             <div className="absolute -top-6 -right-6 bg-orange-500 w-16 h-16 rounded-full flex items-center justify-center shadow-lg border-4 border-blue-200">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
             </div>
 
             <h3 className="font-bold text-blue-200 text-center text-[1.3rem] md:text-[1.4rem] tracking-tight">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { type ViewClienteID } from './type'; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import api from '../../api/axios';
 
 interface Props {
   activeView: ViewClienteID;
@@ -10,6 +11,20 @@ interface Props {
 }
 
 const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, setIsOpen }) => {
+  const navigate = useNavigate();
+  const handleLogout = async() => {
+    try{
+      api.post('/logout');
+    }catch(error){
+
+    }finally{
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      navigate('/loginPage');
+      setIsOpen(false)
+    }
+  }
+  
   const menuItems = [
     { 
       id: 'dashboard-view', 
@@ -98,12 +113,15 @@ const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, set
             Ajustes de Cuenta
           </button>
 
-          <Link to="/loginPage" className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-400 hover:bg-white/5 hover:text-orange-500 font-medium transition-colors mt-2 group">
-            <svg className="w-5 h-5 group-hover:text-orange-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          <button
+            onClick={handleLogout}
+            className="cursor-pointer w-full flex items-center gap-3 px-3 py-3 rounded-lg text-gray-400 hover:bg-white/5 hover:text-orange-500 font-medium transition-colors"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+              <path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
             </svg>
             Cerrar Sesión
-          </Link>
+          </button>
         </nav>
 
         <div className="p-4 border-t border-white/10 bg-white/5 shrink-0">

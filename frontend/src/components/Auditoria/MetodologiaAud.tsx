@@ -4,7 +4,7 @@ import { FaseAuditoria } from './FaseAuditoria'
 
 export const MetodologiaAud = () => {
     return (
-        <section className='bg-blue-200 py-24 px-5 sm:px-8 md:px-12 overflow-hidden border-b border-white/5'>
+        <section className='bg-blue-200 py-24 px-5 sm:px-8 md:px-12 overflow-hidden border-b border-white/5 mb-20'>
             <ScrollReveal className='max-w-350 mx-auto'>
 
                 <div className='text-center mb-16 reveal-element'>

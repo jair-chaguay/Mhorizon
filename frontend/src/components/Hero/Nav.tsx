@@ -84,10 +84,10 @@ export const Nav = ({ mobile = false }: NavProps) => {
                   ? "flex flex-col gap-3 pl-4 text-sm font-normal text-white"
                   : "bg-white text-blue-200 shadow-xl rounded-md overflow-hidden flex flex-col border border-gray-100"
               }>
-                <li><Link to="/sectores/cadena-suminsitros" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Sector Financiero</Link></li>
-                <li><Link to="/sectores/cadena-finanzas" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Industrial y Comercial</Link></li>
-                <li><Link to="/sectores/mercado-financiero" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Servicios Empresariales</Link></li>
-                <li><Link to="/sectores/mercado-financiero" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Logístico y Portuarios</Link></li>
+                <li><Link to="/sectores/financiero" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Sector Financiero</Link></li>
+                <li><Link to="/sectores/industrial-comercial" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Industrial y Comercial</Link></li>
+                <li><Link to="/sectores/servicios-empresariales" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Servicios Empresariales</Link></li>
+                <li><Link to="/sectores/logistico-portuario" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Logístico y Portuarios</Link></li>
 
               </ul>
             </div>
@@ -101,6 +101,9 @@ export const Nav = ({ mobile = false }: NavProps) => {
           </li>
 
           <li className="hover:bg-white hover:text-orange-500 transition-all duration-300 bg-orange-500 rounded-sm px-5 py-2 w-full md:w-auto text-center md:text-left">
+            <Link to="/loginPage">PORTAL</Link>
+          </li>
+          <li className="hover:bg-white hover:text-orange-500 transition-all duration-300 bg-orange-500 rounded-sm px-5 py-2 w-full md:w-auto text-center md:text-left">
             <button
               onClick={() => setIsModalOpen(true)}
               className="cursor-pointer uppercase w-full outline-none"
@@ -109,14 +112,7 @@ export const Nav = ({ mobile = false }: NavProps) => {
             </button>
           </li>
 
-          <li className="flex justify-center md:justify-start w-full md:w-auto pt-2 md:pt-0">
-            <img
-              className="size-8 cursor-pointer opacity-80 hover:opacity-100 transition-opacity"
-              src="/images/usuario-2.png"
-              alt="Portal Cliente"
-              title="Portal de Cliente"
-            />
-          </li>
+
         </ul>
       </nav>
 

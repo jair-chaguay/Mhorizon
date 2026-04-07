@@ -1,14 +1,27 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BibliotecaPeriodo extends Model
 {
+    use HasFactory;
+    
     protected $table = 'biblioteca_periodos';
-    protected $fillable = ['empresa_id', 'anio', 'creado_por_id'];
+    
+    // 1. CAMBIAMOS empresa_id por cliente_id
+    protected $fillable = ['cliente_id', 'anio', 'creado_por_id'];
 
-    public function subcarpetas() {
+    public function subcarpetas() 
+    {
         return $this->hasMany(BibliotecaSubcarpeta::class, 'periodo_id');
+    }
+    
+    // 2. AGREGAMOS la relación hacia el Cliente
+    public function cliente() 
+    {
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 }

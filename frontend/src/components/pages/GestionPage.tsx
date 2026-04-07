@@ -1,4 +1,4 @@
-import { Header, Footer, Impulsa, HeroGestion, AuditoriaPlan, EstrIm, CumplimientoNorm, Frase } from '../../components'
+import { Header, Footer, HeroGestion, AuditoriaPlan, EstrIm, CumplimientoNorm, Frase } from '../../components'
 
 export const GestionPage = () => {
   return (

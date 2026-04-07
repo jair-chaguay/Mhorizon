@@ -1,4 +1,4 @@
-import { IconosSVG, Recurso67, Recurso68 } from "../IconosSVG"
+import { IconosSVG, Recurso67 } from "../IconosSVG"
 import { ScrollReveal } from "../ScrollReveal"
 
 export const Operamos = () => {
@@ -17,7 +17,7 @@ export const Operamos = () => {
                     </div>
                     <div className="max-w-xl lg:text-right">
                         <p className="text-gray-600 text-[1.05rem] leading-relaxed">
-                            Nuestro modelo operativo integra rigor analítico institucional con tecnología de punta para blindar el capital y maximizar el rendimiento.
+                            Nuestro modelo operativo integra rigor analítico institucional con tecnología de punta para optimizar costos, blindar el capital y maximizar el rendimiento de la cadena de valor.
                         </p>
                     </div>
                 </div>
@@ -33,10 +33,10 @@ export const Operamos = () => {
                             </div>
 
                             <h3 className="font-bold text-blue-200 text-[1.4rem] md:text-[1.6rem] mb-4">
-                                Auditoría y Cumplimiento Normativo
+                                Auditoría de Procesos e Inventarios
                             </h3>
                             <p className="text-gray-600 text-[1rem] leading-relaxed max-w-xl">
-                                Implementamos protocolos de auditoría exhaustiva alineados a estándares internacionales (NIIF/GAAP), asegurando la total transparencia y solidez de sus estados financieros ante reguladores.
+                                Proporcionamos evaluaciones de control interno exhaustivas, asegurando que su gestión de inventarios minimice las mermas y sus estados financieros reflejen total solidez ante reguladores.
                             </p>
                         </div>
                     </div>
@@ -50,11 +50,10 @@ export const Operamos = () => {
                             </div>
 
                             <h3 className="font-bold text-white text-[1.4rem] mb-4">
-                                Confianza Institucional
+                                Gestión Tributaria Industrial
                             </h3>
                             <p className=" text-gray-300 text-[0.95rem] leading-relaxed">
-                                Respaldamos la gestión de riesgo y auditoría de las principales
-                                entidades financieras de la región.
+                                Optimizamos la carga fiscal de sus operaciones, gestionando eficientemente el IVA, retenciones y aprovechando los incentivos vigentes.
                             </p>
                         </div>
                     </div>
@@ -65,21 +64,18 @@ export const Operamos = () => {
                             <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.75rem] uppercase mb-4 block items-center gap-2">
                                 <span className="w-4 h-0.5 bg-orange-500"></span> Risk Management
                             </span>
-                            <h3 className="font-bold text-[#151E28] text-[1.6rem] md:text-[2rem] mb-4 leading-tight">
-                                Gestión Integral de Riesgos
+                            <h3 className="font-bold text-blue-200 text-[1.6rem] md:text-[2rem] mb-4 leading-tight">
+                                Optimización de Costos y Control Operativo
                             </h3>
                             <p className=" text-gray-600 text-[1rem] leading-relaxed">
-                                Sistemas avanzados de detección predictiva y mitigación de
-                                exposición en mercados volátiles. Evaluamos y optimizamos los
-                                controles internos para prevenir irregularidades y proteger el
-                                capital de su institución.
+                                Sistemas avanzados de detección de ineficiencias en líneas de producción y distribución. Evaluamos y reestructuramos sus controles internos para proteger el margen de ganancia de su empresa.
                             </p>
 
                         </div>
                         <div className="md:w-1/2 relative min-h-75">
                             <img alt="Datos Financieros"
                                 className="absolute inset-0 w-full h-full object-cover mix-blend-multiply"
-                                src="/images/Recurso66.webp" />
+                                src="/images/Recurso66.avif" />
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,42 @@
 import { ScrollReveal } from '../ScrollReveal'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import api from '../../api/axios';
 
 export const LoginPage = () => {
+    const navigate = useNavigate();
+    const [correo, setCorreo] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setLoading(true);
+        setErrorMsg("");
+        try {
+            const { data } = await api.post("/login", { correo, password });
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.usuario));
+            const user = data.usuario;
+            if(user.rol_id==4 || user.cliente_id !== null){
+                navigate("/intranetClientes");
+            }else{
+                navigate("/intranet")
+            }
+        } catch (error: any) {
+            const msg =
+                error?.response?.data?.message ||
+                error?.response?.data?.error ||
+                "Error al Iniciar Sesión"
+            setErrorMsg(msg);
+        } finally {
+            setLoading(false)
+        }
+    }
+
+
+
     return (
         <ScrollReveal as={"section"} className="bg-blue-200 text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative">
 
@@ -39,7 +74,7 @@ export const LoginPage = () => {
                             </p>
                         </div>
 
-                        <form action="#" method="POST" className="space-y-6">
+                        <form onSubmit={handleSubmit} className="space-y-6">
 
                             <div>
                                 <label htmlFor="email" className="block text-[0.80rem] font-bold text-blue-200 uppercase tracking-widest mb-2">
@@ -49,7 +84,14 @@ export const LoginPage = () => {
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors duration-300">
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
                                     </div>
-                                    <input id="email" name="email" type="email" required autoComplete="email" className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300" placeholder="ejemplo@corporacion.com"/>
+                                    <input
+                                        id="email"
+                                        onChange={(e) => setCorreo(e.target.value)}
+                                        name="email"
+                                        type="email"
+                                        required autoComplete="email"
+                                        className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300" placeholder="ejemplo@corporacion.com"
+                                    />
                                 </div>
                             </div>
 
@@ -61,16 +103,24 @@ export const LoginPage = () => {
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors duration-300">
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                                     </div>
-                                    <input id="password" name="password" type="password" required autoComplete="current-password" className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200] font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300" placeholder="••••••••••••"/>
+                                    <input
+                                        id="password"
+                                        name="password"
+                                        type="password"
+                                        required
+                                        autoComplete="current-password"
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200] font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300" placeholder="••••••••••••"
+                                    />
                                 </div>
                             </div>
 
                             <div className="flex items-center justify-between mt-2 pt-1">
                                 <div className="flex items-center">
-                                    <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 custom-checkbox border-gray-300 rounded"/>
-                                        <label htmlFor="remember-me" className="ml-2 block text-[0.85rem] text-blue-200/70 font-light cursor-pointer select-none">
-                                            Recordar sesión
-                                        </label>
+                                    <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 custom-checkbox border-gray-300 rounded" />
+                                    <label htmlFor="remember-me" className="ml-2 block text-[0.85rem] text-blue-200/70 font-light cursor-pointer select-none">
+                                        Recordar sesión
+                                    </label>
                                 </div>
 
                                 <div className="text-[0.85rem]">
@@ -79,10 +129,19 @@ export const LoginPage = () => {
                                     </Link>
                                 </div>
                             </div>
-
+                            {
+                                errorMsg && (
+                                    <p className='text-red-500 text-sm mt-4 text-center'>
+                                        {errorMsg}
+                                    </p>
+                                )
+                            }
                             <div className="pt-6 border-t border-gray-100">
-                                <button type="submit" className="cursor-pointer w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                                    Iniciar Sesión
+                                <button
+                                    type="submit"
+                                    disabled={loading}
+                                    className="cursor-pointer w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                                    {loading ? "Ingresando..." : "Iniciar Sesión"}
                                 </button>
                             </div>
                         </form>

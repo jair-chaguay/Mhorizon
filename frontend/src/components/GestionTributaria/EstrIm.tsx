@@ -1,4 +1,4 @@
-import React from 'react'
+import { CheckCircle } from '../IconosSVG'
 import { ScrollReveal } from '../ScrollReveal'
 
 export const EstrIm = () => {
@@ -12,7 +12,7 @@ export const EstrIm = () => {
                     />
                     <div className="absolute inset-0 bg-blue-200/10 rounded-2xl"></div>
 
-                    <div className="absolute bg-white py-6 px-8 rounded-xl w-[85%] sm:w-[340px] shadow-2xl -bottom-8 left-1/2 -translate-x-1/2 md:left-8 md:translate-x-0 z-10 border-l-4 border-orange-500">
+                    <div className="absolute bg-white py-6 px-8 rounded-xl w-[85%] sm:w-85 shadow-2xl -bottom-8 left-1/2 -translate-x-1/2 md:left-8 md:translate-x-0 z-10 border-l-4 border-orange-500">
                         <h3 className="font-extrabold text-[2rem] text-blue-200 leading-tight">15%</h3>
                         <p className="font-bold text-[0.8rem] md:text-[0.85rem] mt-1 text-gray-500 uppercase tracking-widest">
                             OPTIMIZACIÓN PROMEDIO <br />EN FLUJO DE CAJA
@@ -25,34 +25,34 @@ export const EstrIm = () => {
                         Metodología Financiera
                     </span>
                     <h2 className="text-[2rem] md:text-[2.5rem] font-extrabold text-blue-200 leading-tight">
-                        ESTRATEGIA DE <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">IMPUESTOS</span>
+                        ESTRATEGIA DE <br /> <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">IMPUESTOS</span>
                     </h2>
                     <p className=" mt-6 text-[1.05rem] text-gray-600 text-justify md:text-left leading-relaxed">
                         Nuestra metodología de Tax Strategy no se limita al cumplimiento rutinario; buscamos la creación de valor comprobable. Diseñamos estructuras fiscales que resisten el escrutinio de las autoridades de control mientras potencian la rentabilidad corporativa.
                     </p>
 
                     <ul className="flex flex-col gap-6 mt-10">
-                        <li className="flex items-start gap-4">
-                            <div className="bg-orange-50 p-2 rounded-full mt-1 border border-orange-100">
-                                <img className="w-5 h-5 object-contain" src="/images/Recurso10.png" alt="Check" />
+                        <li className="flex items-start gap-4 group">
+                            <div className="bg-orange-500 p-2 rounded-lg mt-1 border border-orange-100 group-hover:bg-blue-200 transition-colors duration-300">
+                                <CheckCircle className='w-6 h-6 text-white'/>
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-blue-200">Estudios de Precios de Transferencia</p>
                                 <p className="text-[0.95rem]  text-gray-500 mt-1">Elaboración técnica y soporte de anexos transaccionales para grupos multinacionales.</p>
                             </div>
                         </li>
-                        <li className="flex items-start gap-4">
-                            <div className="bg-orange-50 p-2 rounded-full mt-1 border border-orange-100">
-                                <img className="w-5 h-5 object-contain" src="/images/Recurso10.png" alt="Check" />
+                        <li className="flex items-start gap-4 group">
+                            <div className="bg-orange-500 p-2 rounded-lg mt-1 border border-orange-100 group-hover:bg-blue-200 transition-colors duration-300">
+                                <CheckCircle className='w-6 h-6 text-white'/>
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-blue-200">Reclamaciones y Devoluciones</p>
                                 <p className="text-[0.95rem] text-gray-500 mt-1">Gestión ágil para la recuperación de IVA, Pago en Exceso y Reclamos por Pago Indebido.</p>
                             </div>
                         </li>
-                        <li className="flex items-start gap-4">
-                            <div className="bg-orange-50 p-2 rounded-full mt-1 border border-orange-100">
-                                <img className="w-5 h-5 object-contain" src="/images/Recurso10.png" alt="Check" />
+                        <li className="flex items-start gap-4 group">
+                            <div className="bg-orange-500 p-2 rounded-lg mt-1 border border-orange-100 group-hover:bg-blue-200 transition-colors duration-300">
+                                <CheckCircle className='w-6 h-6 text-white'/>
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-blue-200">Patrocinio en Determinaciones</p>

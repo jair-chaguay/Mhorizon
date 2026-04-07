@@ -12,19 +12,17 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        $usuarios = Usuario::with(['rol', 'empresa'])->get();
+        // CAMBIO: 'cliente' en lugar de 'empresa'
+        $usuarios = Usuario::with(['rol', 'cliente'])->get();
 
-        return response()->json([
-            'usuarios' => $usuarios,
-            'status' => 200
-        ], 200);
+        return response()->json(['usuarios' => $usuarios, 'status' => 200], 200);
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'rol_id' => 'required|exists:roles,id',
-            'empresa_id' => 'nullable|exists:empresas,id',
+            'cliente_id' => 'nullable|exists:clientes,id', // CAMBIO AQUÍ
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
             'correo' => 'required|email|max:150|unique:usuarios,correo',
@@ -32,53 +30,39 @@ class UsuarioController extends Controller
             'cargo' => 'nullable|string|max:100'
         ]);
 
-        if($validator->fails()){
-            return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
-        }
+        if($validator->fails()) return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
 
         $usuario = Usuario::create([
             'rol_id' => $request->rol_id,
-            'empresa_id' => $request->empresa_id,
+            'cliente_id' => $request->cliente_id, // CAMBIO AQUÍ
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'correo' => $request->correo,
-            'password_hash' => Hash::make($request->password), // Encriptamos la contraseña
+            'password_hash' => Hash::make($request->password),
             'cargo' => $request->cargo,
             'activo' => true
         ]);
 
-        $usuario->load(['rol', 'empresa']);
+        $usuario->load(['rol', 'cliente']); // CAMBIO AQUÍ
 
-        return response()->json([
-            'message' => 'Usuario creado con éxito',
-            'usuario' => $usuario,
-            'status' => 201
-        ], 201);
+        return response()->json(['message' => 'Usuario creado con éxito', 'usuario' => $usuario, 'status' => 201], 201);
     }
 
     public function show($id)
     {
-        $usuario = Usuario::with(['rol', 'empresa'])->find($id);
-
-        if(!$usuario){
-            return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
-        }
-
+        $usuario = Usuario::with(['rol', 'cliente'])->find($id); // CAMBIO AQUÍ
+        if(!$usuario) return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
         return response()->json(['usuario' => $usuario, 'status' => 200], 200);
     }
-
 
     public function update(Request $request, $id)
     {
         $usuario = Usuario::find($id);
-
-        if(!$usuario){
-            return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
-        }
+        if(!$usuario) return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
 
         $validator = Validator::make($request->all(), [
             'rol_id' => 'sometimes|required|exists:roles,id',
-            'empresa_id' => 'nullable|exists:empresas,id',
+            'cliente_id' => 'nullable|exists:clientes,id', // CAMBIO AQUÍ
             'nombre' => 'sometimes|required|string|max:100',
             'apellido' => 'sometimes|required|string|max:100',
             'correo' => 'sometimes|required|email|max:150|unique:usuarios,correo,'.$id,
@@ -87,36 +71,25 @@ class UsuarioController extends Controller
             'activo' => 'sometimes|required|boolean'
         ]);
 
-        if($validator->fails()){
-            return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
-        }
+        if($validator->fails()) return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
 
         $datosActualizar = $request->except(['password']);
-
         if($request->filled('password')){
             $datosActualizar['password_hash'] = Hash::make($request->password);
         }
 
         $usuario->update($datosActualizar);
-        $usuario->load(['rol', 'empresa']);
+        $usuario->load(['rol', 'cliente']); // CAMBIO AQUÍ
 
-        return response()->json([
-            'message' => 'Usuario actualizado correctamente',
-            'usuario' => $usuario,
-            'status' => 200
-        ], 200);
+        return response()->json(['message' => 'Usuario actualizado correctamente', 'usuario' => $usuario, 'status' => 200], 200);
     }
 
     public function destroy($id)
     {
         $usuario = Usuario::find($id);
-
-        if(!$usuario){
-            return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
-        }
-
+        if(!$usuario) return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
+        
         $usuario->delete();
-
         return response()->json(['message' => 'Usuario eliminado correctamente', 'status' => 200], 200);
     }
 }

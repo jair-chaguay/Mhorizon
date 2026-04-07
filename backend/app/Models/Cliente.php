@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
-class Empresa extends Model
+class Cliente extends Model
 {
     use HasFactory;
-    protected $table = 'empresas';
+    
+    protected $table = 'clientes';
 
     protected $fillable = [
-        'razon_social',
-        'ruc',
+        'tipo_persona',
+        'razon_social_nombres',
+        'identificacion',
         'direccion_matriz',
         'score_tributario',
         'proximo_vencimiento',
@@ -27,12 +28,11 @@ class Empresa extends Model
 
     public function usuarios()
     {
-        return $this->hasMany(Usuario::class, 'empresa_id');
+        return $this->hasMany(Usuario::class, 'cliente_id');
     }
 
     public function creador()
     {
         return $this->belongsTo(Usuario::class, 'creado_por_id')->select(['id', 'nombre', 'apellido']);
     }
-    
 }

@@ -6,25 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('biblioteca_periodos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('empresa_id')->constrained('empresas')->onDelete('cascade');
+            
+            // CAMBIO: cliente_id conectado a la tabla clientes
+            $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
+            
             $table->string('anio', 4)->comment('Ej: 2025, 2026');
             $table->foreignId('creado_por_id')->constrained('usuarios')->onDelete('restrict');
             $table->timestamps();
 
-            $table->unique(['empresa_id', 'anio']); 
+            // CAMBIO: Evita que se duplique el año para el mismo cliente
+            $table->unique(['cliente_id', 'anio']); 
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('biblioteca_periodos');

@@ -15,7 +15,7 @@ class Usuario extends Authenticatable
     protected $table = 'usuarios';
     protected $fillable = [
         'rol_id',
-        'empresa_id',
+        'cliente_id',
         'nombre',
         'apellido',
         'correo',
@@ -43,9 +43,9 @@ class Usuario extends Authenticatable
         return $this->belongsTo(Rol::class, 'rol_id');
     }
 
-    public function empresa()
+    public function cliente()
     {
-        return $this->belongsTo(Empresa::class, 'empresa_id');
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 
 }

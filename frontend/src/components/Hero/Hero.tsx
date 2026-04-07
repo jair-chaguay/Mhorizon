@@ -21,7 +21,7 @@ export const Hero = () => {
 
         <div className="flex gap-4 sm:gap-7 items-center">
           <a href="#calculadora" className="w-full sm:w-auto cursor-pointer">
-            <button className="bg-orange-500 text-white text-[0.95rem] sm:text-[1.05rem] font-bold tracking-wider uppercase px-8 py-4 shadow-2xl rounded-sm w-full sm:w-auto transition-all hover:bg-white hover:text-orange-600 duration-300">
+            <button className="bg-orange-500 cursor-pointer text-white text-[0.95rem] sm:text-[1.05rem] font-bold tracking-wider uppercase px-8 py-4 shadow-2xl rounded-sm w-full sm:w-auto transition-all hover:bg-white hover:text-orange-600 duration-300">
               EVALUAR MI ESCENARIO
             </button>
           </a>

@@ -11,13 +11,13 @@ interface estructurasFinancieras {
 const estrucutras: estructurasFinancieras[] = [
     {
         icon: Resiliencia,
-        title: "Resiliencia Estructural",
-        content: "Diseño de estructuras de capital y flujos de caja capaces de absorber choques macroeconómicos sin comprometer la liquidez operativa."
+        title: "Outsourcing Contable y BPO",
+        content: "Asumimos la gestión integral de su nómina, contabilidad y cumplimiento patronal, permitiendo que se enfoque 100% en la producción y las ventas."
     },
     {
         icon: Recurso69,
-        title: "Estrategia de Transformación (M&A)",
-        content: "Asesoramiento integral en fusiones, adquisiciones y reestructuraciones corporativas, desde la debida diligencia hasta la integración post-transacción."
+        title: "Estructuración a Gran Escala",
+        content: "Asesoramiento para la apertura de sucursales, manejo de operaciones intercompañías y alineación de precios de transferencia."
     }
 ]
 
@@ -30,10 +30,10 @@ export const EstrctFinan = () => {
 
                 <div className="text-center mb-16 reveal-element">
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
-                        Ingeniería Económica
+                        Ingeniería de negocios
                     </span>
                     <h2 className="text-white font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight">
-                        ESTRUCTURA FINANCIERA
+                        ESTRUCTURA EMPRESARIAL
                     </h2>
                     <p className="mt-4 text-gray-400 text-[1.05rem] leading-relaxed max-w-2xl mx-auto">
                         Fortalecemos los cimientos de su corporación mediante estrategias diseñadas para el crecimiento sostenible y la absorción de impactos del mercado.

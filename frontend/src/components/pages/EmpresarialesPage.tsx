@@ -1,17 +1,17 @@
-import { Header, Footer, Frase, HeroMercado, OperamosMercado, ArquitecturaEst} from '../../components'
+import { Header, Footer, Frase, HeroEmpresariales, OperamosEmpresariales, ArquitecturaEst} from '..'
 
-export const MercadoPage = () => {
+export const EmpresarialesPage = () => {
   return (
     <main className='m-auto'>
                 <Header />
-                <HeroMercado />
-                <OperamosMercado />
+                <HeroEmpresariales />
+                <OperamosEmpresariales />
                 <ArquitecturaEst />
                 
                 <section className='bg-blue-200 '>
                     <Frase
-                        blanco='Lidere el mercado '
-                        naranja='con seguridad total'
+                        blanco='Escale su empresa'
+                        naranja='con respaldo experto'
                         styles='font-extrabold text-[2rem] sm:text-[2.8rem] md:text-[3.2rem] leading-[1.1] mb-6 tracking-tight'
                     />
                     <Footer />

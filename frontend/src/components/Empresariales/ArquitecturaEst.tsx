@@ -10,13 +10,13 @@ interface arquitecturaProps {
 const arquitecturas: arquitecturaProps[] = [
     {
         numero: "01",
-        title: "Estructuración Fiscal y Contable",
-        content: "Diseñamos marcos tributarios y contables precisos para corporaciones tecnológicas y de consumo, mitigando contingencias financieras y asegurando el cumplimiento de normativas locales e internacionales."
+        title: "Gestión Fiscal de Servicios",
+        content: "Optimizamos su carga tributaria, el manejo de retenciones y la declaración de IVA, diseñando planeaciones fiscales eficientes y adaptadas a la naturaleza intangible de sus servicios."
     },
     {
         numero: "02",
-        title: "Optimización Comercial Integral",
-        content: "Auditoría profunda de los flujos de ingresos, revisión de contratos comerciales y análisis de costos en mercados de alta rotación, garantizando la salud financiera de sus operaciones comerciales."
+        title: "Auditoría Financiera Preventiva",
+        content: "Evaluamos la salud económica de su empresa con rigor internacional (NIIF). Garantizamos la máxima transparencia de su gestión ante socios directores, inversionistas y la SCVS."
     }
 ]
 

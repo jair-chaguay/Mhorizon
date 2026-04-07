@@ -1,6 +1,6 @@
 import { ScrollReveal } from "../ScrollReveal"
 
-export const HeroSuministro = () => {
+export const HeroFinanciero = () => {
 
     return (
         <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-162.5 bg-[url('/images/Recurso61.jpg')] bg-cover bg-center overflow-hidden">

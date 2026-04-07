@@ -6,16 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            
             $table->foreignId('rol_id')->constrained('roles')->onDelete('restrict');
-            $table->foreignId('empresa_id')->nullable()->constrained('empresas')->onDelete('cascade');
+            
+            // Relación con el cliente (Empresa o Persona Natural)
+            $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
             
             $table->string('nombre');
             $table->string('apellido');
@@ -24,17 +24,11 @@ return new class extends Migration
             $table->string('cargo')->nullable()->comment('Ej: Tax Manager, Contador');            
             $table->boolean('activo')->default(true);
             $table->timestamp('ultimo_acceso')->nullable();
-            
-
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('usuarios');
     }
 };
-

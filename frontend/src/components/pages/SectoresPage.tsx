@@ -9,11 +9,11 @@ export const SectoresPage = () => {
 
             <SectoresContainer />
 
-            <section className='bg-blue-200 mt-21'>
+            <section className='bg-blue-200'>
                 <Frase 
-                blanco='TRANSFORME LOS DESAFÍOS DE SU INDUSTRIA EN' 
-                naranja='VENTAJAS COMPETITIVAS'
-                styles='text-[2rem] sm:text-[2.5rem] md:text-[2.3rem] font-bold leading-tight uppercase'
+                blanco='Eleve el estándar de su ' 
+                naranja='gestión corporativa.'
+                styles='text-[2rem] uppercase sm:text-[2.5rem] md:text-[2.3rem] font-extrabold leading-tight uppercase'
                 />
                 <Footer />
             </section>

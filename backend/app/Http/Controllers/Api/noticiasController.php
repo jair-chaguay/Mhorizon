@@ -14,8 +14,9 @@ class noticiasController extends Controller
     /**Noticias para el carrusel */
     public function index()
     {
-        $noticias = Noticias::with('creador')->orderBy('creado_en', 'desc')->get();
-        return response()->json([
+$noticias = Noticias::with('creador')->orderBy('created_at', 'desc')->get();
+
+    return response()->json([
             'noticias' => $noticias,
             'status' => 200
         ], 200);

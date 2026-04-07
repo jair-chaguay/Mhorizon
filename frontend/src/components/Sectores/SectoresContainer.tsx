@@ -1,7 +1,8 @@
 import { ScrollReveal } from '../ScrollReveal'
-import { Estrategia } from './Estrategia'
-import { Logistica } from './Logistica'
-import { Mercado } from './Mercado'
+import { Industrial } from './Industrial'
+import { Financiero } from './Financiero'
+import { Empresariales } from './Empresariales'
+import { LogisticoPortuario } from './LogisticoPortuario'
 
 export const SectoresContainer = () => {
     return (
@@ -19,9 +20,10 @@ export const SectoresContainer = () => {
 
 
                 <div className='flex flex-col gap-16 md:gap-24'>
-                    <Logistica />
-                    <Estrategia />
-                    <Mercado />
+                    <Financiero />
+                    <Industrial />
+                    <Empresariales />
+                    <LogisticoPortuario />
                 </div>
 
             </ScrollReveal>

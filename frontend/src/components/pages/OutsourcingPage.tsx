@@ -1,4 +1,4 @@
-import { Header, Footer, Impulsa, HeroOutsourcing, ExceOpera, ConsultoriaEje, Frase } from '../../components'
+import { Header, Footer, HeroOutsourcing, ExceOpera, ConsultoriaEje, Frase } from '../../components'
 
 export const OutsourcingPage = () => {
     return (

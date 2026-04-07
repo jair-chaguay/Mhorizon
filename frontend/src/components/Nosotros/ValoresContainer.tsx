@@ -1,6 +1,5 @@
 import { ValoresCard } from "./ValoresCard"
 import { Eyee, GavelIcon, Hands, VerifiedUser } from "../IconosSVG"
-import { Handshake } from "lucide-react"
 import { ScrollReveal } from "../ScrollReveal"
 
 interface valoresProps {
@@ -43,7 +42,7 @@ export const ValoresContainer = () => {
                         <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                             Nuestra Cultura
                         </span>
-                        <h2 className="font-extrabold text-[2.2rem] sm:text-[2.6rem] md:text-[3rem] text-[#151E28] leading-tight uppercase tracking-tight">
+                        <h2 className="font-extrabold text-[2.2rem] sm:text-[2.6rem] md:text-[3rem] text-blue-200 leading-tight uppercase tracking-tight">
                             PRINCIPIOS <br />INNEGOCIABLES
                         </h2>
                     </div>

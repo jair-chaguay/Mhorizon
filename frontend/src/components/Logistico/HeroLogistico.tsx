@@ -1,23 +1,23 @@
 import { ScrollReveal } from '../ScrollReveal';
 
-export const HeroFinanzas = () => {
+export const HeroLogistico = () => {
     return (
-        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-162.5 bg-[url('/images/Recurso07.avif')] bg-cover bg-center overflow-hidden">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-162.5 bg-[url('/images/Recurso11.avif')] bg-cover bg-center overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-r from-blue-200 via-blue-200/80 to-transparent"></div>
 
             <div className="relative z-10 w-full md:w-[75%] lg:w-[65%] pt-0 reveal-element">
                 <div className="max-w-3xl">
                     <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] font-medium tracking-widest uppercase mb-4 backdrop-blur-sm">
-                        SECTOR ESTRATÉGICO
+                        MERCADO GLOBAL
                     </p>
 
                     <h1 className="text-white drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[4rem] font-bold w-full tracking-tight leading-[1.05]">
-                        Finanzas & <br className="md:hidden" />
-                        <span className="text-orange-500">Servicios Corporativos</span>
+                        Sector Logístico & <br className="md:hidden" />
+                        <span className="text-orange-500">Portuario</span>
                     </h1>
 
                     <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
-                        Garantizamos la integridad, el cumplimiento normativo y la eficiencia operativa en instituciones donde la precisión es el núcleo absoluto del negocio.
+                        Blindamos las operaciones de agencias de carga, operadores portuarios, navieras y empresas de transporte en Ecuador mediante estrategias fiscales aduaneras y auditoría de costos rigurosa.
                     </p>
 
 

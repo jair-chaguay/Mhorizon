@@ -59,7 +59,7 @@ export const Radar = () => {
     return (
         <ScrollReveal>
             <section className="py-8 bg-[#101720] border-y border-white/5 overflow-hidden relative reveal-element">
-                <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div className="max-w-350 mx-auto px-5 sm:px-8 md:px-12 flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                     <div className="flex items-center gap-3">
                         <span className="relative flex h-3 w-3">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
@@ -72,8 +72,8 @@ export const Radar = () => {
                 </div>
 
                 {/* Gradientes para suavizar la entrada y salida de las tarjetas */}
-                <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-r from-[#101720] to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-gradient-to-l from-[#101720] to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute left-0 top-0 bottom-0 w-12 sm:w-24 bg-linear-to-r from-[#101720] to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-12 sm:w-24 bg-linear-to-l from-[#101720] to-transparent z-10 pointer-events-none"></div>
 
                 <Swiper
                     modules={[Autoplay, FreeMode]}

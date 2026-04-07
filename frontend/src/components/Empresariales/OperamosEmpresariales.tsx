@@ -1,4 +1,4 @@
-import { IconosSVG, Recurso70, Recurso71, Recurso72, Recurso75 } from "../IconosSVG"
+import { IconosSVG, Recurso70, Recurso71, Recurso72 } from "../IconosSVG"
 import { ScrollReveal } from "../ScrollReveal"
 import { OperamosCard } from "./OperamosCard"
 
@@ -13,22 +13,22 @@ interface operamosProps {
 const operamosP: operamosProps[] = [
   {
     icon: Recurso70,
-    title: "Optimización de Consumo (FMCG)",
-    content: "Aceleramos la cadena de valor para marcas de alta rotación, garantizando disponibilidad, eficiencia y adaptación ágil al mercado.",
-    list1: "Análiis de costos y márgenes",
-    list2: "Auditoría de inventarios"
+    title: "Consultoría y Estructuración Corporativa",
+    content: "Acompañamos el crecimiento de su empresa B2B diseñando modelos de negocio eficientes y estrategias de mitigación de riesgos financieros.",
+    list1: "Asesoría en fusiones y adquisiciones",
+    list2: "Reestructuración societaria"
   },
   {
     icon: Recurso71,
-    title: "Cumplimiento y Bienestar",
-    content: "Aseguramos que cada producto y servicio cumpla rigurosamente con las normativas internacionales de calidad, seguridad y salud.",
-    list1: "Auditoría de estándares globales",
-    list2: "Trazabilidad de seguridad"
+    title: "Cumplimiento Normativo y Prevención",
+    content: "Blindamos su patrimonio asegurando que sus reportes, estatutos y obligaciones tributarias estén perfectamente alineados con el SRI y la SCVS.",
+    list1: "Auditoría de estados financieros",
+    list2: "Control de riesgos regulatorios"
   }
 
 ]
 
-export const OperamosMercado = () => {
+export const OperamosEmpresariales = () => {
   return (
     <section className="py-24 bg-gray-800 overflow-hidden border-b border-gray-200">
       <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
@@ -41,7 +41,7 @@ export const OperamosMercado = () => {
             CÓMO <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">OPERAMOS</span>
           </h2>
           <p className="mt-4 text-gray-600 text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
-            Nuestra metodología integra el entendimiento de mercados de alta rotación con un rigor contable y fiscal especializado, protegiendo los márgenes de rentabilidad de su negocio.
+            Integramos asesoría corporativa, estructuración fiscal y outsourcing integral para que su empresa de servicios escale con seguridad jurídica y eficiencia operativa.
           </p>
         </div>
 
@@ -60,11 +60,10 @@ export const OperamosMercado = () => {
 
             <div className="mt-2 relative z-10">
               <h3 className="font-bold text-white text-[1.2rem] md:text-[1.3rem] leading-tight">
-                Finanzas & Tributación Tech
+                Outsourcing BPO & Contabilidad
               </h3>
               <p className="mt-4 text-white/90 text-[0.95rem] leading-relaxed mb-8">
-                Brindamos soporte especializado al área comercial de empresas tecnológicas, optimizando
-                sus estructuras contables y la gestión de impuestos para maximizar su rentabilidad operativa.
+                Asumimos el control integral de su back-office, gestión de nómina patronal y contabilidad bajo normas NIIF, permitiendo a su equipo enfocarse al 100% en captar clientes y brindar servicios.
               </p>
             </div>
             <div className="absolute -right-10 -bottom-10 opacity-20 text-white">

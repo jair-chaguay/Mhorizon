@@ -6,7 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\RolController;
 use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\InformativoController;
-use App\Http\Controllers\Api\EmpresaController;
+use App\Http\Controllers\Api\ClienteController;
 use App\Http\Controllers\Api\noticiasController;
 use App\Http\Controllers\Api\AuditoriaLogController;
 use App\Http\Controllers\Api\DeclaracionController;
@@ -28,11 +28,11 @@ Route::put('/rol/{id}', [RolController::class, 'update']);
 Route::delete('/rol/{id}', [RolController::class, 'destroy']);
 
 //EMPRESAS
-Route::get('/empresas', [EmpresaController::class, 'index']);
-Route::get('/empresas/{id}', [EmpresaController::class, 'show']);
-Route::post('/empresas', [EmpresaController::class, 'store']);
-Route::put('/empresas/{id}', [EmpresaController::class, 'update']);
-Route::delete('/empresas/{id}', [EmpresaController::class, 'destroy']);
+Route::get('/cliente', [ClienteController::class, 'index']);
+Route::get('/cliente/{id}', [ClienteController::class, 'show']);
+Route::post('/cliente', [ClienteController::class, 'store']);
+Route::put('/cliente/{id}', [ClienteController::class, 'update']);
+Route::delete('/cliente/{id}', [ClienteController::class, 'destroy']);
 
 Route::get('/usuario', [UsuarioController::class, 'index']);
 Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
@@ -47,15 +47,15 @@ Route::get('/informativo/{id}', [InformativoController::class, 'show']);
 Route::post('/informativo', [InformativoController::class, 'store']);
 Route::put('/informativo/{id}', [InformativoController::class, 'update']);
 Route::delete('/informativo/{id}', [InformativoController::class, 'destroy']);
-});
-
-
 
 Route::get('/noticia', [noticiasController::class, 'index']);
 Route::get('/noticia/{id}', [noticiasController::class, 'show']);
 Route::post('/noticia', [noticiasController::class, 'store']);
 Route::put('/noticia/{id}', [noticiasController::class, 'update']);
 Route::delete('/noticia/{id}', [noticiasController::class, 'destroy']);
+});
+
+
 
 Route::get('/declaracion', [DeclaracionController::class, 'index']);
 Route::get('/declaracion/{id}', [DeclaracionController::class, 'show']);
@@ -69,7 +69,7 @@ Route::post('/contacto', [ContactoController::class, 'store']);
 Route::put('/contacto/{id}', [ContactoController::class, 'update']);
 Route::delete('/contacto/{id}', [ContactoController::class, 'destroy']);
 
-Route::get('/biblioteca/{id}', [BibliotecaController::class, 'getArbolBiblioteca']);
+Route::get('clientes/{cliente_id}/biblioteca', [BibliotecaController::class, 'getArbolBiblioteca']);
 Route::post('/storePeriodo', [BibliotecaController::class, 'storePeriodo']);
 Route::post('/storeSubcarpeta', [BibliotecaController::class, 'storeSubcarpeta']);
 Route::post('/uploadDocumento', [BibliotecaController::class, 'uploadDocumento']);
@@ -77,4 +77,5 @@ Route::delete('/deleteDocumento/{id}', [BibliotecaController::class, 'deleteDocu
 
 Route::get('/bitacora', [AuditoriaLogController::class, 'index']);
 Route::get('/bitacora/{id}', [AuditoriaLogController::class, 'show']);
+
 

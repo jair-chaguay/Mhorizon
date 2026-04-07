@@ -1,17 +1,17 @@
-import { Header, Footer, Frase, HeroFinanzas, Operamos} from '../../components'
+import { Header, Footer, Frase, HeroIndustrial, Operamos} from '..'
 import { EstrctFinan } from '../Finanzas/EstrctFinan'
 
-export const FinanzasPage = () => {
+export const IndustrialPage = () => {
     return (
         <main className='m-auto overflow-hidden'>
             <Header />
-            <HeroFinanzas />
+            <HeroIndustrial />
             <Operamos/>
             <EstrctFinan/>
             <section className='bg-blue-200 '>
                 <Frase
                     blanco='¿Listo para fortalecer su '
-                    naranja='horizonte financiero?'
+                    naranja='cadena de valor?'
                     styles='font-extrabold text-[2rem] md:text-[2.6rem] leading-tight mb-4 tracking-tight'
                 />
                 <Footer />
