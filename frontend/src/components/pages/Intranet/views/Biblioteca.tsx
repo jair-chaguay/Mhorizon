@@ -41,9 +41,47 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     }
   };
 
+
+  const refreshTree = async (cId: number) => {
+    try {
+      const { data } = await api.get(`/biblioteca/arbol/${cId}`);
+      const tree = data.biblioteca || []
+      setPeriodos(tree);
+
+      if (selectionIds.periodoId) {
+        const currentPeriodo = tree.find((p: any) => p.id === selectionIds.periodoId);
+        if (currentPeriodo) {
+          setSubcarpetas(currentPeriodo.subcarpetas || []);
+          
+          if (selectionIds.subcarpetaId) {
+            const currentSub = (currentPeriodo.subcarpetas || []).find((s: any) => s.id === selectionIds.subcarpetaId);
+            if (currentSub) {
+              setArchivos(currentSub.documentos || []);
+            }
+          }
+        }
+      }
+    }catch(error){
+      console.error("Error al cargar periodos:", error)
+    }
+  }
+
   useEffect(() => {
     if (navLevel === 'ROOT') fetchClientes();
-  }, [refreshSignal, navLevel]);
+  }, [navLevel]);
+
+
+  useEffect(() => {
+    if (refreshSignal > 0) {
+      if (navLevel === 'ROOT') {
+        fetchClientes();
+      } else if (selectionIds.clienteId) {
+        refreshTree(selectionIds.clienteId);
+      }
+    }
+  }, [refreshSignal]);
+
+
 
   // 2. HANDLERS DE NAVEGACIÓN
   const handleClientClick = async (cliente: any) => {

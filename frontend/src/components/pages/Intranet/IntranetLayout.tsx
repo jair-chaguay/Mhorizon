@@ -42,6 +42,7 @@ const IntranetLayout: React.FC = () => {
     });
     // NUEVO: Estado para el modal de subir archivo
     const [isSubirArchivoOpen, setIsSubirArchivoOpen] = useState(false);
+    const [subcarpetaDestinoId, setSubcarpetaDestinoId] = useState<number | null>(null);
     const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
 
     const handleConfirmEliminar = async () => {
@@ -123,7 +124,10 @@ const IntranetLayout: React.FC = () => {
                         {activeView === 'view-repositorio-root' && (
                             <Biblioteca
                                 onOpenCrear={(conf) => { setCrearConfig(conf); setIsCrearFolderOpen(true); }}
-                                onOpenSubir={(id) => { /* Tu lógica de modal subir archivo usando ese id */ }}
+                                onOpenSubir={(id) => {
+                                    setSubcarpetaDestinoId(id); // Guardas el ID destino
+                                    setIsSubirArchivoOpen(true); // Abres el modal
+                                }}
                                 refreshSignal={refreshSignal}
                             />
                         )}
@@ -193,6 +197,10 @@ const IntranetLayout: React.FC = () => {
             <ModalSubirArchivo
                 isOpen={isSubirArchivoOpen}
                 onClose={() => setIsSubirArchivoOpen(false)}
+                subcarpetaId={subcarpetaDestinoId}
+                onSuccess={() => {
+                    triggerRefresh(); // Esto obliga a Biblioteca a ejecutar el GET y traer los nuevos archivos
+                }}
             />
 
             <ModalRedactarNoticia

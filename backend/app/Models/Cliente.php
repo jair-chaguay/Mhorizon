@@ -35,4 +35,9 @@ class Cliente extends Model
     {
         return $this->belongsTo(Usuario::class, 'creado_por_id')->select(['id', 'nombre', 'apellido']);
     }
+    
+    public function periodos()
+    {
+        return $this->hasMany(BibliotecaPeriodo::class, 'cliente_id');
+    }
 }

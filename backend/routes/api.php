@@ -8,7 +8,6 @@ use App\Http\Controllers\Api\UsuarioController;
 use App\Http\Controllers\Api\InformativoController;
 use App\Http\Controllers\Api\ClienteController;
 use App\Http\Controllers\Api\noticiasController;
-use App\Http\Controllers\Api\AuditoriaLogController;
 use App\Http\Controllers\Api\DeclaracionController;
 use App\Http\Controllers\Api\ContactoController;
 use App\Http\Controllers\Api\BibliotecaController;
@@ -56,6 +55,13 @@ Route::get('/contacto', [ContactoController::class, 'index']);
 Route::get('/contacto/{id}', [ContactoController::class, 'show']);
 Route::put('/contacto/{id}', [ContactoController::class, 'update']);
 Route::delete('/contacto/{id}', [ContactoController::class, 'destroy']);
+
+
+Route::post('/biblioteca/periodo', [BibliotecaController::class, 'storePeriodo']);
+Route::post('/biblioteca/subcarpeta', [BibliotecaController::class, 'storeSubcarpeta']);
+Route::post('/biblioteca/upload-documento', [BibliotecaController::class, 'uploadDocumento']);
+
+
 });
 
 
@@ -77,12 +83,7 @@ Route::post('/contacto', [ContactoController::class, 'store']);
 
 Route::get('/biblioteca/arbol/{cliente_id}', [BibliotecaController::class, 'getArbolBiblioteca']);
 
-Route::post('/storePeriodo', [BibliotecaController::class, 'storePeriodo']);
-Route::post('/storeSubcarpeta', [BibliotecaController::class, 'storeSubcarpeta']);
-Route::post('/uploadDocumento', [BibliotecaController::class, 'uploadDocumento']);
 Route::delete('/deleteDocumento/{id}', [BibliotecaController::class, 'deleteDocumento']);
 
-Route::get('/bitacora', [AuditoriaLogController::class, 'index']);
-Route::get('/bitacora/{id}', [AuditoriaLogController::class, 'show']);
 
 

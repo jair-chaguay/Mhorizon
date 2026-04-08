@@ -67,8 +67,8 @@ const ModalCrearCarpeta: React.FC<Props> = ({ isOpen, onClose, onSuccess, config
                         required
                     />
                     <div className="flex gap-2">
-                        <button type="button" onClick={onClose} className="flex-1 py-3 text-gray-500 font-bold uppercase text-xs">Cancelar</button>
-                        <button type="submit" disabled={loading} className="flex-1 py-3 bg-blue-200 text-white rounded-lg font-bold uppercase text-xs hover:bg-orange-500">
+                        <button type="button" onClick={onClose} className="cursor-pointer flex-1 py-3 text-gray-500 font-bold uppercase text-xs">Cancelar</button>
+                        <button type="submit" disabled={loading} className="cursor-pointer flex-1 py-3 bg-blue-200 text-white rounded-lg font-bold uppercase text-xs hover:bg-orange-500">
                             {loading ? 'Creando...' : 'Confirmar'}
                         </button>
                     </div>
