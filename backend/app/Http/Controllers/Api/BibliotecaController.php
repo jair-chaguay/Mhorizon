@@ -8,7 +8,7 @@ use App\Models\Cliente; // 1. IMPORTANTE: Ahora usamos Cliente
 use App\Models\BibliotecaPeriodo;
 use App\Models\BibliotecaSubcarpeta;
 use App\Models\Documento;
-use App\Models\AuditoriaLog; 
+use App\Models\AuditoriaLog;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -24,23 +24,24 @@ class BibliotecaController extends Controller
             'periodos.subcarpetas.documentos.subidoPor'
         ])->find($cliente_id);
 
-        if(!$cliente){
+        if (!$cliente) {
             return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
         }
 
         // Auditoría silenciosa
-        if(Auth::user()->rol->es_interno) {
+        if (Auth::user()->rol->es_interno) {
             AuditoriaLog::registrar(
-                'LEER', 
+                'LEER',
                 'clientes', // 3. CAMBIO: Tabla clientes
-                $cliente->id, 
+                $cliente->id,
                 "Accedió a la biblioteca del cliente {$cliente->razon_social_nombres}" // 4. CAMBIO: razon_social_nombres
             );
         }
 
         return response()->json([
             'cliente' => $cliente->razon_social_nombres,
-            'biblioteca' => $cliente->periodos,
+            // Forzamos a que si es null, devuelva un array vacío []
+            'biblioteca' => $cliente->periodos ?? [],
             'status' => 200
         ], 200);
     }
@@ -55,7 +56,7 @@ class BibliotecaController extends Controller
             'anio' => 'required|digits:4'
         ]);
 
-        if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
+        if ($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
         $periodo = BibliotecaPeriodo::create([
             'cliente_id' => $request->cliente_id, // 6. CAMBIO: Asignar cliente_id
@@ -78,7 +79,7 @@ class BibliotecaController extends Controller
             'nombre' => 'required|string|max:100'
         ]);
 
-        if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
+        if ($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
         $subcarpeta = BibliotecaSubcarpeta::create([
             'periodo_id' => $request->periodo_id,
@@ -102,17 +103,17 @@ class BibliotecaController extends Controller
             'observacion_cliente' => 'nullable|string'
         ]);
 
-        if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
+        if ($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
         $file = $request->file('archivo');
         $nombreOriginal = $file->getClientOriginalName();
         $extension = strtolower($file->getClientOriginalExtension());
-        
+
         // Clasificar el icono para React
         $tipo = 'otro';
-        if($extension == 'pdf') $tipo = 'pdf';
-        elseif(in_array($extension, ['xls', 'xlsx'])) $tipo = 'excel';
-        elseif(in_array($extension, ['doc', 'docx'])) $tipo = 'word';
+        if ($extension == 'pdf') $tipo = 'pdf';
+        elseif (in_array($extension, ['xls', 'xlsx'])) $tipo = 'excel';
+        elseif (in_array($extension, ['doc', 'docx'])) $tipo = 'word';
 
         // Guardar físicamente
         $ruta = $file->store("biblioteca/subcarpeta_{$request->subcarpeta_id}", 'public');
@@ -139,9 +140,9 @@ class BibliotecaController extends Controller
     public function deleteDocumento($id)
     {
         $documento = Documento::find($id);
-        if(!$documento) return response()->json(['message' => 'No encontrado'], 404);
+        if (!$documento) return response()->json(['message' => 'No encontrado'], 404);
 
-        if(Storage::disk('public')->exists($documento->url_archivo)){
+        if (Storage::disk('public')->exists($documento->url_archivo)) {
             Storage::disk('public')->delete($documento->url_archivo);
         }
 

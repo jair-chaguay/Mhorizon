@@ -47,15 +47,21 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
 
   // 2. HANDLERS DE NAVEGACIÓN
   const handleClientClick = async (cliente: any) => {
+    // 1. Guardamos el ID inmediatamente para que esté disponible para el botón "Crear"
+    setSelectionIds(prev => ({ ...prev, clienteId: cliente.id }));
     setPath({ ...path, cliente: cliente.razon_social_nombres });
-    setSelectionIds({ ...selectionIds, clienteId: cliente.id });
+
     try {
       setLoading(true);
       const { data } = await api.get(`/biblioteca/arbol/${cliente.id}`);
-      setPeriodos(data.biblioteca); // El controlador devuelve 'biblioteca' con los periodos
+
+      // 2. Si data.biblioteca viene vacío, setPeriodos será [] y el "Empty State" se mostrará
+      setPeriodos(data.biblioteca || []);
       setNavLevel('PERIODOS');
     } catch (error) {
-      console.error(error);
+      console.error("Error al cargar la biblioteca:", error);
+      // Aunque falle la carga de archivos, permitimos navegar para que pueda crear carpetas
+      setNavLevel('PERIODOS');
     } finally {
       setLoading(false);
     }

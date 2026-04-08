@@ -23,20 +23,24 @@ const ModalCrearCarpeta: React.FC<Props> = ({ isOpen, onClose, onSuccess, config
         setLoading(true);
         try {
             if (config.type === 'PERIODOS') {
-                await api.post('/biblioteca/periodo', { 
-                    cliente_id: config.parentId, 
-                    anio: nombre 
+                await api.post('/biblioteca/periodo', {
+                    cliente_id: config.parentId,
+                    anio: nombre
                 });
             } else if (config.type === 'SUBCARPETAS') {
-                await api.post('/biblioteca/subcarpeta', { 
-                    periodo_id: config.parentId, 
-                    nombre: nombre 
+                await api.post('/biblioteca/subcarpeta', {
+                    periodo_id: config.parentId,
+                    nombre: nombre
                 });
             } else if (config.type === 'ROOT') {
-                // Lógica para crear cliente si la necesitas
-                await api.post('/clientes', { razon_social_nombres: nombre });
+                // Asegúrate de enviar los campos mínimos requeridos por tu base de datos
+                await api.post('/cliente', {
+                    razon_social_nombres: nombre,
+                    tipo_persona: 'Jurídica', // Valor por defecto para evitar error 400
+                    identificacion: 'TEMP-' + Date.now(), // Identificación temporal o pide este dato
+                });
             }
-            
+
             setNombre("");
             onSuccess();
             onClose();
@@ -54,7 +58,7 @@ const ModalCrearCarpeta: React.FC<Props> = ({ isOpen, onClose, onSuccess, config
             <div className="bg-white rounded-xl p-8 w-full max-w-md shadow-2xl">
                 <h2 className="text-blue-200 font-black text-xl mb-4 uppercase">{config.title}</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <input 
+                    <input
                         autoFocus
                         className="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-orange-500"
                         placeholder={config.placeholder}
