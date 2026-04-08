@@ -1,39 +1,77 @@
-import React from 'react';
-import { ScrollReveal } from '../../../ScrollReveal';
+import React, { useState } from 'react';
+import api from '../../../../api/axios';
+
 
 interface Props {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  placeholder: string;
+    isOpen: boolean;
+    onClose: () => void;
+    onSuccess: () => void;
+    config: {
+        title: string;
+        placeholder: string;
+        type: 'ROOT' | 'PERIODOS' | 'SUBCARPETAS' | 'ARCHIVOS';
+        parentId: number | null;
+    };
 }
 
-const ModalCrearCarpeta: React.FC<Props> = ({ isOpen, onClose, title, placeholder }) => {
-  if (!isOpen) return null;
+const ModalCrearCarpeta: React.FC<Props> = ({ isOpen, onClose, onSuccess, config }) => {
+    const [nombre, setNombre] = useState("");
+    const [loading, setLoading] = useState(false);
 
-  return (
-    <ScrollReveal className="fixed inset-0 bg-black/80 backdrop-blur-sm z-120 flex justify-center items-center p-4 animate-fadeIn">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 relative reveal-element delay-200 scale-100 transition-all">
-        <button onClick={onClose} className="cursor-pointer absolute top-5 right-5 text-gray-400 hover:text-orange-500 focus:outline-none">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        <div className="mb-6">
-          <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.70rem] uppercase mb-1 block">Biblioteca Operativa</span>
-          <h2 className="text-blue-200 font-extrabold text-[1.4rem] tracking-tight">{title}</h2>
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            if (config.type === 'PERIODOS') {
+                await api.post('/biblioteca/periodo', { 
+                    cliente_id: config.parentId, 
+                    anio: nombre 
+                });
+            } else if (config.type === 'SUBCARPETAS') {
+                await api.post('/biblioteca/subcarpeta', { 
+                    periodo_id: config.parentId, 
+                    nombre: nombre 
+                });
+            } else if (config.type === 'ROOT') {
+                // Lógica para crear cliente si la necesitas
+                await api.post('/clientes', { razon_social_nombres: nombre });
+            }
+            
+            setNombre("");
+            onSuccess();
+            onClose();
+        } catch (error) {
+            alert("Error al crear carpeta. Verifique que no exista.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black/80 z-150 flex items-center justify-center p-4">
+            <div className="bg-white rounded-xl p-8 w-full max-w-md shadow-2xl">
+                <h2 className="text-blue-200 font-black text-xl mb-4 uppercase">{config.title}</h2>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    <input 
+                        autoFocus
+                        className="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-orange-500"
+                        placeholder={config.placeholder}
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
+                        required
+                    />
+                    <div className="flex gap-2">
+                        <button type="button" onClick={onClose} className="flex-1 py-3 text-gray-500 font-bold uppercase text-xs">Cancelar</button>
+                        <button type="submit" disabled={loading} className="flex-1 py-3 bg-blue-200 text-white rounded-lg font-bold uppercase text-xs hover:bg-orange-500">
+                            {loading ? 'Creando...' : 'Confirmar'}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-          <div>
-            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Nombre / Identificador</label>
-            <input type="text" placeholder={placeholder} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
-          </div>
-          <div className="flex gap-3 pt-3 border-t border-gray-100">
-            <button type="button" onClick={onClose} className="flex-1 py-3 border cursor-pointer border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50">Cancelar</button>
-            <button type="submit" className="flex-1 py-3 bg-blue-200 text-white cursor-pointer rounded-md font-bold uppercase tracking-wider text-[0.80rem] hover:bg-orange-500 transition-all">Crear</button>
-          </div>
-        </form>
-      </div>
-    </ScrollReveal>
-  );
+    );
 };
 
 export default ModalCrearCarpeta;

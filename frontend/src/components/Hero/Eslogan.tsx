@@ -16,7 +16,7 @@ export const Eslogan = () => {
                     </div>
                     <div className="px-4">
                         <p className="text-white text-xl font-bold mb-1">100%</p>
-                        <p className="text-white/90 text-[0.75rem] font-medium uppercase tracking-widest">Cumplimiento Legal</p>
+                        <p className="text-white/90 text-[0.75rem] font-medium uppercase tracking-widest">Cumplimiento Tributario</p>
                     </div>
                     <div className="px-4">
                         <p className="text-white text-xl font-bold mb-1">B2B</p>

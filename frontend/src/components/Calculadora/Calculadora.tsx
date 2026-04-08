@@ -12,7 +12,7 @@ const calculadora: CalculadoraItem[] = [
   {
     image: "images/Recurso10.png",
     title: "Análisis Predictivo",
-    subtitle: "Proyecte sus obligaciones fiscales antes del cierre del ejercicio.",
+    subtitle: "Proyecte su impuesto a la renta antes del cierre del ejercicio.",
   },
   {
     image: "images/Recurso10.png",

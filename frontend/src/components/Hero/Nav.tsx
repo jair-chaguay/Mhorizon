@@ -1,13 +1,11 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
-import { ContactModal } from "../ContactModal"
 
 interface NavProps {
   mobile?: boolean
 }
 
 export const Nav = ({ mobile = false }: NavProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   const toggleDropdown = (menu: string) => {
@@ -45,7 +43,7 @@ export const Nav = ({ mobile = false }: NavProps) => {
             <div className={
               mobile
                 ? `overflow-hidden transition-all duration-300 ${openDropdown === 'soluciones' ? 'max-h-96 opacity-100 pt-3' : 'max-h-0 opacity-0'}`
-                : "absolute left-0 top-[100%] pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 z-50"
+                : "absolute left-0 top-full pt-2 w-64 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 z-50"
             }>
               <ul className={
                 mobile
@@ -77,7 +75,7 @@ export const Nav = ({ mobile = false }: NavProps) => {
             <div className={
               mobile
                 ? `overflow-hidden transition-all duration-300 ${openDropdown === 'sectores' ? 'max-h-96 opacity-100 pt-3' : 'max-h-0 opacity-0'}`
-                : "absolute left-0 top-[100%] pt-2 w-[340px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 z-50"
+                : "absolute left-0 top-full pt-2 w-85 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform origin-top scale-95 group-hover:scale-100 z-50"
             }>
               <ul className={
                 mobile
@@ -101,25 +99,10 @@ export const Nav = ({ mobile = false }: NavProps) => {
           </li>
 
           <li className="hover:bg-white hover:text-orange-500 transition-all duration-300 bg-orange-500 rounded-sm px-5 py-2 w-full md:w-auto text-center md:text-left">
-            <Link to="/loginPage">PORTAL</Link>
+            <Link to="/loginPage">PORTAL CLIENTE</Link>
           </li>
-          <li className="hover:bg-white hover:text-orange-500 transition-all duration-300 bg-orange-500 rounded-sm px-5 py-2 w-full md:w-auto text-center md:text-left">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="cursor-pointer uppercase w-full outline-none"
-            >
-              CONTACTO
-            </button>
-          </li>
-
-
         </ul>
       </nav>
-
-      <ContactModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </>
   )
 }

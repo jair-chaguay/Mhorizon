@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('creado_por_id')->constrained('usuarios')->onDelete('restrict');
             $table->string('titulo');
             $table->string('fuente');
+            $table->enum('categoria', ['Impuesto', 'Finanzas', 'Economía', 'Laboral', 'Societario'])->default('Impuesto');
             $table->string('descripcion_corta');
             $table->string('url_destino');
             $table->string('imagen_url');

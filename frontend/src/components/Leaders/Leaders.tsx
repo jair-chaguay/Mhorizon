@@ -15,7 +15,7 @@ interface LeaderProps {
 const leadersProp: LeaderProps[] = [
   {
     name: 'Milton Montecé Q.',
-    cargo: 'Presidente y Socio de Impuestos',
+    cargo: 'Partner Manager',
     urlImg: 'images/MILTON.png',
     telf: '+593 972-638-4937',
     email: 'mmontece@mhorizon.com.ec',
@@ -23,7 +23,7 @@ const leadersProp: LeaderProps[] = [
   },
   {
     name: 'Violeta Rodriguez',
-    cargo: 'Supervisora de Impuestos',
+    cargo: 'Tax Partner',
     urlImg: 'images/VIOLETA.png',
     telf: '+593 972-638-4937',
     email: 'vrodriguez@mhorizon.com.ec',

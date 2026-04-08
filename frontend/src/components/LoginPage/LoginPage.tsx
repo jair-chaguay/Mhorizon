@@ -19,7 +19,7 @@ export const LoginPage = () => {
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.usuario));
             const user = data.usuario;
-            if(user.rol_id==4 || user.cliente_id !== null){
+            if(user.rol_id==2 || user.cliente_id !== null){
                 navigate("/intranetClientes");
             }else{
                 navigate("/intranet")

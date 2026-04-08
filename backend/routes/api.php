@@ -42,19 +42,28 @@ Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/informativo', [InformativoController::class, 'index']);
-Route::get('/informativo/{id}', [InformativoController::class, 'show']);
+
 Route::post('/informativo', [InformativoController::class, 'store']);
 Route::put('/informativo/{id}', [InformativoController::class, 'update']);
 Route::delete('/informativo/{id}', [InformativoController::class, 'destroy']);
 
-Route::get('/noticia', [noticiasController::class, 'index']);
 Route::get('/noticia/{id}', [noticiasController::class, 'show']);
 Route::post('/noticia', [noticiasController::class, 'store']);
 Route::put('/noticia/{id}', [noticiasController::class, 'update']);
 Route::delete('/noticia/{id}', [noticiasController::class, 'destroy']);
+
+Route::get('/contacto', [ContactoController::class, 'index']);
+Route::get('/contacto/{id}', [ContactoController::class, 'show']);
+Route::put('/contacto/{id}', [ContactoController::class, 'update']);
+Route::delete('/contacto/{id}', [ContactoController::class, 'destroy']);
 });
 
+
+
+
+Route::get('/noticia', [noticiasController::class, 'index']);
+Route::get('/informativo', [InformativoController::class, 'index']);
+Route::get('/informativo/{id}', [InformativoController::class, 'show']);
 
 
 Route::get('/declaracion', [DeclaracionController::class, 'index']);
@@ -63,13 +72,11 @@ Route::post('/declaracion', [DeclaracionController::class, 'store']);
 Route::put('/declaracion/{id}', [DeclaracionController::class, 'update']);
 Route::delete('/declaracion/{id}', [DeclaracionController::class, 'destroy']);
 
-Route::get('/contacto', [ContactoController::class, 'index']);
-Route::get('/contacto/{id}', [ContactoController::class, 'show']);
 Route::post('/contacto', [ContactoController::class, 'store']);
-Route::put('/contacto/{id}', [ContactoController::class, 'update']);
-Route::delete('/contacto/{id}', [ContactoController::class, 'destroy']);
 
-Route::get('clientes/{cliente_id}/biblioteca', [BibliotecaController::class, 'getArbolBiblioteca']);
+
+Route::get('/biblioteca/arbol/{cliente_id}', [BibliotecaController::class, 'getArbolBiblioteca']);
+
 Route::post('/storePeriodo', [BibliotecaController::class, 'storePeriodo']);
 Route::post('/storeSubcarpeta', [BibliotecaController::class, 'storeSubcarpeta']);
 Route::post('/uploadDocumento', [BibliotecaController::class, 'uploadDocumento']);

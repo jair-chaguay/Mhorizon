@@ -19,8 +19,8 @@ const ModalEliminar: React.FC<Props> = ({ isOpen, onClose, onConfirm, itemTitle 
         <h2 className="text-blue-200 font-extrabold text-[1.4rem] mb-2">¿Eliminar {itemTitle}?</h2>
         <p className="text-gray-500 text-[0.9rem] mb-6">Esta acción no se puede deshacer y los datos se borrarán permanentemente.</p>
         <div className="flex gap-3">
-          <button onClick={onClose} className="flex-1 py-3 border border-gray-200 rounded-lg text-gray-600 font-bold uppercase text-[0.80rem] hover:bg-gray-50">Cancelar</button>
-          <button onClick={onConfirm} className="flex-1 py-3 bg-red-500 text-white rounded-lg font-bold uppercase text-[0.80rem] hover:bg-red-600 shadow-md">Eliminar</button>
+          <button onClick={onClose} className="cursor-pointer flex-1 py-3 border border-gray-200 rounded-lg text-gray-600 font-bold uppercase text-[0.80rem] hover:bg-gray-50">Cancelar</button>
+          <button onClick={onConfirm} className="cursor-pointer flex-1 py-3 bg-red-500 text-white rounded-lg font-bold uppercase text-[0.80rem] hover:bg-red-600 shadow-md">Eliminar</button>
         </div>
       </div>
     </div>

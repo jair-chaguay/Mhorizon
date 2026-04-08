@@ -3,59 +3,45 @@ import { Autoplay, FreeMode } from 'swiper/modules';
 import { ScrollReveal } from '../ScrollReveal';
 import "swiper/css";
 import { RadarCard } from './RadarCard';
+import { useEffect, useState } from 'react';
+import api from '../../api/axios';
 
 // Interfaz exportada para que la tarjeta la pueda usar
-export interface NoticiaProps {
-    id: string;
+export interface NoticiasDB {
+    id: number;
     titulo: string;
+    fuente: string;
     categoria: string;
-    noticia: string;
-    content: string;
-    image: string;
-    url: string;
+    descripcion_corta: string;
+    url_destino: string;
+    imagen_url: string;
 }
 
-// Datos corregidos (con IDs únicos y sin errores de tipeo)
-const mockNoticias: NoticiaProps[] = [
-    {
-        id: '1',
-        titulo: "IMPUESTOS",
-        categoria: "AENA",
-        noticia: "SRI incrementa al 3% la retención sobre rendimientos",
-        content: "Ajuste aplicable para pólizas a partir de este año.",
-        image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop",
-        url: "https://aena.com.ec/ecuador-sri-incrementa-al-3-la-retencion-del-impuesto-a-la-renta-sobre-rendimientos-financieros-desde-marzo-de-2026/"
-    },
-    {
-        id: '2',
-        titulo: "Normativa",
-        categoria: "Lexis",
-        noticia: "SRI amplía plazo para declaraciones de impuestos",
-        content: "Nuevas fechas tras intermitencias tecnológicas.",
-        image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop",
-        url: "https://www.lexis.com.ec/noticias/sri-amplia-plazo-para-declaraciones-e-impuestos-vencidos-el-12-de-enero-de-2026"
-    },
-    {
-        id: '3',
-        titulo: "Economía",
-        categoria: "Primicias",
-        noticia: "Deuda al SRI asciende a USD 2.388 millones",
-        content: "El ranking actualizado de los mayores deudores fiscales.",
-        image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?q=80&w=800&auto=format&fit=crop",
-        url: "https://www.primicias.ec/economia/lista-contribuyentes-mayores-deudores-sri-impuestos-exportadora-noboa-117275/"
-    },
-    {
-        id: '4',
-        titulo: "Impuestos",
-        categoria: "AENA",
-        noticia: "SRI actualiza tabla de Impuesto a la Renta",
-        content: "Conoce los nuevos rangos para personas naturales.",
-        image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?q=80&w=800&auto=format&fit=crop",
-        url: "#"
-    },
-];
 
 export const Radar = () => {
+    const [noticias, setNoticias] = useState<NoticiasDB[]>([]);
+    const [loading, setLoading] = useState(true);
+
+
+    const fetchNoticias = async () =>{
+        try{
+            const { data } = await api.get('/noticia');
+            setNoticias(data.noticias || [])
+        }catch(error){
+            console.error("Error al cargar el radar financiero:", error);
+        }finally{
+            setLoading(false);
+        }
+    }
+
+    useEffect(() => {
+        fetchNoticias();
+    }, [])
+
+
+    if (loading || noticias.length === 0) return null;
+
+
     return (
         <ScrollReveal>
             <section className="py-8 bg-[#101720] border-y border-white/5 overflow-hidden relative reveal-element">
@@ -91,9 +77,16 @@ export const Radar = () => {
                     allowTouchMove={true}
                     className="clients-swiper px-4 w-full" 
                 >
-                    {mockNoticias.map((client) => (
-                        <SwiperSlide key={client.id} style={{ width: 'auto' }}>
-                            <RadarCard {...client} />
+                    {noticias.map((item) => (
+                        <SwiperSlide key={item.id} style={{ width: 'auto' }}>
+                            <RadarCard 
+                                titulo={item.categoria} // Usamos la categoría de la DB como tag superior
+                                categoria={item.fuente}  // Usamos el medio como fuente
+                                noticia={item.titulo}    // El título principal
+                                content={item.descripcion_corta} 
+                                image={`http://localhost:8000/storage/${item.imagen_url}`} // URL completa
+                                url={item.url_destino}
+                            />
                         </SwiperSlide>
                     ))}
                 </Swiper>

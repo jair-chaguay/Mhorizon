@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../../ScrollReveal';
 import api from '../../../../api/axios';
 
@@ -6,9 +6,10 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  datosEdicion?: any;
 }
 
-const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
+const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess, datosEdicion }) => {
 
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("Tributario");
@@ -17,12 +18,23 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess 
   const [imagen, setImagen] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
-  if (!isOpen) return null;
+
+  useEffect(() => {
+    if (datosEdicion && isOpen) {
+      setTitulo(datosEdicion.titulo || "");
+      setCategoria(datosEdicion.categoria || "Tributario");
+      setResolucion(datosEdicion.resolucion_oficial || "");
+      setContenido(datosEdicion.contenido || "");
+    } else {
+      resetForm();
+    }
+  }, [datosEdicion, isOpen])
+
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     const formData = new FormData();
     formData.append('titulo', titulo);
     formData.append('categoria', categoria);
@@ -34,11 +46,19 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess 
 
 
     try {
-      await api.post('/informativo', formData, {
+      const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
-      })
+      } 
+
+
+      if (datosEdicion) {
+        formData.append('_method', 'PUT');
+        await api.post(`/informativo/${datosEdicion.id}`, formData, config);
+      } else {
+        await api.post('/informativo', formData, config);
+      }
 
       if (typeof onSuccess === 'function') {
         onSuccess(); // Esto llamará a triggerRefresh en el padre
@@ -54,12 +74,16 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess 
 
   }
 
+
+
   const resetForm = () => {
     setTitulo("");
     setResolucion("");
     setContenido("");
     setImagen(null);
   };
+
+  if (!isOpen) return null;
 
 
   return (
@@ -68,7 +92,7 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess 
         <div className="bg-blue-200 p-6 pr-12 relative shrink-0 rounded-t-2xl">
           <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.70rem] uppercase mb-1 block">Gestor de Contenidos</span>
           <h2 className="text-white font-extrabold text-[1.4rem] leading-tight">Redactar Informativo</h2>
-          <button onClick={onClose} className="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors bg-white/10 rounded-full p-1.5">
+          <button onClick={onClose} className="cursor-pointer absolute top-5 right-5 text-gray-400 hover:text-white transition-colors bg-white/10 rounded-full p-1.5">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
         </div>

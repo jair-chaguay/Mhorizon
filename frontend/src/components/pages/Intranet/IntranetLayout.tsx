@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from './SideBar'; 
+import Sidebar from './SideBar';
 import Header from './Header';
 import Directorio from './views/Directorio';
 import Biblioteca from './views/Biblioteca';
@@ -16,15 +16,16 @@ import ModalSubirArchivo from './modals/ModalSubirArchivo';
 
 import { type ViewID, type Cliente } from './types';
 import ModalAñadirDeclaracion from './modals/ModalAñadirDeclaracion';
+import api from '../../../api/axios';
 
 const IntranetLayout: React.FC = () => {
-
+    const [crearConfig, setCrearConfig] = useState<any>({ title: '', placeholder: '', type: 'ROOT', parentId: null });
     const [refreshSignal, setRefreshSignal] = useState(0);    // Estados principales de navegación
     const triggerRefresh = () => setRefreshSignal(prev => prev + 1);
     const [activeView, setActiveView] = useState<ViewID>('view-directorio');
     const [viewTitle, setViewTitle] = useState('Directorio de Clientes');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
+    const [infoAEditar, setInfoAEditar] = useState<any>(null);
     // Estados de los Modales
     const [isGestionModalOpen, setIsGestionModalOpen] = useState(false);
     const [clienteSeleccionado, setClienteSeleccionado] = useState<Cliente | null>(null);
@@ -43,18 +44,50 @@ const IntranetLayout: React.FC = () => {
     const [isSubirArchivoOpen, setIsSubirArchivoOpen] = useState(false);
     const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
 
+    const handleConfirmEliminar = async () => {
+        try {
+            let endpoint = "";
+            if (activeView === 'view-informativos') {
+                endpoint = `/informativo/${itemAEliminar.id}`;
+            } else if (activeView === 'view-noticias') {
+                endpoint = `/noticia/${itemAEliminar.id}`;
+            }
+
+            if (endpoint) {
+                await api.delete(endpoint);
+
+                triggerRefresh();
+                setIsEliminarModalOpen(false);
+            }
+        } catch (error) {
+            console.error("Error al eliminar:", error);
+            alert("No se pudo eliminar el registro.");
+        }
+    }
+
     // Handlers
     const handleOpenCrearFolder = (title: string, placeholder: string) => {
         setCrearFolderConfig({ title, placeholder });
         setIsCrearFolderOpen(true);
     };
 
+    const handleOpenRedactar = (info?: any) => {
+        setInfoAEditar(info || null); // Si viene info, es editar; si no, es nuevo.
+        setIsRedactarModalOpen(true);
+    };
+
+    const handleOpenRedactarNoticia = (noticia?: any) => {
+        setInfoAEditar(noticia || null);
+        setIsRedactarNoticiaOpen(true);
+    };
+
+
     const handleOpenGestion = (cliente: Cliente) => {
         setClienteSeleccionado(cliente);
         setIsGestionModalOpen(true);
     };
 
-    const handleOpenEliminar = (id: number|string, title: string) => {
+    const handleOpenEliminar = (id: number | string, title: string) => {
         setItemAEliminar({ id, title });
         setIsEliminarModalOpen(true);
     };
@@ -89,22 +122,24 @@ const IntranetLayout: React.FC = () => {
 
                         {activeView === 'view-repositorio-root' && (
                             <Biblioteca
-                                onOpenCrear={handleOpenCrearFolder}
-                                onOpenSubir={() => setIsSubirArchivoOpen(true)} // <-- Conectado
+                                onOpenCrear={(conf) => { setCrearConfig(conf); setIsCrearFolderOpen(true); }}
+                                onOpenSubir={(id) => { /* Tu lógica de modal subir archivo usando ese id */ }}
+                                refreshSignal={refreshSignal}
                             />
                         )}
 
                         {activeView === 'view-informativos' && (
                             <Informativos
                                 key={`info-${refreshSignal}`}
-                                onOpenRedactar={() => setIsRedactarModalOpen(true)}
+                                onOpenRedactar={handleOpenRedactar}
                                 onOpenEliminar={handleOpenEliminar}
                             />
                         )}
 
                         {activeView === 'view-noticias' && (
                             <Noticias
-                                onOpenRedactar={() => setIsRedactarNoticiaOpen(true)}
+                                key={`info-${refreshSignal}`}
+                                onOpenRedactar={handleOpenRedactarNoticia}
                                 onOpenEliminar={handleOpenEliminar} // Reusamos el modal eliminar
                             />
                         )}
@@ -131,14 +166,15 @@ const IntranetLayout: React.FC = () => {
             <ModalCrearCarpeta
                 isOpen={isCrearFolderOpen}
                 onClose={() => setIsCrearFolderOpen(false)}
-                title={crearFolderConfig.title}
-                placeholder={crearFolderConfig.placeholder}
+                onSuccess={triggerRefresh}
+                config={crearConfig}
             />
 
             <ModalRedactarInformativo
                 isOpen={isRedactarModalOpen}
                 onClose={() => setIsRedactarModalOpen(false)}
                 onSuccess={triggerRefresh}
+                datosEdicion={infoAEditar}
 
             />
             <ModalAñadirDeclaracion
@@ -150,10 +186,7 @@ const IntranetLayout: React.FC = () => {
             <ModalEliminar
                 isOpen={isEliminarModalOpen}
                 onClose={() => setIsEliminarModalOpen(false)}
-                onConfirm={() => {
-                    console.log(`Eliminando el item ${itemAEliminar.title}...`);
-                    setIsEliminarModalOpen(false);
-                }}
+                onConfirm={handleConfirmEliminar}
                 itemTitle={itemAEliminar.title}
             />
 
@@ -165,6 +198,8 @@ const IntranetLayout: React.FC = () => {
             <ModalRedactarNoticia
                 isOpen={isRedactarNoticiaOpen}
                 onClose={() => setIsRedactarNoticiaOpen(false)}
+                onSuccess={triggerRefresh}
+                datosEdicion={infoAEditar}
             />
 
         </div>

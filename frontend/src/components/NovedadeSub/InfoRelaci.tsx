@@ -4,7 +4,6 @@ import { BoletinCard } from "../Novedades/BoletinCard"
 import { ScrollReveal } from "../ScrollReveal"
 
 interface boletinesProps {
-    etiqueta: string,
     fecha: string,
     image: string,
     titulo: string,
@@ -13,21 +12,18 @@ interface boletinesProps {
 
 const boletines: boletinesProps[] = [
     {
-        etiqueta: "Tributario",
         fecha: "27 DE FEBRERO, 2026",
         image: "Recurso04.jpeg",
         titulo: "ACTUALIZACIÓN TRIBUTARIA: NUEVOS PORCENTAJES DE RETENCIÓN 2026",
         content: "El SRI ha modificado los porcentajes de retención en la fuente de Impuesto a la Renta. La nueva regla general estipula una retención del 3% aplicable desde el 1 de marzo de 2026."
     },
     {
-        etiqueta: "LEGAL",
         fecha: "15 DE FEBRERO, 2026",
         image: "Recurso05.jpeg",
         titulo: "CUMPLIMIENTO SOCIETARIO: DECLARACIÓN PATRIMONIAL",
         content: "Obligaciones y plazos clave para la presentación de la declaración patrimonial ante los organismos de control pertinentes durante el primer trimestre del año."
     },
     {
-        etiqueta: "FINANCIERO",
         fecha: "05 DE FEBRERO, 2026",
         image: "Recurso06.jpeg",
         titulo: "CIERRE FISCAL Y NORMAS NIIF ACTUALIZADAS",
@@ -52,7 +48,7 @@ export const InfoRelaci = () => {
                         </h2>
                     </div>
                     <Link to={"/novedades"} className="inline-flex items-center gap-2 text-blue-200 font-bold uppercase tracking-wider text-[0.9rem] border-b-2 border-blue-200 hover:text-orange-500 hover:border-orange-500 transition-colors pb-1">
-                        Ver todos los informatiovs
+                        Ver todos los informativos
                     </Link>
                 </div>
 

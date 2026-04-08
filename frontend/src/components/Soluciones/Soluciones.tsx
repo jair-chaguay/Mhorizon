@@ -20,21 +20,21 @@ const solucionProp: SolucionesProp[] = [
     urlImg: "images/ICONO2.png",
     title: "GESTIÓN TRIBUTARIA",
     paragraph:
-      "Convertimos su carga fiscal en eficiencia operativa. Le guiamos para cumplir estrictamente con las normativas del SRI, previniendo contingencias legales.",
+      "Convertimos su carga fiscal en eficiencia operativa, gestionamos la devolución de sus impuestos y le guiamos para cumplir estrictamente con las normativas del SRI, previniendo contingencias legales.",
     ruta: "/soluciones/gestion-tributaria"
   },
   {
     urlImg: "images/ICONO3.png",
-    title: "OUTSOURCING",
+    title: "OUTSOURCING BPO",
     paragraph:
-      "Enfoque toda su energía en el núcleo de su negocio mientras nosotros gestionamos su back-office.",
+      "Enfoque toda su energía en el core bussines de su negocio mientras nosotros gestionamos su back-office.",
     ruta: "/soluciones/outsourcing"
   },
   {
     urlImg: "images/ICONO4.png",
     title: "AUDITORÍA FINANCIERA",
     paragraph:
-      "Datos claros, transparentes y confiables. Evaluamos la salud financiera de su empresa con rigurosidad internacional, detectando oportunidades de mejora.",
+      "Datos claros, transparentes y confiables. Evaluamos la salud financiera acorde con Normas Internacionales de Información Financiera (NIIF), detectando oportunidades de mejora.",
     ruta: "/soluciones/auditoria"
   },
 ]

@@ -29,6 +29,7 @@ $noticias = Noticias::with('creador')->orderBy('created_at', 'desc')->get();
             'titulo' => 'required|string|max:150',
             'fuente' => 'required|string|max:100',
             'descripcion_corta' => 'required|string|max:255',
+            'categoria' => 'required|in:Impuesto,Finanzas,Economía,Laboral,Societario',
             'url_destino' => 'required|url|max:500',
             'imagen' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);
@@ -50,6 +51,7 @@ $noticias = Noticias::with('creador')->orderBy('created_at', 'desc')->get();
             'titulo' => $request->titulo,
             'fuente' => $request->fuente,
             'descripcion_corta' => $request->descripcion_corta,
+            'categoria' => $request->categoria,
             'url_destino' => $request->url_destino,
             'imagen_url' => $rutaImagen
         ]);
@@ -86,6 +88,7 @@ $noticias = Noticias::with('creador')->orderBy('created_at', 'desc')->get();
             'titulo' => 'sometimes|required|string|max:150',
             'fuente' => 'sometimes|required|string|max:100',
             'descripcion_corta' => 'sometimes|required|string|max:255',
+            'categoria' => 'sometimes|required|in:Impuesto,Finanzas,Economía,Laboral,Societario',
             'url_destino' => 'sometimes|required|url|max:500',
             'imagen' => 'sometimes|image|mimes:jpg,jpeg,png,webp|max:2048'
         ]);

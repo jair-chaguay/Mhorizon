@@ -12,8 +12,7 @@ interface NoticiaProps {
 
 export const RadarCard: React.FC<NoticiaProps> = ({ titulo, categoria, noticia, content, image, url }) => {
     return (
-        // CORRECCIÓN: Se mantiene el ancho fijo aquí, y Swiper se adapta gracias a slidesPerView="auto"
-        <div className="w-[300px] sm:w-[400px] h-full"> 
+        <div className="w-75 sm:w-100 h-full"> 
             <a 
                 href={url} 
                 target="_blank" 

@@ -88,7 +88,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion }) => {
                     </div>
 
                     <div className="overflow-x-auto">
-                        <table className="w-full text-left border-collapse min-w-[900px]">
+                        <table className="w-full text-left border-collapse min-w-225">
                             <thead>
                                 <tr className="bg-gray-50 border-b border-gray-200 text-[0.70rem] font-bold uppercase tracking-widest text-gray-500">
                                     <th className="px-6 py-4">Empresa / Cliente</th>
@@ -122,7 +122,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion }) => {
                                         </td>
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-3">
-                                                <div className="flex-1 h-2 bg-gray-100 rounded-full max-w-[60px] overflow-hidden">
+                                                <div className="flex-1 h-2 bg-gray-100 rounded-full max-w-15 overflow-hidden">
                                                     <div 
                                                         className={`h-full rounded-full ${cliente.score_tributario > 80 ? 'bg-green-500' : 'bg-orange-500'}`}
                                                         style={{ width: `${cliente.score_tributario}%` }}

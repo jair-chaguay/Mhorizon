@@ -3,7 +3,6 @@ import SidebarCliente from './SidebarCliente';
 import HeaderCliente from './HeaderCliente';
 import DashboardCliente from './views/DashboardCliente';
 import BibliotecaCliente from './views/BibliotecaCliente';
-import HistorialFiscal from './views/HistorialFiscal';
 import InformativosCliente from './views/InformativosCliente';
 import AjustesCliente from './views/AjustesCliente';
 import { type ViewClienteID } from './type';
@@ -40,7 +39,6 @@ const LayoutCliente: React.FC = () => {
                     <div className="animate-fadeIn">
                         {activeView === 'dashboard-view' && <DashboardCliente onNavigate={handleViewChange} />}
                         {activeView === 'biblioteca-view' && <BibliotecaCliente />}
-                        {activeView === 'historial-view' && <HistorialFiscal />}
                         {activeView === 'informativos-view' && <InformativosCliente />}
                         {activeView === 'ajustes-view' && <AjustesCliente />}
                     </div>

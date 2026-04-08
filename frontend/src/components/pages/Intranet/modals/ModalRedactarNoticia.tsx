@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../../ScrollReveal';
 import api from '../../../../api/axios';
 
@@ -6,23 +6,39 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  datosEdicion?: any,
 }
-
-const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess }) => {
+const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess, datosEdicion }) => {
   const [titulo, setTitulo] = useState("");
   const [fuente, setFuente] = useState("");
   const [url, setUrl] = useState("");
   const [descripcion, setDescripcion] = useState("");
+  const [categoria, setCategoria] = useState("Impuesto");
   const [imagen, setImagen] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
-  if (!isOpen) return null;
+
+  useEffect(() => {
+    if (datosEdicion && isOpen) {
+      setTitulo(datosEdicion.titulo || "");
+      setFuente(datosEdicion.fuente || "");
+      setUrl(datosEdicion.url_destino || "");
+      setDescripcion(datosEdicion.descripcion_corta || "");
+      setCategoria(datosEdicion.categoria || "Impuesto");
+    } else {
+      resetForm();
+    }
+
+  }, [datosEdicion, isOpen])
+
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     const formData = new FormData();
     formData.append('titulo', titulo);
     formData.append('fuente', fuente);
+    formData.append('categoria', categoria);
     formData.append('descripcion_corta', descripcion);
     formData.append('url_destino', url);
     if (imagen) {
@@ -30,11 +46,18 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
     }
 
     try {
-      await api.post('/noticia', formData, {
+      const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
         }
-      })
+      }
+
+      if (datosEdicion) {
+        formData.append('_method', 'PUT');
+        await api.post(`/noticia/${datosEdicion.id}`, formData, config);
+      } else {
+        await api.post('/noticia', formData, config);
+      }
 
       if (typeof onSuccess === 'function') {
         onSuccess(); // Esto llamará a triggerRefresh en el padre
@@ -42,12 +65,11 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
       onClose();
       resetForm();
 
-    } catch (error: any) {
-      if (error.response?.data?.errors) {
-        console.error("Errores de validación:", error.response.data.errors);
-        // Esto te mostrará en consola exactamente qué campo no le gustó a Laravel
-      }
-      alert("Error al publicar: " + (error.response?.data?.message || "Verifique los datos"));
+    } catch (error:any) {
+      if (error.response && error.response.data.errors) {
+            console.table(error.response.data.errors); 
+            const primerError = Object.values(error.response.data.errors)[0];
+            alert(`Error de validación: ${primerError}`);}
     } finally {
       setLoading(false);
     }
@@ -60,6 +82,9 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
     setDescripcion("");
     setImagen(null);
   };
+
+  if (!isOpen) return null;
+
 
   return (
     <ScrollReveal className="fixed inset-0 bg-black/80 backdrop-blur-sm z-110 flex justify-center items-center p-4 animate-fadeIn">
@@ -77,15 +102,34 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess }) =
         {/* Body */}
         <div className="p-6 md:p-8 overflow-y-auto no-scrollbar bg-gray-50 flex-1">
           <form id='form-noticia' className="space-y-5" onSubmit={handleSubmit}>
-            <div>
-              <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Título de la Noticia</label>
-              <input
-                type="text"
-                value={titulo}
-                onChange={(e) => setTitulo(e.target.value)}
-                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.95rem] outline-none focus:border-orange-500"
-                placeholder="Ej. SRI incrementa al 3% la retención..."
-              />
+            <div className='grid grid-cols-2 gap-4'>
+              <div>
+                <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Título de la Noticia</label>
+                <input
+                  type="text"
+                  value={titulo}
+                  onChange={(e) => setTitulo(e.target.value)}
+                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.95rem] outline-none focus:border-orange-500"
+                  placeholder="Ej. SRI incrementa al 3% la retención..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Categoría</label>
+                <select
+                  value={categoria}
+                  onChange={(e) => setCategoria(e.target.value)}
+                  className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.95rem] outline-none focus:border-orange-500"
+                >
+                  <option value="Impuesto">Impuesto</option>
+                  <option value="Finanzas">Finanzas</option>
+                  <option value="Economía">Economía</option>
+                  <option value="Laboral">Laboral</option>
+                  <option value="Societario">Societario</option>
+                </select>
+              </div>
+
+
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>

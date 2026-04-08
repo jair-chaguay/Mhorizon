@@ -2,14 +2,13 @@ import { Link } from 'react-router-dom'
 import { Recurso74 } from '../IconosSVG'
 
 interface boletinesProps{
-    etiqueta: string,
     fecha: string,
     image: string,
     titulo: string,
     content:string
 }
 
-export const BoletinCard = ({etiqueta, fecha, image, titulo, content}: boletinesProps) => {
+export const BoletinCard = ({fecha, image, titulo, content}: boletinesProps) => {
     return (
         <article className="bg-blue-200 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden flex flex-col group reveal-element border border-gray-100">
             <div className="relative h-56 overflow-hidden bg-blue-200">
@@ -21,12 +20,6 @@ export const BoletinCard = ({etiqueta, fecha, image, titulo, content}: boletines
 
                 <div className="absolute inset-0 bg-linear-to-t from-bg-blue-200 via-transparent 
                         to-transparent opacity-80">
-                </div>
-                <div className="absolute top-4 left-4 z-10">
-                    <span className="bg-orange-500 text-white text-[12px] font-medium 
-                            px-3 py-1 rounded-sm uppercase tracking-widest shadow">
-                        {etiqueta}
-                    </span>
                 </div>
             </div>
             <div className="p-8 flex flex-col grow relative z-20 -mt-4">

@@ -106,11 +106,11 @@ export const Clients = () => {
         <ScrollReveal>
             <section className="py-16 bg-white border-b border-gray-100 overflow-hidden relative reveal-element">
                 <p className="text-center text-gray-400 font-bold tracking-widest text-[0.85rem] mb-10 uppercase px-4 max-w-4xl mx-auto">
-                    ORGANIZACIONES QUE CONFORMAN NUESTRO PORTAFOLIO DE CLIENTES ACTUALES E HISTÓRICOS
+                    PORTAFOLIO DE CLIENTES ACTUALES E HISTÓRICOS
                 </p>
 
-                <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute left-0 top-0 bottom-0 w-24 bg-linear-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-24 bg-linear-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
                 <Swiper
                     modules={[Autoplay, FreeMode]}

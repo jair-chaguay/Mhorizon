@@ -6,26 +6,8 @@ export const Filters = () => {
         <ScrollReveal>
             <section className="max-w-350 mx-auto px-5 sm:px-8 md:px-12 mt-12 mb-8 reveal-element delay-100">
                 <div className="bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 flex flex-col lg:flex-row justify-between items-center gap-6">
-                    <div className="flex gap-3 overflow-x-auto hide-scroll w-full lg:w-auto pb-2 lg:pb-0">
-                        <button className="px-6 py-2.5 bg-blue-200 text-white font-bold text-[0.75rem] tracking-wider rounded-md whitespace-nowrap uppercase cursor-pointer hover:bg-orange-500 transition-colors shadow-sm">
-                            TODOS
-                        </button>
-                        <button className="px-6 py-2.5 bg-gray-50 border border-gray-200 text-gray-500 font-bold text-[0.75rem] tracking-wider rounded-md hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all whitespace-nowrap uppercase cursor-pointer">
-                            TRIBUTARIO
-                        </button>
-                        <button className="px-6 py-2.5 bg-gray-50 border border-gray-200 text-gray-500 font-bold text-[0.75rem] tracking-wider rounded-md hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all whitespace-nowrap uppercase cursor-pointer">
-                            LEGAL
-                        </button>
-                        <button className="px-6 py-2.5 bg-gray-50 border border-gray-200 text-gray-500 font-bold text-[0.75rem] tracking-wider rounded-md hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all whitespace-nowrap uppercase cursor-pointer">
-                            FINANZAS
-                        </button>
-                        <button className="px-6 py-2.5 bg-gray-50 border border-gray-200 text-gray-500 font-bold text-[0.75rem] tracking-wider rounded-md hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all whitespace-nowrap uppercase cursor-pointer">
-                            LABORAL
-                        </button>
-                    </div>
-
-
-                    <div className="relative w-full lg:w-87.5">
+                
+                    <div className="relative w-full lg:w-full">
                         <Recurso76 className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
 
                         <input className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-md focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none text-[0.95rem] transition-all text-blue-200"

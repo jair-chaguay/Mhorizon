@@ -16,7 +16,7 @@ export const Hero = () => {
         </h1>
 
         <p className="text-[1.05rem] sm:text-[1.15rem] md:text-[1.25rem] mt-6 mb-8 font-light max-w-175 text-gray-200 leading-relaxed drop-shadow-md">
-          Transformamos la complejidad regulatoria en ventajas competitivas. Blindamos su patrimonio y optimizamos su rentabilidad con estrategias sólidas ante el SRI y la SCVS en Ecuador.
+          Transformamos la complejidad regulatoria en ventajas competitivas. Protegemos su patrimonio y optimizamos su rentabilidad con estrategias sólidas.
         </p>
 
         <div className="flex gap-4 sm:gap-7 items-center">

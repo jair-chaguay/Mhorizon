@@ -15,6 +15,7 @@ class Noticias extends Model
         'titulo',
         'fuente',
         'descripcion_corta',
+        'categoria',
         'url_destino',
         'imagen_url'
     ];
