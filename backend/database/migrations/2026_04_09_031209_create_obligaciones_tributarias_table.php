@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('obligaciones_tributarias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade'); 
+            $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
             $table->enum('tipo_impuesto', [
                 'Impuesto a la Renta',
                 'IVA (Mensual)',
@@ -22,9 +22,9 @@ return new class extends Migration
                 'ISD',
                 'Activos Mantenidos en el Exterior',
                 'Anexo Transaccional (ATS)'
-            ]);   
-            $table->string('fecha_presentacion');  
-            $table->enum('estado', ['Pendiente', 'Presentado'])->default('Pendiente');  
+            ]);
+            $table->string('fecha_presentacion');
+            $table->enum('estado', ['Pendiente', 'Presentado'])->default('Pendiente');
             $table->timestamps();
         });
     }

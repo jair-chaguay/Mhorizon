@@ -6,23 +6,18 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('informativos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('creado_por_id')->constrained('usuarios')->onDelete('restrict');
             $table->foreignId('modificado_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
-            
-            $table->string('categoria')->comment('Ej: Tributario, Legal, Auditoría');
             $table->string('titulo');
             $table->string('resolucion_oficial')->nullable();
             $table->text('contenido');
             $table->string('imagen_portada_url')->nullable();
-            
-            $table->timestamps();        
+            $table->timestamps();
         });
     }
 

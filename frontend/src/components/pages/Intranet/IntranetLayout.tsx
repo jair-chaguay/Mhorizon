@@ -6,8 +6,6 @@ import Biblioteca from './views/Biblioteca';
 import Informativos from './views/Informativos';
 import Noticias from './views/Noticia';
 
-// Importación de todos los modales
-import ModalGestionCliente from './modals/ModalGestionCliente';
 import ModalCrearCarpeta from './modals/ModalCrearCarpeta';
 import ModalRedactarInformativo from './modals/ModalRedactarInformativo';
 import ModalRedactarNoticia from './modals/ModalRedactarNoticia';
@@ -15,10 +13,10 @@ import ModalEliminar from './modals/ModalEliminar';
 import ModalSubirArchivo from './modals/ModalSubirArchivo';
 
 import { type ViewID, type Cliente } from './types';
-import ModalAñadirDeclaracion from './modals/ModalAñadirDeclaracion';
 import api from '../../../api/axios';
 import { ModalAñadirCliente } from './modals/ModalAñadirCliente';
 import PerfilCliente from './views/PerfilCliente';
+import ModalAñadirObligacion from './modals/ModalAñadirObligacion';
 
 const IntranetLayout: React.FC = () => {
     const [crearConfig, setCrearConfig] = useState<any>({ title: '', placeholder: '', type: 'ROOT', parentId: null });
@@ -28,8 +26,7 @@ const IntranetLayout: React.FC = () => {
     const [viewTitle, setViewTitle] = useState('Directorio de Clientes');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [infoAEditar, setInfoAEditar] = useState<any>(null);
-    // Estados de los Modales
-    const [isGestionModalOpen, setIsGestionModalOpen] = useState(false);
+
     const [clienteSeleccionado, setClienteSeleccionado] = useState<Cliente | null>(null);
     const [isDeclaracionModalOpen, setIsDeclaracionModalOpen] = useState(false);
     const [isCrearFolderOpen, setIsCrearFolderOpen] = useState(false);
@@ -188,10 +185,11 @@ const IntranetLayout: React.FC = () => {
                 datosEdicion={infoAEditar}
 
             />
-            <ModalAñadirDeclaracion
+            <ModalAñadirObligacion
                 isOpen={isDeclaracionModalOpen}
                 onClose={() => setIsDeclaracionModalOpen(false)}
-                onBackToGestion={() => setIsGestionModalOpen(true)} // Para regresar al cerrar
+                clienteId={clienteSeleccionado?.id}
+                onSuccess={triggerRefresh} // Esto dispara el GET actualizado en el Perfil
             />
 
             <ModalEliminar

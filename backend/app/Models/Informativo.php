@@ -13,7 +13,6 @@ class Informativo extends Model
     protected $fillable = [
         'creado_por_id',
         'modificado_por_id',
-        'categoria',
         'titulo',
         'resolucion_oficial',
         'contenido',

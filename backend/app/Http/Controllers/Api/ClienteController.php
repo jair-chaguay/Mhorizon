@@ -16,7 +16,7 @@ class ClienteController extends Controller
     public function index()
     {
         // Traemos los clientes ordenados alfabéticamente junto con quién los creó
-        $clientes = Cliente::with('creador')
+        $clientes = Cliente::with('creador', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -28,10 +28,9 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validamos TODO junto (Cliente + Usuario)
         $validator = Validator::make($request->all(), [
             // Datos del Cliente
-            'tipo_persona' => 'required|in:Natural,Jurídica',
+            'tipo_persona' => 'required|in:Régimen General,Rimpe,Contribuyente Especial,Persona Natural',
             'razon_social_nombres' => 'required|string|max:255',
             'identificacion' => 'required|string|max:20|unique:clientes,identificacion',
             'score_tributario' => 'required|integer|min:0|max:100',
@@ -105,7 +104,7 @@ class ClienteController extends Controller
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 
         $validator = Validator::make($request->all(), [
-            'tipo_persona' => 'sometimes|required|in:Natural,Jurídica',
+            'tipo_persona' => 'sometimes|required|in:Régimen General,Rimpe,Contribuyente Especial,Persona Natural',
             'razon_social_nombres' => 'sometimes|required|string|max:255',
             'identificacion' => 'sometimes|required|string|max:20|unique:clientes,identificacion,'.$id,
             'direccion_matriz' => 'nullable|string',

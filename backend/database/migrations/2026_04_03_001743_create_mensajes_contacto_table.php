@@ -9,7 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mensajes_contacto', function (Blueprint $table) {
-            $table->id();            
+            $table->id();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('correo');
@@ -17,7 +17,7 @@ return new class extends Migration
             $table->boolean('leido')->default(false);
             $table->foreignId('leido_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
             
-            $table->timestamps(); 
+            $table->timestamps();
         });
     }
 

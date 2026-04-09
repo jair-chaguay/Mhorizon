@@ -31,7 +31,6 @@ class InformativoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'categoria' => 'required|string|max:100',
             'titulo' => 'required|string|max:255',
             'resolucion_oficial' => 'nullable|string|max:100',
             'contenido' => 'required|string',
@@ -49,7 +48,6 @@ class InformativoController extends Controller
 
         $informativo = Informativo::create([
             'creado_por_id' => Auth::id(), // ID del Admin/Colab logueado
-            'categoria' => $request->categoria,
             'titulo' => $request->titulo,
             'resolucion_oficial' => $request->resolucion_oficial,
             'contenido' => $request->contenido,
@@ -73,7 +71,6 @@ class InformativoController extends Controller
         if(!$informativo) return response()->json(['message' => 'No encontrado'], 404);
 
         $validator = Validator::make($request->all(), [
-            'categoria' => 'sometimes|required|string',
             'titulo' => 'sometimes|required|string',
             'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
         ]);

@@ -14,6 +14,7 @@ export interface ObligacionTributaria {
 
 interface PerfilClienteProps {
     cliente: Cliente;
+    refreshSignal?: number;
     onBack: () => void;
     onOpenDeclaracion: () => void;
     onOpenSubir: () => void;
@@ -26,6 +27,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     onBack,
     onOpenDeclaracion,
     onOpenSubir,
+    refreshSignal,
     onOpenEliminar,
     onUpdateSuccess
 }) => {
@@ -37,7 +39,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     const [formData, setFormData] = useState({
         razon_social_nombres: cliente.razon_social_nombres || '',
         identificacion: cliente.identificacion || '',
-        tipo_persona: cliente.tipo_persona || 'Jurídica',
+        tipo_persona: cliente.tipo_persona || 'Persona Natural',
         score_tributario: cliente.score_tributario || 100,
         correo: usuarioAsociado ? usuarioAsociado.correo : '', // Extrae el correo
         password: ''
@@ -64,7 +66,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
     useEffect(() => {
         fetchObligaciones();
-    }, [cliente.id]);
+    }, [cliente.id, refreshSignal]);
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -192,8 +194,10 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de contribuyente</p>
                                 <select name="tipo_persona" value={formData.tipo_persona} onChange={handleInputChange} className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer">
-                                    <option value="Jurídica" className="text-black">Persona Jurídica</option>
-                                    <option value="Natural" className="text-black">Persona Natural</option>
+                                    <option value="Régimen General">Régimen General</option>
+                                    <option value="Rimpe">RIMPE</option>
+                                    <option value="Contribuyente Especial">Contribuyente Especial</option>
+                                    <option value="Persona Natural">Persona Natural</option>
                                 </select>
                             </div>
 

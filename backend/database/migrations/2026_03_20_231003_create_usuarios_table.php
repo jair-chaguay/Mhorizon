@@ -11,17 +11,13 @@ return new class extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            
             $table->foreignId('rol_id')->constrained('roles')->onDelete('restrict');
-            
-            // Relación con el cliente (Empresa o Persona Natural)
             $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
-            
             $table->string('nombre');
             $table->string('apellido');
             $table->string('correo')->unique();
             $table->string('password_hash'); 
-            $table->string('cargo')->nullable()->comment('Ej: Tax Manager, Contador');            
+            $table->string('cargo')->nullable()->comment('Ej: Tax Manager, Contador');
             $table->boolean('activo')->default(true);
             $table->timestamp('ultimo_acceso')->nullable();
         });
