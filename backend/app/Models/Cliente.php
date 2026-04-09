@@ -40,4 +40,9 @@ class Cliente extends Model
     {
         return $this->hasMany(BibliotecaPeriodo::class, 'cliente_id');
     }
+
+    public function obligaciones()
+    {
+        return $this->hasMany(ObligacionTributaria::class, 'cliente_id');
+    }
 }

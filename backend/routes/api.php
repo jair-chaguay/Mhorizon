@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\DeclaracionController;
 use App\Http\Controllers\Api\ContactoController;
 use App\Http\Controllers\Api\BibliotecaController;
 
+use App\Http\Controllers\Api\ObligacionController;
+
+
 
 
 //LOGIN
@@ -41,6 +44,11 @@ Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
+Route::get('/cliente/{id}/obligaciones', [ObligacionController::class, 'indexCliente']);
+Route::post('/obligacion', [ObligacionController::class, 'store']);
+Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstado']);
+Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
+
 
 Route::post('/informativo', [InformativoController::class, 'store']);
 Route::put('/informativo/{id}', [InformativoController::class, 'update']);
@@ -72,11 +80,6 @@ Route::get('/informativo', [InformativoController::class, 'index']);
 Route::get('/informativo/{id}', [InformativoController::class, 'show']);
 
 
-Route::get('/declaracion', [DeclaracionController::class, 'index']);
-Route::get('/declaracion/{id}', [DeclaracionController::class, 'show']);
-Route::post('/declaracion', [DeclaracionController::class, 'store']);
-Route::put('/declaracion/{id}', [DeclaracionController::class, 'update']);
-Route::delete('/declaracion/{id}', [DeclaracionController::class, 'destroy']);
 
 Route::post('/contacto', [ContactoController::class, 'store']);
 

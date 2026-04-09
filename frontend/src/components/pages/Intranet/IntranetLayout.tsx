@@ -17,6 +17,8 @@ import ModalSubirArchivo from './modals/ModalSubirArchivo';
 import { type ViewID, type Cliente } from './types';
 import ModalAñadirDeclaracion from './modals/ModalAñadirDeclaracion';
 import api from '../../../api/axios';
+import { ModalAñadirCliente } from './modals/ModalAñadirCliente';
+import PerfilCliente from './views/PerfilCliente';
 
 const IntranetLayout: React.FC = () => {
     const [crearConfig, setCrearConfig] = useState<any>({ title: '', placeholder: '', type: 'ROOT', parentId: null });
@@ -44,6 +46,8 @@ const IntranetLayout: React.FC = () => {
     const [isSubirArchivoOpen, setIsSubirArchivoOpen] = useState(false);
     const [subcarpetaDestinoId, setSubcarpetaDestinoId] = useState<number | null>(null);
     const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
+    const [isAñadirClienteOpen, setIsAñadirClienteOpen] = useState(false);
+
 
     const handleConfirmEliminar = async () => {
         try {
@@ -85,7 +89,7 @@ const IntranetLayout: React.FC = () => {
 
     const handleOpenGestion = (cliente: Cliente) => {
         setClienteSeleccionado(cliente);
-        setIsGestionModalOpen(true);
+        handleViewChange('view-perfil-cliente', 'Perfil Editable');
     };
 
     const handleOpenEliminar = (id: number | string, title: string) => {
@@ -118,7 +122,21 @@ const IntranetLayout: React.FC = () => {
                     <div className="animate-fadeIn">
                         {/* Renderizado de vistas pasando las funciones (props) necesarias */}
                         {activeView === 'view-directorio' && (
-                            <Directorio onOpenGestion={handleOpenGestion} />
+                            <Directorio onOpenGestion={handleOpenGestion}
+                                onOpenAñadir={() => setIsAñadirClienteOpen(true)}
+                                refreshSignal={refreshSignal}
+                            />
+                        )}
+
+                        {activeView === 'view-perfil-cliente' && clienteSeleccionado && (
+                            <PerfilCliente
+                                cliente={clienteSeleccionado}
+                                onBack={() => handleViewChange('view-directorio', 'Directorio de Clientes')}
+                                onOpenDeclaracion={() => setIsDeclaracionModalOpen(true)}
+                                onOpenSubir={() => setIsSubirArchivoOpen(true)}
+                                onOpenEliminar={handleOpenEliminar}
+                                onUpdateSuccess={triggerRefresh}
+                            />
                         )}
 
                         {activeView === 'view-repositorio-root' && (
@@ -156,17 +174,6 @@ const IntranetLayout: React.FC = () => {
                 </main>
             </div>
 
-            {/* --- ZONA DE MODALES GLOBALES --- */}
-
-            <ModalGestionCliente
-                isOpen={isGestionModalOpen}
-                onClose={() => setIsGestionModalOpen(false)}
-                cliente={clienteSeleccionado}
-                onOpenSubir={() => setIsSubirArchivoOpen(true)} // <-- Conectado
-                onOpenDeclaracion={() => setIsDeclaracionModalOpen(true)} // <-- CONECTADO
-                onOpenEliminar={handleOpenEliminar}
-            />
-
             <ModalCrearCarpeta
                 isOpen={isCrearFolderOpen}
                 onClose={() => setIsCrearFolderOpen(false)}
@@ -192,6 +199,12 @@ const IntranetLayout: React.FC = () => {
                 onClose={() => setIsEliminarModalOpen(false)}
                 onConfirm={handleConfirmEliminar}
                 itemTitle={itemAEliminar.title}
+            />
+
+            <ModalAñadirCliente
+                isOpen={isAñadirClienteOpen}
+                onClose={() => setIsAñadirClienteOpen(false)}
+                onSuccess={triggerRefresh}
             />
 
             <ModalSubirArchivo

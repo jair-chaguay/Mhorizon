@@ -2,11 +2,26 @@ import { ScrollReveal } from "../ScrollReveal";
 
 export const Hero = () => {
   return (
-    <ScrollReveal as={"section"} className="relative min-h-150 md:h-162.5 bg-[url('/images/Recurso06.avif')] bg-cover bg-center overflow-hidden flex items-center">
+    <ScrollReveal as={"section"} className="relative min-h-150 md:h-162.5 overflow-hidden flex items-center">
+      
+      {/* 1. Etiqueta Video de Fondo */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0"
+      >
+        {/* Ruta actualizada a tu video */}
+        <source src="/video/videoportada.mp4" type="video/mp4" />
+        Tu navegador no soporta el formato de video.
+      </video>
 
-      <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent"></div>
+      {/* 2. Capa de degradado (Overlay) */}
+      <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent z-0"></div>
 
-      <div className="relative h-full flex flex-col justify-center text-white max-w-350 w-full mx-auto px-5 sm:px-8 md:px-12 text-left z-10 reveal-element">
+      {/* 3. Contenedor del contenido principal */}
+      <div className="relative h-full flex flex-col justify-center text-white max-w-350 w-full mx-auto px-5 sm:px-8 md:px-10 2xl:max-w-550 2xl:px-9 text-left z-10 reveal-element">
 
         <p className="w-fit text-orange-500 tracking-[0.2em] text-[0.85rem] sm:text-[0.95rem] uppercase mb-4 border border-orange-500/30 rounded-sm font-medium backdrop-blur-sm shadow-lg py-1 px-4">
           Firma Consultora de Élite

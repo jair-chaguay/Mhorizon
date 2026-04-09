@@ -19,9 +19,11 @@ interface Cliente {
 
 interface DirectorioProps {
     onOpenGestion: (cliente: Cliente) => void;
+    onOpenAñadir: () => void;
+    refreshSignal?: number;
 }
 
-const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion }) => {
+const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, refreshSignal }) => {
     const [clientes, setClientes] = useState<Cliente[]>([]);
     const [loading, setLoading] = useState(true);
     const [busqueda, setBusqueda] = useState("");
@@ -40,7 +42,8 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion }) => {
 
     useEffect(() => {
         fetchClientes();
-    }, []);
+    }, [refreshSignal]);
+    
 
     // Filtro de búsqueda en tiempo real
     const clientesFiltrados = clientes.filter(c => 
@@ -69,6 +72,11 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion }) => {
                             Gestión de {clientes.length} entidades registradas en el sistema.
                         </p>
                     </div>
+
+                    <button  onClick={onOpenAñadir} className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 shrink-0">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+                        Añadir Cliente
+                    </button>
                 </div>
 
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
