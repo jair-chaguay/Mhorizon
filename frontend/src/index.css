@@ -101,3 +101,24 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+/* Estilos básicos para que el editor TipTap sea usable */
+.ProseMirror {
+  outline: none;
+  min-height: 300px;
+}
+
+.ProseMirror p {
+  margin-bottom: 1em;
+}
+
+.ProseMirror h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1e3a8a; /* Tu color blue-200 aproximado */
+}
+
+.ProseMirror ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}

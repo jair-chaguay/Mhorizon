@@ -32,29 +32,33 @@ class InformativoController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'titulo' => 'required|string|max:255',
-            'resolucion_oficial' => 'nullable|string|max:100',
+            'descripcion_portada' => 'required|string',
             'contenido' => 'required|string',
-            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'archivo_pdf' => 'nullable|mimes:pdf|max:10000' // Validación para PDF
         ]);
 
-        if($validator->fails()){
-            return response()->json(['errors' => $validator->errors(), 'status' => 400], 400);
-        }
+        if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
-        $rutaImagen = null;
-        if($request->hasFile('imagen')){
-            $rutaImagen = $request->file('imagen')->store('informativos', 'public');
-        }
+        $rutaImagen = $request->hasFile('imagen') 
+            ? $request->file('imagen')->store('informativos/portadas', 'public') 
+            : null;
+
+        $rutaPdf = $request->hasFile('archivo_pdf') 
+            ? $request->file('archivo_pdf')->store('informativos/documentos', 'public') 
+            : null;
 
         $informativo = Informativo::create([
-            'creado_por_id' => Auth::id(), // ID del Admin/Colab logueado
+            'creado_por_id' => Auth::id(),
             'titulo' => $request->titulo,
+            'descripcion_portada' => $request->descripcion_portada,
             'resolucion_oficial' => $request->resolucion_oficial,
             'contenido' => $request->contenido,
-            'imagen_portada_url' => $rutaImagen
+            'imagen_portada_url' => $rutaImagen,
+            'pdf_url' => $rutaPdf
         ]);
 
-        return response()->json(['message' => 'Informativo publicado', 'informativo' => $informativo], 201);
+        return response()->json(['message' => 'Creado con éxito', 'informativo' => $informativo], 201);
     }
 
 
@@ -71,25 +75,29 @@ class InformativoController extends Controller
         if(!$informativo) return response()->json(['message' => 'No encontrado'], 404);
 
         $validator = Validator::make($request->all(), [
-            'titulo' => 'sometimes|required|string',
-            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048'
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'archivo_pdf' => 'nullable|mimes:pdf|max:10000'
         ]);
 
         if($validator->fails()) return response()->json($validator->errors(), 400);
 
+        // Lógica para la Imagen
         if($request->hasFile('imagen')){
-            // Borrar imagen anterior
             if($informativo->imagen_portada_url) Storage::disk('public')->delete($informativo->imagen_portada_url);
-            $informativo->imagen_portada_url = $request->file('imagen')->store('informativos', 'public');
+            $informativo->imagen_portada_url = $request->file('imagen')->store('informativos/portadas', 'public');
         }
 
-        $informativo->fill($request->except('imagen'));
-        
+        // Lógica para el PDF
+        if($request->hasFile('archivo_pdf')){
+            if($informativo->pdf_url) Storage::disk('public')->delete($informativo->pdf_url);
+            $informativo->pdf_url = $request->file('archivo_pdf')->store('informativos/documentos', 'public');
+        }
+
+        $informativo->fill($request->except(['imagen', 'archivo_pdf']));
         $informativo->modificado_por_id = Auth::id(); 
-        
         $informativo->save();
 
-        return response()->json(['message' => 'Informativo actualizado', 'informativo' => $informativo], 200);
+        return response()->json(['message' => 'Actualizado', 'informativo' => $informativo], 200);
     }
 
 
@@ -98,9 +106,11 @@ class InformativoController extends Controller
         $informativo = Informativo::find($id);
         if(!$informativo) return response()->json(['message' => 'No encontrado'], 404);
 
+        // Borrar ambos archivos si existen
         if($informativo->imagen_portada_url) Storage::disk('public')->delete($informativo->imagen_portada_url);
+        if($informativo->pdf_url) Storage::disk('public')->delete($informativo->pdf_url);
         
         $informativo->delete();
-        return response()->json(['message' => 'Informativo eliminado'], 200);
+        return response()->json(['message' => 'Eliminado'], 200);
     }
 }

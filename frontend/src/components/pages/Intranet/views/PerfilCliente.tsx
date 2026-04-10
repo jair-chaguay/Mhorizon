@@ -20,6 +20,8 @@ interface PerfilClienteProps {
     onOpenSubir: () => void;
     onOpenEliminar: (id: number | string, title: string) => void;
     onUpdateSuccess: () => void;
+    onJumpToBiblioteca: (clienteId: number, periodoId: number) => void; 
+    onOpenCrearPeriodo: () => void;
 }
 
 const PerfilCliente: React.FC<PerfilClienteProps> = ({
@@ -29,7 +31,9 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     onOpenSubir,
     refreshSignal,
     onOpenEliminar,
-    onUpdateSuccess
+    onUpdateSuccess,
+    onJumpToBiblioteca,
+    onOpenCrearPeriodo
 }) => {
 
     // Verificamos si existe el usuario asociado para extraer su correo
@@ -45,12 +49,24 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         password: ''
     });
 
-
+    const [periodos, setPeriodos] = useState<any[]>([]);
     const [obligaciones, setObligaciones] = useState<ObligacionTributaria[]>([]);
     const [isLoadingObligaciones, setIsLoadingObligaciones] = useState(true);
 
     const [isSaving, setIsSaving] = useState(false);
 
+    const fetchPeriodos = async () => {
+        try {
+            const { data } = await api.get(`/biblioteca/arbol/${cliente.id}`);
+            setPeriodos(data.biblioteca || []);
+        } catch (error) {
+            console.error("Error al cargar periodos en perfil:", error);
+        }
+    };
+
+    useEffect(() => {
+        fetchPeriodos();
+    }, [cliente.id, refreshSignal]);
 
     const fetchObligaciones = async () => {
         try {
@@ -193,7 +209,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de contribuyente</p>
-                                <select name="tipo_persona" value={formData.tipo_persona} onChange={handleInputChange} className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer">
+                                <select name="tipo_persona" value={formData.tipo_persona} onChange={handleInputChange} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer">
                                     <option value="Régimen General">Régimen General</option>
                                     <option value="Rimpe">RIMPE</option>
                                     <option value="Contribuyente Especial">Contribuyente Especial</option>
@@ -209,13 +225,29 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </div>
                             </div>
 
-                            {/* Botón Guardar Perfil (Ahora ocupa todo el ancho abajo) */}
-                            <button onClick={handleGuardarPerfil} disabled={isSaving} className={`bg-orange-500/20 rounded-xl p-4 border border-orange-500/50 flex flex-col justify-center transition-colors group sm:col-span-2 lg:col-span-3 xl:col-span-5 ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-orange-500'}`}>
-                                <div className="flex items-center justify-center gap-3 w-full">
-                                    <span className="text-white font-bold text-[0.90rem] uppercase tracking-wider">{isSaving ? 'Guardando...' : 'Guardar Perfil'}</span>
-                                    {!isSaving && <svg className="w-5 h-5 text-orange-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>}
-                                </div>
-                            </button>
+                            {/* --- BOTONES DE ACCIÓN (ELIMINAR Y GUARDAR) --- */}
+                            <div className="sm:col-span-2 lg:col-span-3 xl:col-span-5 flex flex-col sm:flex-row gap-4 mt-2">
+                                <button 
+                                    type="button"
+                                    // Le pasamos la ruta /cliente/{id} al modal global
+                                    onClick={() => onOpenEliminar(`/cliente/${cliente.id}`, `Cliente ${cliente.razon_social_nombres} y su usuario`)}
+                                    className="flex-1 bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center justify-center gap-2 hover:bg-red-500 hover:text-white text-red-400 transition-all cursor-pointer group shadow-sm"
+                                >
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    <span className="font-bold text-[0.90rem] uppercase tracking-wider">Eliminar Cliente</span>
+                                </button>
+
+                                <button 
+                                    onClick={handleGuardarPerfil} 
+                                    disabled={isSaving} 
+                                    className={`flex-[2] bg-orange-500/20 rounded-xl p-4 border border-orange-500/50 flex flex-col justify-center transition-colors group shadow-sm ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-orange-500'}`}
+                                >
+                                    <div className="flex items-center justify-center gap-3 w-full">
+                                        <span className="text-white font-bold text-[0.90rem] uppercase tracking-wider">{isSaving ? 'Guardando...' : 'Guardar Perfil'}</span>
+                                        {!isSaving && <svg className="w-5 h-5 text-orange-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>}
+                                    </div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -267,7 +299,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                 />
                                             </td>
                                             <td className="px-5 py-4 font-bold text-blue-200">{ob.tipo_impuesto}</td>
-                                            <td className="px-5 py-4 text-gray-600">{ob.fecha_presentacion}</td>
+                                            <td className="px-20 py-4 text-gray-600">{ob.fecha_presentacion}</td>
                                             <td className="px-5 py-4">
                                                 {ob.estado === 'Presentado' ? (
                                                     <span className="bg-green-50 text-green-600 border border-green-200 px-2.5 py-1 rounded-md text-[0.70rem] font-bold uppercase tracking-widest">
@@ -300,26 +332,30 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:p-8">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                         <div>
-                            <h2 className="text-[1.4rem] font-extrabold text-blue-200 tracking-tight">Biblioteca Documental [Q]</h2>
-                            <p className="text-gray-500 text-[0.85rem] mt-1">Seleccione el Periodo Fiscal.</p>
+                            <h2 className="text-[1.4rem] font-extrabold text-blue-200 tracking-tight">Biblioteca Operativa</h2>
+                            <p className="text-gray-500 text-[0.85rem] mt-1">Seleccione el Periodo Fiscal para saltar al gestor documental.</p>
                         </div>
-                        <button onClick={() => alert("Abrir Modal de Crear Periodo (Simulación)")} className="cursor-pointer bg-blue-200 text-white text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2 rounded-lg hover:bg-orange-500 transition-all flex items-center gap-2 shrink-0">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path></svg>
-                            Crear Periodo
+
+                        <button onClick={onOpenCrearPeriodo} className="cursor-pointer bg-[#151E28] text-white text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 transition-all flex items-center gap-2 shrink-0 shadow-sm">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+                            Añadir Periodo
                         </button>
                     </div>
 
-                    <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
-                        <div onClick={() => alert("Navegar a subcarpetas de 2026")} className="border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 transition-all cursor-pointer group flex flex-col items-center text-center shadow-sm">
-                            <svg className="w-10 h-10 text-orange-500 mb-2 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
-                            <h3 className="font-extrabold text-orange-700 text-[1rem]">2026</h3>
+                    {periodos.length > 0 ? (
+                        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
+                            {periodos.map(p => (
+                                <div key={p.id} onClick={() => onJumpToBiblioteca(cliente.id, p.id)} className="border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 transition-all cursor-pointer group flex flex-col items-center text-center shadow-sm">
+                                    <svg className="w-10 h-10 text-orange-500 mb-2 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
+                                    <h3 className="font-extrabold text-orange-700 text-[1rem]">{p.anio}</h3>
+                                </div>
+                            ))}
                         </div>
-
-                        <div onClick={() => alert("Navegar a subcarpetas de 2025")} className="border border-gray-200 bg-gray-50 rounded-xl p-5 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all cursor-pointer group flex flex-col items-center text-center">
-                            <svg className="w-10 h-10 text-gray-400 group-hover:text-orange-500 mb-2 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
-                            <h3 className="font-extrabold text-blue-200 text-[1rem]">2025</h3>
+                    ) : (
+                        <div className="py-8 text-center border-2 border-dashed border-gray-200 rounded-xl">
+                            <p className="text-gray-400 italic text-sm">Este cliente aún no tiene periodos fiscales en la biblioteca.</p>
                         </div>
-                    </div>
+                    )}
                 </div>
 
             </div>

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     
     protected $table = 'clientes';
 
@@ -33,7 +34,7 @@ class Cliente extends Model
 
     public function creador()
     {
-        return $this->belongsTo(Usuario::class, 'creado_por_id')->select(['id', 'nombre', 'apellido']);
+        return $this->belongsTo(Usuario::class, 'creado_por_id')->select(['id', 'nombre', 'apellido'])->withTrashed();;
     }
     
     public function periodos()

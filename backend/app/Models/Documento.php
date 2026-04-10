@@ -12,6 +12,6 @@ class Documento extends Model
     ];
 
     public function subidoPor() {
-        return $this->belongsTo(Usuario::class, 'subido_por_id')->select(['id', 'nombre', 'apellido']);
+        return $this->belongsTo(Usuario::class, 'subido_por_id')->select(['id', 'nombre', 'apellido'])->withTrashed();;
     }
 }

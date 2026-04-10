@@ -2,18 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../../ScrollReveal';
 import api from '../../../../api/axios';
 
-type NavLevel = 'ROOT' | 'PERIODOS' | 'SUBCARPETAS' | 'ARCHIVOS';
+type NavLevel = 'ROOT' | 'PERIODOS' | 'SUBCARPETAS' | 'SUBCARPETAS_HIJAS' | 'ARCHIVOS';
+
 
 interface BibliotecaProps {
-  onOpenCrear: (config: { title: string; placeholder: string; type: NavLevel; parentId: number | null }) => void;
+  onOpenCrear: (config: { title: string; placeholder: string; type: 'ROOT' | 'PERIODOS' | 'SUBCARPETAS'; parentId: number | null }) => void;
   onOpenSubir: (subcarpetaId: number) => void;
   refreshSignal: number;
+  directTo?: { clienteId: number; periodoId: number } | null;
+  onOpenEliminar?: (endpoint: string, titulo: string) => void;
+
 }
 
-const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refreshSignal }) => {
+const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refreshSignal, directTo, onOpenEliminar }) => {
   // ESTADOS DE NAVEGACIÓN Y PATH
   const [navLevel, setNavLevel] = useState<NavLevel>('ROOT');
-  const [path, setPath] = useState({ cliente: '', periodo: '', subcarpeta: '' });
+  const [path, setPath] = useState({ cliente: '', periodo: '', subcarpeta: '', subcarpetaHija: '' });
+
   const [selectionIds, setSelectionIds] = useState({
     clienteId: null as number | null,
     periodoId: null as number | null,
@@ -24,6 +29,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
   const [clientes, setClientes] = useState<any[]>([]);
   const [periodos, setPeriodos] = useState<any[]>([]);
   const [subcarpetas, setSubcarpetas] = useState<any[]>([]);
+  const [subcarpetasHijas, setSubcarpetasHijas] = useState<any[]>([]);
   const [archivos, setArchivos] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -31,7 +37,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
   const fetchClientes = async () => {
     try {
       setLoading(true);
-      const { data } = await api.get('/cliente');
+      const { data } = await api.get('/clientes/biblioteca');
       const arrayDeClientes = Array.isArray(data) ? data : data.clientes || [];
       setClientes(arrayDeClientes);
     } catch (error) {
@@ -52,7 +58,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
         const currentPeriodo = tree.find((p: any) => p.id === selectionIds.periodoId);
         if (currentPeriodo) {
           setSubcarpetas(currentPeriodo.subcarpetas || []);
-          
+
           if (selectionIds.subcarpetaId) {
             const currentSub = (currentPeriodo.subcarpetas || []).find((s: any) => s.id === selectionIds.subcarpetaId);
             if (currentSub) {
@@ -61,7 +67,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
           }
         }
       }
-    }catch(error){
+    } catch (error) {
       console.error("Error al cargar periodos:", error)
     }
   }
@@ -82,8 +88,37 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
   }, [refreshSignal]);
 
 
+  useEffect(() => {
+    if (directTo) {
+      const jumpToPeriod = async () => {
+        try {
+          setLoading(true);
+          const { data } = await api.get(`/biblioteca/arbol/${directTo.clienteId}`);
+          const tree = data.biblioteca || [];
 
-  // 2. HANDLERS DE NAVEGACIÓN
+          setPeriodos(tree);
+
+          // 2. Buscamos el periodo específico al que queremos saltar
+          const targetPeriod = tree.find((p: any) => p.id === directTo.periodoId);
+
+          if (targetPeriod) {
+            setSelectionIds({ clienteId: directTo.clienteId, periodoId: targetPeriod.id, subcarpetaId: null });
+            setPath({ cliente: data.cliente, periodo: targetPeriod.anio, subcarpeta: '', subcarpetaHija: '' });
+            setSubcarpetas(targetPeriod.subcarpetas || []);
+            setNavLevel('SUBCARPETAS'); // Vamos directo al Nivel 3
+          }
+        } catch (error) {
+          console.error("Error en salto directo:", error);
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      jumpToPeriod();
+    }
+  }, [directTo]);
+
+
   const handleClientClick = async (cliente: any) => {
     // 1. Guardamos el ID inmediatamente para que esté disponible para el botón "Crear"
     setSelectionIds(prev => ({ ...prev, clienteId: cliente.id }));
@@ -115,14 +150,45 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
   const handleSubcarpetaClick = (sub: any) => {
     setPath({ ...path, subcarpeta: sub.nombre });
     setSelectionIds({ ...selectionIds, subcarpetaId: sub.id });
-    setArchivos(sub.documentos);
+    if (sub.subcarpetas && sub.subcarpetas.length > 0) {
+      setSubcarpetasHijas(sub.subcarpetas);
+      setNavLevel('SUBCARPETAS_HIJAS');
+    } else {
+      setArchivos(sub.documentos || []);
+      setNavLevel('ARCHIVOS');
+    }
+  };
+
+  const handleSubcarpetaHijaClick = (hija: any) => {
+    setPath({ ...path, subcarpetaHija: hija.nombre });
+    setSelectionIds({ ...selectionIds, subcarpetaId: hija.id }); // Guardamos su ID para subir archivos aquí
+    setArchivos(hija.documentos || []);
     setNavLevel('ARCHIVOS');
   };
 
   const handleBack = () => {
-    if (navLevel === 'PERIODOS') setNavLevel('ROOT');
-    if (navLevel === 'SUBCARPETAS') setNavLevel('PERIODOS');
-    if (navLevel === 'ARCHIVOS') setNavLevel('SUBCARPETAS');
+    if (navLevel === 'PERIODOS') {
+      setNavLevel('ROOT');
+    }
+    else if (navLevel === 'SUBCARPETAS') {
+      setNavLevel('PERIODOS');
+    }
+    // AGREGAMOS ESTA CONDICIÓN: Para retroceder de las subcarpetas hijas (Ej. IVA) a las principales
+    else if (navLevel === 'SUBCARPETAS_HIJAS') {
+      setPath({ ...path, subcarpeta: '', subcarpetaHija: '' });
+      setNavLevel('SUBCARPETAS');
+    }
+    else if (navLevel === 'ARCHIVOS') {
+      if (path.subcarpetaHija !== '') {
+        // Si estábamos en los archivos de una subcarpeta hija (Ej. Archivos de IVA)
+        setPath({ ...path, subcarpetaHija: '' });
+        setNavLevel('SUBCARPETAS_HIJAS');
+      } else {
+        // Si estábamos en los archivos de una carpeta principal (Ej. Archivos de Estados Financieros)
+        setPath({ ...path, subcarpeta: '' });
+        setNavLevel('SUBCARPETAS');
+      }
+    }
   };
 
   const handleActionClick = () => {
@@ -139,6 +205,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
       <div className="max-w-350 mx-auto space-y-6 reveal-element">
 
         {/* BREADCRUMBS (DISEÑO ORIGINAL) */}
+        {/* BREADCRUMBS (DISEÑO DINÁMICO 4 NIVELES) */}
         {navLevel !== 'ROOT' && (
           <div className="flex items-center gap-4 mb-2 animate-fadeIn">
             <button onClick={handleBack} className="p-2 bg-white border border-gray-200 rounded-lg text-gray-500 hover:text-orange-500 transition-colors shadow-sm cursor-pointer">
@@ -146,6 +213,8 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
             </button>
             <div className="flex items-center text-sm font-medium text-gray-500 truncate">
               <span className="cursor-pointer hover:text-orange-500 transition-colors" onClick={() => setNavLevel('ROOT')}>Biblioteca</span>
+
+              {/* Cliente */}
               {path.cliente && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
@@ -154,7 +223,9 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                   </span>
                 </>
               )}
-              {(navLevel === 'SUBCARPETAS' || navLevel === 'ARCHIVOS') && (
+
+              {/* Periodo */}
+              {(navLevel === 'SUBCARPETAS' || navLevel === 'SUBCARPETAS_HIJAS' || navLevel === 'ARCHIVOS') && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                   <span className={`transition-colors ${navLevel === 'SUBCARPETAS' ? 'text-blue-200 font-bold' : 'cursor-pointer hover:text-orange-500'}`} onClick={() => setNavLevel('SUBCARPETAS')}>
@@ -162,10 +233,24 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                   </span>
                 </>
               )}
+
+              {/* Carpeta Principal (Ej. Obligaciones Tributarias) */}
+              {(navLevel === 'SUBCARPETAS_HIJAS' || (navLevel === 'ARCHIVOS' && path.subcarpetaHija)) && (
+                <>
+                  <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                  <span className={`transition-colors ${navLevel === 'SUBCARPETAS_HIJAS' ? 'text-blue-200 font-bold' : 'cursor-pointer hover:text-orange-500'}`} onClick={() => setNavLevel('SUBCARPETAS_HIJAS')}>
+                    {path.subcarpeta}
+                  </span>
+                </>
+              )}
+
+              {/* Archivos Finales */}
               {navLevel === 'ARCHIVOS' && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
-                  <span className="text-blue-200 font-bold">{path.subcarpeta}</span>
+                  <span className="text-blue-200 font-bold">
+                    {path.subcarpetaHija || path.subcarpeta}
+                  </span>
                 </>
               )}
             </div>
@@ -199,8 +284,23 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
           {/* NIVEL 1: CLIENTES REALES */}
           {navLevel === 'ROOT' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {clientes.map((cliente) => (
-                <div key={cliente.id} onClick={() => handleClientClick(cliente)} className="border border-gray-200 rounded-2xl p-6 hover:border-orange-500 hover:shadow-lg transition-all cursor-pointer group bg-gray-50 hover:bg-white flex flex-col items-center text-center">
+              {clientes?.map((cliente) => (
+                // 1. Agregamos 'relative' a este div principal para poder posicionar el botón de la esquina
+                <div key={cliente.id} onClick={() => handleClientClick(cliente)} className="relative border border-gray-200 rounded-2xl p-6 hover:border-orange-500 hover:shadow-lg transition-all cursor-pointer group bg-gray-50 hover:bg-white flex flex-col items-center text-center">
+                  
+                  {/* 2. BOTÓN ELIMINAR CLIENTE (CARPETA RAÍZ) */}
+                  <button
+                    onClick={(e) => { 
+                      e.stopPropagation(); // Evita que se abra la carpeta al hacer clic en el basurero
+                      // Aquí usamos la ruta para eliminar al cliente, asumiendo que tu endpoint es /cliente/{id}
+                      onOpenEliminar && onOpenEliminar(`/cliente/${cliente.id}`, `Directorio de ${cliente.razon_social_nombres}`); 
+                    }}
+                    className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
+                    title="Eliminar Cliente"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                  </button>
+
                   <svg className="w-16 h-16 text-gray-400 group-hover:text-orange-500 mb-4 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
                   <h3 className="font-extrabold text-blue-200 text-[1.05rem] leading-tight">{cliente.razon_social_nombres}</h3>
                   <p className="text-[0.70rem] text-gray-500 font-medium mt-2 uppercase tracking-widest">Carpeta Raíz</p>
@@ -215,9 +315,19 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
               {periodos.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6 p-8">
                   {periodos.map(p => (
-                    <div key={p.id} onClick={() => handlePeriodoClick(p)} className="border border-orange-200 bg-orange-50 rounded-2xl p-5 hover:bg-orange-100 transition-all cursor-pointer flex flex-col items-center text-center shadow-sm group">
-                      <svg className="w-12 h-12 text-orange-500 mb-2 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
-                      <h3 className="font-extrabold text-orange-700 text-[1.1rem]">{p.anio}</h3>
+                    <div key={p.id} className="relative border border-orange-200 bg-orange-50 rounded-2xl p-5 hover:bg-orange-100 transition-all group flex flex-col items-center text-center shadow-sm">
+                      {/* BOTÓN ELIMINAR PERIODO */}
+                      <button
+                        onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/periodo/${p.id}`, `Periodo ${p.anio}`); }}
+                        className="absolute top-2 right-2 text-orange-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
+                        title="Eliminar Periodo"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                      </button>
+                      <div onClick={() => handlePeriodoClick(p)} className="cursor-pointer w-full flex flex-col items-center">
+                        <svg className="w-12 h-12 text-orange-500 mb-2 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
+                        <h3 className="font-extrabold text-orange-700 text-[1.1rem]">{p.anio}</h3>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -248,11 +358,35 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
           {navLevel === 'SUBCARPETAS' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {subcarpetas.map((sub) => (
-                <div key={sub.id} onClick={() => handleSubcarpetaClick(sub)} className="border border-gray-200 bg-gray-50 rounded-xl p-5 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all cursor-pointer group flex items-center gap-4">
-                  <div className="w-12 h-12 bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center text-gray-400 group-hover:text-orange-500 transition-colors shrink-0">
+                <div key={sub.id} className="relative border border-gray-200 bg-gray-50 rounded-xl p-5 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all group flex items-center gap-4">
+                  {/* BOTÓN ELIMINAR SUBCARPETA */}
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/subcarpeta/${sub.id}`, `Carpeta ${sub.nombre}`); }}
+                    className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
+                    title="Eliminar Carpeta"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                  </button>
+                  <div onClick={() => handleSubcarpetaClick(sub)} className="cursor-pointer w-full flex items-center gap-4">
+                    <div className="w-12 h-12 bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center text-gray-400 group-hover:text-orange-500 transition-colors shrink-0">
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
+                    </div>
+                    <h3 className="font-extrabold text-blue-200 text-[0.95rem] leading-tight">{sub.nombre}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* NIVEL NUEVO: SUBCARPETAS HIJAS (Ej: IVA, Renta) */}
+          {navLevel === 'SUBCARPETAS_HIJAS' && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {subcarpetasHijas.map((hija) => (
+                <div key={hija.id} onClick={() => handleSubcarpetaHijaClick(hija)} className="border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 hover:shadow-md transition-all cursor-pointer group flex items-center gap-4">
+                  <div className="w-12 h-12 bg-white rounded-lg shadow-sm border border-orange-100 flex items-center justify-center text-orange-500 transition-colors shrink-0">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
                   </div>
-                  <h3 className="font-extrabold text-blue-200 text-[0.95rem] leading-tight">{sub.nombre}</h3>
+                  <h3 className="font-extrabold text-[#151E28] text-[0.95rem] leading-tight">{hija.nombre}</h3>
                 </div>
               ))}
             </div>
@@ -284,6 +418,11 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                       <td className="px-6 py-4 text-gray-600 font-medium">{new Date(archivo.created_at).toLocaleDateString()}</td>
                       <td className="px-6 py-4 text-gray-500 text-[0.8rem] italic">{archivo.observacion_cliente || 'Sin observación.'}</td>
                       <td className="px-6 py-4 text-center">
+
+                        <button onClick={() => onOpenEliminar && onOpenEliminar(`/deleteDocumento/${archivo.id}`, `Archivo ${archivo.nombre_archivo}`)} className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer" title="Eliminar">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+
                         <a href={`http://localhost:8000/storage/${archivo.url_archivo}`} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-all" title="Descargar">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         </a>

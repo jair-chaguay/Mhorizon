@@ -5,9 +5,7 @@ export interface Cliente {
     tipo_persona: 'Natural' | 'Jurídica';
     razon_social_nombres: string;
     identificacion: string;
-    direccion_matriz: string | null;
     score_tributario: number;
-    proximo_vencimiento: string | null;
     creador?: {
         id: number;
         nombre: string;

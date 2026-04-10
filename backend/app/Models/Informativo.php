@@ -16,7 +16,9 @@ class Informativo extends Model
         'titulo',
         'resolucion_oficial',
         'contenido',
-        'imagen_portada_url'
+        'descripcion_portada',
+        'imagen_portada_url',
+        'pdf_url'
     ];
 
     public function creador()

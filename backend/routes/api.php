@@ -68,8 +68,10 @@ Route::delete('/contacto/{id}', [ContactoController::class, 'destroy']);
 Route::post('/biblioteca/periodo', [BibliotecaController::class, 'storePeriodo']);
 Route::post('/biblioteca/subcarpeta', [BibliotecaController::class, 'storeSubcarpeta']);
 Route::post('/biblioteca/upload-documento', [BibliotecaController::class, 'uploadDocumento']);
+Route::delete('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'deleteCarpeta']);
 
 
+Route::get('/clientes/biblioteca', [ClienteController::class, 'indexBiblioteca']);
 });
 
 

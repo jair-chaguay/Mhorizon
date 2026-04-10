@@ -9,7 +9,7 @@ export const Header = () => {
     <header className="bg-blue-200 px-5 sm:px-8 md:px-10 py-4 sticky top-0 z-40 shadow-lg">
       <div className="flex justify-between items-center">
         <Link className="w-36 sm:w-44 md:w-40 transition-transform hover:scale-105 duration-300" to="/">
-          <img src="/images/Logo1.png" alt="MHorizon Logo" />
+          <img src="/images/Logo3.png" alt="MHorizon Logo" />
         </Link>
 
         <button

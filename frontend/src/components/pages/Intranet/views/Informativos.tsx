@@ -7,13 +7,15 @@ interface InformativosProps {
   onOpenEliminar: (id: number, title: string) => void; 
 }
 
+// 1. ACTUALIZACIÓN: Interfaz con los nuevos campos
 interface Informativo {
   id: number;
-  categoria: string;
   titulo: string;
   resolucion_oficial: string | null;
+  descripcion_portada: string; // <-- Nuevo
   contenido: string;
   imagen_portada_url: string | null;
+  pdf_url: string | null; // <-- Nuevo
   created_at: string;
   creador?: {
     id: number;
@@ -78,7 +80,7 @@ const Informativos: React.FC<InformativosProps> = ({ onOpenRedactar, onOpenElimi
               <tr className="bg-gray-50 border-b border-gray-200 text-[0.70rem] font-bold uppercase tracking-widest text-gray-500">
                 <th className="px-6 py-4">Título del Informativo</th>
                 <th className="px-6 py-4">Resolución</th>
-                <th className="px-6 py-4 hidden md:table-cell">Imagen Portada</th>
+                <th className="px-6 py-4 hidden md:table-cell">Archivos Adjuntos</th> {/* Cambiado el título */}
                 <th className="px-6 py-4">Fecha Creada</th>
                 <th className="px-6 py-4">Creado Por</th>
                 <th className="px-6 py-4 text-center">Acciones</th>
@@ -87,29 +89,42 @@ const Informativos: React.FC<InformativosProps> = ({ onOpenRedactar, onOpenElimi
             <tbody className="text-[0.85rem] divide-y divide-gray-100">
               {informativos.map((info) => (
                 <tr key={info.id} className="hover:bg-gray-50/50 transition-colors group">
+                  
                   <td className="px-6 py-5">
-                    <div>
-                        <p className="font-bold text-blue-200">{info.titulo}</p>
-                        <span className="text-[0.65rem] bg-blue-50 text-blue-500 px-2 py-0.5 rounded uppercase font-bold tracking-tighter">
-                            {info.categoria}
-                        </span>
+                    <div className="font-medium text-blue-200 truncate max-w-xs" title={info.titulo}>
+                      {info.titulo}
                     </div>
                   </td>
+
                   <td className="px-6 py-5 text-gray-500 font-mono text-[0.75rem]">
                     {info.resolucion_oficial || 'N/A'}
                   </td>
 
+                  {/* 2. ACTUALIZACIÓN: Mostrar indicadores de Imagen y/o PDF */}
                   <td className="px-6 py-5 text-[0.75rem] hidden md:table-cell text-gray-400">
-                    {info.imagen_portada_url ? (
-                      <div className="flex items-center gap-2 text-orange-500">
-                        <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span className="truncate max-w-30 font-medium italic">Imagen adjunta</span>
-                      </div>
-                    ) : (
-                      <span className="italic">Sin imagen</span>
-                    )}
+                    <div className="flex flex-col gap-1.5">
+                      {info.imagen_portada_url && (
+                        <div className="flex items-center gap-2 text-orange-500">
+                          <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span className="font-medium italic">Imagen</span>
+                        </div>
+                      )}
+                      
+                      {info.pdf_url && (
+                        <div className="flex items-center gap-2 text-red-500">
+                          <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                          </svg>
+                          <span className="font-medium italic">Documento PDF</span>
+                        </div>
+                      )}
+
+                      {!info.imagen_portada_url && !info.pdf_url && (
+                        <span className="italic">Sin adjuntos</span>
+                      )}
+                    </div>
                   </td>
 
                   <td className="px-6 py-5 text-gray-600 font-medium">

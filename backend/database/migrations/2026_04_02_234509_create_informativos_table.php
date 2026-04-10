@@ -15,8 +15,10 @@ return new class extends Migration
             $table->foreignId('modificado_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
             $table->string('titulo');
             $table->string('resolucion_oficial')->nullable();
+            $table->text('descripcion_portada');
             $table->text('contenido');
             $table->string('imagen_portada_url')->nullable();
+            $table->string('pdf_url')->nullable();
             $table->timestamps();
         });
     }

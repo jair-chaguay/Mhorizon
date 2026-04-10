@@ -19,24 +19,28 @@ class BibliotecaController extends Controller
      */
     public function getArbolBiblioteca($cliente_id) 
     {
-        $cliente = Cliente::with([
-            'periodos.subcarpetas.documentos.subidoPor'
-        ])->find($cliente_id);
+        $cliente = Cliente::withTrashed()
+            ->with([
+                // 1. Cargamos las subcarpetas con el filtro
+                'periodos.subcarpetas' => function($query) {
+                    $query->whereNull('parent_id') // Solo carpetas Nivel 3 (Raíz)
+                          ->with([                 // 2. IMPORTANTE: Anidamos las relaciones hijas AQUÍ DENTRO
+                              'subcarpetas.documentos.subidoPor', // Documentos Nivel 4
+                              'documentos.subidoPor'              // Documentos Nivel 3
+                          ]);
+                }
+            ])
+            ->find($cliente_id);
 
-        if(!$cliente){
-            return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
-        }
+        if(!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 
         return response()->json([
             'cliente' => $cliente->razon_social_nombres,
-            'biblioteca' => $cliente->periodos ?? [], // Evita errores si está vacío
+            'biblioteca' => $cliente->periodos ?? [],
             'status' => 200
         ], 200);
     }
 
-    /**
-     * Crear un nuevo periodo (Ej: 2026)
-     */
     public function storePeriodo(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -46,13 +50,42 @@ class BibliotecaController extends Controller
 
         if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
+        // 1. Crear el Periodo
         $periodo = BibliotecaPeriodo::create([
             'cliente_id' => $request->cliente_id,
             'anio' => $request->anio,
             'creado_por_id' => Auth::id()
         ]);
 
-        return response()->json(['message' => 'Periodo creado', 'periodo' => $periodo], 201);
+        // 2. Crear Carpeta Principal "Obligaciones Tributarias" (NIVEL 3)
+        $carpetaObligaciones = BibliotecaSubcarpeta::create([
+            'periodo_id' => $periodo->id,
+            'parent_id' => null,
+            'nombre' => 'Obligaciones Tributarias',
+            'creado_por_id' => Auth::id()
+        ]);
+
+        // 3. Crear Subcarpetas (NIVEL 4) según las obligaciones del cliente
+        $obligaciones = \App\Models\ObligacionTributaria::where('cliente_id', $request->cliente_id)->get();
+        
+        foreach ($obligaciones as $obligacion) {
+            BibliotecaSubcarpeta::create([
+                'periodo_id' => $periodo->id,
+                'parent_id' => $carpetaObligaciones->id, // Las metemos dentro de la carpeta principal
+                'nombre' => $obligacion->tipo_impuesto,
+                'creado_por_id' => Auth::id()
+            ]);
+        }
+
+        // 4. Crear otra carpeta genérica de ejemplo (NIVEL 3)
+        BibliotecaSubcarpeta::create([
+            'periodo_id' => $periodo->id,
+            'parent_id' => null,
+            'nombre' => 'Estados Financieros',
+            'creado_por_id' => Auth::id()
+        ]);
+
+        return response()->json(['message' => 'Periodo y carpetas creadas', 'periodo' => $periodo], 201);
     }
 
     /**
@@ -75,6 +108,35 @@ class BibliotecaController extends Controller
 
         return response()->json(['message' => 'Subcarpeta creada', 'subcarpeta' => $subcarpeta], 201);
     }
+
+    /**
+     * Eliminar Carpeta (Periodo o Subcarpeta)
+     */
+    public function deleteCarpeta($tipo, $id)
+    {
+        if ($tipo === 'periodo') {
+            $carpeta = BibliotecaPeriodo::find($id);
+        } elseif ($tipo === 'subcarpeta') {
+            $carpeta = BibliotecaSubcarpeta::find($id);
+            // Opcional: Borrar archivos físicos asociados a esta carpeta
+            if (\Illuminate\Support\Facades\Storage::disk('public')->exists("biblioteca/subcarpeta_{$id}")) {
+                \Illuminate\Support\Facades\Storage::disk('public')->deleteDirectory("biblioteca/subcarpeta_{$id}");
+            }
+        } else {
+             return response()->json(['message' => 'Tipo de carpeta no válido', 'status' => 400], 400);
+        }
+
+        if (!$carpeta) {
+            return response()->json(['message' => 'Carpeta no encontrada', 'status' => 404], 404);
+        }
+
+        // El OnDelete Cascade de tu base de datos borrará todo lo que esté adentro automáticamente
+        $carpeta->delete();
+
+        return response()->json(['message' => 'Carpeta eliminada con éxito', 'status' => 200], 200);
+    }
+
+
 
     /**
      * Subir un Documento físico
@@ -130,4 +192,6 @@ class BibliotecaController extends Controller
 
         return response()->json(['message' => 'Documento eliminado'], 200);
     }
+
+
 }

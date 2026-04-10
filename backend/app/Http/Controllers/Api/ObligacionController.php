@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 use App\Models\ObligacionTributaria;
 use Illuminate\Support\Facades\Validator;
 
+// IMPORTANTE: Añadir estos tres "use" para poder manipular las carpetas
+use App\Models\BibliotecaPeriodo;
+use App\Models\BibliotecaSubcarpeta;
+use Illuminate\Support\Facades\Auth;
+
 class ObligacionController extends Controller
 {
 
-/**
+    /**
      * Obtener las obligaciones de un cliente específico.
      */
     public function indexCliente($cliente_id)
@@ -21,8 +26,9 @@ class ObligacionController extends Controller
             'status' => 200
         ]);
     }
+
     /**
-     * Almacenar una nueva obligación tributaria.
+     * Almacenar una nueva obligación tributaria y sincronizar carpetas.
      */
     public function store(Request $request)
     {
@@ -40,6 +46,7 @@ class ObligacionController extends Controller
             ], 400);
         }
 
+        // 1. Crear la Obligación normalmente
         $obligacion = ObligacionTributaria::create([
             'cliente_id'         => $request->cliente_id,
             'tipo_impuesto'      => $request->tipo_impuesto,
@@ -47,8 +54,40 @@ class ObligacionController extends Controller
             'estado'             => 'Pendiente' // Estado por defecto
         ]);
 
+        // ---------------------------------------------------------
+        // 2. SINCRONIZACIÓN REACTIVA DE CARPETAS
+        // ---------------------------------------------------------
+        // Buscamos todos los periodos que el cliente ya tenga creados
+        $periodos = BibliotecaPeriodo::where('cliente_id', $obligacion->cliente_id)->get();
+
+        foreach ($periodos as $periodo) {
+            // Buscamos la carpeta madre "Obligaciones Tributarias" de ese periodo
+            $carpetaMadre = BibliotecaSubcarpeta::where('periodo_id', $periodo->id)
+                                ->where('nombre', 'Obligaciones Tributarias')
+                                ->whereNull('parent_id')
+                                ->first();
+
+            // Si la carpeta madre existe, procedemos a crear la hija
+            if ($carpetaMadre) {
+                // Verificamos que no exista ya para no duplicarla
+                $carpetaHijaExiste = BibliotecaSubcarpeta::where('parent_id', $carpetaMadre->id)
+                                        ->where('nombre', $obligacion->tipo_impuesto)
+                                        ->exists();
+
+                if (!$carpetaHijaExiste) {
+                    BibliotecaSubcarpeta::create([
+                        'periodo_id'    => $periodo->id,
+                        'parent_id'     => $carpetaMadre->id,
+                        'nombre'        => $obligacion->tipo_impuesto,
+                        'creado_por_id' => Auth::id() ?? 1 // El fallback a 1 previene errores si Auth falla
+                    ]);
+                }
+            }
+        }
+        // ---------------------------------------------------------
+
         return response()->json([
-            'message'    => 'Obligación añadida con éxito',
+            'message'    => 'Obligación añadida y carpetas sincronizadas con éxito',
             'obligacion' => $obligacion,
             'status'     => 201
         ], 201);

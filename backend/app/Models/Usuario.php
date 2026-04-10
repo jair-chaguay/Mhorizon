@@ -6,11 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens; 
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 
 class Usuario extends Authenticatable
 {
-        use HasApiTokens, HasFactory, Notifiable;
+        use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     protected $table = 'usuarios';
     protected $fillable = [

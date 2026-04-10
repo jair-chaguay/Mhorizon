@@ -26,6 +26,20 @@ class ClienteController extends Controller
         ], 200);
     }
 
+    // Añade este método en ClienteController.php
+    public function indexBiblioteca()
+    {
+        // withTrashed() incluye a los clientes con Soft Delete
+        $clientes = Cliente::withTrashed()
+                           ->with('creador', 'usuarios')
+                           ->orderBy('razon_social_nombres', 'asc')
+                           ->get();
+
+        return response()->json([
+            'clientes' => $clientes,
+            'status' => 200
+        ], 200);
+    }
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -143,10 +157,51 @@ class ClienteController extends Controller
 
     public function destroy($id)
     {
-        $cliente = Cliente::find($id);
-        if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
+        try {
+            $cliente = Cliente::withTrashed()->find($id);
 
-        $cliente->delete();
-        return response()->json(['message' => 'Cliente eliminado correctamente', 'status' => 200], 200);
+            if (!$cliente) {
+                return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
+            }
+
+            // 1. Verificamos si YA estaba en la papelera (SoftDeleted)
+            if ($cliente->trashed()) {
+                // Borrado definitivo de usuarios
+                foreach($cliente->usuarios()->withTrashed()->get() as $usuario) {
+                    $usuario->forceDelete(); 
+                }
+                
+                // NOTA: Si el cliente tiene Periodos u Obligaciones, y tu base de datos NO tiene 
+                // "ON DELETE CASCADE", el forceDelete() de abajo causará una excepción.
+                $cliente->forceDelete();
+
+                return response()->json(['message' => 'Cliente eliminado definitivamente del sistema.', 'status' => 200], 200);
+            }
+
+            // 2. Si NO estaba en la papelera, hacemos el SoftDelete normal (Lógico)
+            foreach($cliente->usuarios as $usuario) {
+                $usuario->delete(); 
+            }
+            
+            $cliente->delete();
+
+            return response()->json(['message' => 'Cliente movido a la papelera (Soft Delete). Documentos conservados.', 'status' => 200], 200);
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            // Esto atrapa errores específicos de la base de datos (como llaves foráneas)
+            return response()->json([
+                'message' => 'No se puede eliminar el cliente porque tiene registros vinculados (Periodos, Documentos, etc).',
+                'error' => $e->getMessage(),
+                'status' => 500
+            ], 500);
+
+        } catch (\Exception $e) {
+            // Esto atrapa cualquier otro error de PHP
+            return response()->json([
+                'message' => 'Error interno del servidor al eliminar.',
+                'error' => $e->getMessage(),
+                'status' => 500
+            ], 500);
+        }
     }
 }

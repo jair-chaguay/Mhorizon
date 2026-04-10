@@ -23,7 +23,7 @@ const IntranetLayout: React.FC = () => {
     const [refreshSignal, setRefreshSignal] = useState(0);    // Estados principales de navegación
     const triggerRefresh = () => setRefreshSignal(prev => prev + 1);
     const [activeView, setActiveView] = useState<ViewID>('view-directorio');
-    const [viewTitle, setViewTitle] = useState('Directorio de Clientes');
+    const [bibliotecaDirectTo, setBibliotecaDirectTo] = useState<{ clienteId: number; periodoId: number } | null>(null); const [viewTitle, setViewTitle] = useState('Directorio de Clientes');
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [infoAEditar, setInfoAEditar] = useState<any>(null);
 
@@ -48,24 +48,41 @@ const IntranetLayout: React.FC = () => {
 
     const handleConfirmEliminar = async () => {
         try {
-            let endpoint = "";
-            if (activeView === 'view-informativos') {
-                endpoint = `/informativo/${itemAEliminar.id}`;
-            } else if (activeView === 'view-noticias') {
-                endpoint = `/noticia/${itemAEliminar.id}`;
+            // Aseguramos que el endpoint sea un string
+            let endpoint = typeof itemAEliminar.id === 'string' ? itemAEliminar.id : "";
+
+            // Lógica legacy por si acaso (para noticias/informativos)
+            if (!endpoint) {
+                if (activeView === 'view-informativos') {
+                    endpoint = `/informativo/${itemAEliminar.id}`;
+                } else if (activeView === 'view-noticias') {
+                    endpoint = `/noticia/${itemAEliminar.id}`;
+                }
             }
 
             if (endpoint) {
                 await api.delete(endpoint);
-
                 triggerRefresh();
                 setIsEliminarModalOpen(false);
+
+                // NUEVO: Si acabamos de eliminar un cliente, forzamos el regreso al directorio
+                if (endpoint.includes('/cliente/')) {
+                    handleViewChange('view-directorio', 'Directorio de Clientes');
+                    setClienteSeleccionado(null); // Limpiamos el cliente seleccionado
+                }
             }
         } catch (error) {
             console.error("Error al eliminar:", error);
             alert("No se pudo eliminar el registro.");
         }
     }
+
+
+    const handleJumpToBiblioteca = (clienteId: number, periodoId: number) => {
+        setBibliotecaDirectTo({ clienteId, periodoId });
+        handleViewChange('view-repositorio-root', 'Biblioteca Operativa', true);
+    };
+
 
     // Handlers
     const handleOpenCrearFolder = (title: string, placeholder: string) => {
@@ -94,10 +111,13 @@ const IntranetLayout: React.FC = () => {
         setIsEliminarModalOpen(true);
     };
 
-    const handleViewChange = (viewId: ViewID, title: string) => {
+    const handleViewChange = (viewId: ViewID, title: string, isJump:boolean = false) => {
         setActiveView(viewId);
         setViewTitle(title);
-        setIsSidebarOpen(false); // Cierra el sidebar en móvil al cambiar de vista
+        setIsSidebarOpen(false);
+        if (!isJump) {
+            setBibliotecaDirectTo(null);
+        }
     };
 
     return (
@@ -128,11 +148,17 @@ const IntranetLayout: React.FC = () => {
                         {activeView === 'view-perfil-cliente' && clienteSeleccionado && (
                             <PerfilCliente
                                 cliente={clienteSeleccionado}
+                                refreshSignal={refreshSignal}
                                 onBack={() => handleViewChange('view-directorio', 'Directorio de Clientes')}
                                 onOpenDeclaracion={() => setIsDeclaracionModalOpen(true)}
                                 onOpenSubir={() => setIsSubirArchivoOpen(true)}
                                 onOpenEliminar={handleOpenEliminar}
                                 onUpdateSuccess={triggerRefresh}
+                                onJumpToBiblioteca={handleJumpToBiblioteca}
+                                onOpenCrearPeriodo={() => {
+                                    setCrearConfig({ title: 'Nuevo Periodo Fiscal', placeholder: 'Ej. 2026', type: 'PERIODOS', parentId: clienteSeleccionado.id });
+                                    setIsCrearFolderOpen(true);
+                                }}
                             />
                         )}
 
@@ -144,6 +170,11 @@ const IntranetLayout: React.FC = () => {
                                     setIsSubirArchivoOpen(true); // Abres el modal
                                 }}
                                 refreshSignal={refreshSignal}
+                                directTo={bibliotecaDirectTo}
+                                onOpenEliminar={(endpoint, title) => {
+                                    setItemAEliminar({ id: endpoint, title: title });
+                                    setIsEliminarModalOpen(true);
+                                }}
                             />
                         )}
 

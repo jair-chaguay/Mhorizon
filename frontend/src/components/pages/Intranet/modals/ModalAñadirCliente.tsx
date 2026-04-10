@@ -16,7 +16,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
     const [score, setScore] = useState<number>(100);
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
-    const [tipoPersona, setTipoPersona] = useState('Jurídica');
+    const [tipoPersona, setTipoPersona] = useState('Persona Natural');
     
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
@@ -44,7 +44,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             setScore(100);
             setCorreo('');
             setPassword('');
-            setTipoPersona('Jurídica');
+            setTipoPersona('Persona Natural');
             
             onSuccess(); // Recargar la tabla en el componente padre
             onClose();   // Cerrar modal
@@ -113,8 +113,10 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                     <div>
                         <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Tipo de Contribuyente</label>
                         <select value={tipoPersona} onChange={(e) => setTipoPersona(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500">
-                            <option value="Jurídica">Persona Jurídica</option>
-                            <option value="Natural">Persona Natural</option>
+                            <option value="Régimen General">Régimen General</option>
+                            <option value="Rimpe">Rimpe</option>
+                            <option value="Contribuyente Especial">Contribuyente Especial</option>
+                            <option value="Persona Natural">Persona Natural</option>
                         </select>
                     </div>
                     

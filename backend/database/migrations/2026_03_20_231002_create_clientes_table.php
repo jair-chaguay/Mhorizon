@@ -19,6 +19,7 @@ public function up(): void
         $table->string('identificacion', 20)->unique();
         $table->integer('score_tributario')->default(100);
         $table->foreignId('creado_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
+        $table->softDeletes();
         $table->timestamps();
     });
 }

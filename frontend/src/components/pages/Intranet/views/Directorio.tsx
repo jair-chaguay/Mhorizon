@@ -7,9 +7,7 @@ interface Cliente {
     tipo_persona: 'Natural' | 'Jurídica';
     razon_social_nombres: string;
     identificacion: string;
-    direccion_matriz: string | null;
     score_tributario: number;
-    proximo_vencimiento: string | null;
     creador?: {
         id: number;
         nombre: string;
@@ -102,7 +100,6 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                                     <th className="px-6 py-4">Empresa / Cliente</th>
                                     <th className="px-6 py-4 text-center">Tipo</th>
                                     <th className="px-6 py-4">Score Tributario</th>
-                                    <th className="px-6 py-4">Próximo Vencimiento</th>
                                     <th className="px-6 py-4">Gestionado por</th>
                                     <th className="px-6 py-4 text-center">Acciones</th>
                                 </tr>
@@ -138,11 +135,6 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                                                 </div>
                                                 <span className="text-blue-200 font-black">{cliente.score_tributario}</span>
                                             </div>
-                                        </td>
-                                        <td className="px-6 py-5">
-                                            <span className="text-gray-600 font-bold bg-gray-100 border border-gray-200 px-3 py-1.5 rounded-lg text-[0.75rem]">
-                                                {cliente.proximo_vencimiento ? new Date(cliente.proximo_vencimiento).toLocaleDateString('es-EC', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Pendiente'}
-                                            </span>
                                         </td>
                                         <td className="px-6 py-5">
                                             <p className="text-gray-500 italic text-xs">

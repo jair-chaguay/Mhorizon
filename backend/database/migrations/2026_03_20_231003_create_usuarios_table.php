@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password_hash'); 
             $table->string('cargo')->nullable()->comment('Ej: Tax Manager, Contador');
             $table->boolean('activo')->default(true);
+            $table->softDeletes();
             $table->timestamp('ultimo_acceso')->nullable();
         });
     }
