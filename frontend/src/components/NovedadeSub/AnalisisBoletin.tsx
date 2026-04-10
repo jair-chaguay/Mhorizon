@@ -1,71 +1,88 @@
-import { ScrollReveal } from "../ScrollReveal"
+import React from 'react';
+import { ScrollReveal } from "../ScrollReveal";
+import DOMPurify from 'dompurify';
 
-export const AnalisisBoletin = () => {
-    return (
-        <article className="max-w-225 mx-auto px-5 sm:px-8 py-16 md:py-20 bg-gray-50">
-            <ScrollReveal className='prose prose-lg max-w-none text-gray-700 font-light leading-relaxed'>
-
-                <p className="text-[1.2rem] md:text-[1.3rem] text-blue-200 leading-relaxed mb-10 reveal-element">
-                    A partir de las recientes disposiciones del Gobierno Central, el Servicio de Rentas Internas (SRI) ha emitido la Resolución NAC-00000009. Este documento normativo establece las nuevas directrices obligatorias para los agentes de retención a nivel nacional.
-                </p>
-
-                <div className="max-w-none text-blue-200/80 text-[1.05rem] md:text-lg leading-relaxed space-y-10 md:space-y-12">
-
-                    <div className="space-y-6 mb-16 reveal-element delay-100">
-                        <h2 className="text-2xl md:text-[1.8rem] font-extrabold text-blue-200 tracking-tight">
-                            Impacto en la Operación Corporativa
-                        </h2>
-                        <p>
-                            A partir del <strong className="text-blue-200 font-bold">1 de marzo de 2026</strong>, entra en vigencia la actualización obligatoria de retenciones en la fuente para el Impuesto a la Renta. Este cambio estructural afecta principalmente a todas las transacciones comerciales que no se encuentren especificadas bajo ninguna regla especial, modificando el esquema de flujo de caja para proveedores y contratistas.
-                        </p>
-                    </div>
-
-                    <div className="my-16 bg-blue-200 rounded-2xl shadow-2xl relative overflow-hidden reveal-element delay-200">
-                        <div className="absolute -right-20 -top-20 w-64 h-64 bg-orange-500/20 rounded-full blur-[60px] pointer-events-none"></div>
-
-                        <div className="p-8 md:p-12 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8 text-center md:text-left">
-                            <div className="w-full md:w-1/2">
-                                <span className="inline-block bg-orange-500/10 text-orange-500 border border-orange-500/30 px-3 py-1 rounded-sm text-[0.70rem] font-bold tracking-widest uppercase mb-4">
-                                    KPI TRIBUTARIO
-                                </span>
-                                <h3 className="text-white text-[1.4rem] font-bold leading-tight">
-                                    Nueva Tasa General de Retención
-                                </h3>
-                                <p className="text-gray-400 text-[0.95rem] mt-2">
-                                    Aplicable a la adquisición de todo tipo de bienes muebles de naturaleza corporal.
-                                </p>
-                            </div>
-
-                            <div className="w-full md:w-1/2 flex items-center justify-center md:justify-end gap-6">
-                                <div className="text-right">
-                                    <span className="block text-gray-500 line-through text-2xl font-bold italic">2.75%</span>
-                                    <span className="block text-gray-400 text-[0.7rem] uppercase tracking-widest mt-1">Tasa Anterior</span>
-                                </div>
-                                <div className="w-px h-16 bg-white/20"></div>
-                                <div>
-                                    <span className="block text-orange-500 text-6xl md:text-7xl font-black tracking-tighter leading-none">3.00%</span>
-                                    <span className="block text-white text-[0.7rem] uppercase tracking-widest mt-2 ml-1">Vigente 2026</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="space-y-6 reveal-element delay-300">
-                        <h3 className="text-2xl md:text-[1.8rem] font-extrabold text-blue-200 tracking-tight">
-                            Acciones Recomendadas Inmediatas
-                        </h3>
-                        <p>
-                            Es imperativo que los departamentos financieros y contables parametricen sus sistemas ERP (Enterprise Resource Planning) para reflejar estos nuevos porcentajes antes de la fecha límite. Emitir comprobantes de retención con tasas desactualizadas podría generar multas, intereses y la invalidación de la deducibilidad del gasto ante futuras auditorías de control del SRI.
-                        </p>
-                        <div className="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg mt-8">
-                            <p className='text-blue-200 font-bold m-0'>
-                                Para una transición sin riesgos, nuestro equipo de consultoría ha desarrollado una matriz de validación que asegura el cumplimiento normativo total de su organización.
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-            </ScrollReveal>
-        </article>
-    )
+// Definimos la interfaz con los datos completos que vienen de tu API
+interface Informativo {
+  titulo: string;
+  resolucion_oficial?: string | null;
+  descripcion_portada: string;
+  contenido: string; // <-- Aquí viene el HTML de Tiptap
+  imagen_portada_url?: string | null;
+  pdf_url?: string | null;
+  created_at: string;
 }
+
+interface AnalisisBoletinProps {
+  informativo: Informativo;
+}
+
+export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo }) => {
+  
+  // Sanitizamos el contenido para prevenir ataques XSS.
+  // Esto elimina scripts maliciosos pero deja intactas las etiquetas <h1>, <p>, <strong>, etc.
+  const cleanHTML = DOMPurify.sanitize(informativo.contenido);
+
+  return (
+    <article className="max-w-225 mx-auto px-5 sm:px-8 py-16 md:py-20 bg-gray-50">
+      <ScrollReveal className="max-w-none text-gray-700 font-light leading-relaxed">
+        
+        {/* === CABECERA DEL INFORMATIVO === */}
+        <div className="mb-10 border-b border-gray-200 pb-8 reveal-element">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <span className="bg-orange-500/10 text-orange-600 px-3 py-1 rounded-sm text-[0.70rem] font-bold tracking-widest uppercase">
+              Boletín Oficial
+            </span>
+            {informativo.resolucion_oficial && (
+              <span className="text-gray-400 font-mono text-sm border border-gray-200 px-2 py-0.5 rounded bg-white">
+                {informativo.resolucion_oficial}
+              </span>
+            )}
+            <span className="text-gray-400 text-sm ml-auto">
+              {new Date(informativo.created_at).toLocaleDateString('es-EC', { 
+                day: 'numeric', month: 'long', year: 'numeric' 
+              })}
+            </span>
+          </div>
+
+          <h1 className="text-3xl md:text-[2.5rem] font-extrabold text-blue-200 tracking-tight leading-tight mb-4">
+            {informativo.titulo}
+          </h1>
+          
+          <p className="text-[1.1rem] text-gray-500 italic">
+            {informativo.descripcion_portada}
+          </p>
+        </div>
+
+        {/* === CONTENIDO DEL EDITOR (TIPTAP) === */}
+        {/* Las clases 'prose' de Tailwind Typography se encargan de darle estilo al HTML inyectado */}
+        <div 
+          className="prose prose-lg max-w-none text-blue-200/80 prose-headings:text-blue-200 prose-strong:text-blue-200 prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline reveal-element delay-100"
+          dangerouslySetInnerHTML={{ __html: cleanHTML }} 
+        />
+
+        {/* === SECCIÓN DE ADJUNTOS === */}
+        {informativo.pdf_url && (
+          <div className="mt-16 pt-8 border-t border-gray-200 reveal-element delay-200">
+            <h3 className="text-[0.85rem] font-bold text-blue-200 uppercase tracking-widest mb-4">
+              Documentos Adjuntos
+            </h3>
+            {/* Ajusta la ruta base '/storage/' según cómo sirvas tus archivos en Laravel */}
+            <a 
+              href={`http://localhost:8000/storage/${informativo.pdf_url}`} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-600 hover:bg-red-600 hover:text-white px-6 py-3 rounded-lg font-bold text-sm transition-all shadow-sm"
+            >
+              <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Descargar PDF Original
+            </a>
+          </div>
+        )}
+
+      </ScrollReveal>
+    </article>
+  );
+};

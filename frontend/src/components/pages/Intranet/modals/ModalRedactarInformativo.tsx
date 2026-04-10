@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../../ScrollReveal';
+import EditorRichText from '../views/EditorRichText';
 import api from '../../../../api/axios';
-import StarterKit from '@tiptap/starter-kit'
 
 interface Props {
   isOpen: boolean;
@@ -14,7 +14,7 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
 
   const [titulo, setTitulo] = useState("");
   const [resolucion, setResolucion] = useState("");
-  
+
   // 1. ACTUALIZACIÓN: Nuevos estados
   const [descripcionPortada, setDescripcionPortada] = useState("");
   const [contenido, setContenido] = useState("");
@@ -38,14 +38,14 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    
+
     // 2. ACTUALIZACIÓN: Añadir campos al FormData
     const formData = new FormData();
     formData.append('titulo', titulo);
     formData.append('resolucion_oficial', resolucion);
     formData.append('descripcion_portada', descripcionPortada); // <-- Append
     formData.append('contenido', contenido);
-    
+
     if (imagen) {
       formData.append('imagen', imagen);
     }
@@ -58,7 +58,7 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
         headers: {
           'Content-Type': 'multipart/form-data',
         }
-      } 
+      }
 
       if (datosEdicion) {
         formData.append('_method', 'PUT');
@@ -68,7 +68,7 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
       }
 
       if (typeof onSuccess === 'function') {
-        onSuccess(); 
+        onSuccess();
       }
       onClose();
       resetForm();
@@ -145,14 +145,13 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
             </div>
 
             <div>
-              <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Contenido Completo</label>
-              <textarea
-                rows={4}
-                required
+              <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">
+                Contenido Completo
+              </label>
+              <EditorRichText
                 value={contenido}
-                onChange={(e) => setContenido(e.target.value)}
-                className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none resize-none focus:border-orange-500"
-              ></textarea>
+                onChange={setContenido}
+              />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
