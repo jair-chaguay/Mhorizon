@@ -26,6 +26,10 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
   const [noticias, setNoticias] = useState<Noticia[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
   const fetchNoticias = async () => {
     try {
       setLoading(true);
@@ -41,6 +45,32 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
   useEffect(() => {
     fetchNoticias();
   }, []);
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setCurrentPage(1); // Volver a la página 1 cuando el usuario busca algo
+  };
+
+  const filteredNoticias = noticias.filter((info) => {
+    const tituloMatch = info.titulo.toLowerCase().includes(searchTerm.toLowerCase());
+    const descripcionMatch = info.descripcion_corta.toLowerCase().includes(searchTerm.toLowerCase());
+    const fuenteMatch = info.fuente.toLowerCase().includes(searchTerm.toLowerCase());
+    return tituloMatch || descripcionMatch || fuenteMatch
+  })
+
+  const totalPages = Math.ceil(filteredNoticias.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const currentNoticias = filteredNoticias.slice(startIndex, startIndex + itemsPerPage);
+
+  const goToNextPage = () => {
+    if(currentPage < totalPages) setCurrentPage(currentPage+1);
+  }
+
+    const goToPreviousPage = () => {
+    if(currentPage > 1) setCurrentPage(currentPage - 1);
+  }
+
+
 
   if (loading) {
     return (
@@ -69,6 +99,15 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
         </button>
       </div>
 
+      <div className='reveal-element bg-white p-4 rounded-2xl shadow-sm border border-gray-200 flex items-center gap-3'>
+        <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <input type="text" placeholder='Buscar noticia...' value={searchTerm} onChange={handleSearch}
+            className="w-full outline-none text-sm text-gray-600 placeholder-gray-400 bg-transparent"
+        />
+      </div>
+
       <div className="bg-white rounded-2xl shadow-sm border reveal-element border-gray-200 overflow-hidden flex flex-col">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse min-w-250">
@@ -83,7 +122,7 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
               </tr>
             </thead>
             <tbody className="text-[0.85rem] divide-y divide-gray-100">
-              {noticias.map((noticia) => (
+              {currentNoticias.map((noticia) => (
                 <tr key={noticia.id} className="hover:bg-gray-50/50 transition-colors group">
                   <td className="px-6 py-4">
                     {noticia.imagen_url ? (
@@ -143,7 +182,36 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
             </tbody>
           </table>
         </div>
-        {noticias.length === 0 && (
+
+        {filteredNoticias.length > 0 && (
+          <div className='px-6 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between'>
+            <span className="text-xs text-gray-500 font-medium">
+              Mostrando {startIndex + 1} a {Math.min(startIndex + itemsPerPage, filteredNoticias.length)} de {filteredNoticias.length} resultados
+            </span>
+            <div className='flex items-center gap-2'>
+              <button 
+                onClick={goToPreviousPage} 
+                disabled={currentPage === 1}
+                className="p-2 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
+              </button>
+              <span className="text-xs font-bold text-gray-600 px-2">
+                Página {currentPage} de {totalPages || 1}
+              </span>
+              <button 
+                onClick={goToNextPage} 
+                disabled={currentPage >= totalPages}
+                className="p-2 rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+          </div>
+        )}
+
+
+        {filteredNoticias.length === 0 && (
           <div className="py-12 text-center text-gray-400 italic">No hay noticias registradas.</div>
         )}
       </div>

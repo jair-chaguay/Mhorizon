@@ -20,7 +20,7 @@ import ModalAñadirObligacion from './modals/ModalAñadirObligacion';
 
 const IntranetLayout: React.FC = () => {
     const [crearConfig, setCrearConfig] = useState<any>({ title: '', placeholder: '', type: 'ROOT', parentId: null });
-    const [refreshSignal, setRefreshSignal] = useState(0);    // Estados principales de navegación
+    const [refreshSignal, setRefreshSignal] = useState(0);    
     const triggerRefresh = () => setRefreshSignal(prev => prev + 1);
     const [activeView, setActiveView] = useState<ViewID>('view-directorio');
     const [bibliotecaDirectTo, setBibliotecaDirectTo] = useState<{ clienteId: number; periodoId: number } | null>(null); const [viewTitle, setViewTitle] = useState('Directorio de Clientes');
@@ -39,7 +39,6 @@ const IntranetLayout: React.FC = () => {
         id: 0,
         title: ''
     });
-    // NUEVO: Estado para el modal de subir archivo
     const [isSubirArchivoOpen, setIsSubirArchivoOpen] = useState(false);
     const [subcarpetaDestinoId, setSubcarpetaDestinoId] = useState<number | null>(null);
     const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
@@ -48,10 +47,8 @@ const IntranetLayout: React.FC = () => {
 
     const handleConfirmEliminar = async () => {
         try {
-            // Aseguramos que el endpoint sea un string
             let endpoint = typeof itemAEliminar.id === 'string' ? itemAEliminar.id : "";
 
-            // Lógica legacy por si acaso (para noticias/informativos)
             if (!endpoint) {
                 if (activeView === 'view-informativos') {
                     endpoint = `/informativo/${itemAEliminar.id}`;
@@ -65,10 +62,9 @@ const IntranetLayout: React.FC = () => {
                 triggerRefresh();
                 setIsEliminarModalOpen(false);
 
-                // NUEVO: Si acabamos de eliminar un cliente, forzamos el regreso al directorio
                 if (endpoint.includes('/cliente/')) {
                     handleViewChange('view-directorio', 'Directorio de Clientes');
-                    setClienteSeleccionado(null); // Limpiamos el cliente seleccionado
+                    setClienteSeleccionado(null); 
                 }
             }
         } catch (error) {
@@ -91,7 +87,7 @@ const IntranetLayout: React.FC = () => {
     };
 
     const handleOpenRedactar = (info?: any) => {
-        setInfoAEditar(info || null); // Si viene info, es editar; si no, es nuevo.
+        setInfoAEditar(info || null); 
         setIsRedactarModalOpen(true);
     };
 
@@ -137,7 +133,6 @@ const IntranetLayout: React.FC = () => {
 
                 <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10 no-scrollbar relative z-10 bg-gray-50">
                     <div className="animate-fadeIn">
-                        {/* Renderizado de vistas pasando las funciones (props) necesarias */}
                         {activeView === 'view-directorio' && (
                             <Directorio onOpenGestion={handleOpenGestion}
                                 onOpenAñadir={() => setIsAñadirClienteOpen(true)}
@@ -166,8 +161,8 @@ const IntranetLayout: React.FC = () => {
                             <Biblioteca
                                 onOpenCrear={(conf) => { setCrearConfig(conf); setIsCrearFolderOpen(true); }}
                                 onOpenSubir={(id) => {
-                                    setSubcarpetaDestinoId(id); // Guardas el ID destino
-                                    setIsSubirArchivoOpen(true); // Abres el modal
+                                    setSubcarpetaDestinoId(id); 
+                                    setIsSubirArchivoOpen(true);
                                 }}
                                 refreshSignal={refreshSignal}
                                 directTo={bibliotecaDirectTo}
@@ -190,7 +185,7 @@ const IntranetLayout: React.FC = () => {
                             <Noticias
                                 key={`info-${refreshSignal}`}
                                 onOpenRedactar={handleOpenRedactarNoticia}
-                                onOpenEliminar={handleOpenEliminar} // Reusamos el modal eliminar
+                                onOpenEliminar={handleOpenEliminar} 
                             />
                         )}
 
@@ -220,7 +215,7 @@ const IntranetLayout: React.FC = () => {
                 isOpen={isDeclaracionModalOpen}
                 onClose={() => setIsDeclaracionModalOpen(false)}
                 clienteId={clienteSeleccionado?.id}
-                onSuccess={triggerRefresh} // Esto dispara el GET actualizado en el Perfil
+                onSuccess={triggerRefresh} 
             />
 
             <ModalEliminar
@@ -241,7 +236,7 @@ const IntranetLayout: React.FC = () => {
                 onClose={() => setIsSubirArchivoOpen(false)}
                 subcarpetaId={subcarpetaDestinoId}
                 onSuccess={() => {
-                    triggerRefresh(); // Esto obliga a Biblioteca a ejecutar el GET y traer los nuevos archivos
+                    triggerRefresh(); 
                 }}
             />
 

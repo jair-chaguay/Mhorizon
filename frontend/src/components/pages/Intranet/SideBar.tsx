@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { type MouseEventHandler, type ReactNode } from 'react';
 import { type ViewID } from './types';
 import { useNavigate } from 'react-router-dom';
 import api from '../../../api/axios';
@@ -10,15 +10,13 @@ interface SidebarProps {
   setIsOpen: (open: boolean) => void;
 }
 
-
-
 const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, isOpen, setIsOpen }) => {
   const navigate = useNavigate();
   const userData = JSON.parse(localStorage.getItem('user') || '{}');
   const nombreCompleto = userData.nombre + " " + userData.apellido
   const handleLogout = async () => {
     try {
-      api.post('/logout');
+      await api.post('/logout');
     } catch (error) {
       console.error("Error en logout backend:", error);
     } finally {
@@ -106,12 +104,30 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, isOpen, set
   );
 };
 
-const NavButton = ({ label, isActive, onClick, icon }: any) => (
+interface NavButtonProps {
+  label: string;
+  isActive: boolean;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  icon: ReactNode;
+}
+
+
+const NavButton = ({ label, isActive, onClick, icon }: NavButtonProps) => (
   <button
     onClick={onClick}
-    className={` cursor-pointer w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-all duration-200 group ${isActive ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' : 'text-gray-400 hover:bg-white/5 hover:text-orange-500'}`}
+    className={`cursor-pointer w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-all duration-200 group ${
+      isActive 
+        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' 
+        : 'text-gray-400 hover:bg-white/5 hover:text-orange-500'
+    }`}
   >
-    <svg className={`w-5 h-5 ${isActive ? 'text-white' : 'group-hover:text-orange-500'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+    <svg 
+      className={`w-5 h-5 ${isActive ? 'text-white' : 'group-hover:text-orange-500'}`} 
+      fill="none" 
+      stroke="currentColor" 
+      viewBox="0 0 24 24" 
+      strokeWidth="2"
+    >
       {icon}
     </svg>
     {label}

@@ -19,65 +19,56 @@ interface AnalisisBoletinProps {
 
 export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo }) => {
   
-  // Sanitizamos el contenido para prevenir ataques XSS.
-  // Esto elimina scripts maliciosos pero deja intactas las etiquetas <h1>, <p>, <strong>, etc.
   const cleanHTML = DOMPurify.sanitize(informativo.contenido);
 
   return (
-    <article className="max-w-225 mx-auto px-5 sm:px-8 py-16 md:py-20 bg-gray-50">
+    <article className="max-w-225 mx-auto px-5 sm:px-8 py-16 md:py-20 md:mt-10 lg:mt-10 sm:p-0 bg-gray-100">
       <ScrollReveal className="max-w-none text-gray-700 font-light leading-relaxed">
         
         {/* === CABECERA DEL INFORMATIVO === */}
         <div className="mb-10 border-b border-gray-200 pb-8 reveal-element">
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <span className="bg-orange-500/10 text-orange-600 px-3 py-1 rounded-sm text-[0.70rem] font-bold tracking-widest uppercase">
-              Boletín Oficial
+            <span className="bg-orange-500/10 text-orange-500 px-3 py-1 rounded-sm text-[0.70rem] font-bold tracking-widest uppercase">
+              Informativo Oficial
             </span>
             {informativo.resolucion_oficial && (
-              <span className="text-gray-400 font-mono text-sm border border-gray-200 px-2 py-0.5 rounded bg-white">
+              <span className="text-orange-500 font-mono text-sm border border-gray-200 px-2 py-0.5 rounded bg-white">
                 {informativo.resolucion_oficial}
               </span>
             )}
-            <span className="text-gray-400 text-sm ml-auto">
+            <span className="text-blue-200/60 font-medium  text-sm ml-auto">
               {new Date(informativo.created_at).toLocaleDateString('es-EC', { 
                 day: 'numeric', month: 'long', year: 'numeric' 
               })}
             </span>
           </div>
 
-          <h1 className="text-3xl md:text-[2.5rem] font-extrabold text-blue-200 tracking-tight leading-tight mb-4">
+          <h1 className="text-3xl md:text-[2.5rem] font-extrabold text-blue-200 tracking-tight leading-tight">
             {informativo.titulo}
           </h1>
-          
-          <p className="text-[1.1rem] text-gray-500 italic">
-            {informativo.descripcion_portada}
-          </p>
         </div>
 
-        {/* === CONTENIDO DEL EDITOR (TIPTAP) === */}
-        {/* Las clases 'prose' de Tailwind Typography se encargan de darle estilo al HTML inyectado */}
         <div 
-          className="prose prose-lg max-w-none text-blue-200/80 prose-headings:text-blue-200 prose-strong:text-blue-200 prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline reveal-element delay-100"
+          className="prose prose-lg max-w-none text-blue-200 prose-headings:text-blue-200 prose-strong:text-blue-200 prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline reveal-element delay-100"
           dangerouslySetInnerHTML={{ __html: cleanHTML }} 
         />
 
         {/* === SECCIÓN DE ADJUNTOS === */}
         {informativo.pdf_url && (
-          <div className="mt-16 pt-8 border-t border-gray-200 reveal-element delay-200">
+          <div className="mt-4 pt-8 border-t border-gray-200 reveal-element delay-200">
             <h3 className="text-[0.85rem] font-bold text-blue-200 uppercase tracking-widest mb-4">
               Documentos Adjuntos
             </h3>
-            {/* Ajusta la ruta base '/storage/' según cómo sirvas tus archivos en Laravel */}
             <a 
               href={`http://localhost:8000/storage/${informativo.pdf_url}`} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-red-50 border border-red-100 text-red-600 hover:bg-red-600 hover:text-white px-6 py-3 rounded-lg font-bold text-sm transition-all shadow-sm"
+              className="inline-flex items-center gap-2 bg-orange-500 border border-red-100 text-white hover:bg-blue-200 hover:text-white duration-300 px-6 py-3 rounded-lg font-bold text-sm transition-all shadow-sm"
             >
               <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              Descargar PDF Original
+              Descargar Informativo
             </a>
           </div>
         )}

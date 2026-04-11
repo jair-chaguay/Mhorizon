@@ -1,6 +1,6 @@
-import { useEffect, useRef, type ElementType, type ReactNode } from 'react';
+import { useEffect, useRef, type ElementType, type ReactNode, type HTMLAttributes } from 'react';
 
-interface ScrollRevealProps {
+interface ScrollRevealProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   className?: string;
   as?: ElementType; 
@@ -9,7 +9,8 @@ interface ScrollRevealProps {
 export const ScrollReveal = ({ 
   children, 
   className = "", 
-  as: Tag = "div" 
+  as: Tag = "div",
+  ...rest 
 }: ScrollRevealProps) => {
   const containerRef = useRef<HTMLElement>(null);
 
@@ -29,7 +30,6 @@ export const ScrollReveal = ({
 
     revealElements.forEach(el => observer.observe(el));
 
-    // Lógica para el "Above the fold"
     const timeoutId = setTimeout(() => {
       revealElements.forEach(el => {
         const rect = el.getBoundingClientRect();
@@ -46,7 +46,7 @@ export const ScrollReveal = ({
   }, []);
 
   return (
-    <Tag ref={containerRef} className={className}>
+    <Tag ref={containerRef} className={className} {...rest}>
       {children}
     </Tag>
   );

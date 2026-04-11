@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
 import api from "../api/axios";
 
 interface ContactModalProps {
@@ -30,12 +30,12 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
         try {
             const response = await api.post('/contacto', datosContacto);
             if (response.status === 201) {
-                alert(response.data.message); // "Tu mensaje ha sido enviado..."
+                alert(response.data.message); 
                 resetForm();
                 onClose();
             }
         } catch (error) {
-
+            console.log("Error:", error)
         } finally {
             setLoading(false);
         }
@@ -83,11 +83,9 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     if (!isMounted) return null;
 
     return (
-        <div
-            className={`fixed inset-0 z-110 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 transition-opacity duration-300 ${isAnimating ? "opacity-100" : "opacity-0"
-                }`}
-            onClick={onClose}
-        >
+        <div className={`fixed inset-0 z-110 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 transition-opacity duration-300 ${
+            isAnimating ? "opacity-100" : "opacity-0"}`}
+            onClick={onClose}>
             <div
                 className={`bg-white rounded-2xl shadow-2xl w-full max-w-xl p-8 sm:p-10 relative transform transition-transform duration-300 ${isAnimating ? "scale-100" : "scale-95"
                     }`}
@@ -170,9 +168,10 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                     <div className="mt-4 flex justify-center sm:justify-start">
                         <button
                             type="submit"
+                            disabled={loading}
                             className="bg-orange-500 text-white font-bold tracking-wider uppercase px-10 py-4 rounded-md hover:bg-blue-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 w-full sm:w-auto"
                         >
-                            ENVIAR
+                            {loading ? "ENVIANDO..." : "ENVIAR"}
                         </button>
                     </div>
                 </form>

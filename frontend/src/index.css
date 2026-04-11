@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --color-blue-200: #151E28;
@@ -121,4 +122,62 @@ html {
 .ProseMirror ul {
   list-style-type: disc;
   padding-left: 1.5rem;
+}
+
+
+
+/* Estilo para las imágenes redimensionables en el editor */
+.tiptap-editor img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+
+
+.prose table, 
+.tiptap-editor table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  table-layout: auto !important; 
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+  background-color: white !important;
+}
+
+.prose th, 
+.prose td,
+.tiptap-editor th, 
+.tiptap-editor td {
+  border: 1px solid #d1d5db !important; /* Borde gris visible */
+  padding: 0.75rem !important;
+  text-align: center !important; 
+  vertical-align: middle !important;
+  word-break: break-word !important; /* Evita que una palabra larga rompa la tabla */
+}
+
+.prose th,
+.tiptap-editor th {
+  background-color: #ffffff !important; 
+  font-weight: 900 !important; /* Negrita */
+  color: #151E28 !important; 
+}
+
+.prose .tableWrapper,
+.tiptap-editor .tableWrapper {
+  overflow-x: auto !important;
+  width: 100% !important;
+}
+
+
+.prose img {
+  max-width: 100%; /* Nunca se saldrá del ancho del texto */
+  max-height: 500px; /* Limita la altura máxima para que no ocupe toda la pantalla */
+  width: auto;
+  height: auto;
+  margin-left: auto; /* Centrar la imagen */
+  margin-right: auto;
+  border-radius: 0.5rem; /* Bordes redondeados sutiles */
+  object-fit: contain; /* Evita que la imagen se deforme */
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); /* Sombra elegante */
 }

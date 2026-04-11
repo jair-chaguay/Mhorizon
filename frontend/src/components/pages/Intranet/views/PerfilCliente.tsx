@@ -39,13 +39,12 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     // Verificamos si existe el usuario asociado para extraer su correo
     const usuarioAsociado = cliente.usuarios && cliente.usuarios.length > 0 ? cliente.usuarios[0] : null;
 
-    // --- ESTADO LIMPIO (Sin datos que no se usan) ---
     const [formData, setFormData] = useState({
         razon_social_nombres: cliente.razon_social_nombres || '',
         identificacion: cliente.identificacion || '',
         tipo_persona: cliente.tipo_persona || 'Persona Natural',
         score_tributario: cliente.score_tributario || 100,
-        correo: usuarioAsociado ? usuarioAsociado.correo : '', // Extrae el correo
+        correo: usuarioAsociado ? usuarioAsociado.correo : '',
         password: ''
     });
 
@@ -113,7 +112,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
 
     const handleToggleObligacion = async (id: number) => {
-        // Actualizamos visualmente al instante para que se sienta rápido
         setObligaciones(prev => prev.map(ob =>
             ob.id === id ? { ...ob, estado: ob.estado === 'Pendiente' ? 'Presentado' : 'Pendiente' } : ob
         ));
@@ -122,7 +120,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
             await api.put(`/obligacion/${id}/toggle`);
         } catch (error) {
             console.error("Error al cambiar estado:", error);
-            // Si falla, revertimos el estado visualmente (opcional)
             fetchObligaciones();
             alert("Hubo un error al actualizar el estado de la obligación.");
         }
@@ -161,8 +158,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
             `}</style>
 
             <div className="max-w-350 mx-auto space-y-6 reveal-element active">
-
-                {/* --- 1. BOTÓN DE RETROCESO --- */}
                 <div className="flex items-center gap-4 mb-2">
                     <button onClick={onBack} className="p-2 bg-white border border-gray-200 rounded-lg text-gray-500 hover:text-orange-500 transition-colors shadow-sm cursor-pointer">
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
@@ -174,7 +169,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                     </div>
                 </div>
 
-                {/* --- 2. TARJETA DE DATOS DEL PERFIL --- */}
                 <div className="bg-blue-200 rounded-2xl p-6 lg:p-8 shadow-lg relative overflow-hidden mt-5">
                     <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
                         <svg className="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l7-3 7 3z"></path></svg>
@@ -225,11 +219,9 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </div>
                             </div>
 
-                            {/* --- BOTONES DE ACCIÓN (ELIMINAR Y GUARDAR) --- */}
                             <div className="sm:col-span-2 lg:col-span-3 xl:col-span-5 flex flex-col sm:flex-row gap-4 mt-2">
                                 <button 
                                     type="button"
-                                    // Le pasamos la ruta /cliente/{id} al modal global
                                     onClick={() => onOpenEliminar(`/cliente/${cliente.id}`, `Cliente ${cliente.razon_social_nombres} y su usuario`)}
                                     className="flex-1 bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center justify-center gap-2 hover:bg-red-500 hover:text-white text-red-400 transition-all cursor-pointer group shadow-sm"
                                 >
@@ -259,7 +251,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <p className="text-gray-500 text-[0.85rem] mt-1">Se guardan automáticamente al marcar la casilla.</p>
                         </div>
                         <div className="flex items-center gap-3">
-                            {/* Eliminamos el botón de Guardar Estados porque ahora es automático por cada check */}
                             <button onClick={onOpenDeclaracion} className="cursor-pointer bg-orange-50 text-orange-600 border border-orange-200 text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 hover:text-white transition-all flex items-center gap-2 shrink-0">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                                 Añadir Obligación
@@ -328,7 +319,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                     </div>
                 </div>
 
-                {/* --- 4. SECCIÓN BIBLIOTECA DOCUMENTAL --- */}
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:p-8">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                         <div>

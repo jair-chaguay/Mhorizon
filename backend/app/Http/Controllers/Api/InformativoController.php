@@ -101,6 +101,26 @@ class InformativoController extends Controller
     }
 
 
+    public function uploadEditorImage(Request $request)
+    {
+        $request->validate([
+            'imagen_editor' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        if ($request->hasFile('imagen_editor')) {
+            // Guarda la imagen en storage/app/public/informativos/editor
+            $path = $request->file('imagen_editor')->store('informativos/editor', 'public');
+            
+            // Devolvemos la ruta relativa para que React construya la URL
+            return response()->json([
+                'url' => 'storage/' . $path
+            ], 200);
+        }
+
+        return response()->json(['error' => 'No se recibió ninguna imagen'], 400);
+    }
+
+
     public function destroy(string $id)
     {
         $informativo = Informativo::find($id);

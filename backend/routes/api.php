@@ -70,6 +70,7 @@ Route::post('/biblioteca/subcarpeta', [BibliotecaController::class, 'storeSubcar
 Route::post('/biblioteca/upload-documento', [BibliotecaController::class, 'uploadDocumento']);
 Route::delete('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'deleteCarpeta']);
 
+Route::post('/informativo/upload-imagen-editor', [InformativoController::class, 'uploadEditorImage']);
 
 Route::get('/clientes/biblioteca', [ClienteController::class, 'indexBiblioteca']);
 });

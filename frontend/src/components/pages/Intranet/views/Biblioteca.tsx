@@ -15,7 +15,6 @@ interface BibliotecaProps {
 }
 
 const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refreshSignal, directTo, onOpenEliminar }) => {
-  // ESTADOS DE NAVEGACIÓN Y PATH
   const [navLevel, setNavLevel] = useState<NavLevel>('ROOT');
   const [path, setPath] = useState({ cliente: '', periodo: '', subcarpeta: '', subcarpetaHija: '' });
 
@@ -25,7 +24,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     subcarpetaId: null as number | null
   });
 
-  // ESTADOS DE DATOS
   const [clientes, setClientes] = useState<any[]>([]);
   const [periodos, setPeriodos] = useState<any[]>([]);
   const [subcarpetas, setSubcarpetas] = useState<any[]>([]);
@@ -33,7 +31,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
   const [archivos, setArchivos] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 1. CARGA INICIAL DE CLIENTES
   const fetchClientes = async () => {
     try {
       setLoading(true);
@@ -98,14 +95,13 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
 
           setPeriodos(tree);
 
-          // 2. Buscamos el periodo específico al que queremos saltar
           const targetPeriod = tree.find((p: any) => p.id === directTo.periodoId);
 
           if (targetPeriod) {
             setSelectionIds({ clienteId: directTo.clienteId, periodoId: targetPeriod.id, subcarpetaId: null });
             setPath({ cliente: data.cliente, periodo: targetPeriod.anio, subcarpeta: '', subcarpetaHija: '' });
             setSubcarpetas(targetPeriod.subcarpetas || []);
-            setNavLevel('SUBCARPETAS'); // Vamos directo al Nivel 3
+            setNavLevel('SUBCARPETAS');
           }
         } catch (error) {
           console.error("Error en salto directo:", error);
@@ -120,7 +116,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
 
 
   const handleClientClick = async (cliente: any) => {
-    // 1. Guardamos el ID inmediatamente para que esté disponible para el botón "Crear"
     setSelectionIds(prev => ({ ...prev, clienteId: cliente.id }));
     setPath({ ...path, cliente: cliente.razon_social_nombres });
 
@@ -128,12 +123,10 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
       setLoading(true);
       const { data } = await api.get(`/biblioteca/arbol/${cliente.id}`);
 
-      // 2. Si data.biblioteca viene vacío, setPeriodos será [] y el "Empty State" se mostrará
       setPeriodos(data.biblioteca || []);
       setNavLevel('PERIODOS');
     } catch (error) {
       console.error("Error al cargar la biblioteca:", error);
-      // Aunque falle la carga de archivos, permitimos navegar para que pueda crear carpetas
       setNavLevel('PERIODOS');
     } finally {
       setLoading(false);
@@ -161,7 +154,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
 
   const handleSubcarpetaHijaClick = (hija: any) => {
     setPath({ ...path, subcarpetaHija: hija.nombre });
-    setSelectionIds({ ...selectionIds, subcarpetaId: hija.id }); // Guardamos su ID para subir archivos aquí
+    setSelectionIds({ ...selectionIds, subcarpetaId: hija.id }); 
     setArchivos(hija.documentos || []);
     setNavLevel('ARCHIVOS');
   };
@@ -173,18 +166,15 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     else if (navLevel === 'SUBCARPETAS') {
       setNavLevel('PERIODOS');
     }
-    // AGREGAMOS ESTA CONDICIÓN: Para retroceder de las subcarpetas hijas (Ej. IVA) a las principales
     else if (navLevel === 'SUBCARPETAS_HIJAS') {
       setPath({ ...path, subcarpeta: '', subcarpetaHija: '' });
       setNavLevel('SUBCARPETAS');
     }
     else if (navLevel === 'ARCHIVOS') {
       if (path.subcarpetaHija !== '') {
-        // Si estábamos en los archivos de una subcarpeta hija (Ej. Archivos de IVA)
         setPath({ ...path, subcarpetaHija: '' });
         setNavLevel('SUBCARPETAS_HIJAS');
       } else {
-        // Si estábamos en los archivos de una carpeta principal (Ej. Archivos de Estados Financieros)
         setPath({ ...path, subcarpeta: '' });
         setNavLevel('SUBCARPETAS');
       }
@@ -204,8 +194,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     <ScrollReveal>
       <div className="max-w-350 mx-auto space-y-6 reveal-element">
 
-        {/* BREADCRUMBS (DISEÑO ORIGINAL) */}
-        {/* BREADCRUMBS (DISEÑO DINÁMICO 4 NIVELES) */}
         {navLevel !== 'ROOT' && (
           <div className="flex items-center gap-4 mb-2 animate-fadeIn">
             <button onClick={handleBack} className="p-2 bg-white border border-gray-200 rounded-lg text-gray-500 hover:text-orange-500 transition-colors shadow-sm cursor-pointer">
@@ -214,7 +202,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
             <div className="flex items-center text-sm font-medium text-gray-500 truncate">
               <span className="cursor-pointer hover:text-orange-500 transition-colors" onClick={() => setNavLevel('ROOT')}>Biblioteca</span>
 
-              {/* Cliente */}
               {path.cliente && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
@@ -224,7 +211,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                 </>
               )}
 
-              {/* Periodo */}
               {(navLevel === 'SUBCARPETAS' || navLevel === 'SUBCARPETAS_HIJAS' || navLevel === 'ARCHIVOS') && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
@@ -234,7 +220,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                 </>
               )}
 
-              {/* Carpeta Principal (Ej. Obligaciones Tributarias) */}
               {(navLevel === 'SUBCARPETAS_HIJAS' || (navLevel === 'ARCHIVOS' && path.subcarpetaHija)) && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
@@ -244,7 +229,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                 </>
               )}
 
-              {/* Archivos Finales */}
               {navLevel === 'ARCHIVOS' && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
@@ -257,7 +241,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
           </div>
         )}
 
-        {/* HEADER DINÁMICO (DISEÑO ORIGINAL) */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
@@ -278,21 +261,16 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
           </button>
         </div>
 
-        {/* CONTENEDOR PRINCIPAL */}
         <div className={`bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${navLevel !== 'ARCHIVOS' ? 'p-6 lg:p-8' : ''} animate-fadeIn`}>
 
-          {/* NIVEL 1: CLIENTES REALES */}
           {navLevel === 'ROOT' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {clientes?.map((cliente) => (
-                // 1. Agregamos 'relative' a este div principal para poder posicionar el botón de la esquina
                 <div key={cliente.id} onClick={() => handleClientClick(cliente)} className="relative border border-gray-200 rounded-2xl p-6 hover:border-orange-500 hover:shadow-lg transition-all cursor-pointer group bg-gray-50 hover:bg-white flex flex-col items-center text-center">
                   
-                  {/* 2. BOTÓN ELIMINAR CLIENTE (CARPETA RAÍZ) */}
                   <button
                     onClick={(e) => { 
-                      e.stopPropagation(); // Evita que se abra la carpeta al hacer clic en el basurero
-                      // Aquí usamos la ruta para eliminar al cliente, asumiendo que tu endpoint es /cliente/{id}
+                      e.stopPropagation(); 
                       onOpenEliminar && onOpenEliminar(`/cliente/${cliente.id}`, `Directorio de ${cliente.razon_social_nombres}`); 
                     }}
                     className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
@@ -309,14 +287,12 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
             </div>
           )}
 
-          {/* NIVEL 2: PERIODOS REALES */}
           {navLevel === 'PERIODOS' && (
             <div className="flex flex-col h-full">
               {periodos.length > 0 ? (
                 <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6 p-8">
                   {periodos.map(p => (
                     <div key={p.id} className="relative border border-orange-200 bg-orange-50 rounded-2xl p-5 hover:bg-orange-100 transition-all group flex flex-col items-center text-center shadow-sm">
-                      {/* BOTÓN ELIMINAR PERIODO */}
                       <button
                         onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/periodo/${p.id}`, `Periodo ${p.anio}`); }}
                         className="absolute top-2 right-2 text-orange-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
@@ -332,7 +308,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                   ))}
                 </div>
               ) : (
-                /* ESTADO VACÍO: Manteniendo la estética de la intranet */
                 <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
                   <div className="w-20 h-20 bg-orange-50 rounded-full flex items-center justify-center mb-4 border border-orange-100">
                     <svg className="w-10 h-10 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -354,12 +329,10 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
             </div>
           )}
 
-          {/* NIVEL 3: SUBCARPETAS REALES */}
           {navLevel === 'SUBCARPETAS' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {subcarpetas.map((sub) => (
                 <div key={sub.id} className="relative border border-gray-200 bg-gray-50 rounded-xl p-5 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all group flex items-center gap-4">
-                  {/* BOTÓN ELIMINAR SUBCARPETA */}
                   <button
                     onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/subcarpeta/${sub.id}`, `Carpeta ${sub.nombre}`); }}
                     className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
@@ -378,7 +351,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
             </div>
           )}
 
-          {/* NIVEL NUEVO: SUBCARPETAS HIJAS (Ej: IVA, Renta) */}
           {navLevel === 'SUBCARPETAS_HIJAS' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {subcarpetasHijas.map((hija) => (
@@ -392,7 +364,6 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
             </div>
           )}
 
-          {/* NIVEL 4: ARCHIVOS REALES (TABLA ORIGINAL) */}
           {navLevel === 'ARCHIVOS' && (
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-237.5">

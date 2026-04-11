@@ -1,13 +1,13 @@
 
 import { ScrollReveal } from './ScrollReveal'
 
-interface palabra {
+interface Palabra {
     blanco: string,
     naranja: string,
     styles?: string
 }
 
-export const Frase = ({ blanco, naranja, styles = '' }: palabra) => {
+export const Frase = ({ blanco, naranja, styles = '' }: Palabra) => {
 
     return (
         <ScrollReveal>

@@ -37,7 +37,7 @@ function App() {
         <Route path="/sectores/servicios-empresariales" element={<EmpresarialesPage />} />
         <Route path="/sectores/logistico-portuario" element={<LogisticoPage />} />
 
-        <Route path="/novedades-sub" element={<NovedadeSubPage />} />
+        <Route path="/novedades-sub/:id" element={<NovedadeSubPage />} />
         <Route path="/calculadora" element={<CalculadoraPage />} />
         <Route path="/nosotros" element={<NosotrosPage />} />
         <Route path="/crud" element={<Crud />} />
