@@ -17,6 +17,7 @@ class ObligacionTributaria extends Model
         'cliente_id',
         'tipo_impuesto',
         'fecha_presentacion',
+        'fecha_vencimiento_exacta',
         'estado'
     ];
 

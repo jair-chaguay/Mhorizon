@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../../../../api/axios'; // Ajusta la ruta de tu axios
+import api from '../../../../api/axios'; 
 
 interface ModalAñadirObligacionProps {
     isOpen: boolean;
@@ -9,9 +9,11 @@ interface ModalAñadirObligacionProps {
 }
 
 const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen, onClose, onSuccess, clienteId }) => {
+    // 1. AÑADIMOS fecha_vencimiento_exacta AL ESTADO
     const [formData, setFormData] = useState({
         tipo_impuesto: 'Impuesto a la Renta',
-        fecha_presentacion: ''
+        fecha_presentacion: '',
+        fecha_vencimiento_exacta: '' 
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -27,15 +29,14 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
 
         setIsSubmitting(true);
         try {
-            // Método POST para guardar la obligación
             await api.post('/obligacion', {
                 ...formData,
                 cliente_id: clienteId
             });
             
-            // Limpiamos el formulario, avisamos de éxito y cerramos
-            setFormData({ tipo_impuesto: 'Impuesto a la Renta', fecha_presentacion: '' });
-            onSuccess(); // Esto recargará la tabla del cliente
+            // 2. RESETEAMOS EL NUEVO CAMPO TAMBIÉN
+            setFormData({ tipo_impuesto: 'Impuesto a la Renta', fecha_presentacion: '', fecha_vencimiento_exacta: '' });
+            onSuccess(); 
             onClose();
         } catch (error) {
             console.error("Error al guardar la obligación:", error);
@@ -74,17 +75,31 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
                             <option value="Anexo Transaccional (ATS)">Anexo Transaccional (ATS)</option>
                         </select>
                     </div>
+
                     <div>
-                        <label className="block text-[0.75rem] font-bold text-[#151E28] uppercase tracking-widest mb-1.5">Fecha de Presentación (Detalle o Mes)</label>
+                        <label className="block text-[0.75rem] font-bold text-[#151E28] uppercase tracking-widest mb-1.5">Periodo (Detalle en Texto)</label>
                         <input 
                             type="text" 
-                            placeholder="Ej. Abril 2026, 10 al 28 de cada mes..." 
+                            placeholder="Ej. Abril 2026..." 
                             value={formData.fecha_presentacion}
                             onChange={(e) => setFormData({...formData, fecha_presentacion: e.target.value})}
                             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-[#151E28] text-[0.90rem] outline-none focus:border-orange-500" 
                             required 
                         />
                     </div>
+
+                    {/* 3. NUEVO INPUT PARA LA FECHA EXACTA */}
+                    <div>
+                        <label className="block text-[0.75rem] font-bold text-[#151E28] uppercase tracking-widest mb-1.5">Día Límite de Subida (Activa las Alertas)</label>
+                        <input 
+                            type="date" 
+                            value={formData.fecha_vencimiento_exacta}
+                            onChange={(e) => setFormData({...formData, fecha_vencimiento_exacta: e.target.value})}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-[#151E28] text-[0.90rem] outline-none focus:border-orange-500" 
+                            required 
+                        />
+                    </div>
+
                     <div className="flex gap-3 pt-4">
                         <button type="button" onClick={onClose} disabled={isSubmitting} className="flex-1 py-3 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors cursor-pointer">
                             Cancelar

@@ -36,6 +36,7 @@ class ObligacionController extends Controller
             'cliente_id'         => 'required|exists:clientes,id',
             'tipo_impuesto'      => 'required|in:Impuesto a la Renta,IVA (Mensual),IVA (Semestral),ICE,ISD,Activos Mantenidos en el Exterior,Anexo Transaccional (ATS)',
             'fecha_presentacion' => 'required|string|max:255',
+            'fecha_vencimiento_exacta' => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -51,6 +52,7 @@ class ObligacionController extends Controller
             'cliente_id'         => $request->cliente_id,
             'tipo_impuesto'      => $request->tipo_impuesto,
             'fecha_presentacion' => $request->fecha_presentacion,
+            'fecha_vencimiento_exacta' => $request->fecha_vencimiento_exacta,
             'estado'             => 'Pendiente' // Estado por defecto
         ]);
 
