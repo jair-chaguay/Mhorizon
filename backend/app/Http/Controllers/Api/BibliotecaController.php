@@ -176,6 +176,80 @@ class BibliotecaController extends Controller
         return response()->json(['message' => 'Documento subido', 'documento' => $documento], 201);
     }
 
+
+    /**
+     * Subir documento vinculado a una Obligación Tributaria
+     */
+    public function uploadDocumentoObligacion(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'obligacion_id' => 'required|exists:obligaciones_tributarias,id',
+            'archivo' => 'required|file|mimes:pdf,xls,xlsx,doc,docx|max:15360',
+            'observacion_cliente' => 'nullable|string'
+        ]);
+
+        if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
+
+        $obligacion = \App\Models\ObligacionTributaria::find($request->obligacion_id);
+        
+        // 1. Determinar el Periodo (Año actual)
+        $anioActual = date('Y');
+        $periodo = BibliotecaPeriodo::firstOrCreate(
+            ['cliente_id' => $obligacion->cliente_id, 'anio' => $anioActual],
+            ['creado_por_id' => Auth::id() ?? 1]
+        );
+
+        // 2. Encontrar o crear carpeta madre "Obligaciones Tributarias"
+        $carpetaMadre = BibliotecaSubcarpeta::firstOrCreate(
+            ['periodo_id' => $periodo->id, 'parent_id' => null, 'nombre' => 'Obligaciones Tributarias'],
+            ['creado_por_id' => Auth::id() ?? 1]
+        );
+
+        // 3. Encontrar o crear subcarpeta del impuesto específico (Ej. "IVA (Mensual)")
+        $carpetaHija = BibliotecaSubcarpeta::firstOrCreate(
+            ['periodo_id' => $periodo->id, 'parent_id' => $carpetaMadre->id, 'nombre' => $obligacion->tipo_impuesto],
+            ['creado_por_id' => Auth::id() ?? 1]
+        );
+
+        // 4. Subir archivo físicamente a esa carpeta
+        $file = $request->file('archivo');
+        $nombreOriginal = $file->getClientOriginalName();
+        $extension = strtolower($file->getClientOriginalExtension());
+        $tipo = in_array($extension, ['pdf']) ? 'pdf' : (in_array($extension, ['xls', 'xlsx']) ? 'excel' : 'word');
+        
+        $ruta = $file->store("biblioteca/subcarpeta_{$carpetaHija->id}", 'public');
+
+        $documento = Documento::create([
+            'subcarpeta_id' => $carpetaHija->id,
+            'subido_por_id' => Auth::id() ?? 1,
+            'nombre_archivo' => $nombreOriginal,
+            'tipo' => $tipo,
+            'url_archivo' => $ruta,
+            'observacion_cliente' => $request->observacion_cliente
+        ]);
+
+        $obligacion->estado = 'Presentado';
+        $obligacion->save();
+
+        $admins = \App\Models\Usuario::whereHas('rol', function ($q) {
+            $q->where('nombre', 'like', '%admin%');
+        })->where('activo', true)->get();
+        
+        $jefeCorreo = env('JEFE_CORREO');
+
+        foreach ($admins as $admin) {
+            \Illuminate\Support\Facades\Mail::to($admin->correo)
+                ->send(new \App\Mail\ObligacionSubidaMail($obligacion));
+        }
+        if ($jefeCorreo) {
+             \Illuminate\Support\Facades\Mail::to($jefeCorreo)
+                ->send(new \App\Mail\ObligacionSubidaMail($obligacion));
+        }
+
+        return response()->json(['message' => 'Obligación subida y notificada', 'documento' => $documento], 201);
+    }
+
+    
     /**
      * Eliminar Documento
      */

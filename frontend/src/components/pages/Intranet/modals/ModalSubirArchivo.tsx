@@ -5,11 +5,12 @@ import api from '../../../../api/axios'; // Importar tu instancia de Axios
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  subcarpetaId?: number | null;
-  onSuccess: () => void; // NUEVO: Para actualizar la tabla al terminar
+  targetId?: number | null;
+  uploadType: 'archivo' | 'obligacion';
+  onSuccess: () => void; 
 }
 
-const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose, subcarpetaId, onSuccess }) => {
+const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose,uploadType ,targetId, onSuccess }) => {
   const [isDragOver, setIsDragOver] = useState(false);
   const [archivo, setArchivo] = useState<File | null>(null); // NUEVO: Estado del archivo
   const [observacion, setObservacion] = useState(''); // NUEVO: Estado de la observación
@@ -56,27 +57,32 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose, subcarpetaId, onS
       alert("Por favor, selecciona un archivo.");
       return;
     }
-    if (!subcarpetaId) {
+    if (!targetId) {
       alert("Error interno: No se ha detectado la carpeta destino.");
       return;
     }
 
     const formData = new FormData();
-    formData.append('subcarpeta_id', subcarpetaId.toString());
+    if(uploadType==='archivo'){
+      formData.append('subcarpeta_id', targetId.toString());
+    }else{
+      formData.append('obligacion_id', targetId.toString());
+    }
+    
     formData.append('archivo', archivo);
     if (observacion) formData.append('observacion_cliente', observacion);
 
     try {
       setIsSubmitting(true);
-      // ATENCIÓN: Asegúrate que esta ruta coincide con tu web.php / api.php de Laravel
-      await api.post('/biblioteca/upload-documento', formData, {
+      const endpoint = uploadType === 'archivo' ? '/biblioteca/upload-documento' : '/biblioteca/upload-obligacion';
+
+      await api.post(endpoint, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       
-      // Limpiamos los campos y cerramos
       setArchivo(null);
       setObservacion('');
-      onSuccess(); // Dispara el GET (refreshSignal)
+      onSuccess();
       onClose();
     } catch (error) {
       console.error("Error al subir archivo:", error);

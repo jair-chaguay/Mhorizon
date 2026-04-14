@@ -16,11 +16,11 @@ class NotificarObligacionesTributarias extends Command
 
     public function handle()
     {
-        // 1. Fecha umbral: Hoy + 5 días
+        $hoy = Carbon::today()->format('Y-m-d');
         $fechaUmbral = Carbon::now()->addDays(5)->format('Y-m-d');
 
-        // 2. Buscar pendientes cuya fecha exacta sea MENOR O IGUAL al umbral
         $obligacionesPendientes = ObligacionTributaria::with('cliente')
+            ->whereDate('fecha_vencimiento_exacta', '>', $hoy) 
             ->whereDate('fecha_vencimiento_exacta', '<=', $fechaUmbral)
             ->where('estado', 'Pendiente')
             ->get();
@@ -30,10 +30,8 @@ class NotificarObligacionesTributarias extends Command
             return;
         }
 
-        // 3. Obtener admins (Ajusta el 'where' según cómo identifiques a tu admin. 
-        // Aquí asumo que existe un rol "Admin" o el rol_id = 1)
         $admins = Usuario::whereHas('rol', function ($query) {
-            $query->where('nombre', 'like', '%admin%'); // O usar ->where('rol_id', 1)
+            $query->where('nombre', 'like', '%admin%');
         })->where('activo', true)->get();
 
         if ($admins->isEmpty()) {
@@ -41,10 +39,10 @@ class NotificarObligacionesTributarias extends Command
             return;
         }
 
-        // 4. Enviar correos
         foreach ($obligacionesPendientes as $obligacion) {
             foreach ($admins as $admin) {
-                Mail::to($admin->correo)->send(new AlertaObligacionMail($obligacion, $admin));
+                Mail::to($admin->correo)
+                    ->send(new AlertaObligacionMail($obligacion, $admin));
             }
         }
 

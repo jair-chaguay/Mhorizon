@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../../ScrollReveal';
 import { type Cliente } from '../types';
@@ -17,10 +18,10 @@ interface PerfilClienteProps {
     refreshSignal?: number;
     onBack: () => void;
     onOpenDeclaracion: () => void;
-    onOpenSubir: () => void;
+    onOpenSubir: (obligacionId: number) => void;
     onOpenEliminar: (id: number | string, title: string) => void;
     onUpdateSuccess: () => void;
-    onJumpToBiblioteca: (clienteId: number, periodoId: number) => void; 
+    onJumpToBiblioteca: (clienteId: number, periodoId: number) => void;
     onOpenCrearPeriodo: () => void;
 }
 
@@ -36,7 +37,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     onOpenCrearPeriodo
 }) => {
 
-    // Verificamos si existe el usuario asociado para extraer su correo
     const usuarioAsociado = cliente.usuarios && cliente.usuarios.length > 0 ? cliente.usuarios[0] : null;
 
     const [formData, setFormData] = useState({
@@ -106,24 +106,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         }
     };
 
-    const handleGuardarEstados = () => {
-        alert("Estados de obligaciones actualizados (Simulación).");
-    };
-
-
-    const handleToggleObligacion = async (id: number) => {
-        setObligaciones(prev => prev.map(ob =>
-            ob.id === id ? { ...ob, estado: ob.estado === 'Pendiente' ? 'Presentado' : 'Pendiente' } : ob
-        ));
-
-        try {
-            await api.put(`/obligacion/${id}/toggle`);
-        } catch (error) {
-            console.error("Error al cambiar estado:", error);
-            fetchObligaciones();
-            alert("Hubo un error al actualizar el estado de la obligación.");
-        }
-    };
 
 
     return (
@@ -220,7 +202,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             </div>
 
                             <div className="sm:col-span-2 lg:col-span-3 xl:col-span-5 flex flex-col sm:flex-row gap-4 mt-2">
-                                <button 
+                                <button
                                     type="button"
                                     onClick={() => onOpenEliminar(`/cliente/${cliente.id}`, `Cliente ${cliente.razon_social_nombres} y su usuario`)}
                                     className="flex-1 bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center justify-center gap-2 hover:bg-red-500 hover:text-white text-red-400 transition-all cursor-pointer group shadow-sm"
@@ -229,9 +211,9 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                     <span className="font-bold text-[0.90rem] uppercase tracking-wider">Eliminar Cliente</span>
                                 </button>
 
-                                <button 
-                                    onClick={handleGuardarPerfil} 
-                                    disabled={isSaving} 
+                                <button
+                                    onClick={handleGuardarPerfil}
+                                    disabled={isSaving}
                                     className={`flex-[2] bg-orange-500/20 rounded-xl p-4 border border-orange-500/50 flex flex-col justify-center transition-colors group shadow-sm ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-orange-500'}`}
                                 >
                                     <div className="flex items-center justify-center gap-3 w-full">
@@ -262,9 +244,8 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                         <table className="w-full text-left border-collapse min-w-175">
                             <thead>
                                 <tr className="bg-gray-50 border-b border-gray-100 text-[0.70rem] font-bold uppercase tracking-widest text-gray-500">
-                                    <th className="px-5 py-4 w-12 text-center">Check</th>
                                     <th className="px-5 py-4">Tipo de Impuesto</th>
-                                    <th className="px-5 py-4">Fecha de Presentación</th>
+                                    <th className="px-5 py-4">Periodo / Fecha Límite</th>
                                     <th className="px-5 py-4">Estado Actual</th>
                                     <th className="px-5 py-4 text-center">Acciones</th>
                                 </tr>
@@ -272,41 +253,54 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <tbody className="text-[0.85rem] divide-y divide-gray-50">
                                 {isLoadingObligaciones ? (
                                     <tr>
-                                        <td colSpan={5} className="text-center py-8 text-gray-400 font-bold uppercase tracking-widest text-[0.75rem]">Cargando obligaciones...</td>
+                                        <td colSpan={4} className="text-center py-8 text-gray-400 font-bold uppercase tracking-widest text-[0.75rem]">Cargando obligaciones...</td>
                                     </tr>
                                 ) : obligaciones.length === 0 ? (
                                     <tr>
-                                        <td colSpan={5} className="text-center py-8 text-gray-400 italic">No hay obligaciones registradas para este cliente.</td>
+                                        <td colSpan={4} className="text-center py-8 text-gray-400 italic">No hay obligaciones registradas para este cliente.</td>
                                     </tr>
                                 ) : (
                                     obligaciones.map((ob) => (
                                         <tr key={ob.id} className="hover:bg-gray-50/50 transition-colors group">
-                                            <td className="px-5 py-4 text-center">
-                                                <input
-                                                    type="checkbox"
-                                                    className="react-custom-checkbox"
-                                                    checked={ob.estado === 'Presentado'}
-                                                    onChange={() => handleToggleObligacion(ob.id)}
-                                                />
-                                            </td>
                                             <td className="px-5 py-4 font-bold text-blue-200">{ob.tipo_impuesto}</td>
-                                            <td className="px-20 py-4 text-gray-600">{ob.fecha_presentacion}</td>
+
+                                            <td className="px-20 py-4 text-gray-600">
+                                                {ob.fecha_presentacion}
+                                            </td>
+
                                             <td className="px-5 py-4">
                                                 {ob.estado === 'Presentado' ? (
-                                                    <span className="bg-green-50 text-green-600 border border-green-200 px-2.5 py-1 rounded-md text-[0.70rem] font-bold uppercase tracking-widest">
+                                                    <span className="bg-green-50 text-green-600 border border-green-200 px-2.5 py-1 rounded-md text-[0.70rem] font-bold uppercase tracking-widest flex items-center w-max gap-1">
+                                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
                                                         Presentado
                                                     </span>
                                                 ) : (
-                                                    <span className="bg-yellow-50 text-yellow-600 border border-yellow-200 px-2.5 py-1 rounded-md text-[0.70rem] font-bold uppercase tracking-widest">
+                                                    <span className="bg-yellow-50 text-yellow-600 border border-yellow-200 px-2.5 py-1 rounded-md text-[0.70rem] font-bold uppercase tracking-widest flex items-center w-max gap-1">
+                                                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                                         Pendiente
                                                     </span>
                                                 )}
                                             </td>
-                                            <td className="px-5 py-4 text-center">
+
+                                            {/* Celda 4: Acciones */}
+                                            <td className="px-5 py-4 text-center flex justify-center items-center gap-2">
+                                                {/* Botón Subir (Solo si está pendiente, si ya se presentó, lo ocultamos o deshabilitamos) */}
+                                                {ob.estado === 'Pendiente' && (
+                                                    <button
+                                                        onClick={() => onOpenSubir(ob.id)}
+                                                        className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-green-500 hover:text-white hover:border-green-500 transition-all cursor-pointer"
+                                                        title="Subir Documento Final"
+                                                    >
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                                                        </svg>
+                                                    </button>
+                                                )}
+
                                                 <button
                                                     onClick={() => onOpenEliminar(ob.id, ob.tipo_impuesto)}
-                                                    className="text-gray-400 hover:text-red-500 mx-1 cursor-pointer"
-                                                    title="Eliminar"
+                                                    className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer"
+                                                    title="Eliminar Obligación"
                                                 >
                                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                                                 </button>

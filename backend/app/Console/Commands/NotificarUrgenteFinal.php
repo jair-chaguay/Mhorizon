@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use App\Models\ObligacionTributaria;
+use App\Models\Usuario;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AlertaObligacionMail;
+use Carbon\Carbon;
+
+class NotificarUrgenteFinal extends Command
+{
+    protected $signature = 'notificaciones:urgente-final';
+    protected $description = 'Notifica a Admins y Jefe el mismo día del vencimiento';
+
+    public function handle()
+    {
+        $hoy = Carbon::today()->format('Y-m-d');
+
+        $obligaciones = ObligacionTributaria::with('cliente')
+            ->whereDate('fecha_vencimiento_exacta', $hoy)
+            ->where('estado', 'Pendiente')
+            ->get();
+
+        if ($obligaciones->isEmpty()) return;
+
+        $admins = Usuario::whereHas('rol', function ($q) {
+            $q->where('nombre', 'like', '%admin%');
+        })->where('activo', true)->get();
+
+        $jefeCorreo = env('JEFE_CORREO');
+
+        foreach ($obligaciones as $obligacion) {
+            foreach ($admins as $admin) {
+                Mail::to($admin->correo)->send(new AlertaObligacionMail($obligacion, $admin));
+            }
+            
+            if ($jefeCorreo) {
+                $adminGenerico = new Usuario(['nombre' => 'Jefe', 'apellido' => 'Supervisor']);
+                Mail::to($jefeCorreo)->send(new AlertaObligacionMail($obligacion, $adminGenerico));
+            }
+        }
+        $this->info('Alertas críticas enviadas.');
+    }
+}

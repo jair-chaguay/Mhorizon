@@ -30,7 +30,6 @@ const IntranetLayout: React.FC = () => {
     const [clienteSeleccionado, setClienteSeleccionado] = useState<Cliente | null>(null);
     const [isDeclaracionModalOpen, setIsDeclaracionModalOpen] = useState(false);
     const [isCrearFolderOpen, setIsCrearFolderOpen] = useState(false);
-    const [crearFolderConfig, setCrearFolderConfig] = useState({ title: '', placeholder: '' });
 
     const [isRedactarModalOpen, setIsRedactarModalOpen] = useState(false);
 
@@ -40,7 +39,7 @@ const IntranetLayout: React.FC = () => {
         title: ''
     });
     const [isSubirArchivoOpen, setIsSubirArchivoOpen] = useState(false);
-    const [subcarpetaDestinoId, setSubcarpetaDestinoId] = useState<number | null>(null);
+    const [uploadConfig, setUploadConfig] = useState<{ type: 'archivo' | 'obligacion', targetId: number | null }>({ type: 'archivo', targetId: null });
     const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
     const [isAñadirClienteOpen, setIsAñadirClienteOpen] = useState(false);
 
@@ -79,12 +78,6 @@ const IntranetLayout: React.FC = () => {
         handleViewChange('view-repositorio-root', 'Biblioteca Operativa', true);
     };
 
-
-    // Handlers
-    const handleOpenCrearFolder = (title: string, placeholder: string) => {
-        setCrearFolderConfig({ title, placeholder });
-        setIsCrearFolderOpen(true);
-    };
 
     const handleOpenRedactar = (info?: any) => {
         setInfoAEditar(info || null); 
@@ -146,7 +139,10 @@ const IntranetLayout: React.FC = () => {
                                 refreshSignal={refreshSignal}
                                 onBack={() => handleViewChange('view-directorio', 'Directorio de Clientes')}
                                 onOpenDeclaracion={() => setIsDeclaracionModalOpen(true)}
-                                onOpenSubir={() => setIsSubirArchivoOpen(true)}
+                                onOpenSubir={(obligacionId) => {
+                                    setUploadConfig({ type: 'obligacion', targetId: obligacionId }); // Archivo de obligación
+                                    setIsSubirArchivoOpen(true);
+                                }}
                                 onOpenEliminar={handleOpenEliminar}
                                 onUpdateSuccess={triggerRefresh}
                                 onJumpToBiblioteca={handleJumpToBiblioteca}
@@ -161,7 +157,7 @@ const IntranetLayout: React.FC = () => {
                             <Biblioteca
                                 onOpenCrear={(conf) => { setCrearConfig(conf); setIsCrearFolderOpen(true); }}
                                 onOpenSubir={(id) => {
-                                    setSubcarpetaDestinoId(id); 
+                                    setUploadConfig({ type: 'archivo', targetId: id });
                                     setIsSubirArchivoOpen(true);
                                 }}
                                 refreshSignal={refreshSignal}
@@ -234,7 +230,8 @@ const IntranetLayout: React.FC = () => {
             <ModalSubirArchivo
                 isOpen={isSubirArchivoOpen}
                 onClose={() => setIsSubirArchivoOpen(false)}
-                subcarpetaId={subcarpetaDestinoId}
+                targetId={uploadConfig.targetId}
+                uploadType={uploadConfig.type}
                 onSuccess={() => {
                     triggerRefresh(); 
                 }}

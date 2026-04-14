@@ -73,6 +73,8 @@ Route::delete('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, '
 Route::post('/informativo/upload-imagen-editor', [InformativoController::class, 'uploadEditorImage']);
 
 Route::get('/clientes/biblioteca', [ClienteController::class, 'indexBiblioteca']);
+
+Route::post('/biblioteca/upload-obligacion', [BibliotecaController::class, 'uploadDocumentoObligacion']);
 });
 
 
