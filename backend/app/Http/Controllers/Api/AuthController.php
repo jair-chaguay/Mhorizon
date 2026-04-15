@@ -22,7 +22,6 @@ class AuthController extends Controller
             return response()->json(['message' => 'Datos inválidos', 'errors' => $validator->errors(), 'status' => 400], 400);
         }
 
-        // ¡EL CAMBIO ESTÁ EN ESTA LÍNEA! Cambiamos 'empresa' por 'cliente'
         $usuario = Usuario::with(['rol', 'cliente'])->where('correo', $request->correo)->first();
 
         if (!$usuario || !Hash::check($request->password, $usuario->password_hash)) {

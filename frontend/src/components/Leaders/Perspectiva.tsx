@@ -39,7 +39,7 @@ export const Perspectiva = () => {
                     de servicio corportaivo que protege el patrimonio e impulsa el crecimiento seguro de
                     nuestros clientes en Ecuador.
                 </motion.p>
-                <Button text='Conoce nuestra firma' styles='bg-orange-500 text-white mt-5 w-[200px] h-4' />
+                <Button texto='Conoce nuestra firma' estilosPersonalizados='bg-orange-500 text-white mt-5 w-[200px] h-4' />
             </motion.div>
         </div>
     )

@@ -96,12 +96,10 @@ class RolController extends Controller
             return response()->json(['message' => 'Rol no encontrado', 'status' => 404], 404);
         }
 
-        // Verificamos si hay usuarios asignados a este rol antes de borrarlo
-        // Esto es una capa extra de seguridad para evitar errores fatales.
         if($rol->usuarios()->count() > 0) {
             return response()->json([
                 'message' => 'No puedes eliminar este rol porque tiene usuarios asignados.',
-                'status' => 403 // Prohibido
+                'status' => 403 
             ], 403);
         }
 

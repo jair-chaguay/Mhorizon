@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../api/axios'; 
-import { Header, Footer, HeroSubNov, AnalisisBoletin, Descarga, Frase, InfoRelaci } from '../../components'
+import { Header, Footer, AnalisisBoletin, Frase, InfoRelaci } from '../../components'
 
 export const NovedadeSubPage = () => {
     const { id } = useParams(); 

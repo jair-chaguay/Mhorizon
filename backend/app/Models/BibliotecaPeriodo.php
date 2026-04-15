@@ -11,7 +11,6 @@ class BibliotecaPeriodo extends Model
     
     protected $table = 'biblioteca_periodos';
     
-    // 1. CAMBIAMOS empresa_id por cliente_id
     protected $fillable = ['cliente_id', 'anio', 'creado_por_id'];
 
     public function subcarpetas() 
@@ -19,7 +18,6 @@ class BibliotecaPeriodo extends Model
         return $this->hasMany(BibliotecaSubcarpeta::class, 'periodo_id');
     }
     
-    // 2. AGREGAMOS la relación hacia el Cliente
     public function cliente() 
     {
         return $this->belongsTo(Cliente::class, 'cliente_id');

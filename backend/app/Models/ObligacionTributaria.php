@@ -9,10 +9,8 @@ class ObligacionTributaria extends Model
 {
     use HasFactory;
 
-    // Especificamos la tabla si Laravel no la deduce automáticamente
     protected $table = 'obligaciones_tributarias';
 
-    // Permitimos la asignación masiva de estos campos
     protected $fillable = [
         'cliente_id',
         'tipo_impuesto',

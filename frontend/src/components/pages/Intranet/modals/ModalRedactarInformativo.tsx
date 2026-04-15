@@ -15,7 +15,6 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
   const [titulo, setTitulo] = useState("");
   const [resolucion, setResolucion] = useState("");
 
-  // 1. ACTUALIZACIÓN: Nuevos estados
   const [descripcionPortada, setDescripcionPortada] = useState("");
   const [contenido, setContenido] = useState("");
   const [imagen, setImagen] = useState<File | null>(null);
@@ -39,7 +38,6 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
     e.preventDefault();
     setLoading(true);
 
-    // 2. ACTUALIZACIÓN: Añadir campos al FormData
     const formData = new FormData();
     formData.append('titulo', titulo);
     formData.append('resolucion_oficial', resolucion);
@@ -50,7 +48,7 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
       formData.append('imagen', imagen);
     }
     if (pdf) {
-      formData.append('archivo_pdf', pdf); // <-- Append (debe coincidir con el backend)
+      formData.append('archivo_pdf', pdf); 
     }
 
     try {
@@ -84,10 +82,10 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
   const resetForm = () => {
     setTitulo("");
     setResolucion("");
-    setDescripcionPortada(""); // <-- Reset
+    setDescripcionPortada(""); 
     setContenido("");
     setImagen(null);
-    setPdf(null); // <-- Reset
+    setPdf(null); 
   };
 
   if (!isOpen) return null;
@@ -130,7 +128,6 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
                 />
               </div>
 
-              {/* 3. ACTUALIZACIÓN: Campo de Descripción Portada */}
               <div>
                 <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Descripción de Portada</label>
                 <input
@@ -167,7 +164,6 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
                 </div>
               </div>
 
-              {/* 4. ACTUALIZACIÓN: Campo de Archivo PDF */}
               <div>
                 <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Documento PDF</label>
                 <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-lg p-2">

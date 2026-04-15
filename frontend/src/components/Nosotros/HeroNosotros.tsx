@@ -1,4 +1,5 @@
 
+import { Button } from '../Button';
 import { ScrollReveal } from '../ScrollReveal';
 
 export const HeroNosotros = () => {
@@ -24,9 +25,7 @@ export const HeroNosotros = () => {
                     </p>
 
                     <div className="mt-10 md:mt-12 flex flex-col sm:flex-row gap-5">
-                    <button id="agenda-hero-btn" className="bg-orange-500 text-white text-center font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-sm hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
-                        AGENDAR CONSULTORÍA
-                    </button>
+                        <Button texto='AGENDAR CONSULTORÍA' estilosPersonalizados='cursor-pointer bg-orange-500 text-white text-center font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-sm hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1'/>
                 </div>
                 </div>
             </div>

@@ -12,7 +12,6 @@ class UsuarioController extends Controller
 {
     public function index()
     {
-        // CAMBIO: 'cliente' en lugar de 'empresa'
         $usuarios = Usuario::with(['rol', 'cliente'])->get();
 
         return response()->json(['usuarios' => $usuarios, 'status' => 200], 200);
@@ -22,7 +21,7 @@ class UsuarioController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'rol_id' => 'required|exists:roles,id',
-            'cliente_id' => 'nullable|exists:clientes,id', // CAMBIO AQUÍ
+            'cliente_id' => 'nullable|exists:clientes,id', 
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
             'correo' => 'required|email|max:150|unique:usuarios,correo',
@@ -34,7 +33,7 @@ class UsuarioController extends Controller
 
         $usuario = Usuario::create([
             'rol_id' => $request->rol_id,
-            'cliente_id' => $request->cliente_id, // CAMBIO AQUÍ
+            'cliente_id' => $request->cliente_id, 
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'correo' => $request->correo,
@@ -43,14 +42,14 @@ class UsuarioController extends Controller
             'activo' => true
         ]);
 
-        $usuario->load(['rol', 'cliente']); // CAMBIO AQUÍ
+        $usuario->load(['rol', 'cliente']); 
 
         return response()->json(['message' => 'Usuario creado con éxito', 'usuario' => $usuario, 'status' => 201], 201);
     }
 
     public function show($id)
     {
-        $usuario = Usuario::with(['rol', 'cliente'])->find($id); // CAMBIO AQUÍ
+        $usuario = Usuario::with(['rol', 'cliente'])->find($id); 
         if(!$usuario) return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
         return response()->json(['usuario' => $usuario, 'status' => 200], 200);
     }
@@ -62,7 +61,7 @@ class UsuarioController extends Controller
 
         $validator = Validator::make($request->all(), [
             'rol_id' => 'sometimes|required|exists:roles,id',
-            'cliente_id' => 'nullable|exists:clientes,id', // CAMBIO AQUÍ
+            'cliente_id' => 'nullable|exists:clientes,id', 
             'nombre' => 'sometimes|required|string|max:100',
             'apellido' => 'sometimes|required|string|max:100',
             'correo' => 'sometimes|required|email|max:150|unique:usuarios,correo,'.$id,
@@ -79,7 +78,7 @@ class UsuarioController extends Controller
         }
 
         $usuario->update($datosActualizar);
-        $usuario->load(['rol', 'cliente']); // CAMBIO AQUÍ
+        $usuario->load(['rol', 'cliente']); 
 
         return response()->json(['message' => 'Usuario actualizado correctamente', 'usuario' => $usuario, 'status' => 200], 200);
     }

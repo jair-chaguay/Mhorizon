@@ -3,7 +3,7 @@ export const Footer = () => {
     <footer className="flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 py-10">
       <div>
         <img
-          className="w-[160px] sm:w-[180px] md:w-[200px]"
+          className="w-40 sm:w-45 md:w-50"
           src="/images/MHORIZONBOCETO.png"
           alt="MHORIZON"
         />

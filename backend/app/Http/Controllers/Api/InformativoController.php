@@ -108,10 +108,8 @@ class InformativoController extends Controller
         ]);
 
         if ($request->hasFile('imagen_editor')) {
-            // Guarda la imagen en storage/app/public/informativos/editor
             $path = $request->file('imagen_editor')->store('informativos/editor', 'public');
             
-            // Devolvemos la ruta relativa para que React construya la URL
             return response()->json([
                 'url' => 'storage/' . $path
             ], 200);
@@ -126,7 +124,6 @@ class InformativoController extends Controller
         $informativo = Informativo::find($id);
         if(!$informativo) return response()->json(['message' => 'No encontrado'], 404);
 
-        // Borrar ambos archivos si existen
         if($informativo->imagen_portada_url) Storage::disk('public')->delete($informativo->imagen_portada_url);
         if($informativo->pdf_url) Storage::disk('public')->delete($informativo->pdf_url);
         

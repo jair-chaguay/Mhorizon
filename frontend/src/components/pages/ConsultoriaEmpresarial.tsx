@@ -1,4 +1,4 @@
-import { Header, Footer, Impulsa, HeroEx, Method, Estrategia, Experiencia, Frase } from '../../components'
+import { Header, Footer, HeroEx, Method, Estrategia, Experiencia, Frase } from '../../components'
 
 export const ConsultoriaEmpresarial = () => {
     return (

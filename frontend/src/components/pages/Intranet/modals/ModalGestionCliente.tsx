@@ -7,18 +7,17 @@ interface Props {
   onClose: () => void;
   cliente: Cliente | null;
   onOpenSubir: () => void;
-  onOpenDeclaracion: () => void; // <-- NUEVO
+  onOpenDeclaracion: () => void; 
   onOpenEliminar: (id: string, title: string) => void;
 }
 
 const ModalGestionCliente: React.FC<Props> = ({ isOpen, onClose, cliente, onOpenSubir, onOpenDeclaracion, onOpenEliminar }) => {
   if (!isOpen || !cliente) return null;
 
-  // Función para coordinar el cierre de este modal y la apertura del de subida
   const handleSubirDocumento = () => {
-    onClose(); // Cierra el modal actual
+    onClose(); 
     setTimeout(() => {
-      onOpenSubir(); // Abre el modal de subir archivo después de 350ms (para respetar la animación)
+      onOpenSubir(); 
     },20);
   };
 
@@ -51,12 +50,10 @@ const ModalGestionCliente: React.FC<Props> = ({ isOpen, onClose, cliente, onOpen
           </button>
         </div>
 
-        {/* Cuerpo del Modal */}
         <div className="p-6 md:p-8 overflow-y-auto no-scrollbar bg-gray-50 flex-1">
           <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
-              {/* Score Tributario */}
               <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
                 <h4 className="text-blue-200 font-bold text-[0.85rem] uppercase tracking-wide mb-3">
                   Score Tributario
@@ -73,7 +70,6 @@ const ModalGestionCliente: React.FC<Props> = ({ isOpen, onClose, cliente, onOpen
                 </div>
               </div>
 
-              {/* Próximo Vencimiento */}
               <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
                 <h4 className="text-blue-200 font-bold text-[0.85rem] uppercase tracking-wide mb-3">
                   Próximo Vencimiento
@@ -86,7 +82,6 @@ const ModalGestionCliente: React.FC<Props> = ({ isOpen, onClose, cliente, onOpen
               </div>
             </div>
 
-            {/* NUEVA SECCIÓN: HISTORIAL DE DECLARACIONES */}
             <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm mt-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div>
@@ -127,16 +122,13 @@ const ModalGestionCliente: React.FC<Props> = ({ isOpen, onClose, cliente, onOpen
                         <button type="button" onClick={() => onOpenEliminar('decl-1', 'Declaración')} className="text-gray-400 hover:text-red-500 transition-colors" title="Eliminar"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg></button>
                       </td>
                     </tr>
-                    {/* ... otra fila de ejemplo ... */}
                   </tbody>
                 </table>
               </div>
             </div>
 
-            {/* Tabla interna de documentos del cliente */}
             <div className="bg-white p-5 rounded-xl border border-gray-200 shadow-sm mt-6">
 
-              {/* Cabecera de la tabla interna */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div>
                   <h4 className="text-blue-200 font-bold text-[0.95rem] uppercase tracking-wide">
@@ -147,7 +139,6 @@ const ModalGestionCliente: React.FC<Props> = ({ isOpen, onClose, cliente, onOpen
                   </p>
                 </div>
 
-                {/* Botón Conectado a handleSubirDocumento */}
                 <button
                   type="button"
                   onClick={handleSubirDocumento}
@@ -160,7 +151,6 @@ const ModalGestionCliente: React.FC<Props> = ({ isOpen, onClose, cliente, onOpen
                 </button>
               </div>
 
-              {/* Tabla de archivos */}
               <div className="overflow-x-auto border border-gray-100 rounded-lg">
                 <table className="w-full text-left border-collapse min-w-150">
                   <thead className="bg-gray-50 border-b border-gray-100 text-[0.65rem] font-bold uppercase tracking-widest text-gray-500">
@@ -200,7 +190,6 @@ const ModalGestionCliente: React.FC<Props> = ({ isOpen, onClose, cliente, onOpen
           </form>
         </div>
 
-        {/* Footer del Modal */}
         <div className="p-6 border-t border-gray-100 bg-white shrink-0 flex gap-3">
           <button
             type="button"

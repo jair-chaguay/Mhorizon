@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Recurso77 } from "../IconosSVG"
 import { ScrollReveal } from "../ScrollReveal"
 import { BoletinCard } from "./BoletinCard"

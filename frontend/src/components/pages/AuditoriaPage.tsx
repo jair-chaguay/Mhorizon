@@ -1,4 +1,4 @@
-import { Header, Footer, Impulsa, HeroAuditoria, IntegAudit, MetodologiaAud, FaseAuditoria, Analisis } from '../../components'
+import { Header, Footer, Impulsa, HeroAuditoria, IntegAudit, MetodologiaAud} from '../../components'
 
 export const AuditoriaPage = () => {
     return (

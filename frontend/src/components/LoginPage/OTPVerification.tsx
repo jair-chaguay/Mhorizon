@@ -1,21 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect, useRef, type ChangeEvent, type KeyboardEvent, type ClipboardEvent } from 'react';
 import { ScrollReveal } from '../ScrollReveal';
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import api from '../../api/axios';
 const OTPVerification: React.FC = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    
+    // Recuperar correo de la ruta anterior. Si no existe, regresarlo al paso 1.
+    const email = location.state?.email;
+
     const [otp, setOtp] = useState<string[]>(new Array(6).fill(""));
     const [timeLeft, setTimeLeft] = useState<number>(59);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
     useEffect(() => {
         if (timeLeft <= 0) return;
-
-        const timer = setInterval(() => {
-            setTimeLeft((prev) => prev - 1);
-        }, 1000);
-
+        const timer = setInterval(() => setTimeLeft((prev) => prev - 1), 1000);
         return () => clearInterval(timer);
     }, [timeLeft]);
+
+    // Protección de ruta
+    if (!email) return <Navigate to="/login/recover-credentials" replace />;
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>, index: number) => {
         const value = e.target.value.replace(/[^0-9]/g, "");
@@ -25,9 +33,7 @@ const OTPVerification: React.FC = () => {
         newOtp[index] = value.substring(value.length - 1);
         setOtp(newOtp);
 
-        if (index < 5) {
-            inputRefs.current[index + 1]?.focus();
-        }
+        if (index < 5) inputRefs.current[index + 1]?.focus();
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
@@ -49,21 +55,41 @@ const OTPVerification: React.FC = () => {
         e.preventDefault();
         const data = e.clipboardData.getData("text").replace(/[^0-9]/g, "").slice(0, 6);
         const newOtp = [...otp];
-
-        data.split("").forEach((char, idx) => {
-            newOtp[idx] = char;
-        });
-
+        data.split("").forEach((char, idx) => { newOtp[idx] = char; });
         setOtp(newOtp);
-
         const nextIndex = data.length < 6 ? data.length : 5;
         inputRefs.current[nextIndex]?.focus();
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleResend = async () => {
+        setTimeLeft(59);
+        setError("");
+        try {
+            await api.post('/auth/forgot-password', { email });
+        } catch (err: any) {
+            console.error(err)
+            setError("Error al reenviar el código.");
+        }
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const code = otp.join("");
-        console.log("Validando código:", code);
+        if (code.length < 6) return;
+
+        setLoading(true);
+        setError("");
+
+        try {
+            const response = await api.post('/auth/verify-otp', { email, code });
+            navigate("/login/resetPassword", { 
+                state: { email, token: response.data.token } 
+            });
+        } catch (err: any) {
+            setError(err.response?.data?.message || "Código inválido o expirado.");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const formatTime = (seconds: number) => {
@@ -74,27 +100,17 @@ const OTPVerification: React.FC = () => {
 
     return (
         <div className="bg-blue-200 text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative font-sans">
-            <div
-                className="absolute inset-0 bg-[url('/images/Recurso38.avif')] bg-cover bg-center opacity-40 mix-blend-luminosity z-0"
-            ></div>
+            <div className="absolute inset-0 bg-[url('/images/Recurso38.avif')] bg-cover bg-center opacity-40 mix-blend-luminosity z-0"></div>
             <div className="absolute inset-0 bg-linear-to-b from-blue-200/95 via-blue-200/90 to-blue-200 z-0"></div>
 
             <header className="relative z-10 w-full py-6 px-5 sm:px-8 md:px-12 flex justify-between items-center">
                 <a href="/" className="inline-block transition-transform hover:scale-105 duration-300">
-                    <img
-                        src="images/MHORIZONBOCETO.png"
-                        alt="MHorizon Logo"
-                        className="w-36 sm:w-44"
-                        onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/200x50?text=MHORIZON&bg=151E28&text_color=ffffff' }}
+                    <img src="images/MHORIZONBOCETO.png" alt="Logo" className="w-36 sm:w-44" 
+                    onError={(e) => {
+                            e.currentTarget.src = 'https://placehold.co/200x50/151E28/ffffff?text=MHORIZON';
+                        }}
                     />
                 </a>
-
-                <div className="hidden sm:flex items-center gap-2 text-white/70 text-[0.8rem] tracking-widest uppercase font-semibold border border-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
-                    <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                    </svg>
-                    Entorno Seguro
-                </div>
             </header>
 
             <ScrollReveal as={"main"} className="relative z-10 grow flex items-center justify-center px-4 sm:px-6 py-12">
@@ -110,28 +126,28 @@ const OTPVerification: React.FC = () => {
                                 Verificación OTP
                             </h1>
                             <p className="text-blue-200/60 font-light mt-3 text-[0.95rem] leading-relaxed">
-                                Hemos enviado un código de seguridad de 6 dígitos a su correo <span className="font-semibold text-blue-200">ej***@corporacion.com</span>. Ingréselo para continuar.
+                                Hemos enviado un código de seguridad de 6 dígitos a <span className="font-semibold text-blue-200">{email}</span>. Ingréselo para continuar.
                             </p>
                         </div>
+
+                        {error && (
+                            <div className="mb-6 p-3 bg-red-50 text-red-600 text-[0.85rem] rounded-lg border border-red-100 text-center font-medium">
+                                {error}
+                            </div>
+                        )}
 
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="flex justify-between items-center gap-2 sm:gap-3">
                                 {otp.map((digit, index) => (
                                     <React.Fragment key={index}>
                                         <input
-                                            ref={(el) => {
-                                                inputRefs.current[index] = el;
-                                            }}
-                                            type="text"
-                                            maxLength={1}
-                                            value={digit}
+                                            ref={(el) => { inputRefs.current[index] = el; }}
+                                            type="text" maxLength={1} value={digit}
                                             onChange={(e) => handleChange(e, index)}
                                             onKeyDown={(e) => handleKeyDown(e, index)}
                                             onPaste={index === 0 ? handlePaste : undefined}
                                             className="w-12 h-14 sm:w-14 sm:h-16 text-center text-xl font-bold text-blue-200 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300"
-                                            inputMode="numeric"
-                                            pattern="[0-9]*"
-                                            autoFocus={index === 0}
+                                            inputMode="numeric" pattern="[0-9]*" autoFocus={index === 0}
                                         />
                                         {index === 2 && <span className="text-gray-300 font-bold">-</span>}
                                     </React.Fragment>
@@ -141,31 +157,21 @@ const OTPVerification: React.FC = () => {
                             <div className="text-center pt-2">
                                 <p className="text-[0.85rem] text-blue-200/60 font-light">
                                     ¿No recibió el código?{" "}
-                                    <button
-                                        type="button"
-                                        disabled={timeLeft > 0}
-                                        onClick={() => setTimeLeft(59)}
-                                        className={`font-semibold transition-colors ml-1 ${timeLeft > 0 ? "text-gray-400 cursor-not-allowed" : "text-orange-500 hover:text-blue-200"
-                                            }`}
-                                    >
+                                    <button type="button" disabled={timeLeft > 0} onClick={handleResend} className={`font-semibold transition-colors ml-1 ${timeLeft > 0 ? "text-gray-400 cursor-not-allowed" : "text-orange-500 hover:text-blue-200"}`}>
                                         {timeLeft > 0 ? `Reenviar en ${formatTime(timeLeft)}` : "Reenviar código ahora"}
                                     </button>
                                 </p>
                             </div>
 
                             <div className="pt-2">
-                                <Link to={"/login/resetPassword"} type='submit'
-                                    className="w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
-                                >
-                                    Validar Identidad
-                                </Link>
+                                <button type='submit' disabled={loading || otp.join("").length < 6} className="w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 disabled:opacity-50">
+                                    {loading ? "Validando..." : "Validar Identidad"}
+                                </button>
                             </div>
 
                             <div className="text-center pt-2">
                                 <Link to={"/login/recover-credentials"} className="inline-flex items-center gap-2 text-[0.80rem] font-medium text-gray-400 hover:text-orange-500 transition-colors duration-300 group uppercase tracking-widest">
-                                    <svg className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
-                                    </svg>
+                                    <svg className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
                                     Corregir Correo
                                 </Link>
                             </div>
@@ -174,25 +180,12 @@ const OTPVerification: React.FC = () => {
 
                     <div className="bg-gray-50 px-8 py-5 border-t border-gray-100 text-center">
                         <p className="text-[0.70rem] text-gray-500 font-light flex items-center justify-center gap-2 uppercase tracking-widest">
-                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
-                            </svg>
+                            <svg className="w-3.5 h-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                             Doble Factor de Autenticación
                         </p>
                     </div>
                 </div>
             </ScrollReveal>
-
-            <footer className="relative z-10 w-full py-6 px-5 border-t border-white/10">
-                <div className="max-w-350 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-[0.75rem] text-white/50 font-light">
-                    <p>&copy; 2026 MHORIZON ECUADOR. Todos los derechos reservados.</p>
-                    <div className="flex gap-6 uppercase tracking-wider">
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Privacidad</a>
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Términos Legales</a>
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Contactar Soporte</a>
-                    </div>
-                </div>
-            </footer>
         </div>
     );
 };

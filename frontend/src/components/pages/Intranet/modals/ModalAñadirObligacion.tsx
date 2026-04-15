@@ -9,7 +9,6 @@ interface ModalAñadirObligacionProps {
 }
 
 const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen, onClose, onSuccess, clienteId }) => {
-    // 1. AÑADIMOS fecha_vencimiento_exacta AL ESTADO
     const [formData, setFormData] = useState({
         tipo_impuesto: 'Impuesto a la Renta',
         fecha_presentacion: '',
@@ -34,7 +33,6 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
                 cliente_id: clienteId
             });
             
-            // 2. RESETEAMOS EL NUEVO CAMPO TAMBIÉN
             setFormData({ tipo_impuesto: 'Impuesto a la Renta', fecha_presentacion: '', fecha_vencimiento_exacta: '' });
             onSuccess(); 
             onClose();
@@ -88,7 +86,6 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
                         />
                     </div>
 
-                    {/* 3. NUEVO INPUT PARA LA FECHA EXACTA */}
                     <div>
                         <label className="block text-[0.75rem] font-bold text-[#151E28] uppercase tracking-widest mb-1.5">Día Límite de Subida (Activa las Alertas)</label>
                         <input 

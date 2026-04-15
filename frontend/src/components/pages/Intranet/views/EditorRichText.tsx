@@ -2,14 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
-// Importaciones de extensiones con destructuración (corrigiendo el error de TypeScript)
 import { Table } from '@tiptap/extension-table';
 import { TableRow } from '@tiptap/extension-table-row';
 import { TableHeader } from '@tiptap/extension-table-header';
 import { TableCell } from '@tiptap/extension-table-cell';
 import { Image } from '@tiptap/extension-image';
 
-// IMPORTANTE: Ajusta esta ruta según la ubicación de tu archivo axios
 import api from '../../../../api/axios'; 
 
 interface EditorProps {
@@ -23,7 +21,6 @@ const MenuBar = ({ editor }: { editor: any }) => {
 
   if (!editor) return null;
 
-  // Lógica para subir la imagen desde el dispositivo
   const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -39,16 +36,13 @@ const MenuBar = ({ editor }: { editor: any }) => {
       const formData = new FormData();
       formData.append('imagen_editor', file);
 
-      // Petición a tu API en Laravel
       const response = await api.post('/informativo/upload-imagen-editor', formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      // Construimos la URL final asumiendo que Laravel responde { url: 'storage/...' }
       const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
       const imageUrl = `${backendUrl}/${response.data.url}`;
 
-      // Insertamos la imagen en el editor en la posición actual del cursor
       editor.chain().focus().setImage({ src: imageUrl }).run();
       
     } catch (error) {
@@ -56,7 +50,6 @@ const MenuBar = ({ editor }: { editor: any }) => {
       alert("Hubo un error al subir la imagen al servidor. Verifique su conexión o el peso del archivo.");
     } finally {
       setIsUploading(false);
-      // Limpiamos el input para poder subir la misma imagen de nuevo si es necesario
       if (fileInputRef.current) fileInputRef.current.value = '';
     }
   };
@@ -64,7 +57,6 @@ const MenuBar = ({ editor }: { editor: any }) => {
   return (
     <div className="flex flex-wrap items-center gap-2 p-2 bg-gray-50 border-b border-gray-200 rounded-t-lg">
       
-      {/* Botones de Texto Básico */}
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -82,7 +74,6 @@ const MenuBar = ({ editor }: { editor: any }) => {
 
       <div className="w-px h-6 bg-gray-300 mx-1"></div>
 
-      {/* Botones de Títulos y Listas */}
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
@@ -100,7 +91,6 @@ const MenuBar = ({ editor }: { editor: any }) => {
 
       <div className="w-px h-6 bg-gray-300 mx-1"></div>
 
-      {/* Botón de Imagen con Input Oculto */}
       <input 
         type="file" 
         accept="image/*" 
@@ -122,7 +112,6 @@ const MenuBar = ({ editor }: { editor: any }) => {
         {isUploading ? "Subiendo..." : "Imagen"}
       </button>
 
-      {/* Botón de Insertar Tabla Básica */}
       <button
         type="button"
         onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
@@ -131,7 +120,6 @@ const MenuBar = ({ editor }: { editor: any }) => {
         📊 Tabla
       </button>
       
-      {/* Controles Dinámicos de Tabla (Solo aparecen si el cursor está dentro de una tabla) */}
       {editor.can().addColumnBefore() && (
         <div className="flex gap-1 ml-auto bg-gray-200 p-1 rounded">
            <button type="button" onClick={() => editor.chain().focus().addColumnAfter().run()} className="px-2 py-1 rounded text-[0.7rem] bg-white text-gray-700 hover:bg-gray-50">+ Col</button>
@@ -169,7 +157,6 @@ const EditorRichText: React.FC<EditorProps> = ({ value, onChange }) => {
     },
   });
 
-  // Efecto para sincronizar el estado externo con el editor
   useEffect(() => {
     if (editor && value !== editor.getHTML()) {
       editor.commands.setContent(value);

@@ -24,7 +24,6 @@ export const InfoRelaci = () => {
             setLoading(true);
             const response = await api.get('/informativo');
             
-            // Acceso más seguro
             const lista = response.data.informativos || [];
             
             const mapeados = lista.slice(0, 3).map((info: any) => ({

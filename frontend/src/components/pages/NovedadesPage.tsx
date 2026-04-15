@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
 import { Header, Footer, HeroNovedades, Filters, Boletin, Frase } from '../../components';
-import api from '../../api/axios'; // Importamos tu API
+import api from '../../api/axios'; 
 
 export const NovedadesPage = () => {
-    // 1. Estados para almacenar los datos y la interacción
     const [informativos, setInformativos] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState("");
@@ -12,7 +12,6 @@ export const NovedadesPage = () => {
     // Límite de tarjetas por página
     const ITEMS_PER_PAGE = 8;
 
-    // 2. Traer los datos al cargar la página
     useEffect(() => {
         const fetchInformativos = async () => {
             try {
@@ -28,7 +27,6 @@ export const NovedadesPage = () => {
         fetchInformativos();
     }, []);
 
-    // 3. Función para buscar (reinicia a la página 1 cuando escribes)
     const handleSearch = (term: string) => {
         setSearchTerm(term);
         setCurrentPage(1); 
@@ -54,7 +52,6 @@ export const NovedadesPage = () => {
             
             <Filters searchTerm={searchTerm} onSearchChange={handleSearch} />
             
-            {/* Pasamos los datos cortados y la paginación al contenedor de boletines */}
             <Boletin 
                 boletines={informativosPaginados} 
                 loading={loading}

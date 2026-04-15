@@ -33,11 +33,10 @@ const ModalCrearCarpeta: React.FC<Props> = ({ isOpen, onClose, onSuccess, config
                     nombre: nombre
                 });
             } else if (config.type === 'ROOT') {
-                // Asegúrate de enviar los campos mínimos requeridos por tu base de datos
                 await api.post('/cliente', {
                     razon_social_nombres: nombre,
-                    tipo_persona: 'Jurídica', // Valor por defecto para evitar error 400
-                    identificacion: 'TEMP-' + Date.now(), // Identificación temporal o pide este dato
+                    tipo_persona: 'Jurídica',
+                    identificacion: 'TEMP-' + Date.now(), 
                 });
             }
 

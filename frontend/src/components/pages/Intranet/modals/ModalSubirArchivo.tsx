@@ -12,14 +12,13 @@ interface Props {
 
 const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose,uploadType ,targetId, onSuccess }) => {
   const [isDragOver, setIsDragOver] = useState(false);
-  const [archivo, setArchivo] = useState<File | null>(null); // NUEVO: Estado del archivo
-  const [observacion, setObservacion] = useState(''); // NUEVO: Estado de la observación
-  const [isSubmitting, setIsSubmitting] = useState(false); // NUEVO: Estado de carga
+  const [archivo, setArchivo] = useState<File | null>(null); 
+  const [observacion, setObservacion] = useState(''); 
+  const [isSubmitting, setIsSubmitting] = useState(false); 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen) return null;
 
-  // Funciones Drag & Drop
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragOver(true);
@@ -34,7 +33,7 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose,uploadType ,target
     e.preventDefault();
     setIsDragOver(false);
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      setArchivo(e.dataTransfer.files[0]); // Guardamos el archivo soltado
+      setArchivo(e.dataTransfer.files[0]); 
     }
   };
 
@@ -46,11 +45,10 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose,uploadType ,target
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      setArchivo(e.target.files[0]); // Guardamos el archivo seleccionado
+      setArchivo(e.target.files[0]); 
     }
   };
 
-  // POST: Subir Archivo
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!archivo) {

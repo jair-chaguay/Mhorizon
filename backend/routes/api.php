@@ -13,14 +13,16 @@ use App\Http\Controllers\Api\ContactoController;
 use App\Http\Controllers\Api\BibliotecaController;
 
 use App\Http\Controllers\Api\ObligacionController;
-
+use App\Http\Controllers\Api\PasswordResetController;
 
 
 
 //LOGIN
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'login']);
 
+Route::post('/auth/forgot-password', [PasswordResetController::class, 'sendOtp']);
+Route::post('/auth/verify-otp', [PasswordResetController::class, 'verifyOtp']);
+Route::post('/auth/reset-password', [PasswordResetController::class, 'resetPassword']);
 
 //ROLES
 Route::get('/rol', [RolController::class, 'index']);
@@ -44,6 +46,9 @@ Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
+Route::post('/logout', [AuthController::class, 'logout']);
+
+
 Route::get('/cliente/{id}/obligaciones', [ObligacionController::class, 'indexCliente']);
 Route::post('/obligacion', [ObligacionController::class, 'store']);
 Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstado']);

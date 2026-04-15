@@ -1,3 +1,4 @@
+import { Button } from '../Button';
 import { ScrollReveal } from '../ScrollReveal';
 
 export const HeroOutsourcing = () => {
@@ -23,9 +24,8 @@ export const HeroOutsourcing = () => {
                 </p>
 
                 <div className="mt-10 md:mt-12 flex">
-                    <button id="agenda-hero-btn" className="cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl transition-all duration-300">
-                        AGENDA UNA ASESORÍA
-                    </button>
+                    <Button texto='AGENDA UNA ASESORÍA' estilosPersonalizados='cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl transition-all duration-300'/>
+                    
                 </div>
             </div>
             <div className='hidden md:flex gap-5 bg-blue-200/80 backdrop-blur-md border border-white/10 shadow-2xl absolute w-90 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300'>

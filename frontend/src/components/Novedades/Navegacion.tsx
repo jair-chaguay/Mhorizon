@@ -9,7 +9,6 @@ interface NavProps {
 
 export const Navegacion = ({ currentPage, totalPages, onPageChange }: NavProps) => {
     
-    // Crea un arreglo con los números de las páginas ej: [1, 2, 3]
     const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
 
     return (
@@ -17,7 +16,6 @@ export const Navegacion = ({ currentPage, totalPages, onPageChange }: NavProps) 
             <div className="mt-20 flex justify-center reveal-element">
                 <nav className="flex items-center gap-2">
                     
-                    {/* Botón Atrás (Se deshabilita en la pág 1) */}
                     <button 
                         onClick={() => onPageChange(currentPage - 1)}
                         disabled={currentPage === 1}
@@ -26,7 +24,6 @@ export const Navegacion = ({ currentPage, totalPages, onPageChange }: NavProps) 
                         < Recurso78 className='w-5 h-5' />
                     </button>
 
-                    {/* Botones de números dinámicos */}
                     {pages.map(page => (
                         <button 
                             key={page}
@@ -37,7 +34,6 @@ export const Navegacion = ({ currentPage, totalPages, onPageChange }: NavProps) 
                         </button>
                     ))}
 
-                    {/* Botón Siguiente (Se deshabilita en la última pág) */}
                     <button 
                         onClick={() => onPageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}

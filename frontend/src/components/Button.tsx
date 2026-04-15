@@ -1,14 +1,27 @@
-interface Props{
-    text: string
-    styles?: string
-    onClick?: ()=>void;
+import { useState } from "react";
+import { ContactModal } from "./ContactModal";
+
+interface BotonAgendarProps {
+  texto?: string;
+  estilosPersonalizados?: string;
 }
 
-export const Button = ({text, styles, onClick}: Props) => {
+export const Button = ({ texto = "AGENDAR SESIÓN ESTRATÉGICA",  estilosPersonalizados = "" }: BotonAgendarProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    
-    <button className={`${styles} h-11  cursor-pointer`} onClick={onClick}>
-        {text}
-    </button>
+
+    <>
+      <button
+        onClick={() => setIsModalOpen(true)}
+        className={estilosPersonalizados}
+      >
+        {texto}
+      </button>
+
+      <ContactModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
+    </>
   )
 }

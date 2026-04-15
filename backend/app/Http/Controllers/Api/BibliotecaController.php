@@ -21,12 +21,11 @@ class BibliotecaController extends Controller
     {
         $cliente = Cliente::withTrashed()
             ->with([
-                // 1. Cargamos las subcarpetas con el filtro
                 'periodos.subcarpetas' => function($query) {
-                    $query->whereNull('parent_id') // Solo carpetas Nivel 3 (Raíz)
-                          ->with([                 // 2. IMPORTANTE: Anidamos las relaciones hijas AQUÍ DENTRO
-                              'subcarpetas.documentos.subidoPor', // Documentos Nivel 4
-                              'documentos.subidoPor'              // Documentos Nivel 3
+                    $query->whereNull('parent_id') 
+                          ->with([                 
+                              'subcarpetas.documentos.subidoPor', 
+                              'documentos.subidoPor'              
                           ]);
                 }
             ])
@@ -50,14 +49,12 @@ class BibliotecaController extends Controller
 
         if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
-        // 1. Crear el Periodo
         $periodo = BibliotecaPeriodo::create([
             'cliente_id' => $request->cliente_id,
             'anio' => $request->anio,
             'creado_por_id' => Auth::id()
         ]);
 
-        // 2. Crear Carpeta Principal "Obligaciones Tributarias" (NIVEL 3)
         $carpetaObligaciones = BibliotecaSubcarpeta::create([
             'periodo_id' => $periodo->id,
             'parent_id' => null,
@@ -65,7 +62,6 @@ class BibliotecaController extends Controller
             'creado_por_id' => Auth::id()
         ]);
 
-        // 3. Crear Subcarpetas (NIVEL 4) según las obligaciones del cliente
         $obligaciones = \App\Models\ObligacionTributaria::where('cliente_id', $request->cliente_id)->get();
         
         foreach ($obligaciones as $obligacion) {
@@ -77,7 +73,6 @@ class BibliotecaController extends Controller
             ]);
         }
 
-        // 4. Crear otra carpeta genérica de ejemplo (NIVEL 3)
         BibliotecaSubcarpeta::create([
             'periodo_id' => $periodo->id,
             'parent_id' => null,
@@ -118,7 +113,6 @@ class BibliotecaController extends Controller
             $carpeta = BibliotecaPeriodo::find($id);
         } elseif ($tipo === 'subcarpeta') {
             $carpeta = BibliotecaSubcarpeta::find($id);
-            // Opcional: Borrar archivos físicos asociados a esta carpeta
             if (\Illuminate\Support\Facades\Storage::disk('public')->exists("biblioteca/subcarpeta_{$id}")) {
                 \Illuminate\Support\Facades\Storage::disk('public')->deleteDirectory("biblioteca/subcarpeta_{$id}");
             }
@@ -130,7 +124,6 @@ class BibliotecaController extends Controller
             return response()->json(['message' => 'Carpeta no encontrada', 'status' => 404], 404);
         }
 
-        // El OnDelete Cascade de tu base de datos borrará todo lo que esté adentro automáticamente
         $carpeta->delete();
 
         return response()->json(['message' => 'Carpeta eliminada con éxito', 'status' => 200], 200);
@@ -192,26 +185,22 @@ class BibliotecaController extends Controller
 
         $obligacion = \App\Models\ObligacionTributaria::find($request->obligacion_id);
         
-        // 1. Determinar el Periodo (Año actual)
         $anioActual = date('Y');
         $periodo = BibliotecaPeriodo::firstOrCreate(
             ['cliente_id' => $obligacion->cliente_id, 'anio' => $anioActual],
             ['creado_por_id' => Auth::id() ?? 1]
         );
 
-        // 2. Encontrar o crear carpeta madre "Obligaciones Tributarias"
         $carpetaMadre = BibliotecaSubcarpeta::firstOrCreate(
             ['periodo_id' => $periodo->id, 'parent_id' => null, 'nombre' => 'Obligaciones Tributarias'],
             ['creado_por_id' => Auth::id() ?? 1]
         );
 
-        // 3. Encontrar o crear subcarpeta del impuesto específico (Ej. "IVA (Mensual)")
         $carpetaHija = BibliotecaSubcarpeta::firstOrCreate(
             ['periodo_id' => $periodo->id, 'parent_id' => $carpetaMadre->id, 'nombre' => $obligacion->tipo_impuesto],
             ['creado_por_id' => Auth::id() ?? 1]
         );
 
-        // 4. Subir archivo físicamente a esa carpeta
         $file = $request->file('archivo');
         $nombreOriginal = $file->getClientOriginalName();
         $extension = strtolower($file->getClientOriginalExtension());

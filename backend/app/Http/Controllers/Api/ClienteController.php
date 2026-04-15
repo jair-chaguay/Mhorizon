@@ -7,15 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\Cliente;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB; // Añadir esto
-use Illuminate\Support\Facades\Hash; // Añadir esto
-use App\Models\Usuario; // Añadir esto
+use Illuminate\Support\Facades\DB; 
+use Illuminate\Support\Facades\Hash; 
 
 class ClienteController extends Controller
 {
     public function index()
     {
-        // Traemos los clientes ordenados alfabéticamente junto con quién los creó
         $clientes = Cliente::with('creador', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
@@ -26,10 +24,8 @@ class ClienteController extends Controller
         ], 200);
     }
 
-    // Añade este método en ClienteController.php
     public function indexBiblioteca()
     {
-        // withTrashed() incluye a los clientes con Soft Delete
         $clientes = Cliente::withTrashed()
                            ->with('creador', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
@@ -43,7 +39,6 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            // Datos del Cliente
             'tipo_persona' => 'required|in:Régimen General,Rimpe,Contribuyente Especial,Persona Natural',
             'razon_social_nombres' => 'required|string|max:255',
             'identificacion' => 'required|string|max:20|unique:clientes,identificacion',
@@ -62,7 +57,6 @@ class ClienteController extends Controller
         DB::beginTransaction();
 
         try {
-            // A. Crear el Cliente
             $cliente = Cliente::create([
                 'tipo_persona' => $request->tipo_persona,
                 'razon_social_nombres' => $request->razon_social_nombres,
@@ -73,16 +67,16 @@ class ClienteController extends Controller
 
             // B. Crear el Usuario asociado a ese Cliente
             $usuario = Usuario::create([
-                'rol_id' => 2, // ASUMIENDO QUE EL ROL 2 ES "CLIENTE". Cambia esto si tu ID es diferente.
-                'cliente_id' => $cliente->id, // Conectamos el usuario al cliente recién creado
-                'nombre' => 'Representante', // Puedes pedir esto en el form si quieres
-                'apellido' => 'Cliente',     // Puedes pedir esto en el form si quieres
+                'rol_id' => 2, 
+                'cliente_id' => $cliente->id, 
+                'nombre' => 'Representante', 
+                'apellido' => 'Cliente',     
                 'correo' => $request->correo,
                 'password_hash' => Hash::make($request->password),
                 'activo' => true
             ]);
 
-            DB::commit(); // Confirmar guardado
+            DB::commit(); 
 
             return response()->json([
                 'message' => 'Cliente y Usuario creados con éxito', 
@@ -91,7 +85,7 @@ class ClienteController extends Controller
             ], 201);
 
         } catch (\Exception $e) {
-            DB::rollBack(); // Revertir todo si hay un error en BDD
+            DB::rollBack(); 
             return response()->json([
                 'message' => 'Error interno al crear el cliente', 
                 'error' => $e->getMessage(),
@@ -103,7 +97,6 @@ class ClienteController extends Controller
 
     public function show($id)
     {
-        // Traemos al cliente con todos los usuarios (ej: el dueño y su contador)
         $cliente = Cliente::with(['usuarios', 'creador'])->find($id);
 
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
@@ -123,7 +116,6 @@ class ClienteController extends Controller
             'identificacion' => 'sometimes|required|string|max:20|unique:clientes,identificacion,'.$id,
             'direccion_matriz' => 'nullable|string',
             'score_tributario' => 'sometimes|required|integer|min:0|max:100',
-            // Añadimos validaciones para los datos del usuario:
             'correo' => 'sometimes|required|email|max:150',
             'password' => 'nullable|string|min:8',
             'representante' => 'nullable|string|max:200'
@@ -131,10 +123,8 @@ class ClienteController extends Controller
 
         if ($validator->fails()) return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
 
-        // A. Actualizamos el Cliente (Dirección, RUC, etc)
         $cliente->update($request->only(['tipo_persona', 'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario']));
 
-        // B. Buscamos el usuario principal asociado a este cliente y lo actualizamos
         $usuario = \App\Models\Usuario::where('cliente_id', $cliente->id)->first();
         if ($usuario) {
             if ($request->filled('correo')) {
@@ -144,7 +134,6 @@ class ClienteController extends Controller
                 $usuario->password_hash = Hash::make($request->password);
             }
             if ($request->filled('representante')) {
-                // Dividimos el string en Nombre y Apellido
                 $partes = explode(' ', $request->representante, 2);
                 $usuario->nombre = $partes[0];
                 $usuario->apellido = $partes[1] ?? ''; 
@@ -164,21 +153,16 @@ class ClienteController extends Controller
                 return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
             }
 
-            // 1. Verificamos si YA estaba en la papelera (SoftDeleted)
             if ($cliente->trashed()) {
-                // Borrado definitivo de usuarios
                 foreach($cliente->usuarios()->withTrashed()->get() as $usuario) {
                     $usuario->forceDelete(); 
                 }
                 
-                // NOTA: Si el cliente tiene Periodos u Obligaciones, y tu base de datos NO tiene 
-                // "ON DELETE CASCADE", el forceDelete() de abajo causará una excepción.
                 $cliente->forceDelete();
 
                 return response()->json(['message' => 'Cliente eliminado definitivamente del sistema.', 'status' => 200], 200);
             }
 
-            // 2. Si NO estaba en la papelera, hacemos el SoftDelete normal (Lógico)
             foreach($cliente->usuarios as $usuario) {
                 $usuario->delete(); 
             }
@@ -196,7 +180,6 @@ class ClienteController extends Controller
             ], 500);
 
         } catch (\Exception $e) {
-            // Esto atrapa cualquier otro error de PHP
             return response()->json([
                 'message' => 'Error interno del servidor al eliminar.',
                 'error' => $e->getMessage(),

@@ -1,3 +1,4 @@
+import { Button } from '../Button'
 import { Call, Location } from '../IconosSVG'
 import { ScrollReveal } from '../ScrollReveal'
 
@@ -46,9 +47,7 @@ export const Sede = () => {
                             </div>
                         </div>
 
-                        <button id="contact-btn-sede" className="w-full md:w-auto px-10 py-4 bg-orange-500 text-white font-bold uppercase tracking-wider text-[0.9rem] rounded-sm hover:bg-blue-200 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 cursor-pointer">
-                            Agendar Reunión Consultiva
-                        </button>
+                        <Button texto='Agendar Reunión Consultiva' estilosPersonalizados='w-full md:w-auto px-10 py-4 bg-orange-500 text-white font-bold uppercase tracking-wider text-[0.9rem] rounded-sm hover:bg-blue-200 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 cursor-pointer'/>
                     </div>
 
                     <div className="lg:col-span-7 h-112.5 md:h-137.5 relative rounded-2xl overflow-hidden border border-gray-200 shadow-2xl reveal-element delay-200">

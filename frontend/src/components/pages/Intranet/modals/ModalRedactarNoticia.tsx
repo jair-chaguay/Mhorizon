@@ -60,7 +60,7 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess, dat
       }
 
       if (typeof onSuccess === 'function') {
-        onSuccess(); // Esto llamará a triggerRefresh en el padre
+        onSuccess(); 
       }
       onClose();
       resetForm();
@@ -90,7 +90,6 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess, dat
     <ScrollReveal className="fixed inset-0 bg-black/80 backdrop-blur-sm z-110 flex justify-center items-center p-4 animate-fadeIn">
       <div className="bg-white reveal-element delay-200 rounded-2xl shadow-2xl w-full max-w-2xl relative flex flex-col max-h-[90vh] scale-100 transition-transform duration-300">
 
-        {/* Header */}
         <div className="bg-blue-200 p-6 pr-12 relative shrink-0 rounded-t-2xl">
           <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.70rem] uppercase mb-1 block">Radar Financiero (Home)</span>
           <h2 className="text-white font-extrabold text-[1.4rem] leading-tight">Cargar / Editar Noticia</h2>
@@ -99,7 +98,6 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess, dat
           </button>
         </div>
 
-        {/* Body */}
         <div className="p-6 md:p-8 overflow-y-auto no-scrollbar bg-gray-50 flex-1">
           <form id='form-noticia' className="space-y-5" onSubmit={handleSubmit}>
             <div className='grid grid-cols-2 gap-4'>
@@ -177,7 +175,6 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess, dat
           </form>
         </div>
 
-        {/* Footer */}
         <div className="p-6 border-t border-gray-100 bg-white shrink-0 flex gap-3">
           <button onClick={onClose} className=" cursor-pointer flex-1 py-3.5 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors">Cancelar</button>
 

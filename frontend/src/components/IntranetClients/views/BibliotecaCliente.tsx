@@ -1,74 +1,127 @@
-import React, { useState } from 'react';
-import { type DocumentoCliente } from '../type';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../ScrollReveal';
+import api from '../../../api/axios';
 
-type NavLevel = 'PERIODO' | 'SUBCARPETAS' | 'ARCHIVOS';
-
-interface BibliotecaProps {
-  onOpenCrear: (title: string, placeholder: string) => void;
-  onOpenSubir: () => void;
-}
+type NavLevel = 'ROOT' | 'PERIODOS' | 'SUBCARPETAS' | 'SUBCARPETAS_HIJAS' | 'ARCHIVOS';
 
 
-const BibliotecaCliente: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir }) => {
-  const [navLevel, setNavLevel] = useState<NavLevel>('PERIODO');
-  const [path, setPath] = useState({ cliente: '', periodo: '', subcarpeta: '' });
 
 
-  const archivosList = [
-    { id: 1, nombre: 'Reporte_Preliminar.pdf', subidoPor: 'Violeta Rodríguez', fecha: '10 Mar 2026', observacion: 'Borrador validado por la gerencia para envío a SCVS.', tipo: 'pdf' },
-    { id: 2, nombre: 'Anexos_Transaccionales.xlsx', subidoPor: 'Milton Montecé Q.', fecha: '08 Mar 2026', observacion: 'Matriz actualizada con el cruce de facturación mensual.', tipo: 'excel' },
-  ];
+const BibliotecaCliente: React.FC = () => {
+  const [navLevel, setNavLevel] = useState<NavLevel>('PERIODOS');
+  const [path, setPath] = useState({ cliente: '', periodo: '', subcarpeta: '', subcarpetaHija: '' });
 
-  const handlePeriodoClick = (periodo: string) => {
-    setPath({ ...path, periodo });
+  const [periodos, setPeriodos] = useState<any[]>([]);
+  const [subcarpetas, setSubcarpetas] = useState<any[]>([]);
+  const [subcarpetasHijas, setSubcarpetasHijas] = useState<any[]>([]);
+  const [archivos, setArchivos] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [selectionIds, setSelectionIds] = useState({
+    clienteId: null as number | null,
+    periodoId: null as number | null,
+    subcarpetaId: null as number | null
+  });
+
+  useEffect(() => {
+    const userStr = localStorage.getItem('user');
+    if (userStr) {
+      const user = JSON.parse(userStr);
+      if (user.cliente_id) {
+        setSelectionIds(prev => ({ ...prev, clienteId: user.cliente_id }));
+        fetchBiblioteca(user.cliente_id);
+      }
+    }
+  }, []);
+
+  const fetchBiblioteca = async (cId: number) => {
+    try {
+      setLoading(true);
+      const { data } = await api.get(`/biblioteca/arbol/${cId}`)
+      const tree = data.biblioteca || [];
+      setPeriodos(tree);
+      setPath(prev => ({ ...prev, cliente: data.cliente }));
+
+      if (selectionIds.periodoId) {
+        const currentPeriodo = tree.find((p: any) => p.id === selectionIds.periodoId);
+        if (currentPeriodo) {
+          setSubcarpetas(currentPeriodo.subcarpetas || []);
+          if (selectionIds.subcarpetaId) {
+            const currentSub = (currentPeriodo.subcarpetas || []).find((s: any) => s.id === selectionIds.subcarpetaId);
+            if (currentSub) {
+              setArchivos(currentSub.documentos || []);
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error al cargar periodos: ", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const handlePeriodoClick = (periodo: any) => {
+    setPath({ ...path, periodo: periodo.anio });
+    setSelectionIds({ ...selectionIds, periodoId: periodo.id });
+    setSubcarpetas(periodo.subcarpetas);
     setNavLevel('SUBCARPETAS');
   };
 
-  const handleSubcarpetaClick = (subcarpeta: string) => {
-    setPath({ ...path, subcarpeta });
-    setNavLevel('ARCHIVOS');
+  const handleSubcarpetaClick = (sub: any) => {
+    setPath({ ...path, subcarpeta: sub.nombre });
+    setSelectionIds({ ...selectionIds, subcarpetaId: sub.id });
+    if (sub.subcarpetas && sub.subcarpetas.length > 0) {
+      setSubcarpetasHijas(sub.subcarpetas);
+      setNavLevel('SUBCARPETAS_HIJAS');
+    } else {
+      setArchivos(sub.documentos || []);
+      setNavLevel('ARCHIVOS');
+    }
   };
 
+  const handleSubcarpetaHijaClick = (hija: any) => {
+    setPath({ ...path, subcarpetaHija: hija.nombre });
+    setSelectionIds({ ...selectionIds, subcarpetaId: hija.id });
+    setArchivos(hija.documentos || []);
+    setNavLevel('ARCHIVOS');
+  }
 
   const handleBack = () => {
-    if (navLevel === 'SUBCARPETAS') setNavLevel('PERIODO');
-    if (navLevel === 'ARCHIVOS') setNavLevel('SUBCARPETAS');
+    if (navLevel === 'SUBCARPETAS') {
+      setNavLevel('PERIODOS');
+    } else if (navLevel === 'SUBCARPETAS_HIJAS') {
+      setPath({ ...path, subcarpeta: '', subcarpetaHija: '' });
+      setNavLevel('SUBCARPETAS')
+    } else if (navLevel === 'ARCHIVOS') {
+      if (path.subcarpetaHija !== '') {
+        setPath({ ...path, subcarpetaHija: '' });
+        setNavLevel('SUBCARPETAS_HIJAS');
+      } else {
+        setPath({ ...path, subcarpeta: '' });
+        setNavLevel('SUBCARPETAS');
+      }
+    }
   };
 
-  // Handler para el botón principal de acción (arriba a la derecha)
-  const handleActionClick = () => {
-    if (navLevel === 'PERIODO') onOpenCrear('Nuevo Periodo Fiscal', 'Ej. 2027');
-    if (navLevel === 'SUBCARPETAS') onOpenCrear('Nueva Subcarpeta Operativa', 'Ej. Correspondencia');
-    if (navLevel === 'ARCHIVOS') onOpenSubir();
-  };
+  if (loading && navLevel === 'PERIODOS') return <div className="p-20 text-center text-blue-200 animate-pulse">Cargando Directorio...</div>;
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterCarpeta, setFilterCarpeta] = useState('all');
+
+
 
   return (
     <ScrollReveal>
       <div className='max-w-350 mx-auto space-y-6 reveal-element'>
-        {navLevel !== 'PERIODO' && (
-          <div className="flex items-center gap-4 mb-2 animate-fadeIn">
-            <button onClick={handleBack}
-              className="p-2 bg-white border border-gray-200 rounded-lg text-gray-500 hover:text-orange-500 transition-colors shadow-sm"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
 
+        {navLevel !== 'PERIODOS' && (
+          <div className="flex items-center gap-4 mb-2 animate-fadeIn">
+            <button onClick={handleBack} className="p-2 bg-white border border-gray-200 rounded-lg text-gray-500 hover:text-orange-500 transition-colors shadow-sm cursor-pointer">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
             </button>
             <div className='flex items-center text-sm font-medium text-gray-500 truncate'>
-              <span className="cursor-pointer hover:text-orange-500 transition-colors" onClick={() => setNavLevel('PERIODO')}>Biblioteca</span>
-              {path.cliente && (
-                <>
-                  <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
-                  <span className={`transition-colors ${navLevel === 'SUBCARPETAS' ? 'text-blue-200 font-bold' : 'cursor-pointer hover:text-orange-500'}`} onClick={() => setNavLevel('SUBCARPETAS')}>
-                    {path.cliente}
-                  </span>
-                </>
-              )}
+              <span className="cursor-pointer hover:text-orange-500 transition-colors" onClick={() => setNavLevel('PERIODOS')}>Biblioteca</span>
 
-              {(navLevel === 'SUBCARPETAS' || navLevel === 'ARCHIVOS') && (
+              {(navLevel === 'SUBCARPETAS' || navLevel === 'SUBCARPETAS_HIJAS' || navLevel === 'ARCHIVOS') && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                   <span className={`transition-colors ${navLevel === 'SUBCARPETAS' ? 'text-blue-200 font-bold' : 'cursor-pointer hover:text-orange-500'}`} onClick={() => setNavLevel('SUBCARPETAS')}>
@@ -77,64 +130,93 @@ const BibliotecaCliente: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir
                 </>
               )}
 
+              {(navLevel === 'SUBCARPETAS_HIJAS' || (navLevel === 'ARCHIVOS' && path.subcarpetaHija)) && (
+                <>
+                  <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
+                  <span className={`transition-colors ${navLevel === 'SUBCARPETAS_HIJAS' ? 'text-blue-200 font-bold' : 'cursor-pointer hover:text-orange-500'}`} onClick={() => setNavLevel('SUBCARPETAS_HIJAS')}>
+                    {path.subcarpeta}
+                  </span>
+                </>
+              )}
+
               {navLevel === 'ARCHIVOS' && (
                 <>
                   <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
-                  <span className="text-blue-200 font-bold">{path.subcarpeta}</span>
+                  <span className="text-blue-200 font-bold">
+                    {path.subcarpetaHija || path.subcarpeta}
+                  </span>
                 </>
               )}
             </div>
           </div>
         )}
 
-
-
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
-              {navLevel === 'PERIODO' ? 'Periodos Fiscales' :
+              {navLevel === 'PERIODOS' ? 'Periodos Fiscales' :
                 navLevel === 'SUBCARPETAS' ? 'Áreas Operativas' : 'Documentos'}
             </h1>
             <p className="text-gray-500 font-light mt-1 text-[1rem]">
-              {navLevel === 'PERIODO' ? 'Nivel 1: Seleccione el año fiscal.' :
-                navLevel === 'SUBCARPETAS' ? 'Nivel 2: Seleccione la subcarpeta donde desea observar sus documentos' :
+              {navLevel === 'PERIODOS' ? 'Nivel 1: Seleccione el año fiscal.' :
+                navLevel === 'SUBCARPETAS' ? 'Nivel 2: Seleccione la subcarpeta donde desea observar sus documentos.' :
                   'Nivel 3: Lista de archivos con detalles exigidos.'}
             </p>
           </div>
         </div>
 
-
-
         <div className={`bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${navLevel !== 'ARCHIVOS' ? 'p-6 lg:p-8' : ''} animate-fadeIn delay-100`}>
 
-          {navLevel === 'PERIODO' && (
-            <ScrollReveal className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6">
-              {['2026', '2025', '2024'].map(year => (
-                <div key={year} onClick={() => handlePeriodoClick(year)} className=" reveal-element border border-orange-200 bg-orange-50 rounded-2xl p-5 hover:bg-orange-100 transition-all cursor-pointer flex flex-col items-center text-center shadow-sm group">
-                  <svg className="w-12 h-12 text-orange-500 mb-2 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
-                  <h3 className="font-extrabold text-orange-700 text-[1.1rem]">{year}</h3>
+          {navLevel === 'PERIODOS' && (
+            <ScrollReveal className="flex flex-col">
+              {periodos.length > 0 ? (
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6">
+                  {periodos.map(periodo => (
+                    <div key={periodo.id} onClick={() => handlePeriodoClick(periodo)} className="reveal-element border border-orange-200 bg-orange-50 rounded-2xl p-5 hover:bg-orange-100 transition-all cursor-pointer flex flex-col items-center text-center shadow-sm group">
+                      <svg className="w-12 h-12 text-orange-500 mb-2 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
+                      <h3 className="font-extrabold text-orange-700 text-[1.1rem]">{periodo.anio}</h3>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <div className="py-16 text-center text-gray-400">
+                  <p>Aún no hay periodos fiscales registrados en su biblioteca.</p>
+                </div>
+              )}
             </ScrollReveal>
           )}
 
-          {/* NIVEL 3: Subcarpetas (Áreas) */}
           {navLevel === 'SUBCARPETAS' && (
             <ScrollReveal>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 reveal-element">
-                {['Estados Financieros', 'Declaraciones', 'Información de Auditoría', 'Resoluciones', 'Anexo', 'Notificaciones'].map((sub) => (
-                  <div key={sub} onClick={() => handleSubcarpetaClick(sub)} className="border border-gray-200 bg-gray-50 rounded-xl p-5 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all cursor-pointer group flex items-center gap-4">
+                {subcarpetas.map((sub) => (
+                  <div key={sub.id} onClick={() => handleSubcarpetaClick(sub)} className="border border-gray-200 bg-gray-50 rounded-xl p-5 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all cursor-pointer group flex items-center gap-4">
                     <div className="w-12 h-12 bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center text-gray-400 group-hover:text-orange-500 transition-colors shrink-0">
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
                     </div>
-                    <h3 className="font-extrabold text-blue-200 text-[0.95rem] leading-tight">{sub}</h3>
+                    <h3 className="font-extrabold text-blue-200 text-[0.95rem] leading-tight">{sub.nombre}</h3>
+                  </div>
+                ))}
+                {subcarpetas.length === 0 && <p className="text-gray-400 italic">No hay carpetas creadas en este periodo.</p>}
+              </div>
+            </ScrollReveal>
+          )}
+
+          {navLevel === 'SUBCARPETAS_HIJAS' && (
+            <ScrollReveal>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                {subcarpetasHijas.map((hija) => (
+                  <div key={hija.id} onClick={() => handleSubcarpetaHijaClick(hija)} className="border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 hover:shadow-md transition-all cursor-pointer group flex items-center gap-4">
+                    <div className="w-12 h-12 bg-white rounded-lg shadow-sm border border-orange-100 flex items-center justify-center text-orange-500 transition-colors shrink-0">
+                      <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
+                    </div>
+                    <h3 className="font-extrabold text-[#151E28] text-[0.95rem] leading-tight">{hija.nombre}</h3>
                   </div>
                 ))}
               </div>
             </ScrollReveal>
           )}
 
-          {/* NIVEL 4: Archivos (Tabla) */}
           {navLevel === 'ARCHIVOS' && (
             <ScrollReveal className="flex flex-col">
               <div className="px-6 py-5 border-b reveal-element border-gray-100 flex items-center justify-between bg-white">
@@ -155,7 +237,7 @@ const BibliotecaCliente: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir
                     </tr>
                   </thead>
                   <tbody className="text-[0.85rem] divide-y divide-gray-100">
-                    {archivosList.map(archivo => (
+                    {archivos.map(archivo => (
                       <tr key={archivo.id} className="hover:bg-gray-50/50 transition-colors group">
                         <td className="px-6 py-4 font-bold text-blue-200 flex items-center gap-3">
                           <div className={`w-8 h-8 rounded flex items-center justify-center border shrink-0 ${archivo.tipo === 'pdf' ? 'bg-red-50 text-red-500 border-red-100' : 'bg-green-50 text-green-600 border-green-100'}`}>
@@ -165,28 +247,26 @@ const BibliotecaCliente: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir
                               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 384 512"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm60.1 106.5L224 336l60.1 93.5c5.1 8-.6 18.5-10.1 18.5h-34.9c-4.4 0-8.5-2.4-10.6-6.3C208.9 405.5 192 373 192 373c-6.4 14.8-10 20-36.6 68.8-2.1 3.9-6.1 6.3-10.5 6.3H110c-9.5 0-15.2-10.5-10.1-18.5l60.3-93.5-60.3-93.5c-5.2-8 .6-18.5 10.1-18.5h34.8c4.4 0 8.5 2.4 10.6 6.3 19.6 35.5 31.7 57.5 31.7 57.5 6.1-14.5 9.7-19.6 36.8-68.9 2.1-3.9 6.2-6.3 10.6-6.3H294c9.5 0 15.3 10.5 10.2 18.5zM384 121.9v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z" /></svg>
                             )}
                           </div>
-                          <span className="cursor-pointer group-hover:text-orange-500 transition-colors truncate">{archivo.nombre}</span>
+                          <span className="cursor-pointer group-hover:text-orange-500 transition-colors truncate">{archivo.nombre_archivo}</span>
                         </td>
-                        <td className="px-6 py-4 text-blue-200 font-semibold">{archivo.subidoPor}</td>
-                        <td className="px-6 py-4 text-gray-600 font-medium">{archivo.fecha}</td>
-                        <td className="px-6 py-4 text-gray-500 text-[0.8rem]">{archivo.observacion}</td>
+                        <td className="px-6 py-4 text-blue-200 font-semibold">{archivo.subido_por?.nombre} {archivo.subido_por?.apellido}</td>
+                        <td className="px-6 py-4 text-gray-600 font-medium">{new Date(archivo.created_at).toLocaleDateString()}</td>
+                        <td className="px-6 py-4 text-gray-500 text-[0.8rem] italic">{archivo.observacion_cliente || 'Sin observación'}</td>
                         <td className="px-6 py-4 text-center">
-                          <button className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-all" title="Descargar">
+                          {/* Botón de descarga con el href dinámico a la URL del archivo */}
+                          <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/storage/${archivo.url_archivo}`} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-all cursor-pointer" title="Descargar">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                          </button>
+                          </a>
                         </td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
+                {archivos.length === 0 && <div className="py-20 text-center text-gray-400 italic">No hay documentos en esta carpeta.</div>}
               </div>
             </ScrollReveal>
           )}
         </div>
-
-
-
-
       </div>
     </ScrollReveal>
   );

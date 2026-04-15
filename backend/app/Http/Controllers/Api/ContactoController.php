@@ -8,6 +8,8 @@ use App\Models\MensajeContacto;
 use App\Models\AuditoriaLog;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NotificacionContacto;
 
 class ContactoController extends Controller
 {
@@ -31,7 +33,7 @@ class ContactoController extends Controller
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
             'correo' => 'required|email|max:150',
-            'mensaje' => 'required|string'
+            'mensaje' => 'nullable|string' 
         ]);
 
         if($validator->fails()){
@@ -39,6 +41,12 @@ class ContactoController extends Controller
         }
 
         $mensaje = MensajeContacto::create($request->all());
+
+        try {
+            Mail::to('consultores@mhorizon.com.ec')->send(new NotificacionContacto($mensaje));
+        } catch (\Exception $e) {
+            \Log::error('Error al enviar correo de contacto: ' . $e->getMessage());
+        }
 
         return response()->json([
             'message' => 'Tu mensaje ha sido enviado correctamente. Nos pondremos en contacto pronto.',
@@ -67,7 +75,6 @@ class ContactoController extends Controller
             return response()->json(['message' => 'Mensaje no encontrado', 'status' => 404], 404);
         }
 
-        // Si ya estaba leído, no hacemos nada
         if($mensaje->leido) {
             return response()->json(['message' => 'El mensaje ya había sido marcado como leído', 'status' => 200], 200);
         }
@@ -77,7 +84,6 @@ class ContactoController extends Controller
             'leido_por_id' => Auth::id() // Registramos al colaborador que se hizo cargo
         ]);
 
-        // Dejamos rastro en la auditoría
         AuditoriaLog::registrar(
             'EDITAR', 
             'mensajes_contacto', 

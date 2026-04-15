@@ -4,7 +4,7 @@ import { ScrollReveal } from '../../../ScrollReveal';
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  onBackToGestion: () => void; // Función para regresar al modal de gestión
+  onBackToGestion: () => void; 
 }
 
 const ModalAñadirDeclaracion: React.FC<Props> = ({ isOpen, onClose, onBackToGestion }) => {

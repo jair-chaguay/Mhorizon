@@ -6,7 +6,6 @@ import { RadarCard } from './RadarCard';
 import { useEffect, useState } from 'react';
 import api from '../../api/axios';
 
-// Interfaz exportada para que la tarjeta la pueda usar
 export interface NoticiasDB {
     id: number;
     titulo: string;

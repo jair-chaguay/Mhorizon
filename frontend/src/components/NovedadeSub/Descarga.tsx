@@ -28,7 +28,6 @@ export const Descarga = ({ informativo }: { informativo: any }) => {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
-                        {/* Cambiamos <button> por <a> para que descargue el archivo al hacer clic */}
                         <a 
                             href={pdfUrl} 
                             target="_blank" 

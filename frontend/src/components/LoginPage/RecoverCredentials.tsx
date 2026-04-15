@@ -1,10 +1,33 @@
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ScrollReveal } from "../ScrollReveal";
-
+import api
+    from "../../api/axios";
 export const RecoverCredentials = () => {
+    const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setError("");
+        setLoading(true);
+
+        try {
+            await api.post('/auth/forgot-password', { email });
+
+            navigate("/login/OTP", { state: { email } });
+        } catch (err: any) {
+            setError(err.response?.data?.message || "Error al enviar las instrucciones. Verifique el correo.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <ScrollReveal className="bg-blue-200 text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative">
-
             <div className="absolute inset-0 bg-[url('/images/Recurso38.avif')] bg-cover bg-center opacity-40 mix-blend-luminosity z-0"></div>
             <div className="absolute inset-0 bg-linear-to-b from-blue-200/95 via-blue-200/90 to-blue-200 z-0"></div>
 
@@ -14,10 +37,12 @@ export const RecoverCredentials = () => {
                         src="images/MHORIZONBOCETO.png"
                         alt="MHorizon Logo"
                         className="w-36 sm:w-44"
-                        onError={(e) => { e.currentTarget.src = 'https://via.placeholder.com/200x50?text=MHORIZON&bg=151E28&text_color=ffffff' }}
+                        onError={(e) => {
+                            e.currentTarget.src = 'https://placehold.co/200x50/151E28/ffffff?text=MHORIZON';
+                        }}
+
                     />
                 </a>
-
                 <div className="hidden sm:flex items-center gap-2 text-white/70 text-[0.8rem] tracking-widest uppercase font-semibold border border-white/20 px-4 py-2 rounded-full backdrop-blur-sm">
                     <svg className="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
@@ -27,13 +52,10 @@ export const RecoverCredentials = () => {
             </header>
 
             <main className="relative z-10 grow flex items-center justify-center px-4 sm:px-6 py-12">
-
                 <div className="w-full max-w-120 bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden reveal-element delay-100 border border-white/10 relative">
-
                     <div className="h-1.5 w-full bg-linear-to-r from-orange-400 to-orange-600"></div>
 
                     <div className="p-8 sm:p-10 md:p-12">
-
                         <div className="text-center mb-10">
                             <span className="inline-block bg-orange-500/10 text-orange-500 border border-orange-500/20 px-3 py-1 rounded text-[0.70rem] font-bold tracking-widest uppercase mb-4">
                                 Soporte de Acceso
@@ -46,8 +68,13 @@ export const RecoverCredentials = () => {
                             </p>
                         </div>
 
-                        <form action="#" method="POST" className="space-y-6">
+                        {error && (
+                            <div className="mb-6 p-3 bg-red-50 text-red-600 text-[0.85rem] rounded-lg border border-red-100 text-center font-medium">
+                                {error}
+                            </div>
+                        )}
 
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             <div>
                                 <label htmlFor="email" className="block text-[0.80rem] font-bold text-blue-200 uppercase tracking-widest mb-2">
                                     Correo Institucional
@@ -59,11 +86,9 @@ export const RecoverCredentials = () => {
                                         </svg>
                                     </div>
                                     <input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        required
-                                        autoComplete="email"
+                                        id="email" type="email" required
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300"
                                         placeholder="ejemplo@corporacion.com"
                                     />
@@ -71,8 +96,8 @@ export const RecoverCredentials = () => {
                             </div>
 
                             <div className="pt-2">
-                                <button type="submit" className="cursor-pointer w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
-                                    <Link to={"/login/OTP"}>Enviar Instrucciones</Link>
+                                <button type="submit" disabled={loading} className="cursor-pointer w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-lg shadow-orange-500/20 text-[0.95rem] font-bold tracking-[0.15em] uppercase text-white bg-orange-500 hover:bg-blue-200 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    {loading ? "Enviando..." : "Enviar Instrucciones"}
                                 </button>
                             </div>
 
@@ -96,17 +121,11 @@ export const RecoverCredentials = () => {
                         </p>
                     </div>
                 </div>
-
             </main>
 
             <footer className="relative z-10 w-full py-6 px-5 border-t border-white/10 reveal-element delay-200">
                 <div className="max-w-350 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-[0.75rem] text-white/50 font-light">
                     <p>&copy; 2026 MHORIZON ECUADOR. Todos los derechos reservados.</p>
-                    <div className="flex gap-6 uppercase tracking-wider">
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Privacidad</a>
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Términos Legales</a>
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Contactar Soporte</a>
-                    </div>
                 </div>
             </footer>
         </ScrollReveal>

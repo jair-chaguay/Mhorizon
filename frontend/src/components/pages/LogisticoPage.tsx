@@ -12,7 +12,6 @@ export const LogisticoPage = () => {
             <EstrctNegocios />
 
 
-
             <section className='bg-blue-200 '>
                 <Frase
                     blanco='Blinde y potencie su '

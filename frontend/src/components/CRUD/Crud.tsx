@@ -1,4 +1,3 @@
-import React from 'react'
 import { TableUsers } from './TableUsers'
 import { TableInformativos } from './TableInformativos'
 

@@ -1,3 +1,4 @@
+import { Button } from "../Button"
 import { ScrollReveal } from "../ScrollReveal"
 
 export const HeroGestion = () => {
@@ -21,9 +22,7 @@ export const HeroGestion = () => {
         </p>
 
         <div className="mt-10 md:mt-12">
-          <button id="agenda-hero-btn" className="bg-orange-500 text-white font-bold tracking-wider uppercase w-full md:w-[280px] py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300">
-            Agenda una Asesoría
-          </button>
+          <Button texto="Agenda una Asesoría" estilosPersonalizados="bg-orange-500 text-white font-bold tracking-wider uppercase w-full md:w-[280px] py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300"/>
         </div>
       </div>
 

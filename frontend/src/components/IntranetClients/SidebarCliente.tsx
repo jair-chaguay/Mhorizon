@@ -1,6 +1,7 @@
-import React from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useEffect, useState } from 'react';
 import { type ViewClienteID } from './type'; 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 
 interface Props {
@@ -12,11 +13,47 @@ interface Props {
 
 const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, setIsOpen }) => {
   const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({ nombre: '', apellido: '' });
+  const [razonSocial, setRazonSocial] = useState('Cargando...');
+
+  useEffect(() => {
+    const fetchInformacionUsuario = async () => {
+      const userStr = localStorage.getItem('user');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        setUserData({
+          nombre: user.nombre || 'Usuario',
+          apellido: user.apellido || ''
+        });
+
+        if (user.cliente_id) {
+          try {
+            const res = await api.get(`/cliente/${user.cliente_id}`);
+            if (res.data && res.data.cliente) {
+              setRazonSocial(res.data.cliente.razon_social_nombres);
+            }
+          } catch (error) {
+            console.error("Error al obtener la razón social:", error);
+            setRazonSocial('Empresa no encontrada');
+          }
+        }
+      }
+    };
+
+    fetchInformacionUsuario();
+  }, []);
+
   const handleLogout = async() => {
     try{
-      api.post('/logout');
+      const token = localStorage.getItem('token');
+      await api.post('/logout', {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
     }catch(error){
-
+      console.error(error)
     }finally{
       localStorage.removeItem('token');
       localStorage.removeItem('user');
@@ -54,6 +91,9 @@ const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, set
       )
     },
   ];
+
+  const fullName = `${userData.nombre} ${userData.apellido}`.trim();
+  const avatarName = encodeURIComponent(fullName || 'User');
 
   return (
     <>
@@ -118,10 +158,10 @@ const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, set
         <div className="p-4 border-t border-white/10 bg-white/5 shrink-0">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-gray-700 flex items-center justify-center overflow-hidden shadow-inner">
-              <img src="https://ui-avatars.com/api/?name=Cliente+1&background=D98005&color=fff" alt="User" className="w-full h-full object-cover" />
+              <img src={`https://ui-avatars.com/api/?name=${avatarName}&background=D98005&color=fff`} alt="User" className="w-full h-full object-cover" />
             </div>
             <div className="overflow-hidden">
-              <p className="text-sm font-bold text-white truncate">Cliente 1</p>
+              <p className="text-sm font-bold text-white truncate" title={razonSocial}>{razonSocial}</p>
               <p className="text-xs text-orange-500 truncate font-medium">Empresa Activa</p>
             </div>
           </div>

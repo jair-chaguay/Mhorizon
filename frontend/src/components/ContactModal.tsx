@@ -1,12 +1,11 @@
-import { useEffect, useState} from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import api from "../api/axios";
 
 interface ContactModalProps {
     isOpen: boolean;
     onClose: () => void;
 }
-
-
 
 export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     const [isMounted, setIsMounted] = useState(false);
@@ -39,7 +38,6 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
         } finally {
             setLoading(false);
         }
-
     }
 
     const resetForm = () => {
@@ -55,7 +53,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
             setTimeout(() => {
                 setIsAnimating(true);
                 document.body.style.overflow = "hidden";
-            }, 10);
+            }, 50);
         } else {
             setIsAnimating(false);
             setTimeout(() => {
@@ -82,8 +80,8 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
 
     if (!isMounted) return null;
 
-    return (
-        <div className={`fixed inset-0 z-110 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 transition-opacity duration-300 ${
+    return createPortal(
+        <div className={`fixed inset-0 z-999 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 transition-opacity duration-300 ${
             isAnimating ? "opacity-100" : "opacity-0"}`}
             onClick={onClose}>
             <div
@@ -180,6 +178,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                     ✓ Responderemos su mensaje en la brevedad posible.
                 </p>
             </div>
-        </div>
+        </div>,
+        document.body
     );
 };

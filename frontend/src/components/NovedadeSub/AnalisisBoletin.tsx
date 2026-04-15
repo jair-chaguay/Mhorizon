@@ -7,7 +7,7 @@ interface Informativo {
   titulo: string;
   resolucion_oficial?: string | null;
   descripcion_portada: string;
-  contenido: string; // <-- Aquí viene el HTML de Tiptap
+  contenido: string; 
   imagen_portada_url?: string | null;
   pdf_url?: string | null;
   created_at: string;
@@ -25,7 +25,6 @@ export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo })
     <article className="max-w-225 mx-auto px-5 sm:px-8 py-16 md:py-20 md:mt-10 lg:mt-10 sm:p-0 bg-gray-100">
       <ScrollReveal className="max-w-none text-gray-700 font-light leading-relaxed">
         
-        {/* === CABECERA DEL INFORMATIVO === */}
         <div className="mb-10 border-b border-gray-200 pb-8 reveal-element">
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <span className="bg-orange-500/10 text-orange-500 px-3 py-1 rounded-sm text-[0.70rem] font-bold tracking-widest uppercase">
@@ -53,7 +52,6 @@ export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo })
           dangerouslySetInnerHTML={{ __html: cleanHTML }} 
         />
 
-        {/* === SECCIÓN DE ADJUNTOS === */}
         {informativo.pdf_url && (
           <div className="mt-4 pt-8 border-t border-gray-200 reveal-element delay-200">
             <h3 className="text-[0.85rem] font-bold text-blue-200 uppercase tracking-widest mb-4">

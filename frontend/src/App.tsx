@@ -5,7 +5,7 @@ import { SectoresPage } from "./components/pages/SectoresPage";
 import { NovedadesPage } from "./components/pages/NovedadesPage";
 import { NosotrosPage } from "./components/pages/NosotrosPage";
 import { ConsultoriaEmpresarial } from "./components/pages/ConsultoriaEmpresarial";
-import { AuditoriaPage, CalculadoraPage, Crud, IndustrialPage, GestionPage, Login, OutsourcingPage, FinancieroPage, LogisticoPage } from "./components";
+import { AuditoriaPage, CalculadoraPage, IndustrialPage, GestionPage, Login, OutsourcingPage, FinancieroPage, LogisticoPage } from "./components";
 import { EmpresarialesPage } from "./components/pages/EmpresarialesPage";
 import { NovedadeSubPage } from "./components/pages/NovedadeSubPage";
 import { ScrollToTop } from "./components/ScrollTop";
@@ -40,7 +40,6 @@ function App() {
         <Route path="/novedades-sub/:id" element={<NovedadeSubPage />} />
         <Route path="/calculadora" element={<CalculadoraPage />} />
         <Route path="/nosotros" element={<NosotrosPage />} />
-        <Route path="/crud" element={<Crud />} />
         <Route path="/loginPage" element={<LoginPage />} />
         <Route path="/login/recover-credentials" element={< RecoverCredentials />} />
         <Route path="/login/resetPassword" element={< ResetPassword />} />

@@ -5,7 +5,7 @@ import api from '../../../../api/axios';
 interface ModalAñadirClienteProps {
     isOpen: boolean;
     onClose: () => void;
-    onSuccess: () => void; // Agregamos esto para recargar la tabla
+    onSuccess: () => void; 
 }
 
 export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen, onClose, onSuccess }) => {
@@ -36,9 +36,8 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                 password: password
             };
 
-            await api.post('/cliente', payload); // Llamada al backend
+            await api.post('/cliente', payload); 
             
-            // Limpiar form y cerrar
             setRazonSocial('');
             setIdentificacion('');
             setScore(100);
@@ -46,14 +45,14 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             setPassword('');
             setTipoPersona('Persona Natural');
             
-            onSuccess(); // Recargar la tabla en el componente padre
-            onClose();   // Cerrar modal
+            onSuccess(); 
+            onClose();   
             alert("Cliente añadido exitosamente");
 
         } catch (error: any) {
             const msg = error?.response?.data?.message || "Error al crear cliente";
             setErrorMsg(msg);
-            console.error(error?.response?.data?.errors); // Para ver detalles en consola
+            console.error(error?.response?.data?.errors); 
         } finally {
             setLoading(false);
         }

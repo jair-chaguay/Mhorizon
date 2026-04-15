@@ -1,3 +1,4 @@
+import { Button } from "../Button"
 import { ScrollReveal } from "../ScrollReveal"
 import { HeroExCard } from "./HeroExCard"
 
@@ -48,9 +49,7 @@ export const HeroEx = () => {
                     Transformamos la estructura de su organización para asegurar resiliencia, eficiencia operativa y un dominio sostenible en el mercado ecuatoriano y global.
                 </p>
 
-                <button id="agenda-hero-btn" className="bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-auto rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300">
-                    Agenda una asesoría
-                </button>
+                <Button texto="Agenda una asesoría" estilosPersonalizados="bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-auto rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300"/>
 
             </div>
 
