@@ -8,7 +8,12 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AlertaObligacionMail;
 use Carbon\Carbon;
-
+/**
+ * Comando de consola para enviar alertas críticas el día exacto del vencimiento.
+ * * Este comando unifica las notificaciones del "Día Cero". Busca obligaciones
+ * pendientes que vencen hoy y alerta simultáneamente a todo el equipo de 
+ * administradores activos y al correo de jefatura configurado.
+ */
 class NotificarUrgenteFinal extends Command
 {
     protected $signature = 'notificaciones:urgente-final';

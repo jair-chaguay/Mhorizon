@@ -88,7 +88,7 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
           <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
             Gestor de Noticias Home
           </h1>
-          <p className="text-gray-500 font-light mt-1 text-[1rem]">Administre las noticias del Radar Financiero.</p>
+          <p className="text-gray-500 font-light mt-1 text-[1rem]">Administre las noticias del Radar Financiero (mínimo 4/5).</p>
         </div>
         <button
           onClick={() => onOpenRedactar()}

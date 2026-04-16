@@ -1,12 +1,14 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
+import { Link, useLocation } from "react-router-dom"; 
+import { useState } from "react";
 
 interface NavProps {
-  mobile?: boolean
+  mobile?: boolean;
 }
 
 export const Nav = ({ mobile = false }: NavProps) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  
+  const location = useLocation();
 
   const toggleDropdown = (menu: string) => {
     if (openDropdown === menu) {
@@ -14,6 +16,10 @@ export const Nav = ({ mobile = false }: NavProps) => {
     } else {
       setOpenDropdown(menu);
     }
+  };
+
+  const isActive = (path: string) => {
+    return location.pathname.startsWith(path);
   };
 
   return (
@@ -28,7 +34,9 @@ export const Nav = ({ mobile = false }: NavProps) => {
         >
           <li className={mobile ? "relative w-full" : "relative group py-4"}>
             <div
-              className={`flex items-center gap-1 cursor-pointer transition-colors duration-300 ${mobile ? 'hover:text-orange-500' : 'text-orange-500 hover:text-orange-400'}`}
+              className={`flex items-center gap-1 cursor-pointer transition-colors duration-300 hover:text-orange-500 ${
+                isActive('/soluciones') ? 'text-orange-500' : ''
+              }`}
               onClick={() => mobile && toggleDropdown('soluciones')}
             >
               <Link to="/soluciones" onClick={(e) => mobile && e.preventDefault()}>SOLUCIONES</Link>
@@ -60,7 +68,9 @@ export const Nav = ({ mobile = false }: NavProps) => {
 
           <li className={mobile ? "relative w-full" : "relative group py-4"}>
             <div
-              className="hover:text-orange-500 transition-colors duration-300 flex items-center gap-1 cursor-pointer"
+              className={`flex items-center gap-1 cursor-pointer transition-colors duration-300 hover:text-orange-500 ${
+                isActive('/sectores') ? 'text-orange-500' : ''
+              }`}
               onClick={() => mobile && toggleDropdown('sectores')}
             >
               <Link to="/sectores" onClick={(e) => mobile && e.preventDefault()}>SECTORES</Link>
@@ -86,15 +96,14 @@ export const Nav = ({ mobile = false }: NavProps) => {
                 <li><Link to="/sectores/industrial-comercial" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Industrial y Comercial</Link></li>
                 <li><Link to="/sectores/servicios-empresariales" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Servicios Empresariales</Link></li>
                 <li><Link to="/sectores/logistico-portuario" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Logístico y Portuarios</Link></li>
-
               </ul>
             </div>
           </li>
 
-          <li className="hover:text-orange-500 transition-colors duration-300 py-4">
+          <li className={`hover:text-orange-500 transition-colors duration-300 py-4 ${isActive('/novedades') ? 'text-orange-500' : ''}`}>
             <Link to="/novedades">INFORMATIVOS</Link>
           </li>
-          <li className="hover:text-orange-500 transition-colors duration-300 py-4">
+          <li className={`hover:text-orange-500 transition-colors duration-300 py-4 ${isActive('/nosotros') ? 'text-orange-500' : ''}`}>
             <Link to="/nosotros">NOSOTROS</Link>
           </li>
 
@@ -104,5 +113,5 @@ export const Nav = ({ mobile = false }: NavProps) => {
         </ul>
       </nav>
     </>
-  )
-}
+  );
+};

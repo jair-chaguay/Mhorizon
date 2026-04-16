@@ -9,8 +9,24 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
 
+/**
+ * Controlador de Autenticación de la API.
+ * * Gestiona el inicio y cierre de sesión de los usuarios, la emisión
+ * de tokens de acceso (Sanctum) y el registro del último acceso.
+ */
 class AuthController extends Controller
 {
+    /**
+     * Autentica a un usuario y genera un token de acceso.
+     *
+     * Valida las credenciales ingresadas, verifica que el usuario esté activo
+     * en el sistema, actualiza su fecha de último acceso y devuelve un token 
+     * para consumir endpoints protegidos.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -22,6 +38,7 @@ class AuthController extends Controller
             return response()->json(['message' => 'Datos inválidos', 'errors' => $validator->errors(), 'status' => 400], 400);
         }
 
+        //Busca al usuario junto con sus relaciones (rol y cliente)
         $usuario = Usuario::with(['rol', 'cliente'])->where('correo', $request->correo)->first();
 
         if (!$usuario || !Hash::check($request->password, $usuario->password_hash)) {
@@ -35,6 +52,7 @@ class AuthController extends Controller
         $usuario->ultimo_acceso = Carbon::now();
         $usuario->save();
 
+        //Generar Token de acceso (Laravel Sanctum)
         $token = $usuario->createToken('MHorizonApp')->plainTextToken;
 
         return response()->json([
@@ -45,8 +63,19 @@ class AuthController extends Controller
         ], 200);
     }
 
+
+    /**
+     * Cierra la sesión del usuario actual.
+     *
+     * Revoca el token de acceso que se utilizó para realizar la petición,
+     * invalidándolo para futuras consultas.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function logout(Request $request)
     {
+        // Elimina el token actual que autorizó esta solicitud
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Sesión cerrada correctamente', 'status' => 200], 200);
     }

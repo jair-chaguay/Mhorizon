@@ -1,0 +1,2874 @@
+name: Endpoints
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/login
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      correo:
+        custom: []
+        name: correo
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: ''
+        required: true
+        example: '|]|{+-'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      correo: gbailey@example.net
+      password: '|]|{+-'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/auth/forgot-password
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/auth/verify-otp
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      code:
+        custom: []
+        name: code
+        description: 'Must be 6 characters.'
+        required: true
+        example: miyvdl
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      code: miyvdl
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/auth/reset-password
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        custom: []
+        name: email
+        description: 'Must be a valid email address.'
+        required: true
+        example: gbailey@example.net
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      token:
+        custom: []
+        name: token
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: true
+        example: ']|{+-0pBNvYg'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      email: gbailey@example.net
+      token: architecto
+      password: ']|{+-0pBNvYg'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/rol
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"roles":[{"id":2,"nombre":"cliente","es_interno":false,"nivel_acceso":2,"created_at":"2026-04-10T02:34:09.000000Z","updated_at":"2026-04-10T02:34:09.000000Z"},{"id":1,"nombre":"admin","es_interno":true,"nivel_acceso":1,"created_at":"2026-04-10T02:33:58.000000Z","updated_at":"2026-04-10T02:33:58.000000Z"}],"status":200}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/rol
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      nombre:
+        custom: []
+        name: nombre
+        description: 'Must not be greater than 50 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      es_interno:
+        custom: []
+        name: es_interno
+        description: ''
+        required: true
+        example: false
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      nivel_acceso:
+        custom: []
+        name: nivel_acceso
+        description: 'Must be at least 1. Must not be greater than 100.'
+        required: true
+        example: 22
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      nombre: b
+      es_interno: false
+      nivel_acceso: 22
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/rol/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the rol.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"rol":{"id":1,"nombre":"admin","es_interno":true,"nivel_acceso":1,"created_at":"2026-04-10T02:33:58.000000Z","updated_at":"2026-04-10T02:33:58.000000Z"},"status":200}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/rol/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the rol.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      nombre:
+        custom: []
+        name: nombre
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      es_interno:
+        custom: []
+        name: es_interno
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      nivel_acceso:
+        custom: []
+        name: nivel_acceso
+        description: 'Must be at least 1. Must not be greater than 100.'
+        required: false
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      es_interno: true
+      nivel_acceso: 1
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/rol/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the rol.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/cliente
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"clientes":[{"id":1,"tipo_persona":"R\u00e9gimen General","razon_social_nombres":"EMPRESA S.A","identificacion":"01823902183","score_tributario":100,"creado_por_id":null,"deleted_at":null,"created_at":"2026-04-13T21:03:53.000000Z","updated_at":"2026-04-13T21:03:53.000000Z","creador":null,"usuarios":[{"id":2,"created_at":"2026-04-13T21:03:53.000000Z","updated_at":"2026-04-15T21:25:30.000000Z","rol_id":2,"cliente_id":1,"nombre":"Representante","apellido":"Cliente","correo":"correo@empresa.com","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":"2026-04-15T21:25:30.000000Z"}]},{"id":2,"tipo_persona":"Persona Natural","razon_social_nombres":"JSAJD","identificacion":"092131231","score_tributario":89,"creado_por_id":null,"deleted_at":null,"created_at":"2026-04-15T00:56:41.000000Z","updated_at":"2026-04-15T00:56:41.000000Z","creador":null,"usuarios":[{"id":6,"created_at":"2026-04-15T00:56:41.000000Z","updated_at":"2026-04-15T21:17:05.000000Z","rol_id":2,"cliente_id":2,"nombre":"Representante","apellido":"Cliente","correo":"jairchaguay23@gmail.com","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":"2026-04-15T21:17:05.000000Z"}]}],"status":200}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/cliente/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the cliente.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"cliente":{"id":1,"tipo_persona":"R\u00e9gimen General","razon_social_nombres":"EMPRESA S.A","identificacion":"01823902183","score_tributario":100,"creado_por_id":null,"deleted_at":null,"created_at":"2026-04-13T21:03:53.000000Z","updated_at":"2026-04-13T21:03:53.000000Z","usuarios":[{"id":2,"created_at":"2026-04-13T21:03:53.000000Z","updated_at":"2026-04-15T21:25:30.000000Z","rol_id":2,"cliente_id":1,"nombre":"Representante","apellido":"Cliente","correo":"correo@empresa.com","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":"2026-04-15T21:25:30.000000Z"}],"creador":null},"status":200}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/cliente
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      tipo_persona:
+        custom: []
+        name: tipo_persona
+        description: ''
+        required: true
+        example: 'Persona Natural'
+        type: string
+        enumValues:
+          - 'Régimen General'
+          - Rimpe
+          - 'Contribuyente Especial'
+          - 'Persona Natural'
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      razon_social_nombres:
+        custom: []
+        name: razon_social_nombres
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      identificacion:
+        custom: []
+        name: identificacion
+        description: 'Must not be greater than 20 characters.'
+        required: true
+        example: ngzmiyvdljnikhwa
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      score_tributario:
+        custom: []
+        name: score_tributario
+        description: 'Must be at least 0. Must not be greater than 100.'
+        required: true
+        example: 24
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      correo:
+        custom: []
+        name: correo
+        description: 'Datos del Usuario de acceso. Must be a valid email address. Must not be greater than 150 characters.'
+        required: true
+        example: k
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: true
+        example: 'iw/kXaz<m5L[)~=NG5'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      tipo_persona: 'Persona Natural'
+      razon_social_nombres: b
+      identificacion: ngzmiyvdljnikhwa
+      score_tributario: 24
+      correo: k
+      password: 'iw/kXaz<m5L[)~=NG5'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/cliente/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the cliente.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      tipo_persona:
+        custom: []
+        name: tipo_persona
+        description: ''
+        required: false
+        example: 'Persona Natural'
+        type: string
+        enumValues:
+          - 'Régimen General'
+          - Rimpe
+          - 'Contribuyente Especial'
+          - 'Persona Natural'
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      razon_social_nombres:
+        custom: []
+        name: razon_social_nombres
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      identificacion:
+        custom: []
+        name: identificacion
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      direccion_matriz:
+        custom: []
+        name: direccion_matriz
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      score_tributario:
+        custom: []
+        name: score_tributario
+        description: 'Must be at least 0. Must not be greater than 100.'
+        required: false
+        example: 22
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      correo:
+        custom: []
+        name: correo
+        description: 'Must be a valid email address. Must not be greater than 150 characters.'
+        required: false
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: false
+        example: '{+-0pBNvYgx'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      representante:
+        custom: []
+        name: representante
+        description: 'Must not be greater than 200 characters.'
+        required: false
+        example: w
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      tipo_persona: 'Persona Natural'
+      razon_social_nombres: b
+      direccion_matriz: architecto
+      score_tributario: 22
+      correo: g
+      password: '{+-0pBNvYgx'
+      representante: w
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/cliente/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the cliente.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/usuario
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"usuarios":[{"id":1,"created_at":"2026-04-10T02:35:14.000000Z","updated_at":"2026-04-15T21:16:19.000000Z","rol_id":1,"cliente_id":null,"nombre":"Usuario","apellido":"Admin","correo":"admin@gmail.com","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":"2026-04-15T21:16:19.000000Z","rol":{"id":1,"nombre":"admin","es_interno":true,"nivel_acceso":1,"created_at":"2026-04-10T02:33:58.000000Z","updated_at":"2026-04-10T02:33:58.000000Z"},"cliente":null},{"id":2,"created_at":"2026-04-13T21:03:53.000000Z","updated_at":"2026-04-15T21:25:30.000000Z","rol_id":2,"cliente_id":1,"nombre":"Representante","apellido":"Cliente","correo":"correo@empresa.com","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":"2026-04-15T21:25:30.000000Z","rol":{"id":2,"nombre":"cliente","es_interno":false,"nivel_acceso":2,"created_at":"2026-04-10T02:34:09.000000Z","updated_at":"2026-04-10T02:34:09.000000Z"},"cliente":{"id":1,"tipo_persona":"R\u00e9gimen General","razon_social_nombres":"EMPRESA S.A","identificacion":"01823902183","score_tributario":100,"creado_por_id":null,"deleted_at":null,"created_at":"2026-04-13T21:03:53.000000Z","updated_at":"2026-04-13T21:03:53.000000Z"}},{"id":3,"created_at":"2026-04-13T21:19:50.000000Z","updated_at":"2026-04-15T03:16:43.000000Z","rol_id":1,"cliente_id":null,"nombre":"Jair","apellido":"Chaguay","correo":"jairchaguay@gmail.com","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":"2026-04-15T03:16:43.000000Z","rol":{"id":1,"nombre":"admin","es_interno":true,"nivel_acceso":1,"created_at":"2026-04-10T02:33:58.000000Z","updated_at":"2026-04-10T02:33:58.000000Z"},"cliente":null},{"id":4,"created_at":"2026-04-14T02:49:30.000000Z","updated_at":"2026-04-14T02:49:30.000000Z","rol_id":1,"cliente_id":null,"nombre":"Richard","apellido":"Castro","correo":"rcastro@mhorizo.com.ec","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":null,"rol":{"id":1,"nombre":"admin","es_interno":true,"nivel_acceso":1,"created_at":"2026-04-10T02:33:58.000000Z","updated_at":"2026-04-10T02:33:58.000000Z"},"cliente":null},{"id":5,"created_at":"2026-04-14T02:50:00.000000Z","updated_at":"2026-04-14T02:50:00.000000Z","rol_id":1,"cliente_id":null,"nombre":"Richard","apellido":"Castro","correo":"rcastro@mhorizon.com.ec","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":null,"rol":{"id":1,"nombre":"admin","es_interno":true,"nivel_acceso":1,"created_at":"2026-04-10T02:33:58.000000Z","updated_at":"2026-04-10T02:33:58.000000Z"},"cliente":null},{"id":6,"created_at":"2026-04-15T00:56:41.000000Z","updated_at":"2026-04-15T21:17:05.000000Z","rol_id":2,"cliente_id":2,"nombre":"Representante","apellido":"Cliente","correo":"jairchaguay23@gmail.com","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":"2026-04-15T21:17:05.000000Z","rol":{"id":2,"nombre":"cliente","es_interno":false,"nivel_acceso":2,"created_at":"2026-04-10T02:34:09.000000Z","updated_at":"2026-04-10T02:34:09.000000Z"},"cliente":{"id":2,"tipo_persona":"Persona Natural","razon_social_nombres":"JSAJD","identificacion":"092131231","score_tributario":89,"creado_por_id":null,"deleted_at":null,"created_at":"2026-04-15T00:56:41.000000Z","updated_at":"2026-04-15T00:56:41.000000Z"}}],"status":200}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/usuario/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the usuario.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"usuario":{"id":1,"created_at":"2026-04-10T02:35:14.000000Z","updated_at":"2026-04-15T21:16:19.000000Z","rol_id":1,"cliente_id":null,"nombre":"Usuario","apellido":"Admin","correo":"admin@gmail.com","cargo":null,"activo":true,"deleted_at":null,"ultimo_acceso":"2026-04-15T21:16:19.000000Z","rol":{"id":1,"nombre":"admin","es_interno":true,"nivel_acceso":1,"created_at":"2026-04-10T02:33:58.000000Z","updated_at":"2026-04-10T02:33:58.000000Z"},"cliente":null},"status":200}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/usuario
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      rol_id:
+        custom: []
+        name: rol_id
+        description: 'The <code>id</code> of an existing record in the roles table.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      cliente_id:
+        custom: []
+        name: cliente_id
+        description: 'The <code>id</code> of an existing record in the clientes table.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      nombre:
+        custom: []
+        name: nombre
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      apellido:
+        custom: []
+        name: apellido
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      correo:
+        custom: []
+        name: correo
+        description: 'Must be a valid email address. Must not be greater than 150 characters.'
+        required: true
+        example: z
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: true
+        example: '+-0pBNvYgxwmi/#iw'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      cargo:
+        custom: []
+        name: cargo
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example: u
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      rol_id: architecto
+      nombre: 'n'
+      apellido: g
+      correo: z
+      password: '+-0pBNvYgxwmi/#iw'
+      cargo: u
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/usuario/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the usuario.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      rol_id:
+        custom: []
+        name: rol_id
+        description: 'The <code>id</code> of an existing record in the roles table.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      cliente_id:
+        custom: []
+        name: cliente_id
+        description: 'The <code>id</code> of an existing record in the clientes table.'
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      nombre:
+        custom: []
+        name: nombre
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      apellido:
+        custom: []
+        name: apellido
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      correo:
+        custom: []
+        name: correo
+        description: ''
+        required: false
+        example: null
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      password:
+        custom: []
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: false
+        example: '|{+-0pBNvYgx'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      cargo:
+        custom: []
+        name: cargo
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example: w
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      activo:
+        custom: []
+        name: activo
+        description: ''
+        required: false
+        example: true
+        type: boolean
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      nombre: b
+      apellido: 'n'
+      password: '|{+-0pBNvYgx'
+      cargo: w
+      activo: true
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/usuario/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the usuario.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/logout
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/cliente/{id}/obligaciones'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Obtener las obligaciones de un cliente específico.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the cliente.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/obligacion
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Almacenar una nueva obligación tributaria y sincronizar carpetas.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      cliente_id:
+        custom: []
+        name: cliente_id
+        description: 'The <code>id</code> of an existing record in the clientes table.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      tipo_impuesto:
+        custom: []
+        name: tipo_impuesto
+        description: ''
+        required: true
+        example: 'IVA (Mensual)'
+        type: string
+        enumValues:
+          - 'Impuesto a la Renta'
+          - 'IVA (Mensual)'
+          - 'IVA (Semestral)'
+          - ICE
+          - ISD
+          - 'Activos Mantenidos en el Exterior'
+          - 'Anexo Transaccional (ATS)'
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      fecha_presentacion:
+        custom: []
+        name: fecha_presentacion
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      fecha_vencimiento_exacta:
+        custom: []
+        name: fecha_vencimiento_exacta
+        description: 'Must be a valid date.'
+        required: true
+        example: '2026-04-15T22:01:45'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      cliente_id: architecto
+      tipo_impuesto: 'IVA (Mensual)'
+      fecha_presentacion: 'n'
+      fecha_vencimiento_exacta: '2026-04-15T22:01:45'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/obligacion/{id}/toggle'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Cambiar el estado de la obligación (Pendiente <-> Presentado).'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the obligacion.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/obligacion/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Eliminar una obligación tributaria.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the obligacion.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/informativo
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      titulo:
+        custom: []
+        name: titulo
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      descripcion_portada:
+        custom: []
+        name: descripcion_portada
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      contenido:
+        custom: []
+        name: contenido
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      imagen:
+        custom: []
+        name: imagen
+        description: 'Must be an image. Must not be greater than 2048 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      archivo_pdf:
+        custom: []
+        name: archivo_pdf
+        description: 'Must not be greater than 10000 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      titulo: b
+      descripcion_portada: architecto
+      contenido: architecto
+      archivo_pdf: 'n'
+    fileParameters:
+      imagen: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/informativo/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the informativo.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      imagen:
+        custom: []
+        name: imagen
+        description: 'Must be an image. Must not be greater than 2048 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+      archivo_pdf:
+        custom: []
+        name: archivo_pdf
+        description: 'Must not be greater than 10000 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      archivo_pdf: b
+    fileParameters:
+      imagen: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/informativo/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the informativo.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/noticia/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the noticium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/noticia
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      titulo:
+        custom: []
+        name: titulo
+        description: 'Must not be greater than 150 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      fuente:
+        custom: []
+        name: fuente
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      descripcion_corta:
+        custom: []
+        name: descripcion_corta
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      categoria:
+        custom: []
+        name: categoria
+        description: ''
+        required: true
+        example: Laboral
+        type: string
+        enumValues:
+          - Impuesto
+          - Finanzas
+          - Economía
+          - Laboral
+          - Societario
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      url_destino:
+        custom: []
+        name: url_destino
+        description: 'Must be a valid URL. Must not be greater than 500 characters.'
+        required: true
+        example: z
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      imagen:
+        custom: []
+        name: imagen
+        description: 'Must be an image. Must not be greater than 2048 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      titulo: b
+      fuente: 'n'
+      descripcion_corta: g
+      categoria: Laboral
+      url_destino: z
+    fileParameters:
+      imagen: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PUT
+    uri: 'api/noticia/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the noticium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      titulo:
+        custom: []
+        name: titulo
+        description: 'Must not be greater than 150 characters.'
+        required: false
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      fuente:
+        custom: []
+        name: fuente
+        description: 'Must not be greater than 100 characters.'
+        required: false
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      descripcion_corta:
+        custom: []
+        name: descripcion_corta
+        description: 'Must not be greater than 255 characters.'
+        required: false
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      categoria:
+        custom: []
+        name: categoria
+        description: ''
+        required: false
+        example: Impuesto
+        type: string
+        enumValues:
+          - Impuesto
+          - Finanzas
+          - Economía
+          - Laboral
+          - Societario
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      url_destino:
+        custom: []
+        name: url_destino
+        description: 'Must be a valid URL. Must not be greater than 500 characters.'
+        required: false
+        example: z
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      imagen:
+        custom: []
+        name: imagen
+        description: 'Must be an image. Must not be greater than 2048 kilobytes.'
+        required: false
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      titulo: b
+      fuente: 'n'
+      descripcion_corta: g
+      categoria: Impuesto
+      url_destino: z
+    fileParameters:
+      imagen: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/noticia/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the noticium.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/contacto
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/contacto/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the contacto.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/contacto/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the contacto.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/biblioteca/periodo
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      cliente_id:
+        custom: []
+        name: cliente_id
+        description: 'The <code>id</code> of an existing record in the clientes table.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      anio:
+        custom: []
+        name: anio
+        description: 'Must be 4 digits.'
+        required: true
+        example: '9775'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      cliente_id: architecto
+      anio: '9775'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/biblioteca/subcarpeta
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Crear una subcarpeta (Ej: Estados Financieros)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      periodo_id:
+        custom: []
+        name: periodo_id
+        description: 'The <code>id</code> of an existing record in the biblioteca_periodos table.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      nombre:
+        custom: []
+        name: nombre
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      periodo_id: architecto
+      nombre: 'n'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/biblioteca/upload-documento
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Subir un Documento físico'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      subcarpeta_id:
+        custom: []
+        name: subcarpeta_id
+        description: 'The <code>id</code> of an existing record in the biblioteca_subcarpetas table.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      archivo:
+        custom: []
+        name: archivo
+        description: 'Must be a file. Must not be greater than 15360 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      observacion_cliente:
+        custom: []
+        name: observacion_cliente
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      subcarpeta_id: architecto
+      observacion_cliente: architecto
+    fileParameters:
+      archivo: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/biblioteca/carpeta/{tipo}/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Eliminar Carpeta (Periodo o Subcarpeta)'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      tipo:
+        custom: []
+        name: tipo
+        description: ''
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the {tipo}.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      tipo: architecto
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/informativo/upload-imagen-editor
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      imagen_editor:
+        custom: []
+        name: imagen_editor
+        description: 'Must be an image. Must not be greater than 2048 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanBodyParameters: []
+    fileParameters:
+      imagen_editor: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/clientes/biblioteca
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/biblioteca/upload-obligacion
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Subir documento vinculado a una Obligación Tributaria'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: multipart/form-data
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      obligacion_id:
+        custom: []
+        name: obligacion_id
+        description: 'The <code>id</code> of an existing record in the obligaciones_tributarias table.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      archivo:
+        custom: []
+        name: archivo
+        description: 'Must be a file. Must not be greater than 15360 kilobytes.'
+        required: true
+        example: null
+        type: file
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      observacion_cliente:
+        custom: []
+        name: observacion_cliente
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      obligacion_id: architecto
+      observacion_cliente: architecto
+    fileParameters:
+      archivo: null
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/noticia
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"noticias":[],"status":200}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/informativo
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"informativos":[{"id":9,"creado_por_id":1,"modificado_por_id":1,"titulo":"Actualizaci\u00f3n SRI: Nuevos Porcentajes de Retenci\u00f3n 2026","resolucion_oficial":"NAC-00000009","descripcion_portada":"An\u00e1lisis t\u00e9cnico sobre la Resoluci\u00f3n NAC-00000009 que redefine el cumplimiento tributario para el presente ejercicio fiscal y su impacto directo en la caja corporativa.","contenido":"<p>A partir de las recientes disposiciones del Gobierno Central, el Servicio de Rentas Internas (SRI) ha emitido la Resoluci\u00f3n NAC-00000009. Este documento normativo establece las nuevas directrices obligatorias para los agentes de retenci\u00f3n a nivel nacional.<\/p><h2><strong>Impacto en la Operaci\u00f3n Corporativa<\/strong><\/h2><p><\/p><p>A partir del <strong>1 de marzo de 2026<\/strong>, entra en vigencia la actualizaci\u00f3n obligatoria de retenciones en la fuente para el Impuesto a la Renta. Este cambio estructural afecta principalmente a todas las transacciones comerciales que no se encuentren especificadas bajo ninguna regla especial, modificando el esquema de flujo de caja para proveedores y contratistas. <\/p><p><\/p><table style=\"min-width: 100px;\"><colgroup><col style=\"min-width: 25px;\"><col style=\"min-width: 25px;\"><col style=\"min-width: 25px;\"><col style=\"min-width: 25px;\"><\/colgroup><tbody><tr><th colspan=\"1\" rowspan=\"1\"><p>NOMBRE<\/p><\/th><th colspan=\"1\" rowspan=\"1\"><p>VALOR<\/p><\/th><th colspan=\"1\" rowspan=\"1\"><p>PORCENTAJE<\/p><\/th><th colspan=\"1\" rowspan=\"1\"><p>TOTAL<\/p><\/th><\/tr><tr><td colspan=\"1\" rowspan=\"1\"><p>wsdad<\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p>30<\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p>3%<\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p>1000000<\/p><\/td><\/tr><tr><td colspan=\"1\" rowspan=\"1\"><p>sddada<\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p>40<\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p>2%<\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p>-100000000<\/p><\/td><\/tr><tr><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><\/tr><tr><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><\/tr><tr><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><\/tr><tr><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><td colspan=\"1\" rowspan=\"1\"><p><\/p><\/td><\/tr><\/tbody><\/table><h2><strong>Acciones Recomendadas Inmediatas<\/strong><\/h2><p><\/p><p>Es imperativo que los departamentos financieros y contables parametricen sus sistemas ERP (Enterprise Resource Planning) para reflejar estos nuevos porcentajes antes de la fecha l\u00edmite. Emitir comprobantes de retenci\u00f3n con tasas desactualizadas podr\u00eda generar multas, intereses y la invalidaci\u00f3n de la deducibilidad del gasto ante futuras auditor\u00edas de control del SRI.<\/p><p><strong>Para una transici\u00f3n sin riesgos, el equipo de Consultor\u00eda Tributaria de MHorizon ha desarrollado una matriz de validaci\u00f3n de ERPs que asegura el cumplimiento normativo total de su organizaci\u00f3n en menos de 48 horas.<\/strong><\/p>","imagen_portada_url":"informativos\/portadas\/VK6lkuBCEuu7jOL5IZ92BLTCK1i76aWvrao2JJQ4.jpg","pdf_url":"informativos\/documentos\/KWFoIYy0pOFOZdugd19Acylw0WbkxWPmt4UP8AdM.pdf","created_at":"2026-04-10T23:29:22.000000Z","updated_at":"2026-04-10T23:48:07.000000Z","creador":{"id":1,"nombre":"Usuario","apellido":"Admin"},"modificador":{"id":1,"nombre":"Usuario","apellido":"Admin"}},{"id":3,"creado_por_id":1,"modificado_por_id":null,"titulo":"TRANSICI\u00d3N A NIIF Y CIERRE FISCAL ESTRAT\u00c9GICO","resolucion_oficial":"APLICACI\u00d3N NIIF","descripcion_portada":"Claves esenciales para alinear la normativa contable internacional con las exigencias tributarias locales.","contenido":"asdsad","imagen_portada_url":"informativos\/portadas\/c7rq72M2AUwC9WgfqSfe8B4wIRHRvxZnHEFAzI2A.png","pdf_url":"informativos\/documentos\/bqMEDjnWBxanbKBQCnYhRDCRuk00ktVNM6OxIh4l.pdf","created_at":"2026-04-10T02:39:19.000000Z","updated_at":"2026-04-10T02:39:19.000000Z","creador":{"id":1,"nombre":"Usuario","apellido":"Admin"},"modificador":null},{"id":2,"creado_por_id":1,"modificado_por_id":null,"titulo":"REPORTE DE BENEFICIARIOS FINALES A LA SCVS","resolucion_oficial":"SCVS RESOLUCI\u00d3N","descripcion_portada":"Gu\u00eda t\u00e9cnica sobre la correcta identificaci\u00f3n y declaraci\u00f3n de beneficiarios efectivos para evitar multas societarias.","contenido":"asasdjsakdsakdsajkdjsa","imagen_portada_url":"informativos\/portadas\/brOfVemLOovVBOXWW8IlGq3mLud87zLCGCysGWeP.png","pdf_url":"informativos\/documentos\/YGqEQzrAaRJPCgUH0FiLP9EaIj9BXcBk0yXemZat.pdf","created_at":"2026-04-10T02:38:45.000000Z","updated_at":"2026-04-10T02:38:45.000000Z","creador":{"id":1,"nombre":"Usuario","apellido":"Admin"},"modificador":null}],"status":200}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/informativo/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the informativo.'
+        required: true
+        example: 2
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: '{"id":2,"creado_por_id":1,"modificado_por_id":null,"titulo":"REPORTE DE BENEFICIARIOS FINALES A LA SCVS","resolucion_oficial":"SCVS RESOLUCI\u00d3N","descripcion_portada":"Gu\u00eda t\u00e9cnica sobre la correcta identificaci\u00f3n y declaraci\u00f3n de beneficiarios efectivos para evitar multas societarias.","contenido":"asasdjsakdsakdsajkdjsa","imagen_portada_url":"informativos\/portadas\/brOfVemLOovVBOXWW8IlGq3mLud87zLCGCysGWeP.png","pdf_url":"informativos\/documentos\/YGqEQzrAaRJPCgUH0FiLP9EaIj9BXcBk0yXemZat.pdf","created_at":"2026-04-10T02:38:45.000000Z","updated_at":"2026-04-10T02:38:45.000000Z","creador":{"id":1,"nombre":"Usuario","apellido":"Admin"},"modificador":null}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/contacto
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      nombre:
+        custom: []
+        name: nombre
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: b
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      apellido:
+        custom: []
+        name: apellido
+        description: 'Must not be greater than 100 characters.'
+        required: true
+        example: 'n'
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      correo:
+        custom: []
+        name: correo
+        description: 'Must be a valid email address. Must not be greater than 150 characters.'
+        required: true
+        example: g
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      mensaje:
+        custom: []
+        name: mensaje
+        description: ''
+        required: false
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: true
+        deprecated: false
+    cleanBodyParameters:
+      nombre: b
+      apellido: 'n'
+      correo: g
+      mensaje: architecto
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/biblioteca/arbol/{cliente_id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Obtener todo el árbol de carpetas y archivos de un CLIENTE'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      cliente_id:
+        custom: []
+        name: cliente_id
+        description: 'The ID of the cliente.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      cliente_id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 404
+        content: '{"message":"Cliente no encontrado","status":404}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - DELETE
+    uri: 'api/deleteDocumento/{id}'
+    metadata:
+      custom: []
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Eliminar Documento'
+      description: ''
+      authenticated: false
+      deprecated: false
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        custom: []
+        name: id
+        description: 'The ID of the deleteDocumento.'
+        required: true
+        example: architecto
+        type: string
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      id: architecto
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth: []
+    controller: null
+    method: null
+    route: null

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ObligacionTributaria;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\Rule;
 use App\Models\BibliotecaPeriodo;
 use App\Models\BibliotecaSubcarpeta;
 use Illuminate\Support\Facades\Auth;
@@ -32,10 +32,9 @@ class ObligacionController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'cliente_id'         => 'required|exists:clientes,id',
-            'tipo_impuesto'      => 'required|in:Impuesto a la Renta,IVA (Mensual),IVA (Semestral),ICE,ISD,Activos Mantenidos en el Exterior,Anexo Transaccional (ATS)',
-            'fecha_presentacion' => 'required|string|max:255',
-            'fecha_vencimiento_exacta' => 'required|date',
+            'cliente_id' => 'required|exists:clientes,id',
+            'tipo_impuesto' => ['required',Rule::in(['IVA (Mensual)','IVA (Semestral)','ICE','ISD (Mensual)', 'IRBP', 'ISD (ANUAL)', 'IR (Régimen Sociedad)', 'IR (Régimen Emprendedor)', 'IR (Régimen NP)', 'RETENCIONES FUENTE', 'ANTICIPO UTILIDADES ACUMULADAS', 'ACTIVOS EN EL EXTERIOR', 'IRBP-ANEXO', 'ROTEF', 'OPRE', 'ICT', 'ADI', 'DECLARACIÓN PATRIMONIAL/APP', 'APS-REBEFICS', 'RDEP', 'ATS', 'PRECIOS VENTA ICE'])],
+             'dia_vencimiento' => 'required|integer|min:1|max:31',
         ]);
 
         if ($validator->fails()) {
@@ -46,12 +45,25 @@ class ObligacionController extends Controller
             ], 400);
         }
 
+        $fechaExacta = \App\Models\ObligacionTributaria::calcularFechaVencimiento($request->tipo_impuesto, $request->dia_vencimiento);
+
+        \Carbon\Carbon::setLocale('es');
+        $tipoUpper = strtoupper(trim($request->tipo_impuesto));
+
+        if ($tipoUpper === 'ANTICIPO UTILIDADES ACUMULADAS') {
+            $periodoTexto = 'Agosto - Octubre ' . $fechaExacta->year; 
+        } elseif ($tipoUpper === 'IVA (SEMESTRAL)') {
+            $periodoTexto = 'Semestre ' . ucfirst($fechaExacta->translatedFormat('F Y')); 
+        } else {
+            $periodoTexto = ucfirst($fechaExacta->translatedFormat('F Y'));
+        }
+
         $obligacion = ObligacionTributaria::create([
             'cliente_id'         => $request->cliente_id,
             'tipo_impuesto'      => $request->tipo_impuesto,
-            'fecha_presentacion' => $request->fecha_presentacion,
-            'fecha_vencimiento_exacta' => $request->fecha_vencimiento_exacta,
-            'estado'             => 'Pendiente' // Estado por defecto
+            'fecha_presentacion' => $periodoTexto,
+            'fecha_vencimiento_exacta' => $fechaExacta->format('Y-m-d'),
+            'estado'             => 'Pendiente' 
         ]);
 
         $periodos = BibliotecaPeriodo::where('cliente_id', $obligacion->cliente_id)->get();

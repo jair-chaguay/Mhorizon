@@ -12,10 +12,21 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Controlador de la Biblioteca Virtual.
+ * Gestiona el árbol de directorios (Periodos y Subcarpetas) y la carga/descarga 
+ * de documentos físicos y tributarios para cada cliente.
+ */
 class BibliotecaController extends Controller
 {
     /**
-     * Obtener todo el árbol de carpetas y archivos de un CLIENTE
+     * Obtiene el árbol completo de carpetas y archivos de un cliente.
+     *
+     * Carga de forma anidada: Cliente -> Periodos (Años) -> Subcarpetas Principales 
+     * -> Subcarpetas Secundarias y Documentos.
+     *
+     * @param  int  $cliente_id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function getArbolBiblioteca($cliente_id) 
     {
@@ -40,6 +51,16 @@ class BibliotecaController extends Controller
         ], 200);
     }
 
+
+    /**
+     * Crea un nuevo periodo (año) para un cliente con su estructura base.
+     *
+     * Genera automáticamente las carpetas "Obligaciones Tributarias" (y sus 
+     * respectivas subcarpetas por tipo de impuesto) y "Estados Financieros".
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function storePeriodo(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -48,13 +69,13 @@ class BibliotecaController extends Controller
         ]);
 
         if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
-
+        //Crea el período
         $periodo = BibliotecaPeriodo::create([
             'cliente_id' => $request->cliente_id,
             'anio' => $request->anio,
             'creado_por_id' => Auth::id()
         ]);
-
+        //Crea las subcarpeta Obligaciones Tributarias
         $carpetaObligaciones = BibliotecaSubcarpeta::create([
             'periodo_id' => $periodo->id,
             'parent_id' => null,
@@ -62,6 +83,7 @@ class BibliotecaController extends Controller
             'creado_por_id' => Auth::id()
         ]);
 
+        //Crea las subcarpetas para la carpeta Obligaciones tributarias segun las obligaciones que tenga asignadas el cliente
         $obligaciones = \App\Models\ObligacionTributaria::where('cliente_id', $request->cliente_id)->get();
         
         foreach ($obligaciones as $obligacion) {
@@ -84,7 +106,10 @@ class BibliotecaController extends Controller
     }
 
     /**
-     * Crear una subcarpeta (Ej: Estados Financieros)
+     * Crea una subcarpeta genérica dentro de un periodo.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function storeSubcarpeta(Request $request)
     {
@@ -105,7 +130,13 @@ class BibliotecaController extends Controller
     }
 
     /**
-     * Eliminar Carpeta (Periodo o Subcarpeta)
+     * Elimina una carpeta (sea un Periodo completo o una Subcarpeta).
+     *
+     * Si es una subcarpeta, también elimina físicamente los archivos del disco (Storage).
+     *
+     * @param  string $tipo ('periodo' | 'subcarpeta')
+     * @param  int    $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function deleteCarpeta($tipo, $id)
     {
@@ -130,9 +161,11 @@ class BibliotecaController extends Controller
     }
 
 
-
     /**
-     * Subir un Documento físico
+     * Sube un documento genérico a una subcarpeta específica.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function uploadDocumento(Request $request)
     {
@@ -147,12 +180,13 @@ class BibliotecaController extends Controller
         $file = $request->file('archivo');
         $nombreOriginal = $file->getClientOriginalName();
         $extension = strtolower($file->getClientOriginalExtension());
-        
+        //Clasifica el tipo de archivo como pdf, excel o word y sus extensiones
         $tipo = 'otro';
         if($extension == 'pdf') $tipo = 'pdf';
         elseif(in_array($extension, ['xls', 'xlsx'])) $tipo = 'excel';
         elseif(in_array($extension, ['doc', 'docx'])) $tipo = 'word';
 
+        //Lo guarda en el disco público
         $ruta = $file->store("biblioteca/subcarpeta_{$request->subcarpeta_id}", 'public');
 
         $documento = Documento::create([
@@ -171,7 +205,14 @@ class BibliotecaController extends Controller
 
 
     /**
-     * Subir documento vinculado a una Obligación Tributaria
+     * Sube un documento vinculado a una Obligación Tributaria específica.
+     *
+     * Este método automatiza el proceso: si las carpetas del año o del impuesto no 
+     * existen, las crea. Además, actualiza el estado de la obligación a "Presentado"
+     * y notifica al equipo.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function uploadDocumentoObligacion(Request $request)
     {
@@ -240,7 +281,10 @@ class BibliotecaController extends Controller
 
     
     /**
-     * Eliminar Documento
+     * Elimina un documento específico de la base de datos y del disco físico.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\JsonResponse
      */
     public function deleteDocumento($id)
     {

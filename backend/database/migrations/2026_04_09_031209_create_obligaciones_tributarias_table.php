@@ -15,13 +15,28 @@ return new class extends Migration
             $table->id();
             $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
             $table->enum('tipo_impuesto', [
-                'Impuesto a la Renta',
                 'IVA (Mensual)',
                 'IVA (Semestral)',
                 'ICE',
-                'ISD',
-                'Activos Mantenidos en el Exterior',
-                'Anexo Transaccional (ATS)'
+                'ISD (MENSUAL)',
+                'ISD (ANUAL)',
+                'IRBP',
+                'IR (Régimen Emprendedor)',
+                'IR (Régimen Sociedad)', 
+                'IR (Régimen NP)',
+                'RETENCIONES FUENTE',
+                'ANTICIPO UTILIDADES ACUMULADAS',
+                'ACTIVOS EN EL EXTERIOR',
+                'IRBP-ANEXO',
+                'ROTEF',
+                'OPRE',
+                'ICT',
+                'ADI',
+                'DECLARACIÓN PATRIMONIAL/AAP',
+                'APS-REBEFICS',
+                'RDEP',
+                'ATS',
+                'PRECIOS VENTA ICE'
             ]);
             $table->string('fecha_presentacion');
             $table->enum('estado', ['Pendiente', 'Presentado'])->default('Pendiente');

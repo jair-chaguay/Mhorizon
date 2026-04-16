@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { type ViewClienteID } from './type'; 
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +13,6 @@ interface Props {
 const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, setIsOpen }) => {
   const navigate = useNavigate();
 
-  const [userData, setUserData] = useState({ nombre: '', apellido: '' });
   const [razonSocial, setRazonSocial] = useState('Cargando...');
 
   useEffect(() => {
@@ -22,10 +20,6 @@ const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, set
       const userStr = localStorage.getItem('user');
       if (userStr) {
         const user = JSON.parse(userStr);
-        setUserData({
-          nombre: user.nombre || 'Usuario',
-          apellido: user.apellido || ''
-        });
 
         if (user.cliente_id) {
           try {
@@ -92,7 +86,7 @@ const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, set
     },
   ];
 
-  const fullName = `${userData.nombre} ${userData.apellido}`.trim();
+  const fullName = `${razonSocial.substring(0,2)}`.toUpperCase();
   const avatarName = encodeURIComponent(fullName || 'User');
 
   return (
@@ -107,7 +101,6 @@ const SidebarCliente: React.FC<Props> = ({ activeView, onViewChange, isOpen, set
         <div className="h-20 flex items-center justify-between px-6 border-b border-white/10 shrink-0">
           <img src="images/MHORIZONBOCETO.png" alt="Logo" className="w-36" />
           <button onClick={() => setIsOpen(false)} className="lg:hidden text-gray-400 hover:text-orange-500">
-            {/* SVG Cerrar */}
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
