@@ -33,7 +33,7 @@ class ObligacionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'cliente_id' => 'required|exists:clientes,id',
-            'tipo_impuesto' => ['required',Rule::in(['IVA (Mensual)','IVA (Semestral)','ICE','ISD (Mensual)', 'IRBP', 'ISD (ANUAL)', 'IR (Régimen Sociedad)', 'IR (Régimen Emprendedor)', 'IR (Régimen NP)', 'RETENCIONES FUENTE', 'ANTICIPO UTILIDADES ACUMULADAS', 'ACTIVOS EN EL EXTERIOR', 'IRBP-ANEXO', 'ROTEF', 'OPRE', 'ICT', 'ADI', 'DECLARACIÓN PATRIMONIAL/APP', 'APS-REBEFICS', 'RDEP', 'ATS', 'PRECIOS VENTA ICE'])],
+            'tipo_impuesto' => ['required',Rule::in(['IVA (Mensual)','IVA (Semestral)','ICE','ISD (MENSUAL)', 'IRBP', 'ISD (ANUAL)', 'IR (Régimen Sociedad)', 'IR (Régimen Emprendedor)', 'IR (Régimen NP)', 'RETENCIONES FUENTE', 'ANTICIPO UTILIDADES ACUMULADAS', 'ACTIVOS EN EL EXTERIOR', 'IRBP-ANEXO', 'ROTEF', 'OPRE', 'ICT', 'ADI', 'DECLARACIÓN PATRIMONIAL/APP', 'APS-REBEFICS', 'RDEP', 'ATS', 'PRECIOS VENTA ICE'])],
              'dia_vencimiento' => 'required|integer|min:1|max:31',
         ]);
 

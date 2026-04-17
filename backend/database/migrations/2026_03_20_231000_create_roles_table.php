@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -18,6 +19,11 @@ return new class extends Migration
             $table->integer('nivel_acceso')->default(1);
             $table->timestamps();
         });
+
+        DB::table('roles')->insert([
+            ['nombre' => 'admin', 'es_interno'=>true, 'nivel_acceso'=> 1, 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'cliente', 'es_interno'=>false, 'nivel_acceso'=> 2, 'created_at' => now(), 'updated_at' => now()]
+        ]);
     }
 
     /**

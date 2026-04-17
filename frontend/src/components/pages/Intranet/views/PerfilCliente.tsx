@@ -9,6 +9,7 @@ export interface ObligacionTributaria {
     cliente_id: number;
     tipo_impuesto: string;
     fecha_presentacion: string;
+    fecha_vencimiento_exacta: string;
     estado: 'Pendiente' | 'Presentado';
 }
 
@@ -214,7 +215,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 <button
                                     onClick={handleGuardarPerfil}
                                     disabled={isSaving}
-                                    className={`flex-[2] bg-orange-500/20 rounded-xl p-4 border border-orange-500/50 flex flex-col justify-center transition-colors group shadow-sm ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-orange-500'}`}
+                                    className={`flex-2 bg-orange-500/20 rounded-xl p-4 border border-orange-500/50 flex flex-col justify-center transition-colors group shadow-sm ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-orange-500'}`}
                                 >
                                     <div className="flex items-center justify-center gap-3 w-full">
                                         <span className="text-white font-bold text-[0.90rem] uppercase tracking-wider">{isSaving ? 'Guardando...' : 'Guardar Perfil'}</span>
@@ -264,8 +265,16 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                         <tr key={ob.id} className="hover:bg-gray-50/50 transition-colors group">
                                             <td className="px-5 py-4 font-bold text-blue-200">{ob.tipo_impuesto}</td>
 
-                                            <td className="px-20 py-4 text-gray-600">
-                                                {ob.fecha_presentacion}
+                                            <td className="px-10 py-4 text-gray-600">
+                                                <div className='flex flex-col'>
+                                                    <span className='font-semibold text-gray-700'>
+                                                        {new Date(ob.fecha_vencimiento_exacta + 'T00:00:00').toLocaleDateString('es-ES', {
+                                                            day: '2-digit',
+                                                            month: 'long',
+                                                            year: 'numeric'
+                                                        })}
+                                                    </span>
+                                                </div>
                                             </td>
 
                                             <td className="px-5 py-4">
@@ -282,9 +291,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                 )}
                                             </td>
 
-                                            {/* Celda 4: Acciones */}
                                             <td className="px-5 py-4 text-center flex justify-center items-center gap-2">
-                                                {/* Botón Subir (Solo si está pendiente, si ya se presentó, lo ocultamos o deshabilitamos) */}
                                                 {ob.estado === 'Pendiente' && (
                                                     <button
                                                         onClick={() => onOpenSubir(ob.id)}
@@ -298,7 +305,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                 )}
 
                                                 <button
-                                                    onClick={() => onOpenEliminar(ob.id, ob.tipo_impuesto)}
+                                                    onClick={() => onOpenEliminar(`/obligacion/${ob.id}`, `Obligacion ${ob.tipo_impuesto}`)}
                                                     className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer"
                                                     title="Eliminar Obligación"
                                                 >
