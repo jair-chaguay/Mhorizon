@@ -1,10 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Mail } from 'lucide-react'
+import { Mail, Loader2 } from 'lucide-react'
 import { useState } from 'react';
+import { CustomSelect } from './CustomSelect';
+import api from '../../api/axios';
 
 interface FormCalculadoraProps {
     onResultadosUpdate: (data: any) => void;
 }
+
+const opcionesDiscapacidad = [
+    { value: 'no', label: 'No' },
+    { value: 'si', label: 'Sí (Personal o carga)' }
+];
+
+const opcionesCargas = [
+    { value: '0', label: '0' },
+    { value: '1', label: '1' },
+    { value: '2', label: '2' },
+    { value: '3', label: '3' },
+    { value: '4', label: '4' },
+    { value: '5', label: '5 o más' }
+];
 
 export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) => {
 
@@ -52,10 +68,30 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
     const [ingresosExentos, setIngresosExentos] = useState('');
     const [gastosNoDeducibles, setGastosNoDeducibles] = useState('');
     const [deduccionesAdicionales, setDeduccionesAdicionales] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleCalcular = (e: any) => {
+    const handleCalcular = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        if(!correo){
+            alert("Por favor ingrese un correo");
+            return;
+        }
+
+        setLoading(true);
+        const payload = {
+            correo: correo,
+            tipo_contribuyente: tipoPersona === 'natural' ? 'Natural' : 'Jurídica',
+            regimen: isRimpe
+        }
+
+        try{
+            await api.post('/correoC', payload)
+        }catch(error){
+            console.error("Error al guardar el correo", error)
+        }finally{
+            setLoading(false);
+        }
         const ing = parseFloat(ingresos) || 0;
         const ded = parseFloat(deducibles) || 0;
 
@@ -109,19 +145,17 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
             }
         }
 
-        const tasa = baseImponible > 0 ? ((impuestoAPagar / baseImponible) * 100).toFixed(1) : 0;
 
         onResultadosUpdate({
             base: baseImponible,
             causado: impuestoCausado,
             rebaja: rebaja,
             pagar: impuestoAPagar,
-            tasa: tasa
         });
     };
 
     return (
-        <div className="p-8 md:p-12">
+        <div className="p-8 md:p-12 md:py-20">
             <div className="mb-10">
                 <h2 className="text-blue-200 font-bold text-[1.8rem] md:text-[2rem] tracking-tight leading-tight">
                     Ingrese sus Parámetros
@@ -224,24 +258,21 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
                     <section className="space-y-6 pt-6 border-t border-slate-100">
                         <h4 className="text-blue-200 font-extrabold uppercase tracking-widest text-xs">Datos Personales y Cargas</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase mb-2">¿Discapacidad o Enf. Crónica?</label>
-                                <select value={discapacidad} onChange={(e) => setDiscapacidad(e.target.value)} className="border-slate-200 w-full p-3.5 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-blue-200 font-medium cursor-pointer transition-all">
-                                    <option value="no">No</option>
-                                    <option value="si">Sí (Personal o carga)</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Número de Cargas Familiares</label>
-                                <select value={cargas} onChange={(e) => setCargas(e.target.value)} className="border-slate-200 w-full p-3.5 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-blue-200 font-medium cursor-pointer transition-all">
-                                    <option value="0">0</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5 o más</option>
-                                </select>
-                            </div>
+                            
+                            <CustomSelect 
+                                label="¿Discapacidad o Enf. Crónica?"
+                                options={opcionesDiscapacidad}
+                                value={discapacidad}
+                                onChange={setDiscapacidad}
+                            />
+
+                            <CustomSelect 
+                                label="Número de Cargas Familiares"
+                                options={opcionesCargas}
+                                value={cargas}
+                                onChange={setCargas}
+                            />
+
                         </div>
                         <div>
                             <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Gastos Personales Proyectados</label>
@@ -289,8 +320,15 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
                 )}
 
                 <div className="pt-4 border-t border-gray-100">
-                    <button className="cursor-pointer w-full bg-orange-500 text-white py-5 rounded-xl font-bold tracking-widest text-[0.95rem] shadow-lg shadow-orange-500/30 hover:bg-blue-200 transition-all duration-300 uppercase transform hover:-translate-y-1" type="submit">
-                        Calcular Impuestos y Generar Reporte
+                    <button disabled={loading} className="cursor-pointer w-full bg-orange-500 text-white py-5 rounded-xl font-bold tracking-widest text-[0.95rem] shadow-lg shadow-orange-500/30 hover:bg-blue-200 transition-all duration-300 uppercase transform hover:-translate-y-1" type="submit">
+                        {loading ? (
+                            <>
+                                <Loader2 className="w-5 h-5 animate-spin" />
+                                Procesando...
+                            </>
+                        ) : (
+                            'Calcular Impuestos y Generar Reporte'
+                        )}
                     </button>
                     <div className="flex items-center justify-center gap-2 mt-5">
                         <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>

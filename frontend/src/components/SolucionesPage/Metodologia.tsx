@@ -88,7 +88,7 @@ export const Metodologia = () => {
           </span>
 
           <h2 className="text-white font-extrabold mt-2 text-[2rem] sm:text-[2.4rem] leading-tight text-center lg:text-left tracking-tight uppercase reveal-element delay-100">
-            MÁS QUE NÚMEROS, <br /> <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">ESTRATEGIA PURA</span>
+            MÁS QUE NÚMEROS, <br /> ESTRATEGIA PURA
           </h2>
 
           <p className="text-gray-300 font-light mt-5 text-[1.05rem] text-center lg:text-left leading-relaxed max-w-lg mx-auto lg:mx-0 reveal-element delay-200">

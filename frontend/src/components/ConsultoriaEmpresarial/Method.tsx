@@ -34,12 +34,15 @@ export const Method = () => {
                         <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                             Marco de Trabajo
                         </span>
-                        <h2 className="font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] text-blue-200 leading-tight">
-                            NUESTRA <br />
-                            <span className='text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600'>
+
+
+                        <div className="relative pl-6 flex items-center">
+                            <div className="absolute left-0 w-1 h-1/2 bg-orange-500 rounded-full"></div>
+                            <h2 className="font-bold text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] text-blue-200 leading-tight">
+                                NUESTRA <br />
                                 METODOLOGÍA
-                            </span>
-                        </h2>
+                            </h2>
+                        </div>
                         <p className="mt-6 text-gray-600 text-[1.05rem] sm:text-[1.1rem] leading-relaxed">
                             Combinamos el pensamiento analítico riguroso con la ejecución táctica para ofrecer un impacto financiero y operativo medible en cada etapa del ciclo de vida de su negocio.
                         </p>

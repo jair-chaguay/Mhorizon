@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 
 interface SolucionesProp {
-    urlImg: string
+    icon: React.ReactNode
     title: string
     paragraph: string
     ruta: string
@@ -9,37 +9,44 @@ interface SolucionesProp {
 }
 
 export const SolucionesCard = ({
-    urlImg,
+    icon,
     title,
     paragraph,
     ruta,
-    index = 0 
+    index = 0
 }: SolucionesProp) => {
-    
+
     const delayClass = `delay-${(index + 1) * 100}`;
 
     return (
-        <div className={`bg-white rounded-xl shadow-lg hover:shadow-2xl overflow-hidden flex flex-col transition-all hover:-translate-y-2 duration-300 border border-gray-100 group reveal-element ${delayClass}`}>
-
-            <div className="flex justify-center items-center py-8 bg-gray-50/50 group-hover:bg-orange-50/30 transition-colors">
-                <img className="w-24 h-24 object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" src={urlImg} alt={title} />
+        <div className={`group relative bg-[#151E28] p-8 md:p-12 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 border border-white/5 overflow-hidden reveal-element hover:-translate-y-1 ${delayClass}`}>
+            <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-bl-full translate-x-8 -translate-y-8 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700 ease-out z-0"></div>
+            
+            <div className="relative z-10">
+                {/* Aquí está el truco de los iconos: text-orange-500 que pasa a text-white */}
+                <div className="w-16 h-16 mb-8 flex items-center justify-center rounded-xl bg-white/5 group-hover:bg-orange-500 text-orange-500 group-hover:text-white transition-colors duration-500">
+                    {icon}
+                </div>
             </div>
 
-            <h3 className="flex items-center justify-center min-h-17.5 text-center text-[1.1rem] font-bold bg-blue-200 text-white px-4 tracking-wide">
+            <h3 className="relative z-10 text-xl font-extrabold text-white mb-4 uppercase tracking-wide">
                 {title}
             </h3>
 
-            <div className="flex flex-col flex-1 p-6 md:p-8">
-
-                <p className="text-[0.95rem] text-gray-600 font-light text-center flex-1 leading-relaxed">
+            <div className="relative z-10 flex flex-col flex-1">
+                <p className="text-gray-300 font-light leading-relaxed mb-8 text-[1.05rem]">
                     {paragraph}
                 </p>
 
                 <Link
-                    className="mt-8 text-orange-500 text-[0.9rem] font-bold self-center uppercase tracking-wider hover:text-blue-200 transition-colors flex items-center gap-2"
+                    className="inline-flex items-center gap-2 text-[0.9rem] font-bold text-orange-500 hover:text-white uppercase tracking-wider transition-colors w-fit"
                     to={ruta}
                 >
-                    Conocer más →
+                    Descubrir más
+                    {/* SVG de la flecha con la misma animación del HTML */}
+                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
                 </Link>
             </div>
         </div>

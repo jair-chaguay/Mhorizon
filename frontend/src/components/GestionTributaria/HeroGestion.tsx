@@ -14,7 +14,7 @@ export const HeroGestion = () => {
 
         <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full md:w-[800px] tracking-tight leading-[1.1]">
           ESTRATEGIA Y <br />
-          <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">DEFENSA FISCAL</span>
+          <span className="text-orange-500">DEFENSA FISCAL</span>
         </h1>
 
         <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full md:w-[70%] lg:w-[55%] leading-relaxed">
@@ -22,7 +22,7 @@ export const HeroGestion = () => {
         </p>
 
         <div className="mt-10 md:mt-12">
-          <Button texto="Agenda una Asesoría" estilosPersonalizados="bg-orange-500 text-white font-bold tracking-wider uppercase w-full md:w-[280px] py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300"/>
+          <Button texto="Agendar asesoría" estilosPersonalizados="cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase w-full md:w-[280px] py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300"/>
         </div>
       </div>
 

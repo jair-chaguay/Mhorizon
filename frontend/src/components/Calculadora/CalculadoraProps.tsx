@@ -6,8 +6,8 @@ interface CalculadoraProps {
 
 export const CalculadoraProps = ({ image, title, subtitle }: CalculadoraProps) => {
   return (
-    <div className="flex items-start gap-5">
-      <div className="bg-white/6 hover:bg-orange-500 transition-colors duration-300  p-3 rounded-md shrink-0">
+    <div className=" group flex items-start gap-5">
+      <div className="bg-white/6 group-hover:bg-orange-500 transition-colors duration-300  p-3 rounded-md shrink-0">
         <img className="w-6 h-6 object-contain invert brightness-0" src={image} alt={title} />
       </div>
 

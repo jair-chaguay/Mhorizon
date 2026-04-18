@@ -8,8 +8,8 @@ export const Estrategia = () => {
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                         Resultados Comprobables
                     </span>
-                    <h2 className="text-blue-200 text-[2rem] sm:text-[2.5rem] font-bold leading-tight">
-                        ESTRATEGIA <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">DE VALOR</span>
+                    <h2 className="relative inline-block text-blue-200 font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[3.2rem] tracking-tight leading-tight pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-orange-500 after:rounded-full">
+                        ESTRATEGIA DE VALOR
                     </h2>
                 </div>
 

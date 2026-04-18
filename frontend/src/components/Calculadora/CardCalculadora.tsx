@@ -44,7 +44,6 @@ export const CardCalculadora = ({resultados}: any) => {
                             <div className="pt-4">
                                 <span className="text-white text-[0.70rem] uppercase font-bold tracking-[0.2em] block mb-1">Impuesto a Pagar:</span>
                                 <span className="text-4xl font-black text-orange-500 tracking-tighter block mb-2">{formatoMoneda(resultados?.pagar || 0)}</span>
-                                <span className="text-gray-400 text-[0.65rem] uppercase font-bold tracking-widest">Tasa Proyectada: {resultados?.tasa || 0}%</span>
                             </div>
                         </div>
                     </div>

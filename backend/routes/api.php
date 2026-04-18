@@ -14,6 +14,8 @@ use App\Http\Controllers\Api\BibliotecaController;
 
 use App\Http\Controllers\Api\ObligacionController;
 use App\Http\Controllers\Api\PasswordResetController;
+use App\Http\Controllers\Api\CorreoCalculadoraController;
+
 
 
 
@@ -23,6 +25,13 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/auth/forgot-password', [PasswordResetController::class, 'sendOtp']);
 Route::post('/auth/verify-otp', [PasswordResetController::class, 'verifyOtp']);
 Route::post('/auth/reset-password', [PasswordResetController::class, 'resetPassword']);
+
+Route::get('/correoC', [CorreoCalculadoraController::class, 'index']);
+Route::post('/correoC', [CorreoCalculadoraController::class, 'store']);
+Route::get('/correoC/{id}', [CorreoCalculadoraController::class, 'show']);
+Route::delete('/correoC/{id}', [CorreoCalculadoraController::class, 'destroy']);
+
+
 
 //ROLES
 Route::get('/rol', [RolController::class, 'index']);

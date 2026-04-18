@@ -10,45 +10,44 @@ export const Footer = () => {
       </div>
 
       <ul className="flex flex-wrap justify-center gap-y-3 gap-x-4 sm:gap-x-6 mt-6 text-[0.85rem] sm:text-[0.93rem]">
-        <li className="text-white/70 sm:border-r sm:border-r-white/70 sm:pr-4">
+        <li className="text-white opacity-70 hover:opacity-100 sm:pr-4">
           <a href="">INICIO</a>
         </li>
-        <li className="text-white/70 sm:border-r sm:border-r-white/70 sm:pr-4">
+        <li className="text-white opacity-70 hover:opacity-100 sm:pr-4">
           <a href="">CONSULTORÍA</a>
         </li>
-        <li className="text-white/70 sm:border-r sm:border-r-white/70 sm:pr-4">
+        <li className="text-white sm:pr-4">
           <a href="">OUTSOURCING</a>
         </li>
-        <li className="text-white/70">
+        <li className="text-white">
           <a href="">AUDITORÍA</a>
         </li>
       </ul>
-      <ul className="flex gap-4 sm:gap-5 my-6">
+      <ul className="flex gap-4 sm:gap-8 my-6">
         <li>
           <a href="">
-            <img className="size-7 sm:size-8" src="/images/fb.png" alt="Facebook" />
+            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/fb.png" alt="Facebook" />
           </a>
         </li>
         <li>
           <a href="">
-            <img className="size-7 sm:size-8" src="/images/ig.png" alt="Instagram" />
+            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/ig.png" alt="Instagram" />
           </a>
         </li>
         <li>
           <a href="">
-            <img className="size-7 sm:size-8" src="/images/in.png" alt="LinkedIn" />
+            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/in.png" alt="LinkedIn" />
           </a>
         </li>
         <li>
           <a href="">
-            <img className="size-7 sm:size-8" src="/images/tk.png" alt="TikTok" />
+            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/tk.png" alt="TikTok" />
           </a>
         </li>
       </ul>
-      <hr className="border-t border-white/50 w-full max-w-6xl mt-4 mb-6" />
       <div className="flex flex-col md:flex-row items-center justify-between gap-3 md:gap-6 w-full max-w-6xl text-center md:text-left">
         <p className="text-white/70 text-[0.75rem] sm:text-[0.80rem]">
-          © 2026 MHORIZON. TODOS LOS DERECHOS RESERVADOS | POLÍTICAS DE PRIVACIDAD
+          © 2026 MHORIZON. TODOS LOS DERECHOS RESERVADOS 
         </p>
         <p className="text-white/70 text-[0.75rem] sm:text-[0.80rem]">
           TÉRMINOS DE USO | POLÍTICAS DE PRIVACIDAD

@@ -7,7 +7,6 @@ interface LeaderProps {
   name: string
   cargo: string
   email?: string
-  telf?: string
   urlImg: string
   link: string
 }
@@ -17,7 +16,6 @@ const leadersProp: LeaderProps[] = [
     name: 'Milton Montecé Q.',
     cargo: 'Partner Manager',
     urlImg: 'images/MILTON.png',
-    telf: '+593 972-638-4937',
     email: 'mmontece@mhorizon.com.ec',
     link: 'https://ec.linkedin.com/in/milton-montec%C3%A9-94283029',
   },
@@ -25,7 +23,6 @@ const leadersProp: LeaderProps[] = [
     name: 'Violeta Rodriguez',
     cargo: 'Tax Partner',
     urlImg: 'images/VIOLETA.png',
-    telf: '+593 972-638-4937',
     email: 'vrodriguez@mhorizon.com.ec',
     link: 'https://ec.linkedin.com/in/violeta-rodriguez-35a658a1',
   },
@@ -45,17 +42,17 @@ export const Leaders = () => {
             />
           </div>
 
-          <div className="relative lg:absolute lg:-bottom-10 lg:-left-10 mt-8 lg:mt-0 bg-white w-full sm:max-w-105 p-6 sm:p-8 border-l-4 border-orange-500 rounded-xl shadow-2xl z-10">
-            <h3 className="font-bold text-blue-200 text-[1.1rem] tracking-wide">
+          <div className="relative lg:absolute lg:-bottom-10 lg:-left-10 mt-8 lg:mt-0 bg-blue-200 w-full sm:max-w-105 p-6 sm:p-8 border-l-4 border-orange-500 rounded-xl shadow-2xl z-10">
+            <h3 className="font-bold text-white text-[1.1rem] tracking-wide">
               PERSPECTIVA GLOBAL
             </h3>
 
-            <p className="text-[0.95rem] font-light mt-3 leading-relaxed text-gray-600">
+            <p className="text-[0.95rem] font-light mt-3 leading-relaxed text-gray-400">
               Combinamos visión internacional con un profundo dominio normativo local para potenciar su competitividad corporativa.
             </p>
 
             <Link to={"/nosotros"}
-              className="text-orange-500 text-[0.9rem] font-bold mt-4 inline-flex items-center gap-2 hover:text-[#151E28] transition-colors uppercase tracking-wider"
+              className="text-orange-500 text-[0.9rem] font-bold mt-4 inline-flex items-center gap-2 hover:text-white transition-colors uppercase tracking-wider"
             >
               Conocer más <span className="text-lg">→</span>
             </Link>
@@ -66,9 +63,12 @@ export const Leaders = () => {
           <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
             Directorio Ejecutivo
           </span>
-          <h2 className="font-extrabold text-blue-200 text-[2rem] sm:text-[2.5rem] leading-tight">
-            AUTORIDAD <br />ESTRATÉGICA
-          </h2>
+          <div className="relative pl-6 flex items-center">
+            <div className="absolute left-0 w-1 h-1/2 bg-orange-500 rounded-full"></div>
+            <h2 className="font-extrabold text-blue-200 text-[2rem] sm:text-[2.5rem] leading-tight">
+              AUTORIDAD <br /> ESTRATÉGICA
+            </h2>
+          </div>
 
           <p className="font-light mt-6 text-[1.05rem] leading-relaxed text-gray-600">
             En MHORIZON traducimos la complejidad del entorno empresarial en estrategias claras. Nuestro equipo multidisciplinario combina más de dos décadas de excelencia técnica en auditoría, impuestos y finanzas corporativas.

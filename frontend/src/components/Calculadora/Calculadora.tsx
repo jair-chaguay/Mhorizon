@@ -34,7 +34,7 @@ export const Calculadora = () => {
             Herramienta Analítica
           </span>
           <h2 className="text-white font-extrabold text-[2.2rem] sm:text-[2.5rem] md:text-[2.8rem] leading-tight text-center lg:text-left">
-            INTELIGENCIA FISCAL: <br /><span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">PROYECCIÓN DE RENTA</span>
+            INTELIGENCIA FISCAL: <br />PROYECCIÓN DE RENTA
           </h2>
 
           <p className="text-gray-300 text-[1.1rem] sm:text-[1.2rem] mt-6 text-center lg:text-left max-w-2xl leading-relaxed">
@@ -65,7 +65,7 @@ export const Calculadora = () => {
 
             <Link
               to={"/calculadora"}
-              className="block w-full bg-orange-500 text-white font-bold tracking-wider uppercase rounded-md text-[1.05rem] py-4 hover:bg-blue-200 transition-colors text-center shadow-md hover:shadow-xl duration-300"
+              className="block w-full bg-blue-200 text-white font-bold tracking-wider uppercase rounded-md text-[1.05rem] py-4 hover:bg-orange-500 transition-colors text-center shadow-md hover:shadow-xl duration-300"
             >
               ACCEDER AL SIMULADOR
             </Link>

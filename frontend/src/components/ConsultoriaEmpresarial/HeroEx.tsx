@@ -40,7 +40,7 @@ export const HeroEx = () => {
 
                 <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]">
                     CONSULTORÍA <br/>
-                    <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">
+                    <span className="text-orange-500">
                         EMPRESARIAL
                     </span>
                 </h1>
@@ -49,7 +49,7 @@ export const HeroEx = () => {
                     Transformamos la estructura de su organización para asegurar resiliencia, eficiencia operativa y un dominio sostenible en el mercado ecuatoriano y global.
                 </p>
 
-                <Button texto="Agenda una asesoría" estilosPersonalizados="bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-auto rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300"/>
+                <Button texto="Agendar asesoría" estilosPersonalizados="cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-auto rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300"/>
 
             </div>
 

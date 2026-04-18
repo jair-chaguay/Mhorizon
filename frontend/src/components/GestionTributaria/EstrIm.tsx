@@ -3,7 +3,7 @@ import { ScrollReveal } from '../ScrollReveal'
 
 export const EstrIm = () => {
     return (
-        <section className="bg-white py-20 border-b border-gray-200 overflow-hidden">
+        <section className="bg-blue-200 py-20 border-b border-gray-200 overflow-hidden">
             <ScrollReveal as={"div"} className="px-5 sm:px-8 md:px-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-16 md:gap-12 lg:gap-16">
 
                 <div className="w-full md:w-[50%] h-87.5 sm:h-100 md:h-120 relative flex flex-col items-center reveal-element">

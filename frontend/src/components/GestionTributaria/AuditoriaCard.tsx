@@ -7,7 +7,7 @@ interface autProps {
 
 export const AuditoriaCard = ({ icon, title, content }: autProps) => {
   return (
-    <div className="bg-white/5 border-white/10 border rounded-xl p-8 relative hover:bg-white/10 transition-colors backdrop-blur-sm reveal-element delay-100">
+    <div className="bg-blue-200 border-white/10 border rounded-xl p-8 relative hover:bg-blue-200/95 transition-colors backdrop-blur-sm reveal-element delay-100">
       <div className="absolute -top-5 left-6 bg-orange-500 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
         <img
           className="w-6 h-6 object-contain invert brightness-0"
