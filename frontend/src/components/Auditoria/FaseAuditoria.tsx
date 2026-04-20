@@ -11,7 +11,7 @@ export const FaseAuditoria = () => {
                 <div className="relative z-10">
                     <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm">Fase 01</h4>
                     <h3 className="text-white text-[1.2rem] font-bold mb-4">Diagnóstico Profundo</h3>
-                    <p className="text-gray-400 text-[0.95rem] leading-relaxed">
+                    <p className="text-gray-300 text-[0.95rem] leading-relaxed">
                         Utilizamos algoritmos y sistemas tecnológicos para procesar y categorizar patrones de datos históricos en todas sus entidades financieras de forma simultánea, detectando anomalías tempranas.
                     </p>
                 </div>
@@ -24,7 +24,7 @@ export const FaseAuditoria = () => {
                 <div className="relative z-10">
                     <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm">Fase 02</h4>
                     <h3 className="text-white text-[1.2rem] font-bold mb-4">Cumplimiento Estructural</h3>
-                    <p className="text-gray-400 text-[0.95rem] leading-relaxed mb-4">
+                    <p className="text-gray-300 text-[0.95rem] leading-relaxed mb-4">
                         Mapeamos sus controles internos frente a marcos internacionales (NIIF/GAAP) para asegurar una solidez legal total.
                     </p>
                     <ul className="space-y-2 text-[0.9rem] text-gray-300">
@@ -42,7 +42,7 @@ export const FaseAuditoria = () => {
                 <div className="relative z-10">
                     <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm">Fase 03</h4>
                     <h3 className="text-white text-[1.2rem] font-bold mb-4">Perspectivas de Rendimiento</h3>
-                    <p className="text-gray-400 text-[0.95rem] leading-relaxed">
+                    <p className="text-gray-300 text-[0.95rem] leading-relaxed">
                         Transformamos los hallazgos de la auditoría en oportunidades estratégicas ejecutables. Entregamos reportes enfocados en la optimización del capital, eficiencia fiscal y la reducción general de costos.
                     </p>
                 </div>

@@ -4,7 +4,7 @@ import { ScrollReveal } from "../ScrollReveal"
 export const HeroAuditoria = () => {
 
     return (
-        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-162.5 bg-[url('/images/Recurso52.avif')] bg-cover bg-center overflow-hidden">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-14 2.5 bg-[url('/images/Recurso52.avif')] bg-cover bg-center overflow-hidden">
 
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent">
             </div>
@@ -15,8 +15,7 @@ export const HeroAuditoria = () => {
                 </p>
 
                 <h1 className='text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]'>
-                    AUDITORÍA <br />
-                    <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">FINANCIERA</span>
+                    AUDITORÍA FINANCIERA
                 </h1>
 
                 <p className='text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left'>
@@ -28,7 +27,7 @@ export const HeroAuditoria = () => {
                 </div>
             </div>
 
-            <div className='hidden md:flex gap-5 bg-blue-200/80 backdrop-blur-md border border-white/10 shadow-2xl absolute w-90 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300'>
+            <div className='hidden md:flex gap-5 bg-white/10 backdrop-blur-md border border-white/10 shadow-2xl absolute w-90 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300'>
                 <h2 className='text-orange-500 text-[2.8rem] font-extrabold leading-none'>
                     99.8%
                 </h2>

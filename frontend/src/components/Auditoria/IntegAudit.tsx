@@ -29,7 +29,7 @@ export const IntegAudit = () => {
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                         Prevención y Control
                     </span>
-                    <h2 className="text-blue-200 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
+                    <h2 className="text-blue-200 border-l-6 border-l-orange-500 pl-4 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
                         INTEGRIDAD Y SEGURIDAD
                     </h2>
                     <p className="mt-4 text-gray-600  text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">

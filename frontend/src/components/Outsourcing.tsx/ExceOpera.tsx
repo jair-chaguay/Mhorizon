@@ -8,8 +8,8 @@ export const ExceOpera = () => {
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                         Eficiencia del Back-Office
                     </span>
-                    <h2 className="text-blue-200 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
-                        EXCELENCIA <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">OPERACIONAL</span>
+                    <h2 className="text-blue-200 border-l-6 border-l-orange-500 pl-3 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
+                        EXCELENCIA OPERACIONAL
                     </h2>
                     <p className="mt-4 text-gray-600 text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
                         Enfoque toda su energía en el núcleo de su negocio mientras nuestros especialistas administran su operatividad financiera y de talento humano bajo los más altos estándares normativos.

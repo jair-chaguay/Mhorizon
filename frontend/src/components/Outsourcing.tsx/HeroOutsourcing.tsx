@@ -4,7 +4,7 @@ import { ScrollReveal } from '../ScrollReveal';
 export const HeroOutsourcing = () => {
 
     return (
-        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-162.5 bg-[url('/images/Recurso39.png')] bg-cover bg-center overflow-hidden">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-138.5 bg-[url('/images/Recurso39.png')] bg-cover bg-center overflow-hidden">
 
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent">
             </div>
@@ -15,8 +15,8 @@ export const HeroOutsourcing = () => {
                 </p>
 
                 <h1 className='text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]'>
-                    OUTSOURCING <br />
-                    <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">BPO ESTRATÉGICO</span>
+                    OUTSOURCING BPO<br />
+                    ESTRATÉGICO
                 </h1>
 
                 <p className='text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full leading-relaxed drop-shadow-md text-left'>
@@ -28,12 +28,12 @@ export const HeroOutsourcing = () => {
                     
                 </div>
             </div>
-            <div className='hidden md:flex gap-5 bg-blue-200/80 backdrop-blur-md border border-white/10 shadow-2xl absolute w-90 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300'>
+            <div className='hidden md:flex gap-5 backdrop-blur-md bg-white/10  border border-white/20 shadow-2xl absolute w-90 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300'>
                 <h2 className='text-orange-500 text-[2.8rem] font-extrabold leading-none'>
                     35%
                 </h2>
                 <div>
-                    <p className="text-[0.75rem] font-bold text-gray-300 uppercase tracking-wider">IMPACTO DIRECTO</p>
+                    <p className="text-[0.75rem] font-bold text-white uppercase tracking-wider">IMPACTO DIRECTO</p>
                     <p className="font-light text-[0.95rem] text-white leading-tight mt-1">Reducción media de costos estructurales</p>
                 </div>
             </div>

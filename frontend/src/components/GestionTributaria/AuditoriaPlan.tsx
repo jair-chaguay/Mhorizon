@@ -45,7 +45,7 @@ export const AuditoriaPlan = () => {
           </div>
         </div>
 
-        <div className='grid grid-cols-1 gap-6 mx-6 md:mx-20 w-auto md:w-[50%]'>
+        <div className='grid grid-cols-1 gap-8 mx-6 md:mx-20 w-auto md:w-[50%]'>
           {
             aut.map((auditoria: autProps) => (
               <AuditoriaCard key={auditoria.title} {...auditoria} />

@@ -26,7 +26,7 @@ export const CumplimientoNorm = () => {
                         Gobernanza Corporativa
                     </span>
                     <h2 className="text-blue-200 font-extrabold text-[2rem] md:text-[2.5rem] text-center lg:text-left leading-tight">
-                        CUMPLIMIENTO <br /><span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">NORMATIVO ESTRICTO</span>
+                        CUMPLIMIENTO <br />NORMATIVO ESTRICTO
                     </h2>
                     <p className="text-gray-600  mt-6 text-[1.05rem] text-justify lg:text-left leading-relaxed">
                         En un entorno de transparencia fiscal total impulsado por regulaciones internacionales (convergencia OCDE/BEPS), el cumplimiento normativo es la base innegociable de la reputación corporativa. Actuamos como su principal aliado estratégico.

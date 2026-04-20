@@ -9,7 +9,7 @@ export const Financiero = () => {
             </div>
 
             <div className='w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 relative'>
-                <div className="absolute -top-6 lg:top-10 lg:-left-6 bg-orange-500 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
+                <div className="absolute -top-6 lg:top-10 lg:-left-6 bg-orange-500 group-hover:bg-blue-200 duration-300 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Cumplimiento & Riesgo</p>

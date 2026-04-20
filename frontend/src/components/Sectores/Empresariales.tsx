@@ -9,7 +9,7 @@ export const Empresariales = () => {
             </div>
 
             <div className='w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 relative'>
-                <div className="absolute -top-6 lg:top-10 lg:-left-6 bg-orange-500 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
+                <div className="absolute -top-6 lg:top-10 lg:-left-6 bg-orange-500 group-hover:bg-blue-200 duration-300 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
                     <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
                 </div>
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Asesoría Corporativa</p>
