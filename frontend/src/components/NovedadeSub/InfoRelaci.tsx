@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { BoletinCard, type boletinesProps } from "../Novedades/BoletinCard";
 import { ScrollReveal } from "../ScrollReveal";
-import api from "../../api/axios"; // <-- AJUSTA ESTA RUTA según la ubicación de tu archivo axios
+import api from "../../api/axios"; 
 
 export const InfoRelaci = () => {
     const [boletines, setBoletines] = useState<boletinesProps[]>([]);
@@ -26,6 +26,7 @@ export const InfoRelaci = () => {
             
             const lista = response.data.informativos || [];
             
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const mapeados = lista.slice(0, 3).map((info: any) => ({
                 id: info.id,
                 fecha: formatearFecha(info.created_at),
@@ -49,9 +50,9 @@ export const InfoRelaci = () => {
             <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
 
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                    <div className="max-w-2xl">
+                    <div className="max-w-2xl border-l-orange-500 border-l-6 pl-4">
                         <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
-                            Thought Leadership
+                            Liderazgo intelectual
                         </span>
                         <h2 className="text-blue-200 font-bold text-[2.2rem] sm:text-[2.6rem] uppercase tracking-tight leading-tight">
                             INFORMATIVOS MHORIZON

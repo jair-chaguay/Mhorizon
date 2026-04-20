@@ -27,11 +27,11 @@ export const ArquitecturaEst = () => {
                 <ScrollReveal className="flex flex-col lg:flex-row gap-16 items-center">
 
                     <div className="w-full lg:w-1/2 relative reveal-element">
-                        <div className="aspect-4/3 rounded-xl overflow-hidden relative shadow-2xl z-10">
-                            <img alt="Arquitectura Estratégica" className="w-full h-full object-cover" src="/images/Recurso03.avif" />
+                        <div className="aspect-4/3 rounded-xl overflow-hidden relative shadow-2xl z-10 group">
+                            <img alt="Arquitectura Estratégica" className="w-full h-full object-cover group-hover:scale-105 transform-all duration-300 " src="/images/Recurso03.avif" />
                             <div className="absolute inset-0 bg-blue-200/20 mix-blend-multiply"></div>
 
-                            <div className="absolute bottom-6 right-6 left-6 sm:left-auto bg-blue-200/90 backdrop-blur-md p-6 sm:p-8 text-white rounded-lg shadow-2xl border border-white/10">
+                            <div className="absolute bottom-6 right-6 left-6 sm:left-auto bg-white/10 backdrop-blur-md p-6 sm:p-8 text-white rounded-lg shadow-2xl border border-white/10">
 
                                 <div className="grid grid-cols-2 gap-8">
                                     <div>
@@ -58,12 +58,14 @@ export const ArquitecturaEst = () => {
                     </div>
 
                     <div className="w-full lg:w-1/2 reveal-element delay-200">
-                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                        <div className="border-l-orange-500 border-l-4 pl-3">
+                            <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                             Estructura Sólida
                         </span>
                         <h2 className="text-blue-200 font-extrabold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight mb-10">
-                            ARQUITECTURA <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">ESTRATÉGICA</span>
+                            ARQUITECTURA ESTRATÉGICA
                         </h2>
+                        </div>
 
                         <div className="flex flex-col gap-10">
                             {

@@ -32,15 +32,15 @@ export const Estructura = () => {
 
                 <ScrollReveal className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-center">
 
-                    <div className="w-full lg:w-[45%] relative reveal-element">
-                        <div className="rounded-2xl overflow-hidden shadow-2xl relative aspect-4/5 lg:aspect-square">
+                    <div className="w-full lg:w-[45%] relative reveal-element group">
+                        <div className="rounded-2xl overflow-hidden shadow-2xl relative aspect-4/5 lg:aspect-square group-hover:-translate-y-2 transition-transform duration-300">
                             <img alt="Contenedores portuarios"
                                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                 src="/images/Recurso62.jpg" />
                             <div className="absolute inset-0 bg-blue-200/10 mix-blend-multiply"></div>
                         </div>
 
-                        <div className="absolute -bottom-8 -right-4 sm:-right-8 bg-blue-200 p-8 sm:p-10 rounded-2xl shadow-2xl max-w-[320px] border-t-4 border-orange-500 hidden sm:block">
+                        <div className="absolute -bottom-8 -right-4 sm:-right-8 bg-blue-200 p-8 sm:p-10 rounded-2xl shadow-2xl max-w-[320px] border-t-4 border-orange-500 hidden sm:block group-hover:-translate-y-2 transition-transform duration-300">
                             <p className="text-white font-light italic text-[1.1rem] leading-relaxed drop-shadow-md">
                                 "La confianza del mercado se construye sobre la solidez financiera y el cumplimiento estricto."
 

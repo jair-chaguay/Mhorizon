@@ -18,7 +18,7 @@ export const Industrial = () => {
                 </p>
 
                 <div className='flex flex-wrap gap-2 mb-8'>
-                    <p className='px-3 py-1 bg-white/10 text-white border border-white/20 text-[0.75rem] uppercase tracking-wider rounded-sm'>Mnaufactura</p>
+                    <p className='px-3 py-1 bg-white/10 text-white border border-white/20 text-[0.75rem] uppercase tracking-wider rounded-sm'>Manufactura</p>
                     <p className='px-3 py-1 bg-white/10 text-white border border-white/20 text-[0.75rem] uppercase tracking-wider rounded-sm'>Retail Comercial</p>
                     <p className='px-3 py-1 bg-white/10 text-white border border-white/20 text-[0.75rem] uppercase tracking-wider rounded-sm'>Consumo masivo</p>
                     <p className='px-3 py-1 bg-white/10 text-white border border-white/20 text-[0.75rem] uppercase tracking-wider rounded-sm'>Agroindustria</p>

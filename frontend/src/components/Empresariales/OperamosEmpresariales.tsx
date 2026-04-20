@@ -33,13 +33,15 @@ export const OperamosEmpresariales = () => {
     <section className="py-24 bg-gray-800 overflow-hidden border-b border-gray-200">
       <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
 
-        <div className="mb-16 reveal-element text-center lg:text-left">
-          <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
-            Metodología de Acción
-          </span>
-          <h2 className="text-blue-200 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
-            CÓMO <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">OPERAMOS</span>
-          </h2>
+        <div className="mb-16 reveal-element text-center lg:text-left ">
+          <div className="          border-l-6 border-l-orange-500 pl-3">
+            <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+              Metodología de Acción
+            </span>
+            <h2 className="text-blue-200 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
+              CÓMO OPERAMOS
+            </h2>
+          </div>
           <p className="mt-4 text-gray-600 text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
             Integramos asesoría corporativa, estructuración fiscal y outsourcing integral para que su empresa de servicios escale con seguridad jurídica y eficiencia operativa.
           </p>
@@ -54,8 +56,8 @@ export const OperamosEmpresariales = () => {
 
 
           <div className="bg-orange-500 pt-20 pb-10 px-8 shadow-lg rounded-xl relative border border-gray-100 reveal-element delay-200 hover:shadow-2xl transition-shadow group">
-            <div className="absolute -top-6 left-8 bg-white w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 transition-transform">
-              <Recurso72 className="w-7 h-7 text-orange-500" />
+            <div className="absolute -top-6 left-8 bg-white w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 group-hover:bg-blue-200 transition-all duration-300">
+              <Recurso72 className="w-7 h-7 text-orange-500 group-hover:text-white transition-colors duration-300" />
             </div>
 
             <div className="mt-2 relative z-10">

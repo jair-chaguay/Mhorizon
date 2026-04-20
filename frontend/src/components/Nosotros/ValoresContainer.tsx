@@ -37,8 +37,8 @@ export const ValoresContainer = () => {
         <section className="bg-gray-800 py-24 overflow-hidden border-b border-gray-200">
             <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-20 items-end reveal-element">
-                    <div className="lg:col-span-5">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-20 items-center reveal-element">
+                    <div className="lg:col-span-5 border-l-6 border-l-orange-500 pl-4">
                         <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                             Nuestra Cultura
                         </span>

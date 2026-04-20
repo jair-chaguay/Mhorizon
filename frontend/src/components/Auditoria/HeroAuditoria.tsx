@@ -23,7 +23,7 @@ export const HeroAuditoria = () => {
                 </p>
 
                 <div className="mt-10 md:mt-12 flex">
-                    <Button texto="AGENDAR CONSULTORÍA" estilosPersonalizados="bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl transition-all duration-300"/>
+                    <Button texto="AGENDAR ASESORÍA" estilosPersonalizados="bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-md hover:bg-white hover:text-orange-600 shadow-xl transition-all duration-300"/>
                 </div>
             </div>
 

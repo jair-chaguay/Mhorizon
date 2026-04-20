@@ -11,7 +11,7 @@ interface operamosProps {
 export const OperamosCard = ({ icon: Icon, title, content, list1, list2 }: operamosProps) => {
   return (
     <div className="bg-white pt-14 pb-10 px-8 shadow-lg rounded-xl relative border border-gray-100 reveal-element delay-100 hover:shadow-2xl transition-shadow group">
-      <div className="absolute -top-6 left-8 bg-blue-200 w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 transition-transform">
+      <div className="absolute -top-6 left-8 bg-blue-200 group-hover:bg-orange-500  w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 transition-all duration-300">
         <Icon className="w-7 h-7 text-white" />
       </div>
 

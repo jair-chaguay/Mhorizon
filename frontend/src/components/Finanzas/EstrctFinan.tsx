@@ -24,7 +24,6 @@ const estrucutras: estructurasFinancieras[] = [
 export const EstrctFinan = () => {
     return (
         <section className="py-24 bg-blue-200 overflow-hidden relative">
-            <div className="absolute right-0 top-0 w-1/3 h-full bg-linear-to-l from-white/5 to-transparent pointer-events-none"></div>
 
             <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12 relative z-10">
 
@@ -55,6 +54,7 @@ export const EstrctFinan = () => {
                     </div>
                 </div>
             </ScrollReveal>
+
         </section>
     )
 }

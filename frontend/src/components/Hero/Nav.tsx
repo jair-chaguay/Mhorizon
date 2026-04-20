@@ -103,6 +103,11 @@ export const Nav = ({ mobile = false }: NavProps) => {
           <li className={`hover:text-orange-500 transition-colors duration-300 py-4 ${isActive('/novedades') ? 'text-orange-500' : ''}`}>
             <Link to="/novedades">INFORMATIVOS</Link>
           </li>
+
+          <li className={`hover:text-orange-500 transition-colors duration-300 py-4 ${isActive('/novedades') ? 'text-orange-500' : ''}`}>
+            <Link to="/calculadora">CALCULADORA</Link>
+          </li>
+
           <li className={`hover:text-orange-500 transition-colors duration-300 py-4 ${isActive('/nosotros') ? 'text-orange-500' : ''}`}>
             <Link to="/nosotros">NOSOTROS</Link>
           </li>

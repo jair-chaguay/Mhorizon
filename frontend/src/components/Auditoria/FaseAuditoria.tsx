@@ -5,7 +5,7 @@ export const FaseAuditoria = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-element delay-100">
 
             <div className="relative bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors group overflow-hidden">
-                <div className="absolute -right-6 -top-6 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
+                <div className="absolute right-0 -top-1 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
                     01
                 </div>
                 <div className="relative z-10">
@@ -18,7 +18,7 @@ export const FaseAuditoria = () => {
             </div>
 
             <div className="relative bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors group overflow-hidden">
-                <div className="absolute -right-6 -top-6 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
+                <div className="absolute right-0 -top-1 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
                     02
                 </div>
                 <div className="relative z-10">
@@ -36,7 +36,7 @@ export const FaseAuditoria = () => {
             </div>
 
             <div className="relative bg-white/5 border border-white/10 rounded-xl p-8 hover:bg-white/10 transition-colors group overflow-hidden">
-                <div className="absolute -right-6 -top-6 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
+                <div className="absolute right-0 -top-1 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0">
                     03
                 </div>
                 <div className="relative z-10">

@@ -7,9 +7,8 @@ export const EstrctNegocios = () => {
 
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 mb-20 reveal-element">
                     <div className="w-full lg:w-1/2 order-2 lg:order-1">
-                        <span className="w-12 h-1 bg-orange-500 block mb-6"></span>
-                        <h3 className="text-blue-200 font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight mb-6">
-                            Estructuración de Negocios <span className='text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600'>Logísticos</span>
+                        <h3 className="text-blue-200 font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight mb-6 border-l-4 border-l-orange-500 pl-4">
+                            Estructuración de Negocios Logísticos
                         </h3>
                         <p className="text-blue-200 font-light text-[1.05rem] leading-relaxed mb-6">
                             Asesoría integral para la viabilidad y expansión de flotas de transporte, desarrollo de nuevos centros de distribución y estrategias de inversión en infraestructura de almacenamiento.
@@ -35,14 +34,13 @@ export const EstrctNegocios = () => {
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 reveal-element delay-100">
                     <div className="w-full lg:w-1/2">
                         <div className="group relative rounded-2xl overflow-hidden shadow-2xl aspect-4/3">
-                            <img src="/images/Recurso03.avif" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Consultoría Portuaria"/>
-                                <div className="absolute inset-0 bg-blue-200/10"></div>
+                            <img src="/images/Recurso03.avif" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Consultoría Portuaria" />
+                            <div className="absolute inset-0 bg-blue-200/10"></div>
                         </div>
                     </div>
                     <div className="w-full lg:w-1/2">
-                        <span className="w-12 h-1 bg-orange-500 block mb-6"></span>
-                        <h3 className="text-blue-200 font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight mb-6">
-                            Control de Riesgos en  <span className='text-transparent bg-clip-text bg-linear-to-r from-orange-500 to-orange-600'>Comercio Exterior</span>
+                        <h3 className="text-blue-200 font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight mb-6 border-l-orange-500 border-l-4 pl-4">
+                            Control de Riesgos en  Comercio Exterior
                         </h3>
                         <p className="text-blue-200 font-light text-[1.05rem] leading-relaxed mb-6">
                             Mapeamos y mitigamos las contingencias inherentes a los procesos aduaneros, contables y de facturación internacional, protegiendo a su agencia frente a multas, glosas o clausuras.

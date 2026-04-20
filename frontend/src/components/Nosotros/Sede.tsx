@@ -9,12 +9,14 @@ export const Sede = () => {
                 <ScrollReveal className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
 
                     <div className="lg:col-span-5 reveal-element">
-                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                        <div className='border-l-6 border-l-orange-500 pl-4'>
+                            <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                             Nuestra Ubicación
                         </span>
                         <h2 className="font-extrabold text-[2.2rem] sm:text-[2.8rem] text-blue-200 mb-10 leading-none uppercase tracking-tight">
                             SEDE <br />ESTRATÉGICA
                         </h2>
+                        </div>
 
 
                         <div className="space-y-10 mb-12">
@@ -47,7 +49,7 @@ export const Sede = () => {
                             </div>
                         </div>
 
-                        <Button texto='Agendar Reunión Consultiva' estilosPersonalizados='w-full md:w-auto px-10 py-4 bg-orange-500 text-white font-bold uppercase tracking-wider text-[0.9rem] rounded-sm hover:bg-blue-200 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 cursor-pointer'/>
+                        <Button texto='Agendar Reunión' estilosPersonalizados='w-full md:w-auto px-10 py-4 bg-orange-500 text-white font-bold uppercase tracking-wider text-[0.9rem] rounded-sm hover:bg-blue-200 transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 cursor-pointer'/>
                     </div>
 
                     <div className="lg:col-span-7 h-112.5 md:h-137.5 relative rounded-2xl overflow-hidden border border-gray-200 shadow-2xl reveal-element delay-200">
