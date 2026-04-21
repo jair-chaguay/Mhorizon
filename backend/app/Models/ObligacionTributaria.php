@@ -63,14 +63,14 @@ class ObligacionTributaria extends Model
         if (array_key_exists($tipo, $mesesFijos)) {
             $fechaCalculada = Carbon::createFromDate($anioActual, $mesesFijos[$tipo], $dia);
             
-            if ($fechaCalculada->isPast()) {
+            if ($fechaCalculada->lessTha(Carbon::today())) {
                 $fechaCalculada->addYear();
             }
             return $fechaCalculada;
         }
 
-        $fechaCalculada = Carbon::createFromDate($anioActual, $mesActual, $dia);
-        if ($fechaCalculada->isPast()) {
+        $fechaCalculada = Carbon::createFromDate($anioActual, $mesActual, $dia)->startOfDay();
+        if ($fechaCalculada->lessThan(Carbon::today())) {
             $fechaCalculada->addMonth();
         }
         

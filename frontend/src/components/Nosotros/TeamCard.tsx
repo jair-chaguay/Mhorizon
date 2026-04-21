@@ -2,31 +2,56 @@ interface TeamProp {
     image: string,
     rol: string,
     nombre: string,
-    frase: string
+    frase: string,
+    compact?: boolean
 }
 
 
-export const TeamCard = ({ image, rol, nombre, frase }: TeamProp) => {
+export const TeamCard = ({ image, rol, nombre, frase, compact = false }: TeamProp) => {
     return (
-        <div className="group bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-200 hover:shadow-2xl transition-all duration-500 flex flex-col md:flex-row reveal-element delay-100">
-            <div className="relative md:w-2/5 h-87.5 md:h-auto overflow-hidden bg-blue-200">
+        <div className={`
+            group bg-gray-800 rounded-2xl overflow-hidden shadow-lg border border-gray-200 
+            hover:shadow-2xl transition-all duration-500 flex flex-col md:flex-row
+        `}>
+
+            <div className={`
+                relative md:w-2/5 overflow-hidden bg-blue-200
+                ${compact
+                    ? "h-61 md:h-61 lg:h-61"  
+                    : "h-80 md:h-auto"
+                }
+            `}>
                 <img className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform opacity-90
                     duration-700 group-hover:opacity-100"
                     alt={nombre} src={`/images/${image}`} />
                 <div className="absolute inset-0 bg-linear-to-t from-blue-200 via-blue-200/20 to-transparent opacity-60"></div>
             </div>
 
-            <div className="p-8 md:p-10 md:w-3/5 flex flex-col justify-center bg-white relative">
-                <div className="absolute top-0 right-0 w-16 h-16 border-t-4 border-r-4 border-orange-500/20 rounded-tr-2xl m-4"></div>
-                <p className="text-orange-500 font-bold text-[0.75rem] uppercase tracking-widest mb-2">
+            <div className={`
+                md:w-3/5 flex flex-col justify-center bg-white relative
+                ${compact ? "p-5 md:p-5" : "p-8 md:p-10"}
+            `}>
+            
+                <p className={`
+                text-orange-500 font-bold  uppercase tracking-widest 
+                ${compact ? "text-[0.65rem] mb-1":"text-[0.75rem] mb-2"}`}  
+                >
                     {rol}
                 </p>
-                <h4 className="font-extrabold text-[1.6rem] text-blue-200 tracking-tight mb-4">
+                
+                <h4 className={`
+                    font-extrabold text-blue-200 tracking-tight 
+                    ${compact ? "text-[1rem] mb-2" : "text-[1.6rem] mb-4"}
+                `}>
+
                     {nombre}
                 </h4>
-                <div className="h-px w-12 bg-gray-200 mb-6"></div>
 
-                <p className="text-gray-600 italic font-light leading-relaxed text-[0.95rem] mb-6">
+                <p className={`
+                    text-gray-600 italic font-light leading-relaxed 
+                    ${compact ? "text-[0.80rem] mb-2" : "text-[0.95rem] mb-6"}
+                `}>
+                
                     "{frase}"
                 </p>
 

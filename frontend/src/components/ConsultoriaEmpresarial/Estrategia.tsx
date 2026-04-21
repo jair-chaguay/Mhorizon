@@ -41,7 +41,7 @@ export const Estrategia = () => {
 
                     <div className="flex flex-col gap-6 lg:gap-8 w-full lg:w-[40%] justify-center reveal-element delay-200">
 
-                        <div className="bg-orange-500 text-white py-10 px-8 sm:px-10 rounded-2xl shadow-xl transform hover:-translate-y-2 transition-transform duration-300">
+                        <div className="bg-blue-200 text-white py-10 px-8 sm:px-10 rounded-2xl shadow-xl transform hover:-translate-y-2 transition-transform duration-300">
                             <h3 className="font-bold text-[3rem] sm:text-[3.5rem] leading-none">
                                 42%
                             </h3>

@@ -20,8 +20,29 @@ const teams: TeamProp[] = [
         rol: "Gerente de auditoría",
         nombre: "Violeta Rodriguez",
         frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
+    },
+    {
+        image: "VIOLETA.png",
+        rol: "Gerente de auditoría",
+        nombre: "Violeta Rodriguez",
+        frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
+    },
+    {
+        image: "VIOLETA.png",
+        rol: "Gerente de auditoría",
+        nombre: "Violeta Rodriguez",
+        frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
+    },
+    {
+        image: "VIOLETA.png",
+        rol: "Gerente de auditoría",
+        nombre: "Violeta Rodriguez",
+        frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
     }
 ]
+
+const firstRow = teams.slice(0, 2);
+const rest = teams.slice(2);
 
 export const Team = () => {
     return (
@@ -39,12 +60,19 @@ export const Team = () => {
                     </p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                    {
-                        teams.map((team: TeamProp) => (
-                            <TeamCard key={team.nombre} {...team} />
-                        ))
-                    }
+                <div className="space-y-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                        {
+                            firstRow.map((team: TeamProp) => (
+                                <TeamCard key={team.nombre} {...team} />
+                            ))
+                        }
+                    </div>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-11">
+                        {rest.map((team) => (
+                            <TeamCard key={team.nombre} {...team} compact={true}/>
+                        ))}
+                    </div>
                 </div>
             </ScrollReveal>
         </section>
