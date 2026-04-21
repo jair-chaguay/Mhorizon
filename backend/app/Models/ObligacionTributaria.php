@@ -14,6 +14,7 @@ class ObligacionTributaria extends Model
 
     protected $fillable = [
         'cliente_id',
+        'usuario_id',
         'tipo_impuesto',
         'fecha_presentacion',
         'fecha_vencimiento_exacta',
@@ -25,6 +26,10 @@ class ObligacionTributaria extends Model
         return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 
+    public function creador()
+    {
+        return $this->belongsTo(Usuario::class, 'usuario_id');
+    }
 
     /**
      * Calcula la fecha inicial basada en el tipo de impuesto y el día
@@ -63,7 +68,7 @@ class ObligacionTributaria extends Model
         if (array_key_exists($tipo, $mesesFijos)) {
             $fechaCalculada = Carbon::createFromDate($anioActual, $mesesFijos[$tipo], $dia);
             
-            if ($fechaCalculada->lessTha(Carbon::today())) {
+            if ($fechaCalculada->lessThan(Carbon::today())) {
                 $fechaCalculada->addYear();
             }
             return $fechaCalculada;

@@ -60,6 +60,7 @@ class ObligacionController extends Controller
 
         $obligacion = ObligacionTributaria::create([
             'cliente_id'         => $request->cliente_id,
+            'usuario_id'         => Auth::id() ?? 1,
             'tipo_impuesto'      => $request->tipo_impuesto,
             'fecha_presentacion' => $periodoTexto,
             'fecha_vencimiento_exacta' => $fechaExacta->format('Y-m-d'),

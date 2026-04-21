@@ -41,7 +41,7 @@ export const ConsultoriaEje = () => {
                             />
 
                             {/* Degradado */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-blue-200 via-blue-200/50 to-transparent"></div>
+                            <div className="absolute inset-0 bg-linear-to-t from-blue-200 via-blue-200/50 to-transparent"></div>
 
                         </div>
                     </div>

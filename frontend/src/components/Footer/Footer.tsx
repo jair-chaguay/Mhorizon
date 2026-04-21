@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Footer = () => {
   return (
     <footer className="flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 py-10">
@@ -11,16 +13,16 @@ export const Footer = () => {
 
       <ul className="flex flex-wrap justify-center gap-y-3 gap-x-4 sm:gap-x-6 mt-6 text-[0.85rem] sm:text-[0.93rem]">
         <li className="text-white opacity-70 hover:opacity-100 sm:pr-4">
-          <a href="">INICIO</a>
+          <Link to={"/"}>INICIO</Link>
         </li>
         <li className="text-white opacity-70 hover:opacity-100 sm:pr-4">
-          <a href="">CONSULTORÍA</a>
+          <Link to={"/soluciones/consultoria-empresarial"}>CONSULTORÍA</Link>
         </li>
-        <li className="text-white sm:pr-4">
-          <a href="">OUTSOURCING</a>
+        <li className="text-white opacity-70 hover:opacity-100 sm:pr-4">
+          <Link to={"/soluciones/outsourcing"}>OUTSOURCING</Link>
         </li>
-        <li className="text-white">
-          <a href="">AUDITORÍA</a>
+        <li className="text-white opacity-70 hover:opacity-100">
+          <Link to={"/soluciones/auditoria"}>AUDITORÍA</Link>
         </li>
       </ul>
       <ul className="flex gap-4 sm:gap-8 my-6 pb-18">

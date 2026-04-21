@@ -55,9 +55,9 @@ export const OperamosEmpresariales = () => {
           }
 
 
-          <div className="bg-orange-500 pt-20 pb-10 px-8 shadow-lg rounded-xl relative border border-gray-100 reveal-element delay-200 hover:shadow-2xl transition-shadow group">
-            <div className="absolute -top-6 left-8 bg-white w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 group-hover:bg-blue-200 transition-all duration-300">
-              <Recurso72 className="w-7 h-7 text-orange-500 group-hover:text-white transition-colors duration-300" />
+          <div className="bg-blue-200 pt-20 pb-10 px-8 shadow-lg rounded-xl relative border border-gray-100 reveal-element delay-200 hover:shadow-2xl transition-shadow group">
+            <div className="absolute -top-6 left-8 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 group-hover:bg-white transition-all duration-300">
+              <Recurso72 className="w-7 h-7 text-white group-hover:text-orange-500 transition-colors duration-300" />
             </div>
 
             <div className="mt-2 relative z-10">

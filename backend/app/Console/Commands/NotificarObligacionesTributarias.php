@@ -29,7 +29,7 @@ class NotificarObligacionesTributarias extends Command
 
         //Busca las obligaciones que se encuentren en el intervalo de la fechaUmbral
         //con el estado pendiente y excluye la de hoy, puesto que la maneja otro controlador
-        $obligacionesPendientes = ObligacionTributaria::with('cliente')
+        $obligacionesPendientes = ObligacionTributaria::with(['cliente', 'creador'])
             ->whereDate('fecha_vencimiento_exacta', '>', $hoy) 
             ->whereDate('fecha_vencimiento_exacta', '<=', $fechaUmbral)
             ->where('estado', 'Pendiente')
@@ -40,22 +40,14 @@ class NotificarObligacionesTributarias extends Command
             return;
         }
 
-        $admins = Usuario::whereHas('rol', function ($query) {
-            $query->where('nombre', 'like', '%admin%');
-        })->where('activo', true)->get();
-
-        if ($admins->isEmpty()) {
-            $this->error('No se encontraron usuarios administradores activos.');
-            return;
-        }
-
-        //Busca entre los usuarios a los administradores y envia el correo de alerta
         foreach ($obligacionesPendientes as $obligacion) {
-            foreach ($admins as $admin) {
-                Mail::to($admin->correo)
-                    ->send(new AlertaObligacionMail($obligacion, $admin));
-            }
+        if ($obligacion->creador && $obligacion->creador->activo) {
+            Mail::to($obligacion->creador->correo)
+                ->send(new AlertaObligacionMail($obligacion, $obligacion->creador));
+
+            
         }
+    }
 
         $this->info('Recordatorios enviados con éxito.');
     }

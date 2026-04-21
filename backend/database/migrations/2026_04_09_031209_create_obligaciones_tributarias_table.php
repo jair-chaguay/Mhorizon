@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('obligaciones_tributarias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->constrained('clientes')->onDelete('cascade');
+            $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
             $table->enum('tipo_impuesto', [
                 'IVA (Mensual)',
                 'IVA (Semestral)',

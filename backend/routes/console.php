@@ -9,4 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('notificaciones:tributarias')->dailyAt('10:00');
-Schedule::command('notificaciones:urgente-final')->cron('0 10,15,20 * * *');
+Schedule::command('notificaciones:urgente-final')->cron('0 10,15,18 * * *');

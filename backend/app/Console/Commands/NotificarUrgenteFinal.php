@@ -23,23 +23,20 @@ class NotificarUrgenteFinal extends Command
     {
         $hoy = Carbon::today()->format('Y-m-d');
 
-        $obligaciones = ObligacionTributaria::with('cliente')
+        $obligaciones = ObligacionTributaria::with(['cliente', 'creador'])
             ->whereDate('fecha_vencimiento_exacta', $hoy)
             ->where('estado', 'Pendiente')
             ->get();
 
         if ($obligaciones->isEmpty()) return;
 
-        $admins = Usuario::whereHas('rol', function ($q) {
-            $q->where('nombre', 'like', '%admin%');
-        })->where('activo', true)->get();
-
         $jefeCorreo = env('JEFE_CORREO');
 
         foreach ($obligaciones as $obligacion) {
-            foreach ($admins as $admin) {
-                Mail::to($admin->correo)->send(new AlertaObligacionMail($obligacion, $admin));
-            }
+            if ($obligacion->creador && $obligacion->creador->activo) {
+            Mail::to($obligacion->creador->correo)
+                ->send(new AlertaObligacionMail($obligacion, $obligacion->creador));
+        }
             
             if ($jefeCorreo) {
                 $adminGenerico = new Usuario(['nombre' => 'Jefe', 'apellido' => 'Supervisor']);
