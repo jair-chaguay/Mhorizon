@@ -72,6 +72,14 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, isOpen, set
             onClick={() => onViewChange('view-noticias', 'Gestor de Noticias')}
             icon={<path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9" />}
           />
+          <NavButton
+            label="Web Mail"
+            isActive={false}
+            onClick={() => window.open('http://mail.mhorizon.com.ec/webmail/src/login.php', '_blank', 'noopener,noreferrer')}
+            icon={
+              <path d="M2 6a2 2 0 012-2h16a2 2 0 012 2v.01L12 13 2 6.01V6zm0 2.236V18a2 2 0 002 2h16a2 2 0 002-2V8.236l-9.447 6.3a2 2 0 01-2.106 0L2 8.236z" />
+            }
+          />
 
           <p className="px-2 text-[0.65rem] font-bold text-gray-500 uppercase tracking-widest mb-2 mt-8">Sesión</p>
           <button
@@ -115,17 +123,16 @@ interface NavButtonProps {
 const NavButton = ({ label, isActive, onClick, icon }: NavButtonProps) => (
   <button
     onClick={onClick}
-    className={`cursor-pointer w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-all duration-200 group ${
-      isActive 
-        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20' 
+    className={`cursor-pointer w-full flex items-center gap-3 px-3 py-3 rounded-lg font-medium transition-all duration-200 group ${isActive
+        ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/20'
         : 'text-gray-400 hover:bg-white/5 hover:text-orange-500'
-    }`}
+      }`}
   >
-    <svg 
-      className={`w-5 h-5 ${isActive ? 'text-white' : 'group-hover:text-orange-500'}`} 
-      fill="none" 
-      stroke="currentColor" 
-      viewBox="0 0 24 24" 
+    <svg
+      className={`w-5 h-5 ${isActive ? 'text-white' : 'group-hover:text-orange-500'}`}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
       strokeWidth="2"
     >
       {icon}

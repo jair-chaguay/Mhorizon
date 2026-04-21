@@ -2,7 +2,7 @@ import { ScrollReveal } from "../ScrollReveal"
 
 export const ExceOpera = () => {
     return (
-        <section className='py-24 bg-gray-50 border-b border-gray-200 overflow-hidden'>
+        <section className='py-24 bg-gray-800 border-b border-gray-200 overflow-hidden'>
             <ScrollReveal className='max-w-350 mx-auto px-5 sm:px-8 md:px-12'>
                 <div className='mb-16 reveal-element text-center lg:text-left'>
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">

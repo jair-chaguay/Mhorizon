@@ -9,7 +9,6 @@ export const IndustrialPage = () => {
             <Operamos/>
             <EstrctFinan/>
             <section className='bg-blue-200 '>
-                <hr className='text-gray-400/20'/>
                 <Frase
                     blanco='¿Listo para fortalecer su '
                     naranja='cadena de valor?'

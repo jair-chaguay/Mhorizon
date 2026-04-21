@@ -23,7 +23,7 @@ const estrucutras: estructurasFinancieras[] = [
 
 export const EstrctFinan = () => {
     return (
-        <section className="py-24 bg-blue-200 overflow-hidden relative">
+        <section className="py-24 overflow-hidden relative">
 
             <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12 relative z-10">
 
@@ -31,10 +31,12 @@ export const EstrctFinan = () => {
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
                         Ingeniería de negocios
                     </span>
-                    <h2 className="text-white font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight">
+                    <div>
+                        <h2 className="relative inline-block text-blue-200 font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[2.8rem] tracking-tight leading-tight pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-orange-500 after:rounded-full">
                         ESTRUCTURA EMPRESARIAL
                     </h2>
-                    <p className="mt-4 text-gray-400 text-[1.05rem] leading-relaxed max-w-2xl mx-auto">
+                    </div>
+                    <p className="mt-4 text-gray-500 text-[1.05rem] leading-relaxed max-w-2xl mx-auto">
                         Fortalecemos los cimientos de su corporación mediante estrategias diseñadas para el crecimiento sostenible y la absorción de impactos del mercado.
                     </p>
                 </div>
@@ -48,9 +50,9 @@ export const EstrctFinan = () => {
                 </div>
 
                 <div className="mt-16 flex justify-center reveal-element delay-300">
-                    <div className="inline-flex items-center gap-4 bg-orange-500/10 border border-orange-500/30 px-6 py-4 rounded-full">
+                    <div className="inline-flex items-center gap-4 bg-orange-500/10 border border-orange-500/30 px-6 py-6 rounded-full">
                         <span className="text-orange-500 text-3xl font-extrabold leading-none">100%</span>
-                        <span className="text-white text-[0.85rem] font-bold uppercase tracking-widest border-l border-orange-500/30 pl-4 py-1">Precisión Auditada</span>
+                        <span className="text-orange-500 text-[0.88rem] font-bold uppercase tracking-widest border-l border-orange-500/30 pl-4 py-1">Precisión Auditada</span>
                     </div>
                 </div>
             </ScrollReveal>

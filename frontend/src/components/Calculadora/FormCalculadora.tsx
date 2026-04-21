@@ -73,27 +73,18 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
     const handleCalcular = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if(!correo){
+        if (!correo) {
             alert("Por favor ingrese un correo");
             return;
         }
 
-        setLoading(true);
-        const payload = {
-            correo: correo,
-            tipo_contribuyente: tipoPersona === 'natural' ? 'Natural' : 'Jurídica',
-            regimen: isRimpe
-        }
-
-        try{
-            await api.post('/correoC', payload)
-        }catch(error){
-            console.error("Error al guardar el correo", error)
-        }finally{
-            setLoading(false);
-        }
         const ing = parseFloat(ingresos) || 0;
         const ded = parseFloat(deducibles) || 0;
+
+        if (isRimpe && ing > 300000) {
+            alert(`Alerta: Sus ingresos superan los $300,000. Debe calcular como persona ${tipoPersona === 'natural' ? 'natural' : 'jurídica'} NO RIMPE. Por favor, seleccione 'NO' en la pregunta de régimen RIMPE.`);
+            return;
+        }
 
         let baseImponible = 0;
         let impuestoCausado = 0;
@@ -101,10 +92,6 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
         let impuestoAPagar = 0;
 
         if (isRimpe) {
-            if (ing > 300000) {
-                alert(`Alerta: Sus ingresos superan los $300,000. Debe calcular como persona ${tipoPersona === 'natural' ? 'natural' : 'jurídica'} NO RIMPE. Por favor, seleccione 'NO' en la pregunta de régimen RIMPE.`);
-                return;
-            }
             const rango = tablaRimpe.find(r => ing > r.fb && ing <= r.hasta) || tablaRimpe[0];
 
             if (rango.exc === 0) {
@@ -145,13 +132,33 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
             }
         }
 
-
         onResultadosUpdate({
             base: baseImponible,
             causado: impuestoCausado,
             rebaja: rebaja,
             pagar: impuestoAPagar,
         });
+
+        setLoading(true);
+        const payload = {
+            correo: correo,
+            tipo_contribuyente: tipoPersona === 'natural' ? 'Natural' : 'Jurídica',
+            regimen: isRimpe,
+            resultados: {
+                base: baseImponible,
+                causado: impuestoCausado,
+                rebaja: rebaja,
+                pagar: impuestoAPagar
+            }
+        };
+
+        try {
+            await api.post('/correoC', payload);
+        } catch (error) {
+            console.error("Error al guardar el correo", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -258,15 +265,15 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
                     <section className="space-y-6 pt-6 border-t border-slate-100">
                         <h4 className="text-blue-200 font-extrabold uppercase tracking-widest text-xs">Datos Personales y Cargas</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            
-                            <CustomSelect 
+
+                            <CustomSelect
                                 label="¿Discapacidad o Enf. Crónica?"
                                 options={opcionesDiscapacidad}
                                 value={discapacidad}
                                 onChange={setDiscapacidad}
                             />
 
-                            <CustomSelect 
+                            <CustomSelect
                                 label="Número de Cargas Familiares"
                                 options={opcionesCargas}
                                 value={cargas}
@@ -320,7 +327,7 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
                 )}
 
                 <div className="pt-4 border-t border-gray-100">
-                    <button disabled={loading} className="cursor-pointer w-full bg-orange-500 text-white py-5 rounded-xl font-bold tracking-widest text-[0.95rem] shadow-lg shadow-orange-500/30 hover:bg-blue-200 transition-all duration-300 uppercase transform hover:-translate-y-1" type="submit">
+                    <button disabled={loading} className="cursor-pointer w-full bg-orange-500 text-white py-5 rounded-xl font-bold tracking-widest text-[0.95rem] shadow-lg shadow-orange-500/30 hover:bg-blue-200 transition-all duration-300 uppercase transform hover:-translate-y-1 flex items-center justify-center gap-2" type="submit">
                         {loading ? (
                             <>
                                 <Loader2 className="w-5 h-5 animate-spin" />

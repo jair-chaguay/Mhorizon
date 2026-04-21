@@ -3,7 +3,7 @@ import { ScrollReveal } from "../ScrollReveal"
 
 export const Operamos = () => {
     return (
-        <section className='py-24 bg-gray-50 border-b border-gray-200 overflow-hidden'>
+        <section className='py-24 bg-gray-800 border-b border-gray-200 overflow-hidden'>
             <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
 
                 <div className="mb-14 reveal-element text-center lg:text-left flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-l-6 border-l-orange-500 pl-4">

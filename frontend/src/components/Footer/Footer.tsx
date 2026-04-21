@@ -23,7 +23,7 @@ export const Footer = () => {
           <a href="">AUDITORÍA</a>
         </li>
       </ul>
-      <ul className="flex gap-4 sm:gap-8 my-6">
+      <ul className="flex gap-4 sm:gap-8 my-6 pb-9">
         <li>
           <a href="">
             <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/fb.png" alt="Facebook" />

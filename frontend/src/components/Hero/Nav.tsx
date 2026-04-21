@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom"; 
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 interface NavProps {
@@ -7,7 +7,7 @@ interface NavProps {
 
 export const Nav = ({ mobile = false }: NavProps) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
-  
+
   const location = useLocation();
 
   const toggleDropdown = (menu: string) => {
@@ -34,9 +34,8 @@ export const Nav = ({ mobile = false }: NavProps) => {
         >
           <li className={mobile ? "relative w-full" : "relative group py-4"}>
             <div
-              className={`flex items-center gap-1 cursor-pointer transition-colors duration-300 hover:text-orange-500 ${
-                isActive('/soluciones') ? 'text-orange-500' : ''
-              }`}
+              className={`flex items-center gap-1 cursor-pointer transition-colors duration-300 hover:text-orange-500 ${isActive('/soluciones') ? 'text-orange-500' : ''
+                }`}
               onClick={() => mobile && toggleDropdown('soluciones')}
             >
               <Link to="/soluciones" onClick={(e) => mobile && e.preventDefault()}>SOLUCIONES</Link>
@@ -58,19 +57,46 @@ export const Nav = ({ mobile = false }: NavProps) => {
                   ? "flex flex-col gap-3 pl-4 text-sm font-normal text-white"
                   : "bg-white text-blue-200 shadow-xl rounded-md overflow-hidden flex flex-col border border-gray-100"
               }>
-                <li><Link to="/soluciones/consultoria-empresarial" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Consultoría Empresarial</Link></li>
-                <li><Link to="/soluciones/gestion-tributaria" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Gestión Tributaria</Link></li>
-                <li><Link to="/soluciones/outsourcing" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Outsourcing BPO</Link></li>
-                <li><Link to="/soluciones/auditoria" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Auditoría Financiera</Link></li>
+                <li><Link to="/soluciones/consultoria-empresarial" className={`${isActive('/soluciones/consultoria-empresarial')
+                  ? 'text-orange-500 bg-orange-50'
+                  : ''
+                  } ${mobile
+                    ? "hover:text-orange-500 transition-colors"
+                    : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"
+                  }`}>Consultoría Empresarial
+                </Link></li>
+                <li><Link to="/soluciones/gestion-tributaria" className={`${isActive('/soluciones/gestion-tributaria')
+                  ? 'text-orange-500 bg-orange-50'
+                  : ''
+                  } ${mobile
+                    ? "hover:text-orange-500 transition-colors"
+                    : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"
+                  }`}>Gestión Tributaria
+                </Link></li>
+                <li><Link to="/soluciones/outsourcing" className={`${isActive('/soluciones/outsourcing')
+                  ? 'text-orange-500 bg-orange-50'
+                  : ''
+                  } ${mobile
+                    ? "hover:text-orange-500 transition-colors"
+                    : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"
+                  }`}>Outsourcing BPO
+                </Link></li>
+                <li><Link to="/soluciones/auditoria" className={`${isActive('/soluciones/auditoria')
+                  ? 'text-orange-500 bg-orange-50'
+                  : ''
+                  } ${mobile
+                    ? "hover:text-orange-500 transition-colors"
+                    : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"
+                  }`}>Auditoría Financiera
+                </Link></li>
               </ul>
             </div>
           </li>
 
           <li className={mobile ? "relative w-full" : "relative group py-4"}>
             <div
-              className={`flex items-center gap-1 cursor-pointer transition-colors duration-300 hover:text-orange-500 ${
-                isActive('/sectores') ? 'text-orange-500' : ''
-              }`}
+              className={`flex items-center gap-1 cursor-pointer transition-colors duration-300 hover:text-orange-500 ${isActive('/sectores') ? 'text-orange-500' : ''
+                }`}
               onClick={() => mobile && toggleDropdown('sectores')}
             >
               <Link to="/sectores" onClick={(e) => mobile && e.preventDefault()}>SECTORES</Link>
@@ -92,10 +118,38 @@ export const Nav = ({ mobile = false }: NavProps) => {
                   ? "flex flex-col gap-3 pl-4 text-sm font-normal text-white"
                   : "bg-white text-blue-200 shadow-xl rounded-md overflow-hidden flex flex-col border border-gray-100"
               }>
-                <li><Link to="/sectores/financiero" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Sector Financiero</Link></li>
-                <li><Link to="/sectores/industrial-comercial" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}>Industrial y Comercial</Link></li>
-                <li><Link to="/sectores/servicios-empresariales" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Servicios Empresariales</Link></li>
-                <li><Link to="/sectores/logistico-portuario" className={mobile ? "hover:text-orange-500 transition-colors" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium uppercase tracking-wide"}>Logístico y Portuarios</Link></li>
+                <li><Link to="/sectores/financiero" className={`${isActive('/sectores/financiero')
+                    ? 'text-orange-500 bg-orange-50'
+                    : ''
+                  } ${mobile
+                    ? "hover:text-orange-500 transition-colors"
+                    : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"
+                  }`}>Financiero
+                  </Link></li>
+                <li><Link to="/sectores/industrial-comercial" className={`${isActive('/sectores/industrial-comercial')
+                    ? 'text-orange-500 bg-orange-50'
+                    : ''
+                  } ${mobile
+                    ? "hover:text-orange-500 transition-colors"
+                    : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"
+                  }`}>Industrial y Comercial
+                  </Link></li>
+                <li><Link to="/sectores/servicios-empresariales" className={`${isActive('/sectores/servicios-empresariales')
+                    ? 'text-orange-500 bg-orange-50'
+                    : ''
+                  } ${mobile
+                    ? "hover:text-orange-500 transition-colors"
+                    : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"
+                  }`}>Servicios Empresariales
+                  </Link></li>
+                <li><Link to="/sectores/logistico-portuario" className={`${isActive('/sectores/logistico-portuario')
+                    ? 'text-orange-500 bg-orange-50'
+                    : ''
+                  } ${mobile
+                    ? "hover:text-orange-500 transition-colors"
+                    : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"
+                  }`}>Logístico y Portuarios
+                  </Link></li>
               </ul>
             </div>
           </li>
@@ -104,7 +158,7 @@ export const Nav = ({ mobile = false }: NavProps) => {
             <Link to="/novedades">INFORMATIVOS</Link>
           </li>
 
-          <li className={`hover:text-orange-500 transition-colors duration-300 py-4 ${isActive('/novedades') ? 'text-orange-500' : ''}`}>
+          <li className={`hover:text-orange-500 transition-colors duration-300 py-4 ${isActive('/calculadora') ? 'text-orange-500' : ''}`}>
             <Link to="/calculadora">CALCULADORA</Link>
           </li>
 
