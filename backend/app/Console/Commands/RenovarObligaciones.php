@@ -23,12 +23,13 @@ class RenovarObligaciones extends Command
         foreach ($obligacionesVencidas as $obligacion) {
             $nuevaFecha = $obligacion->calcularProximoVencimiento();
 
-            // Evitar duplicados
+            // Evitar duplicados, verificando si existe a futuro
             $existe = ObligacionTributaria::where('cliente_id', $obligacion->cliente_id)
                 ->where('tipo_impuesto', $obligacion->tipo_impuesto)
                 ->whereDate('fecha_vencimiento_exacta', $nuevaFecha->format('Y-m-d'))
                 ->exists();
 
+            //Si no existe crea una nueva obligación
             if (!$existe) {
                 Carbon::setLocale('es');
                 $nuevoTexto = ucfirst($nuevaFecha->translatedFormat('F Y'));

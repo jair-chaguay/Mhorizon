@@ -38,6 +38,8 @@ class ClienteController extends Controller
             'status' => 200
         ], 200);
     }
+
+    
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
