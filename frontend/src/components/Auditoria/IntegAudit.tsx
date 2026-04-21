@@ -22,7 +22,7 @@ const integridad: inteProps[] = [
 
 export const IntegAudit = () => {
     return (
-        <section className='py-24 bg-gray-50 border-b border-gray-200 overflow-hidden'>
+        <section className='py-24 bg-gray-800 border-b border-gray-200 overflow-hidden'>
             <ScrollReveal className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
 
                 <div className="mb-16 reveal-element text-center lg:text-left">
