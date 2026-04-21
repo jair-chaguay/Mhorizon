@@ -44,13 +44,15 @@ export const ConsultoriaEje = () => {
                     </div>
                 </div>
 
-                <div className="w-full lg:w-1/2 bg-blue-200 px-6 sm:px-12 lg:px-16 py-16 md:py-24 reveal-element delay-200">
-                    <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
-                        NUESTRO ENFOQUE BPO
-                    </span>
-                    <h2 className="text-white font-extrabold text-[2rem] md:text-[2.4rem] leading-tight">
-                        CONSULTORÍA & EJECUCIÓN
-                    </h2>
+                <div className="w-full lg:w-1/2 bg-white px-6 sm:px-12 lg:px-16 py-16 md:py-24 reveal-element delay-200">
+                    <div className="border-l-6 border-l-orange-500 px-6">
+                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
+                            NUESTRO ENFOQUE BPO
+                        </span>
+                        <h2 className="text-blue-200 font-extrabold text-[2rem] md:text-[2.1rem] leading-tight">
+                            CONSULTORÍA & EJECUCIÓN
+                        </h2>
+                    </div>
 
                     <div className="grid grid-cols-1 gap-10 mt-12">
                         {

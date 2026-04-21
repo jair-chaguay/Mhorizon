@@ -10,7 +10,7 @@ export const HeroOutsourcing = () => {
             </div>
 
             <div className="relative z-10 w-full md:w-[65%] lg:w-[55%] pt-10 reveal-element">
-                <p className='inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-1 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm'>
+                <p className='inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-2 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm'>
                     GESTIÓN DELEGADA DE CLASE MUNDIAL
                 </p>
 
