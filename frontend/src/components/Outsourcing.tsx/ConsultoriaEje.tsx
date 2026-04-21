@@ -29,16 +29,27 @@ export const ConsultoriaEje = () => {
     return (
         <section className="bg-white overflow-hidden">
             <ScrollReveal className='flex flex-col lg:flex-row min-h-150'>
-                <div className="w-full lg:w-1/2 relative min-h-112.5 lg:min-h-full reveal-element">
-                    <img className="absolute inset-0 w-full h-full object-cover" src="/images/Recurso49.avif" alt="Recurso49" />
+                <div className="w-full lg:w-1/2 relative min-h-112.5 lg:min-h-full reveal-element group">
+                    <div className="absolute inset-0 p-6 sm:p-10 lg:p-14">
+                        <div className="relative w-full h-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
 
-                    <div className="absolute inset-0 bg-linear-to-t from-blue-200 via-blue-200/50 to-transparent">
+                            {/* Imagen */}
+                            <img
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                src="/images/Recurso49.avif"
+                                alt="Recurso49"
+                            />
+
+                            {/* Degradado */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-blue-200 via-blue-200/50 to-transparent"></div>
+
+                        </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 p-8 lg:p-12 w-full">
-                        <h4 className='text-white shadow-2xl font-extrabold text-[1.6rem] md:text-[2rem] leading-tight'>
+                    <div className="absolute bottom-11 left-6 p-8 lg:p-18 w-full">
+                        <h4 className='text-white shadow-2xl font-extrabold text-[1.6rem] md:text-[1.8rem] leading-tight'>
                             REDUCCIÓN DE COSTOS ESTRUCTURALES
                         </h4>
-                        <p className="text-gray-200 font-light mt-3 w-full lg:w-[90%] text-[1.05rem] leading-relaxed">
+                        <p className="text-gray-200 font-light mt-3 w-full lg:w-[90%] text-[0.9rem] leading-relaxed">
                             Transformamos los altos costos fijos de un departamento interno en costos variables eficientes, reduciendo la carga operativa y los riesgos laborales sin comprometer la excelencia de la información.
                         </p>
                     </div>
