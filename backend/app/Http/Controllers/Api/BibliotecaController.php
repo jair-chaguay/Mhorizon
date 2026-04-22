@@ -89,7 +89,7 @@ class BibliotecaController extends Controller
         foreach ($obligaciones as $obligacion) {
             BibliotecaSubcarpeta::create([
                 'periodo_id' => $periodo->id,
-                'parent_id' => $carpetaObligaciones->id, // Las metemos dentro de la carpeta principal
+                'parent_id' => $carpetaObligaciones->id, 
                 'nombre' => $obligacion->tipo_impuesto,
                 'creado_por_id' => Auth::id()
             ]);
@@ -187,7 +187,7 @@ class BibliotecaController extends Controller
         elseif(in_array($extension, ['doc', 'docx'])) $tipo = 'word';
 
         //Lo guarda en el disco público
-        $ruta = $file->store("biblioteca/subcarpeta_{$request->subcarpeta_id}", 'public');
+            $ruta = $file->store("biblioteca/subcarpeta_{$request->subcarpeta_id}", 'public');
 
         $documento = Documento::create([
             'subcarpeta_id' => $request->subcarpeta_id,

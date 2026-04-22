@@ -19,7 +19,10 @@ class ObligacionController extends Controller
      */
     public function indexCliente($cliente_id)
     {
-        $obligaciones = ObligacionTributaria::where('cliente_id', $cliente_id)->get();
+        $hoy = \Carbon\Carbon::today()->format('Y-m-d');
+        $obligaciones = ObligacionTributaria::where('cliente_id', $cliente_id)
+        ->whereDate('fehca_vencimiento_exacta', '>=', $hoy)
+        ->get();
         return response()->json([
             'obligaciones' => $obligaciones,
             'status' => 200

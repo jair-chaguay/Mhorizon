@@ -17,7 +17,6 @@ class RenovarObligaciones extends Command
 
         // Busca obligaciones que ya pasaron de fecha y están marcadas como "Presentado"
         $obligacionesVencidas = ObligacionTributaria::whereDate('fecha_vencimiento_exacta', '<', $hoy)
-            ->where('estado', 'Presentado')
             ->get();
 
         foreach ($obligacionesVencidas as $obligacion) {
@@ -36,6 +35,7 @@ class RenovarObligaciones extends Command
 
                 ObligacionTributaria::create([
                     'cliente_id' => $obligacion->cliente_id,
+                    'usuario_id' => $obligacion->usuario_id ?? 1,
                     'tipo_impuesto' => $obligacion->tipo_impuesto,
                     'fecha_presentacion' => $nuevoTexto,
                     'fecha_vencimiento_exacta' => $nuevaFecha->format('Y-m-d'),
