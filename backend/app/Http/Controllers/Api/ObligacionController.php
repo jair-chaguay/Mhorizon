@@ -21,7 +21,7 @@ class ObligacionController extends Controller
     {
         $hoy = \Carbon\Carbon::today()->format('Y-m-d');
         $obligaciones = ObligacionTributaria::where('cliente_id', $cliente_id)
-        ->whereDate('fehca_vencimiento_exacta', '>=', $hoy)
+        ->whereDate('fecha_vencimiento_exacta', '>=', $hoy)
         ->get();
         return response()->json([
             'obligaciones' => $obligaciones,
