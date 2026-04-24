@@ -17,7 +17,7 @@ export const CalculadoraPage = () => {
             <HeroCalculadora />
 
             <section className='py-20 md:py-28 bg-gray-50'>
-                <ScrollReveal className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12">
+                <ScrollReveal className="max-w-7xl mx-auto px-5 sm:px-8 md:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start relative">
                         
                         <div className="lg:col-span-8 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-500 border border-gray-100 overflow-hidden reveal-element">

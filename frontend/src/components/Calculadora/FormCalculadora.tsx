@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Mail, Loader2 } from 'lucide-react'
 import { useState } from 'react';
@@ -55,9 +56,11 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
     // Estados principales
     const [tipoPersona, setTipoPersona] = useState('natural');
     const [isRimpe, setIsRimpe] = useState(false);
+    const [tipoRimpe, setTipoRimpe] = useState('popular'); // Nuevo estado
     const [correo, setCorreo] = useState('');
     const [ingresos, setIngresos] = useState('');
     const [deducibles, setDeducibles] = useState('');
+    const [creditosTributarios, setCreditosTributarios] = useState(''); // Nuevo estado
 
     // Estados Persona Natural
     const [discapacidad, setDiscapacidad] = useState('no');
@@ -80,9 +83,18 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
 
         const ing = parseFloat(ingresos) || 0;
         const ded = parseFloat(deducibles) || 0;
+        let cred = parseFloat(creditosTributarios) || 0;
+
+        if (tipoPersona === 'natural' && isRimpe && tipoRimpe === 'popular') {
+            cred = 0;
+            if (ing > 20000) {
+                alert(`Alerta: Si ingresa un valor mayor a $20,000 no puede calcular como Negocio Popular. Debe calcular como Emprendedor.`);
+                return;
+            }
+        }
 
         if (isRimpe && ing > 300000) {
-            alert(`Alerta: Sus ingresos superan los $300,000. Debe calcular como persona ${tipoPersona === 'natural' ? 'natural' : 'jurídica'} NO RIMPE. Por favor, seleccione 'NO' en la pregunta de régimen RIMPE.`);
+            alert(`Alerta: Sus ingresos superan los $300,000. Debe calcular como persona ${tipoPersona === 'natural' ? 'natural' : 'jurídica'} NO RIMPE. Por favor, seleccione 'GENERAL' en la pregunta de régimen.`);
             return;
         }
 
@@ -92,18 +104,19 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
         let impuestoAPagar = 0;
 
         if (isRimpe) {
-            const rango = tablaRimpe.find(r => ing > r.fb && ing <= r.hasta) || tablaRimpe[0];
+            const rango = tablaRimpe.find(r => ing > r.fb && ing <= r.hasta) || tablaRimpe.find(r => ing === 0) || tablaRimpe[0];
 
+            let impuestoAPagarBruto = 0;
             if (rango.exc === 0) {
-                impuestoAPagar = rango.ib;
+                impuestoAPagarBruto = rango.ib;
             } else {
                 const valorExcedente = (ing - rango.fb) * rango.exc;
-                impuestoAPagar = valorExcedente + rango.ib;
+                impuestoAPagarBruto = valorExcedente + rango.ib;
             }
 
             baseImponible = ing;
-            impuestoCausado = impuestoAPagar;
-
+            impuestoCausado = impuestoAPagarBruto;
+            impuestoAPagar = impuestoCausado - cred; // Restar créditos
         } else {
             if (tipoPersona === 'juridica') {
                 const exentos = parseFloat(ingresosExentos) || 0;
@@ -112,8 +125,7 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
 
                 baseImponible = Math.max(0, ing - ded - exentos + noDeducibles - adicionales);
                 impuestoCausado = baseImponible * 0.25;
-                impuestoAPagar = impuestoCausado;
-
+                impuestoAPagar = impuestoCausado - cred; // Restar créditos
             } else {
                 // Persona Natural NO Rimpe
                 baseImponible = Math.max(0, ing - ded);
@@ -128,7 +140,7 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
 
                 const montoMax = hasDisc ? 82180.00 : maxGastos[Math.min(numCargas, 5)];
                 rebaja = Math.min(proy, montoMax) * 0.18;
-                impuestoAPagar = Math.max(0, impuestoCausado - rebaja);
+                impuestoAPagar = Math.max(0, impuestoCausado - rebaja) - cred; // Restar créditos al final
             }
         }
 
@@ -136,7 +148,8 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
             base: baseImponible,
             causado: impuestoCausado,
             rebaja: rebaja,
-            pagar: impuestoAPagar,
+            creditos: cred,
+            pagar: impuestoAPagar, // Puede ser negativo (Saldo a favor)
         });
 
         setLoading(true);
@@ -148,6 +161,7 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
                 base: baseImponible,
                 causado: impuestoCausado,
                 rebaja: rebaja,
+                creditos: cred,
                 pagar: impuestoAPagar
             }
         };
@@ -160,6 +174,16 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
             setLoading(false);
         }
     };
+
+    const inputCreditosRender = (
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">Créditos Tributarios</label>
+            <div className="md:w-1/2">
+                <input type="number" value={creditosTributarios} onChange={(e) => setCreditosTributarios(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md focus:ring-1 focus:ring-orange-500 outline-none" placeholder="0.00" step="0.01" />
+            </div>
+        </div>
+    );
+    const showCreditosInValores = !(tipoPersona === 'juridica' && !isRimpe) && !(tipoPersona === 'natural' && isRimpe && tipoRimpe === 'popular');
 
     return (
         <div className="p-8 md:p-12 md:py-20">
@@ -198,132 +222,136 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
                     </div>
                 </section>
 
-                <hr className="border-slate-100" />
-
-                <section>
-                    <div className="flex items-center gap-4 mb-6">
-                        <div className="w-1.5 h-6 bg-orange-500 rounded-full"></div>
-                        <h3 className="text-[1.1rem] font-bold text-blue-200 uppercase tracking-wide">
-                            Perfil Tributario
-                        </h3>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                        <div className="bg-gray-50 p-6 rounded-xl border border-slate-100">
-                            <label className="block text-[0.70rem] font-black text-gray-500 uppercase tracking-widest mb-4">Tipo de Contribuyente</label>
-                            <div className="flex bg-white rounded-lg p-1 border border-slate-200 shadow-sm">
-                                <label className="flex-1 cursor-pointer">
-                                    <input type="radio" name="tipo_persona" value="natural" checked={tipoPersona === 'natural'} onChange={() => setTipoPersona('natural')} className="hidden peer" />
-                                    <div className="text-center py-2.5 rounded-md peer-checked:bg-blue-200 peer-checked:text-white peer-checked:shadow text-gray-500 transition-all font-bold text-xs uppercase">Natural</div>
-                                </label>
-                                <label className="flex-1 cursor-pointer">
-                                    <input type="radio" name="tipo_persona" value="juridica" checked={tipoPersona === 'juridica'} onChange={() => setTipoPersona('juridica')} className="hidden peer" />
-                                    <div className="text-center py-2.5 rounded-md peer-checked:bg-blue-200 peer-checked:text-white peer-checked:shadow text-gray-500 transition-all font-bold text-xs uppercase">Jurídica</div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div className="bg-gray-50 p-6 rounded-xl border border-slate-100">
-                            <label className="block text-[0.70rem] font-black text-gray-500 uppercase tracking-widest mb-4">¿Sujeto a Régimen RIMPE?</label>
-                            <div className="flex bg-white rounded-lg p-1 border border-slate-200 shadow-sm">
-                                <label className="flex-1 cursor-pointer">
-                                    <input type="radio" name="rimpe" checked={isRimpe === false} onChange={() => setIsRimpe(false)} className="hidden peer" />
-                                    <div className="text-center py-2.5 rounded-md peer-checked:bg-orange-500 peer-checked:text-white peer-checked:shadow text-gray-500 transition-all font-bold text-xs uppercase">NO</div>
-                                </label>
-                                <label className="flex-1 cursor-pointer">
-                                    <input type="radio" name="rimpe" checked={isRimpe === true} onChange={() => setIsRimpe(true)} className="hidden peer" />
-                                    <div className="text-center py-2.5 rounded-md peer-checked:bg-orange-500 peer-checked:text-white peer-checked:shadow text-gray-500 transition-all font-bold text-xs uppercase">SÍ</div>
-                                </label>
-                            </div>
+                <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gray-800 p-4 rounded-lg border border-slate-200">
+                        <label className="md:w-1/2 text-[0.70rem] font-black text-gray-500 uppercase tracking-widest">Tipo de Contribuyente</label>
+                        <div className="md:w-1/2 flex gap-3">
+                            <label className="flex-1 cursor-pointer">
+                                <input type="radio" name="tipo_contribuyente" value="natural" checked={tipoPersona === 'natural'} onChange={() => setTipoPersona('natural')} className="hidden peer" />
+                                <div className="text-center py-2 rounded border-2 border-slate-200 peer-checked:border-blue-200 peer-checked:bg-blue-200 peer-checked:text-white transition-all font-bold text-xs uppercase">Natural</div>
+                            </label>
+                            <label className="flex-1 cursor-pointer">
+                                <input type="radio" name="tipo_contribuyente" value="juridica" checked={tipoPersona === 'juridica'} onChange={() => setTipoPersona('juridica')} className="hidden peer" />
+                                <div className="text-center py-2 rounded border-2 border-slate-200 peer-checked:border-blue-200 peer-checked:bg-blue-200 peer-checked:text-white transition-all font-bold text-xs uppercase">Jurídica</div>
+                            </label>
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Ingresos Gravados / Brutos <span className="text-orange-500">*</span></label>
-                            <div className='relative'>
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">$</span>
-                                <input type="number" className="border-slate-200 w-full p-3.5 pl-8 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-blue-200 font-bold transition-all" placeholder="0.00" step="0.01" required
-                                    value={ingresos} onChange={(e) => setIngresos(e.target.value)} />
-                            </div>
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gray-800 p-4 rounded-lg border border-slate-200">
+                        <label className="md:w-1/2 text-[0.70rem] font-black text-gray-500 uppercase tracking-widest">Tipo de Régimen</label>
+                        <div className="md:w-1/2 flex gap-3">
+                            <label className="flex-1 cursor-pointer">
+                                <input type="radio" name="regimen" value="general" checked={!isRimpe} onChange={() => setIsRimpe(false)} className="hidden peer" />
+                                <div className="text-center py-2 rounded border-2 border-slate-200 peer-checked:border-orange-500 peer-checked:bg-orange-500/10 peer-checked:text-orange-500 transition-all font-bold text-xs uppercase">General</div>
+                            </label>
+                            <label className="flex-1 cursor-pointer">
+                                <input type="radio" name="regimen" value="rimpe" checked={isRimpe} onChange={() => setIsRimpe(true)} className="hidden peer" />
+                                <div className="text-center py-2 rounded border-2 border-slate-200 peer-checked:border-orange-500 peer-checked:bg-orange-500/10 peer-checked:text-orange-500 transition-all font-bold text-xs uppercase">RIMPE</div>
+                            </label>
                         </div>
-
-                        {!isRimpe && (
-                            <div>
-                                <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Costos y Gastos Deducibles</label>
-                                <div className='relative'>
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">$</span>
-                                    <input type="number" className="border-slate-200 w-full pl-8 p-3.5 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-blue-200 font-bold transition-all" placeholder="0.00" step="0.01"
-                                        value={deducibles} onChange={(e) => setDeducibles(e.target.value)} />
-                                </div>
-                            </div>
-                        )}
                     </div>
-                </section>
 
-                {!isRimpe && tipoPersona === 'natural' && (
-                    <section className="space-y-6 pt-6 border-t border-slate-100">
-                        <h4 className="text-blue-200 font-extrabold uppercase tracking-widest text-xs">Datos Personales y Cargas</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                            <CustomSelect
-                                label="¿Discapacidad o Enf. Crónica?"
-                                options={opcionesDiscapacidad}
-                                value={discapacidad}
-                                onChange={setDiscapacidad}
-                            />
-
-                            <CustomSelect
-                                label="Número de Cargas Familiares"
-                                options={opcionesCargas}
-                                value={cargas}
-                                onChange={setCargas}
-                            />
-
-                        </div>
-                        <div>
-                            <label className="block text-xs font-bold text-gray-500 uppercase mb-2">Gastos Personales Proyectados</label>
-                            <div className='relative'>
-                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">$</span>
-                                <input value={gastosProyectados} onChange={(e) => setGastosProyectados(e.target.value)} type="number" className="pl-8 border-slate-200 w-full p-3.5 bg-gray-50 border rounded-xl focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-blue-200 font-bold transition-all" placeholder="0.00" step="0.01" />
+                    {tipoPersona === 'natural' && isRimpe && (
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gray-800 p-4 rounded-lg border border-slate-200">
+                            <label className="md:w-1/2 text-[0.70rem] font-black text-gray-500 uppercase tracking-widest">Categoría RIMPE</label>
+                            <div className="md:w-1/2 flex gap-3">
+                                <label className="flex-1 cursor-pointer">
+                                    <input type="radio" name="tipo_rimpe" value="popular" checked={tipoRimpe === 'popular'} onChange={() => setTipoRimpe('popular')} className="hidden peer" />
+                                    <div className="text-center py-2 rounded border-2 border-slate-200 peer-checked:border-blue-200 peer-checked:bg-blue-200 peer-checked:text-white transition-all font-bold text-[0.65rem] uppercase">Negocio Popular</div>
+                                </label>
+                                <label className="flex-1 cursor-pointer">
+                                    <input type="radio" name="tipo_rimpe" value="emprendedor" checked={tipoRimpe === 'emprendedor'} onChange={() => setTipoRimpe('emprendedor')} className="hidden peer" />
+                                    <div className="text-center py-2 rounded border-2 border-slate-200 peer-checked:border-blue-200 peer-checked:bg-blue-200 peer-checked:text-white transition-all font-bold text-[0.65rem] uppercase">Emprendedor</div>
+                                </label>
                             </div>
                         </div>
-                    </section>
+                    )}
+                </div>
+
+
+
+
+                {tipoPersona === 'natural' && !isRimpe && (
+                    <div className="space-y-4 pt-6 border-t border-slate-100">
+                        <h4 className="text-blue-200 font-bold uppercase tracking-widest text-xs mb-4">Datos Personales</h4>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">¿Discapacidad o Enf. Crónica?</label>
+                            <div className="md:w-1/2">
+                                <select value={discapacidad} onChange={(e) => setDiscapacidad(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md outline-none">
+                                    <option value="no">No</option>
+                                    <option value="si">Sí (Personal o carga)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">Número de Cargas Familiares</label>
+                            <div className="md:w-1/2">
+                                <select value={cargas} onChange={(e) => setCargas(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md outline-none">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5 o más</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">Gastos Personales Proyectados</label>
+                            <div className="md:w-1/2">
+                                <input type="number" value={gastosProyectados} onChange={(e) => setGastosProyectados(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md outline-none" placeholder="0.00" step="0.01" />
+                            </div>
+                        </div>
+                    </div>
                 )}
 
-                {!isRimpe && tipoPersona === 'juridica' && (
-                    <section className="space-y-6 pt-6 border-t border-slate-100">
-                        <h4 className="text-blue-200 font-extrabold uppercase tracking-widest text-xs">Conciliación Tributaria</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div>
-                                <label className="block text-[0.65rem] font-bold text-gray-500 uppercase tracking-widest mb-2">Ingresos Exentos</label>
-                                <div className='relative'>
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">$</span>
-                                    <input type="number" value={ingresosExentos} onChange={(e) => setIngresosExentos(e.target.value)} className="border-slate-200 pl-8 w-full p-3 bg-gray-50 border rounded-lg focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-blue-200 font-bold transition-all" placeholder="0.00" step="0.01" />
+                {/* --- SECCIÓN: Valores de Cálculo --- */}
+                <div className="space-y-4 pt-6 border-t border-slate-100">
+                    <h4 className="text-blue-200 font-bold uppercase tracking-widest text-xs mb-4">Valores de Cálculo</h4>
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                        <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">Ingresos Gravados / Brutos</label>
+                        <div className="md:w-1/2">
+                            <input type="number" value={ingresos} onChange={(e) => setIngresos(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md focus:ring-1 focus:ring-orange-500 outline-none" placeholder="0.00" step="0.01" required />
+                        </div>
+                    </div>
+                    
+                    {!isRimpe && (
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">Costos y Gastos Deducibles</label>
+                            <div className="md:w-1/2">
+                                <input type="number" value={deducibles} onChange={(e) => setDeducibles(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md focus:ring-1 focus:ring-orange-500 outline-none" placeholder="0.00" step="0.01" />
+                            </div>
+                        </div>
+                    )}
 
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block text-[0.65rem] font-bold text-gray-500 uppercase tracking-widest mb-2">Gastos No Deducibles</label>
-                                <div className='relative'>
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">$</span>
-                                    <input type="number" value={gastosNoDeducibles} onChange={(e) => setGastosNoDeducibles(e.target.value)} className="pl-8 border-slate-200 w-full p-3 bg-gray-50 border rounded-lg focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-blue-200 font-bold transition-all" placeholder="0.00" step="0.01" />
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block text-[0.65rem] font-bold text-gray-500 uppercase tracking-widest mb-2">Deducc. Adicionales</label>
-                                <div className='relative'>
-                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-bold">$</span>
-                                    <input type="number" value={deduccionesAdicionales} onChange={(e) => setDeduccionesAdicionales(e.target.value)} className="border-slate-200 w-full pl-8 p-3 bg-gray-50 border rounded-lg focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none text-blue-200 font-bold transition-all" placeholder="0.00" step="0.01" />
-                                </div>
+                    {showCreditosInValores && inputCreditosRender}
+                </div>
+
+                {/* --- SECCIÓN: Conciliación Tributaria (Juridica - General) --- */}
+                {tipoPersona === 'juridica' && !isRimpe && (
+                    <div className="space-y-4 pt-6 border-t border-slate-100">
+                        <h4 className="text-blue-200 font-bold uppercase tracking-widest text-xs mb-4">Conciliación Tributaria</h4>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">Ingresos Exentos</label>
+                            <div className="md:w-1/2">
+                                <input type="number" value={ingresosExentos} onChange={(e) => setIngresosExentos(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md outline-none" placeholder="0.00" step="0.01" />
                             </div>
                         </div>
-                        <div className="mt-4 bg-gray-50 p-4 rounded-lg border border-slate-200">
-                            <p className="text-[0.65rem] text-gray-500 leading-relaxed text-center">
-                                * Cálculo referencial aplicando la tarifa del 25% (Art. 37 LRTI). Consulte con su asesor para una conciliación exacta.
-                            </p>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">Gastos No Deducibles</label>
+                            <div className="md:w-1/2">
+                                <input type="number" value={gastosNoDeducibles} onChange={(e) => setGastosNoDeducibles(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md outline-none" placeholder="0.00" step="0.01" />
+                            </div>
                         </div>
-                    </section>
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <label className="md:w-1/2 text-xs font-bold text-gray-500 uppercase">Deducciones Adicionales</label>
+                            <div className="md:w-1/2">
+                                <input type="number" value={deduccionesAdicionales} onChange={(e) => setDeduccionesAdicionales(e.target.value)} className="w-full p-3 bg-gray-800 border border-slate-200 rounded-md outline-none" placeholder="0.00" step="0.01" />
+                            </div>
+                        </div>
+                        
+                        {inputCreditosRender}
+                    </div>
                 )}
 
                 <div className="pt-4 border-t border-gray-100">

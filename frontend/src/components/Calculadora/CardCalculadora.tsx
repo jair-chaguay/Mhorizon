@@ -9,6 +9,10 @@ export const CardCalculadora = ({resultados}: any) => {
     
     const formatoMoneda = (valor: any) => `$ ${Number(valor).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
+    // Identificar si es Saldo a favor (valor negativo)
+    const isSaldoAFavor = resultados?.pagar < 0;
+    const valorPagarVisual = Math.abs(resultados?.pagar || 0);
+
     return (
         <>
             <div className="flex flex-col gap-6">
@@ -41,9 +45,20 @@ export const CardCalculadora = ({resultados}: any) => {
                                 </div>
                             )}
 
+                            {(resultados?.creditos > 0) && (
+                                <div className="flex justify-between items-center border-b border-white/10 pb-2">
+                                    <span className="text-gray-400 text-[0.65rem] font-medium uppercase tracking-widest">Créditos Tributarios:</span>
+                                    <span className="font-bold text-sm text-orange-400">- {formatoMoneda(resultados?.creditos)}</span>
+                                </div>
+                            )}
+
                             <div className="pt-4">
-                                <span className="text-white text-[0.70rem] uppercase font-bold tracking-[0.2em] block mb-1">Impuesto a Pagar:</span>
-                                <span className="text-4xl font-black text-orange-500 tracking-tighter block mb-2">{formatoMoneda(resultados?.pagar || 0)}</span>
+                                <span className="text-white text-[0.70rem] uppercase font-bold tracking-[0.2em] block mb-1">
+                                    {isSaldoAFavor ? 'Saldo a Favor:' : 'Impuesto a Pagar:'}
+                                </span>
+                                <span className={`text-4xl font-black tracking-tighter block mb-2 ${isSaldoAFavor ? 'text-green-400' : 'text-orange-500'}`}>
+                                    {formatoMoneda(valorPagarVisual)}
+                                </span>
                             </div>
                         </div>
                     </div>

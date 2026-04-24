@@ -32,11 +32,20 @@ class CorreoCalculadoraController extends Controller
             return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
         }
 
-        $correoC = CorreoCalculadora::create([
-            'correo'=> $request->correo,
-            'tipo_contribuyente' => $request -> tipo_contribuyente,
-            'regimen' => $request->regimen
-        ]);
+        $res = $request->resultados;
+
+        $correoC = CorreoCalculadora::updateOrCreate(
+            ['correo'=> $request->correo],
+            [
+                'tipo_contribuyente' => $request->tipo_contribuyente,
+                'regimen' => $request->regimen,
+                'base_imponible' => $res['base'] ?? 0,
+                'impuesto_causado' => $res['causado'] ?? 0,
+                'rebaja' => $res['rebaja'] ?? 0,
+                'creditos' => $res['creditos'] ?? 0,
+                'total_pagar' => $res['pagar'] ?? 0,
+            ]
+        );
         $resultados = $request->resultados;
 
         try{

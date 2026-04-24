@@ -16,6 +16,12 @@ return new class extends Migration
             $table->string('correo', 100);
             $table->enum('tipo_contribuyente',['Natural', 'Jurídica']);
             $table->boolean('regimen')->default(false);
+
+            $table->decimal('base_imponible', 12, 2)->default(0);
+            $table->decimal('impuesto_causado', 12, 2)->default(0);
+            $table->decimal('rebaja', 12, 2)->default(0);
+            $table->decimal('creditos', 12, 2)->default(0);
+            $table->decimal('total_pagar', 12, 2)->default(0);
             $table->timestamps();
         });
     }

@@ -13,7 +13,12 @@ class CorreoCalculadora extends Model
     protected $fillable = [
         'correo',
         'tipo_contribuyente',
-        'regimen'
+        'regimen',
+        'base_imponible',
+        'impuesto_causado',
+        'rebaja',
+        'creditos',
+        'total_pagar'
     ];
     //
 }
