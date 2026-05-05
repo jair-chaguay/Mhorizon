@@ -2,26 +2,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Mail, Loader2 } from 'lucide-react'
 import { useState } from 'react';
-import { CustomSelect } from './CustomSelect';
 import api from '../../api/axios';
 
 interface FormCalculadoraProps {
     onResultadosUpdate: (data: any) => void;
 }
 
-const opcionesDiscapacidad = [
-    { value: 'no', label: 'No' },
-    { value: 'si', label: 'Sí (Personal o carga)' }
-];
-
-const opcionesCargas = [
-    { value: '0', label: '0' },
-    { value: '1', label: '1' },
-    { value: '2', label: '2' },
-    { value: '3', label: '3' },
-    { value: '4', label: '4' },
-    { value: '5', label: '5 o más' }
-];
 
 export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) => {
 
@@ -104,7 +90,7 @@ export const FormCalculadora = ({ onResultadosUpdate }: FormCalculadoraProps) =>
         let impuestoAPagar = 0;
 
         if (isRimpe) {
-            const rango = tablaRimpe.find(r => ing > r.fb && ing <= r.hasta) || tablaRimpe.find(r => ing === 0) || tablaRimpe[0];
+            const rango = tablaRimpe.find(r => ing > r.fb && ing <= r.hasta) || tablaRimpe.find(_r => ing === 0) || tablaRimpe[0];
 
             let impuestoAPagarBruto = 0;
             if (rango.exc === 0) {

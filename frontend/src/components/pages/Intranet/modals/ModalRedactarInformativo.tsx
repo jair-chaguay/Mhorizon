@@ -7,6 +7,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   datosEdicion?: any;
 }
 

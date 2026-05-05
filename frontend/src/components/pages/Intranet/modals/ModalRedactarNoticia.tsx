@@ -6,6 +6,7 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   datosEdicion?: any,
 }
 const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess, datosEdicion }) => {
@@ -65,6 +66,7 @@ const ModalRedactarNoticia: React.FC<Props> = ({ isOpen, onClose, onSuccess, dat
       onClose();
       resetForm();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error:any) {
       if (error.response && error.response.data.errors) {
             console.table(error.response.data.errors); 

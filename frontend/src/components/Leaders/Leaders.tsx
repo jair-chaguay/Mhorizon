@@ -1,4 +1,3 @@
-import React from 'react'
 import { LeaderCard } from './LeaderCard'
 import { ScrollReveal } from '../ScrollReveal'
 import { Link } from 'react-router-dom'

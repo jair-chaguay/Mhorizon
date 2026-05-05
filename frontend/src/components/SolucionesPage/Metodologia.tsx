@@ -21,12 +21,12 @@ const metodologia: MetodologiaProps[] = [
   {
     numero: '03',
     title: 'Monitoreo',
-    content: 'Tableros de control en tiempo real para visualizar el impacto de cada decisión financiera.'
+    content: 'Portal del cliente para visualizar en tiempo real el impacto de cada gestión.'
   },
   {
     numero:'04',
     title: 'Evolución',
-    content: 'Ajustes proactivos ante cambios en el mercado o legislaciones nacionales e internacionales.'
+    content: 'Ajuste proactivo ante cambios en la legislación nacional.'
   }
 ]
 

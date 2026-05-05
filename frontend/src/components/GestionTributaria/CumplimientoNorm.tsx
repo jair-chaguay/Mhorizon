@@ -12,7 +12,7 @@ const normativos: cumplimientoProp[] = [
         content: "Detección proactiva de inconsistencias y simulación de auditorías antes de las notificaciones oficiales del ente de control (SRI)."
     },
     {
-        title: "Informes de Transparencia",
+        title: "Seguridad y Control Fiscal",
         content: "Preparación técnica de reportes requeridos para la Superintendencia de Compañías (SCVS) y entidades fiscales gubernamentales."
     }
 ]
@@ -29,7 +29,7 @@ export const CumplimientoNorm = () => {
                         CUMPLIMIENTO <br />NORMATIVO ESTRICTO
                     </h2>
                     <p className="text-gray-600  mt-6 text-[1.05rem] text-justify lg:text-left leading-relaxed">
-                        En un entorno de transparencia fiscal total impulsado por regulaciones internacionales (convergencia OCDE/BEPS), el cumplimiento normativo es la base innegociable de la reputación corporativa. Actuamos como su principal aliado estratégico.
+                        En un entorno de transparencia fiscal total impulsado por regulaciones nacionales e internacionales, el cumplimiento normativo es la base innegociable de la reputación corporativa. Actuamos como su principal aliado estratégico.
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">

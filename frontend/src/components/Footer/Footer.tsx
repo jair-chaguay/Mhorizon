@@ -4,25 +4,29 @@ export const Footer = () => {
   return (
     <footer className="flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 py-10">
       <div>
-        <img
-          className="w-40 sm:w-45 md:w-50"
+        <Link to={"/"}>
+          <img
+          className="w-40 sm:w-45 md:w-50 transition-transform duration-300 hover:scale-105"
           src="/images/MHORIZONBOCETO.png"
           alt="MHORIZON"
         />
+        
+        </Link>
+        
       </div>
 
       <ul className="flex flex-wrap justify-center gap-y-3 gap-x-4 sm:gap-x-6 mt-6 text-[0.85rem] sm:text-[0.93rem]">
         <li className="text-white opacity-70 hover:opacity-100 sm:pr-4">
-          <Link to={"/"}>INICIO</Link>
+          <Link to={"/soluciones/gestion-tributaria"}>ESTRATEGIA Y DEFENSA FISCAL</Link>
         </li>
         <li className="text-white opacity-70 hover:opacity-100 sm:pr-4">
-          <Link to={"/soluciones/consultoria-empresarial"}>CONSULTORÍA</Link>
+          <Link to={"/soluciones/consultoria-empresarial"}>CONSULTORÍA EMPRESARIAL</Link>
         </li>
         <li className="text-white opacity-70 hover:opacity-100 sm:pr-4">
-          <Link to={"/soluciones/outsourcing"}>OUTSOURCING</Link>
+          <Link to={"/soluciones/outsourcing"}>OUTSOURCING BPO</Link>
         </li>
         <li className="text-white opacity-70 hover:opacity-100">
-          <Link to={"/soluciones/auditoria"}>AUDITORÍA</Link>
+          <Link to={"/soluciones/auditoria"}>AUDITORÍA FINANCIERA</Link>
         </li>
       </ul>
       <ul className="flex gap-4 sm:gap-8 my-6 pb-18">

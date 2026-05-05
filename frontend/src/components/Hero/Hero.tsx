@@ -3,8 +3,7 @@ import { ScrollReveal } from "../ScrollReveal";
 
 export const Hero = () => {
   return (
-    <ScrollReveal as={"section"} className="relative min-h-140 md:h-140.5 overflow-hidden flex items-center">
-      
+<ScrollReveal as={"section"} className="-mt-px relative min-h-140 md:h-140.5 overflow-hidden flex items-center">      
       <video
         autoPlay
         loop
@@ -16,7 +15,7 @@ export const Hero = () => {
         Tu navegador no soporta el formato de video.
       </video>
 
-      <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent z-0"></div>
+      <div className="absolute w-full h-full inset-0 bg-linear-to-r from-blue-200/95 from-0% via-blue-200/70 via-35% to-transparent to-70% z-0"></div>
 
       <div className="relative h-full flex flex-col justify-center text-white max-w-350 w-full mx-auto px-5 sm:px-8 md:px-10 2xl:max-w-550 2xl:px-9 text-left z-10 reveal-element">
 

@@ -9,7 +9,6 @@ export { Soluciones } from "./Soluciones/Soluciones"
 export { Calculadora } from "./Calculadora/Calculadora"
 export { Perspectiva } from "./Leaders/Perspectiva"
 export { Informativos } from "./Informativos/Informativos"
-export { Impulsa } from "./Footer/Impulsa"
 export { Footer } from "./Footer/Footer"
 export { Integrales } from "./SolucionesPage/Integrales"
 export { ServiciosEsp } from "./SolucionesPage/ServiciosEsp";
@@ -34,7 +33,6 @@ export { IntegAudit } from "./Auditoria/IntegAudit";
 export { MetodologiaAud } from "./Auditoria/MetodologiaAud";
 export { FaseAuditoria } from "./Auditoria/FaseAuditoria";
 export { Analisis } from "./Auditoria/Analisis";
-export { Crud } from "./CRUD/Crud";
 export { HeroSectores } from "./Sectores/HeroSectores";
 export { SectoresContainer } from "./Sectores/SectoresContainer";
 export { Frase } from "./Frase";

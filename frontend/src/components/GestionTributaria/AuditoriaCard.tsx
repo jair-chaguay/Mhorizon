@@ -7,7 +7,7 @@ interface AuditoriaProps {
 
 export const AuditoriaCard = ({ icon, title, content }: AuditoriaProps) => {
   return (
-    <div className="bg-blue-200 border-white/10 border rounded-xl px-8 py-10 relative hover:bg-blue-200/95 transition-colors backdrop-blur-sm reveal-element delay-100 transform hover:-translate-y-2 transition-transform duration-300">
+    <div className="bg-blue-200 border-white/10 border rounded-xl px-8 py-10 relative hover:bg-blue-200/95 transition-all backdrop-blur-sm reveal-element delay-100 transform hover:-translate-y-2 duration-300">
       <div className="absolute -top-5 left-6 bg-orange-500 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg hover:bg-orange-500">
         <img
           className="w-6 h-6 object-contain invert brightness-0"

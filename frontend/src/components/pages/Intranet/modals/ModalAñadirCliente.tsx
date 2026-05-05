@@ -49,6 +49,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             onClose();   
             alert("Cliente añadido exitosamente");
 
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             const msg = error?.response?.data?.message || "Error al crear cliente";
             setErrorMsg(msg);

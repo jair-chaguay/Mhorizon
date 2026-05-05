@@ -12,8 +12,8 @@ const hero: HeroProps[] = [
 
     {
         img: "/images/Recurso32.png",
-        title: "Dominancia del mercado",
-        content: "Ampliación de la huella corporativa a través de estrategias basadas en datos financieros."
+        title: "Dominancia financiera",
+        content: "Mejoramiento de la huella corporativa a través de estrategias basadas en datos financieros."
     },
     {
         img: "/images/Recurso33.png",
@@ -23,7 +23,7 @@ const hero: HeroProps[] = [
     {
         img: "/images/Recurso34.png",
         title: "Aceleración del crecimiento",
-        content: "Hoja de ruta estratégica para un valor sostenido a largo plazo ante la SCVS y accionistas."
+        content: "Hoja de ruta estratégica para un valor sostenido a largo plazo ante accionistas y organismos de control."
     }
 ]
 

@@ -47,7 +47,7 @@ export const EstrIm = () => {
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-orange-500">Reclamaciones y Devoluciones</p>
-                                <p className="text-[0.95rem] text-gray-200 mt-1">Gestión ágil para la recuperación de IVA, Pago en Exceso y Reclamos por Pago Indebido.</p>
+                                <p className="text-[0.95rem] text-gray-200 mt-1">Gestión ágil para la recuperación de impuestos, por pago en exceso o indebido y Reclamos.</p>
                             </div>
                         </li>
                         <li className="flex items-start gap-4 group">

@@ -24,6 +24,7 @@ export const LoginPage = () => {
             }else{
                 navigate("/intranet")
             }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             const msg =
                 error?.response?.data?.message ||

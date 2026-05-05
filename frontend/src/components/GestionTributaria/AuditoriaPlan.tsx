@@ -11,7 +11,7 @@ const aut: autProps[] = [
   {
     icon: "/images/Recurso40.png",
     title: "Compliance Total",
-    content: "Aseguramos la integridad de sus operaciones frente a marcos normativos internacionales, mitigando riesgos antes de que surjan.",
+    content: "Aseguramos la integridad de sus operaciones frente a marcos normativos nacionales y de fiscalidad internacional, mitigando riesgos antes de que surjan.",
   },
   {
     icon: "/images/Recurso41.png",
@@ -23,7 +23,7 @@ const aut: autProps[] = [
 export const AuditoriaPlan = () => {
   return (
     <section className="bg-white py-16 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
+      <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_center, var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
 
       <ScrollReveal as={"div"} className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-10 items-center relative z-10 px-5 sm:px-8 md:px-12">
 

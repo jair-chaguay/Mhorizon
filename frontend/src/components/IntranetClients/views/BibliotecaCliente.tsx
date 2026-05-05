@@ -5,9 +5,6 @@ import api from '../../../api/axios';
 
 type NavLevel = 'ROOT' | 'PERIODOS' | 'SUBCARPETAS' | 'SUBCARPETAS_HIJAS' | 'ARCHIVOS';
 
-
-
-
 const BibliotecaCliente: React.FC = () => {
   const [navLevel, setNavLevel] = useState<NavLevel>('PERIODOS');
   const [path, setPath] = useState({ cliente: '', periodo: '', subcarpeta: '', subcarpetaHija: '' });

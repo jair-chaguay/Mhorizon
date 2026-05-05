@@ -46,7 +46,7 @@ export const ConsultoriaEje = () => {
                         </div>
                     </div>
                     <div className="absolute bottom-11 left-6 p-8 lg:p-18 w-full">
-                        <h4 className='text-white shadow-2xl font-extrabold text-[1.6rem] md:text-[1.8rem] leading-tight'>
+                        <h4 className='text-white shadow-2xl font-extrabold text-[1.6rem] md:text-[1.7rem] leading-tight'>
                             REDUCCIÓN DE COSTOS ESTRUCTURALES
                         </h4>
                         <p className="text-gray-200 font-light mt-3 w-full lg:w-[90%] text-[0.9rem] leading-relaxed">
