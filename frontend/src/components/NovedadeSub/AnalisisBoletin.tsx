@@ -18,7 +18,7 @@ interface AnalisisBoletinProps {
 }
 
 export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo }) => {
-  
+  const BASE_URL = 'https://api.miltonmontece.com';
   const cleanHTML = DOMPurify.sanitize(informativo.contenido);
 
   return (
@@ -58,7 +58,7 @@ export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo })
               Documentos Adjuntos
             </h3>
             <a 
-              href={`http://localhost:8000/storage/${informativo.pdf_url}`} 
+              href={`${BASE_URL}/storage/${informativo.pdf_url}`} 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-orange-500 border border-red-100 text-white hover:bg-blue-200 hover:text-white duration-300 px-6 py-3 rounded-lg font-bold text-sm transition-all shadow-sm"

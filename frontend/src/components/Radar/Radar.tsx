@@ -20,6 +20,7 @@ export interface NoticiasDB {
 export const Radar = () => {
     const [noticias, setNoticias] = useState<NoticiasDB[]>([]);
     const [loading, setLoading] = useState(true);
+    const BASE_URL = 'https://api.miltonmontece.com';
 
 
     const fetchNoticias = async () =>{
@@ -83,7 +84,7 @@ export const Radar = () => {
                                 categoria={item.fuente}  // Usamos el medio como fuente
                                 noticia={item.titulo}    // El título principal
                                 content={item.descripcion_corta} 
-                                image={`http://localhost:8000/storage/${item.imagen_url}`} // URL completa
+                                image={`${BASE_URL}/storage/${item.imagen_url}`} // URL completa
                                 url={item.url_destino}
                             />
                         </SwiperSlide>

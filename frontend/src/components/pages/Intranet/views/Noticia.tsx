@@ -26,6 +26,7 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
   const [noticias, setNoticias] = useState<Noticia[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const BASE_URL = 'https://api.miltonmontece.com';
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -127,7 +128,7 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
                   <td className="px-6 py-4">
                     {noticia.imagen_url ? (
                       <img
-                        src={`http://localhost:8000/storage/${noticia.imagen_url}`}
+                        src={`${BASE_URL}/storage/${noticia.imagen_url}`}
                         className="w-12 h-12 object-cover rounded-md border border-gray-200"
                         alt="Preview"
                         onError={(e) => { e.currentTarget.src = "https://via.placeholder.com/150?text=No+Image"; }}
