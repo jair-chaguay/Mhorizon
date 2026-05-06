@@ -111,7 +111,7 @@ class InformativoController extends Controller
             $path = $request->file('imagen_editor')->store('informativos/editor', 'public');
             
             return response()->json([
-                'url' => 'storage/' . $path
+                'url' => Storage::url($path)
             ], 200);
         }
 

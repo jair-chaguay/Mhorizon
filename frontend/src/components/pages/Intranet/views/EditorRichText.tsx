@@ -40,8 +40,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
-      const imageUrl = `${backendUrl}/${response.data.url}`;
+      const imageUrl = `https://api.miltonmontece.com${response.data.url}`;
 
       editor.chain().focus().setImage({ src: imageUrl }).run();
       
