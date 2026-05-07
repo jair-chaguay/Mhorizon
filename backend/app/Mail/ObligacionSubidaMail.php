@@ -19,7 +19,7 @@ class ObligacionSubidaMail extends Mailable
 
     public function build()
     {
-        return $this->subject('✅ Documento Recibido: ' . $this->cliente->razon_social_nombres)
+        return $this->subject('✅ Documento Recibido: ' . $this->obligacion->cliente->razon_social_nombres)
                     ->view('emails.obligacion_subida');
     }
 }
