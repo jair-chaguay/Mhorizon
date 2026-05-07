@@ -46,7 +46,7 @@ function App() {
         <Route path="/login/OTP" element={< OTPVerification />} />
         <Route path="/login/success" element={< SuccessVerification />} />
 
-        <Route element={<ProtectedRoute allowedRoles={[1]} />}>
+        <Route element={<ProtectedRoute allowedRoles={[1, 3]} />}>
           <Route path="/intranet" element={< IntranetLayout />} />
         </Route>
 

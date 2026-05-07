@@ -8,6 +8,7 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AlertaObligacionMail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Comando de consola para enviar recordatorios preventivos de obligaciones tributarias.
@@ -37,18 +38,30 @@ class NotificarObligacionesTributarias extends Command
 
         if ($obligacionesPendientes->isEmpty()) {
             $this->info('No hay obligaciones pendientes en rango de alerta.');
+            Log::info('notificaciones:tributarias finalizado: Sin obligaciones pendientes.');
             return;
         }
 
+        $contadorEnvios = 0;
+
         foreach ($obligacionesPendientes as $obligacion) {
         if ($obligacion->creador && $obligacion->creador->activo) {
-            Mail::to($obligacion->creador->correo)
-                ->send(new AlertaObligacionMail($obligacion, $obligacion->creador));
+                $destinatarios = [$obligacion->creador->correo];
 
-            
+                if(!empty($obligacion->creador->correo_personal)){
+                    $destinatarios[] = $obligacion->creador->correo_personal;
+                }
+                Mail::to($destinatarios)
+                    ->send(new AlertaObligacionMail($obligacion, $obligacion->creador));
+
+                Log::info("Alera de obligación ID {$obligacion->id} enviada a: " .implode(', ', $destinatarios));
+
+                $contadorEnvios++;
+
+            }       
         }
-    }
-
-        $this->info('Recordatorios enviados con éxito.');
+        $mensajeFinal = "Recordatorios enviados con éxito. Total enviados {$contadorEnvios}.";
+        $this->info($mensajeFinal);
+        Log::info("notificaciones:tributarias finalizado: ". $mensajeFinal);
     }
 }

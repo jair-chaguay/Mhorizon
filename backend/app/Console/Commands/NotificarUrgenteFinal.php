@@ -8,6 +8,8 @@ use App\Models\Usuario;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AlertaObligacionMail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log; // <-- Importamos Log
+
 /**
  * Comando de consola para enviar alertas críticas el día exacto del vencimiento.
  * * Este comando unifica las notificaciones del "Día Cero". Busca obligaciones
@@ -21,6 +23,8 @@ class NotificarUrgenteFinal extends Command
 
     public function handle()
     {
+        Log::info('Iniciando comando notificaciones:urgente-final (Día Cero)');
+
         $hoy = Carbon::today()->format('Y-m-d');
 
         $obligaciones = ObligacionTributaria::with(['cliente', 'creador'])
@@ -28,21 +32,42 @@ class NotificarUrgenteFinal extends Command
             ->where('estado', 'Pendiente')
             ->get();
 
-        if ($obligaciones->isEmpty()) return;
+        if ($obligaciones->isEmpty()) {
+            Log::info('notificaciones:urgente-final finalizado: Sin vencimientos para hoy.');
+            return;
+        }
 
         $jefeCorreo = env('JEFE_CORREO');
+        $contadorObligaciones = 0;
 
         foreach ($obligaciones as $obligacion) {
+            $contadorObligaciones++;
+
+            // 1. Envío al creador/cliente (Corporativo + Personal)
             if ($obligacion->creador && $obligacion->creador->activo) {
-            Mail::to($obligacion->creador->correo)
-                ->send(new AlertaObligacionMail($obligacion, $obligacion->creador));
-        }
+                $destinatarios = [$obligacion->creador->correo];
+
+                if (!empty($obligacion->creador->correo_personal)) {
+                    $destinatarios[] = $obligacion->creador->correo_personal;
+                }
+
+                Mail::to($destinatarios)
+                    ->send(new AlertaObligacionMail($obligacion, $obligacion->creador));
+                
+                Log::warning("Alerta URGENTE de obligación ID {$obligacion->id} enviada al creador: " . implode(', ', $destinatarios));
+            }
             
+            // 2. Envío a Jefatura/Supervisión
             if ($jefeCorreo) {
                 $adminGenerico = new Usuario(['nombre' => 'Jefe', 'apellido' => 'Supervisor']);
                 Mail::to($jefeCorreo)->send(new AlertaObligacionMail($obligacion, $adminGenerico));
+                
+                Log::warning("Copia de alerta URGENTE de obligación ID {$obligacion->id} enviada a Jefatura: {$jefeCorreo}");
             }
         }
-        $this->info('Alertas críticas enviadas.');
+
+        $mensajeFinal = "Alertas críticas enviadas. Total procesadas: {$contadorObligaciones}.";
+        $this->info($mensajeFinal);
+        Log::info("notificaciones:urgente-final finalizado: " . $mensajeFinal);
     }
 }

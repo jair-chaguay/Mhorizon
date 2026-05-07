@@ -25,6 +25,7 @@ class UsuarioController extends Controller
             'nombre' => 'required|string|max:100',
             'apellido' => 'required|string|max:100',
             'correo' => 'required|email|max:150|unique:usuarios,correo',
+            'correo_personal' => 'nullable|email|max:150|unique:usuarios,correo_personal',
             'password' => 'required|string|min:8',
             'cargo' => 'nullable|string|max:100'
         ]);
@@ -37,6 +38,7 @@ class UsuarioController extends Controller
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
             'correo' => $request->correo,
+            'correo_personal'=> $request->correo_personal,
             'password_hash' => Hash::make($request->password),
             'cargo' => $request->cargo,
             'activo' => true
@@ -65,6 +67,7 @@ class UsuarioController extends Controller
             'nombre' => 'sometimes|required|string|max:100',
             'apellido' => 'sometimes|required|string|max:100',
             'correo' => 'sometimes|required|email|max:150|unique:usuarios,correo,'.$id,
+            'correo_personal' => 'nullable|email|max:150|unique:usuarios,correo_personal,'.$id,
             'password' => 'nullable|string|min:8', 
             'cargo' => 'nullable|string|max:100',
             'activo' => 'sometimes|required|boolean'

@@ -1,8 +1,0 @@
-RewriteEngine On
-# Si tu app no está en la raíz (ej. dominio.com/app/), cambia / por /app/
-RewriteBase /
-RewriteRule ^index\.html$ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-RewriteRule . /index.html [L]

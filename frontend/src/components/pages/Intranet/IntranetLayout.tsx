@@ -18,6 +18,8 @@ import api from '../../../api/axios';
 import { ModalAñadirCliente } from './modals/ModalAñadirCliente';
 import PerfilCliente from './views/PerfilCliente';
 import ModalAñadirObligacion from './modals/ModalAñadirObligacion';
+import { Usuario } from './views/Usuario';
+import ModalCrearUsuario from './modals/ModalCrearUsuario';
 
 const IntranetLayout: React.FC = () => {
     const [crearConfig, setCrearConfig] = useState<any>({ title: '', placeholder: '', type: 'ROOT', parentId: null });
@@ -43,6 +45,7 @@ const IntranetLayout: React.FC = () => {
     const [uploadConfig, setUploadConfig] = useState<{ type: 'archivo' | 'obligacion', targetId: number | null }>({ type: 'archivo', targetId: null });
     const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
     const [isAñadirClienteOpen, setIsAñadirClienteOpen] = useState(false);
+    const [isCrearUsuarioOpen, setIsCrearUsuarioOpen] = useState(false);
 
 
     const handleConfirmEliminar = async () => {
@@ -186,6 +189,14 @@ const IntranetLayout: React.FC = () => {
                             />
                         )}
 
+                        {activeView === 'view-usuarios' && (
+                            <Usuario
+                                refreshSignal={refreshSignal}
+                                onOpenCrear={() => setIsCrearUsuarioOpen(true)}
+                                onOpenEliminar={handleOpenEliminar}
+                            />
+                        )}
+
                     </div>
 
                     <footer className="mt-12 pt-6 border-t border-gray-200 text-center text-gray-400 text-[0.75rem] font-light max-w-350 mx-auto pb-4">
@@ -243,6 +254,12 @@ const IntranetLayout: React.FC = () => {
                 onClose={() => setIsRedactarNoticiaOpen(false)}
                 onSuccess={triggerRefresh}
                 datosEdicion={infoAEditar}
+            />
+
+            <ModalCrearUsuario
+                isOpen={isCrearUsuarioOpen}
+                onClose={() => setIsCrearUsuarioOpen(false)}
+                onSuccess={triggerRefresh}
             />
 
         </div>

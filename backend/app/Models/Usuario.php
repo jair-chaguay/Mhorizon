@@ -21,6 +21,7 @@ class Usuario extends Authenticatable
         'nombre',
         'apellido',
         'correo',
+        'correo_personal',
         'password_hash',
         'cargo',
         'activo',
