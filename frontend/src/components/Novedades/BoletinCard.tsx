@@ -14,11 +14,7 @@ export interface boletinesProps {
 export const BoletinCard = ({ id, fecha, image, titulo, content, resolucion }: boletinesProps) => {
 
     const obtenerUrlImagen = (ruta: string | null) => {
-        if (!ruta) return '/images/Recurso04.jpeg';
-        if (ruta.startsWith('http')) return ruta;
-
-        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
-        return `${backendUrl}/storage/${ruta}`;
+        return ruta || '/images/Recurso04.jpeg'
     };
 
     return (

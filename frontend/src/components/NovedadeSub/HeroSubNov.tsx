@@ -1,6 +1,7 @@
 import { ScrollReveal } from "../ScrollReveal"
 
 // Recibimos los datos del informativo
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const HeroSubNov = ({ informativo }: { informativo: any }) => {
     
     // Formatear la fecha
@@ -8,11 +9,10 @@ export const HeroSubNov = ({ informativo }: { informativo: any }) => {
         day: 'numeric', month: 'long', year: 'numeric' 
     }).toUpperCase();
 
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
     const bgImage = informativo.imagen_portada_url 
-        ? `${backendUrl}/storage/${informativo.imagen_portada_url}` 
-        : "/images/Recurso05.avif"; // Imagen por defecto si no subieron una
-
+    ? informativo.imagen_portada_url
+    : "/images/Recurso05.avif";
+    
     return (
         <ScrollReveal as={"section"} 
             className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-97.5 bg-cover bg-center overflow-hidden"

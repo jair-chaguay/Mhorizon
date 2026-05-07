@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Download } from 'lucide-react'
 import { ScrollReveal } from '../ScrollReveal'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Descarga = ({ informativo }: { informativo: any }) => {
     
     // Armamos la URL completa del PDF
-    const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
-    const pdfUrl = `${backendUrl}/storage/${informativo.pdf_url}`;
+    const pdfUrl = informativo.pdf_url;
 
     return (
         <ScrollReveal>

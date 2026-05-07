@@ -54,8 +54,8 @@ class InformativoController extends Controller
             'descripcion_portada' => $request->descripcion_portada,
             'resolucion_oficial' => $request->resolucion_oficial,
             'contenido' => $request->contenido,
-            'imagen_portada_url' => $rutaImagen,
-            'pdf_url' => $rutaPdf
+            'imagen_portada_url' => $rutaImagen ? asset('storage/' .$rutaImagen) : null,
+            'pdf_url' => $rutaPdf ? asset('storage/' .$rutaPdf) : null
         ]);
 
         return response()->json(['message' => 'Creado con éxito', 'informativo' => $informativo], 201);
@@ -83,14 +83,22 @@ class InformativoController extends Controller
 
         // Lógica para la Imagen
         if($request->hasFile('imagen')){
-            if($informativo->imagen_portada_url) Storage::disk('public')->delete($informativo->imagen_portada_url);
-            $informativo->imagen_portada_url = $request->file('imagen')->store('informativos/portadas', 'public');
+            if($informativo->imagen_portada_url){
+                Storage::disk('public')->delete(str_replace('/storage/', '', parse_url($informativo->imagen_portada_url, PHP_URL_PATH)));
+            }
+
+            $path = $request->file('imagen')->store('informativos/portadas', 'public');
+            $informativo->imagen_portada_url = asset('storage/'.$path);
         }
 
         // Lógica para el PDF
         if($request->hasFile('archivo_pdf')){
-            if($informativo->pdf_url) Storage::disk('public')->delete($informativo->pdf_url);
-            $informativo->pdf_url = $request->file('archivo_pdf')->store('informativos/documentos', 'public');
+            if($informativo->pdf_url){
+                Storage::disk('public')->delete(str_replace('/storage/', '', parse_url($informativo->pdf_url, PHP_URL_PATH)));
+            }
+
+            $path = $request->file('archivo_pdf')->store('informativos/documentos', 'public');
+            $informativo->pdf_url = asset('storage/'.$path);
         }
 
         $informativo->fill($request->except(['imagen', 'archivo_pdf']));
