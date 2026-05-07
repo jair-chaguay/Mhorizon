@@ -40,7 +40,6 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
         } catch (error: any) {
             console.error("Error al guardar la obligación:", error);
             
-            // 👇 ESTA LÍNEA ES LA CLAVE PARA VER EL ERROR DE LARAVEL 👇
             console.error("Detalles de validación (Laravel):", error.response?.data?.errors); 
             
             const msg = error.response?.data?.message || "No se pudo guardar la obligación.";

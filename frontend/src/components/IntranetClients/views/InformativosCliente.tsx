@@ -37,11 +37,7 @@ const InformativosCliente: React.FC = () => {
     };
 
     const obtenerUrlImagen = (ruta: string | null) => {
-        if (!ruta) return 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop';
-        if (ruta.startsWith('http')) return ruta;
-
-        const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000';
-        return `${backendUrl}/storage/${ruta}`;
+        return ruta ||'https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=800&auto=format&fit=crop'
     };
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

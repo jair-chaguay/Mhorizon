@@ -251,7 +251,7 @@ const BibliotecaCliente: React.FC = () => {
                         <td className="px-6 py-4 text-gray-500 text-[0.8rem] italic">{archivo.observacion_cliente || 'Sin observación'}</td>
                         <td className="px-6 py-4 text-center">
                           {/* Botón de descarga con el href dinámico a la URL del archivo */}
-                          <a href={`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/storage/${archivo.url_archivo}`} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-all cursor-pointer" title="Descargar">
+                          <a href={archivo.url_archivo} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-all cursor-pointer" title="Descargar">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                           </a>
                         </td>

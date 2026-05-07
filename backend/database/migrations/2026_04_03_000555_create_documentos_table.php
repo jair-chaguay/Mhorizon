@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('modificado_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
             
             $table->string('nombre_archivo');
-            $table->enum('tipo', ['pdf'])->default('pdf');
+            $table->enum('tipo', ['pdf', 'word', 'excel'])->default('pdf');
             $table->string('url_archivo');
             $table->text('observacion_cliente')->nullable();
             

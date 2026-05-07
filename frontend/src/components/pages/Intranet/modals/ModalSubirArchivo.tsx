@@ -82,9 +82,9 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose,uploadType ,target
       setObservacion('');
       onSuccess();
       onClose();
-    } catch (error) {
-      console.error("Error al subir archivo:", error);
-      alert("Hubo un error al intentar subir el archivo.");
+    } catch (error: any) {
+      console.error(error.response?.data);
+      alert(JSON.stringify(error.response?.data));
     } finally {
       setIsSubmitting(false);
     }
