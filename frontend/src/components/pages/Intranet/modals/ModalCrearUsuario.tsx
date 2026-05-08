@@ -13,6 +13,7 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
         nombre: '',
         apellido: '',
         correo: '',
+        correo_personal: '', // <-- 1. Añadido al estado inicial
         password: '',
         cargo: ''
     });
@@ -30,7 +31,8 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                 activo: true
             });
             
-            setFormData({ nombre: '', apellido: '', correo: '', password: '', cargo: '' });
+            // <-- 2. Añadido al reseteo del formulario
+            setFormData({ nombre: '', apellido: '', correo: '', correo_personal: '', password: '', cargo: '' });
             onSuccess();
             onClose();
         } catch (error: any) {
@@ -75,14 +77,28 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                         </div>
                     </div>
 
-                    <div>
-                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo Electrónico</label>
-                        <input 
-                            type="email" required
-                            value={formData.correo}
-                            onChange={(e) => setFormData({...formData, correo: e.target.value})}
-                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
-                        />
+                    {/* Envuelvo los correos en un grid de 2 columnas para que se vea más ordenado */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo Corporativo</label>
+                            <input 
+                                type="email" required
+                                value={formData.correo}
+                                onChange={(e) => setFormData({...formData, correo: e.target.value})}
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
+                            />
+                        </div>
+
+                        {/* <-- 3. Nuevo input para el Correo Personal */}
+                        <div>
+                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo Personal <span className="text-gray-400 font-normal normal-case tracking-normal">(Opcional)</span></label>
+                            <input 
+                                type="email"
+                                value={formData.correo_personal}
+                                onChange={(e) => setFormData({...formData, correo_personal: e.target.value})}
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
+                            />
+                        </div>
                     </div>
 
                     <div>
