@@ -4,13 +4,34 @@ export const Financiero = () => {
     return (
         <div className='flex flex-col lg:flex-row bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden reveal-element hover:shadow-2xl transition-shadow group'>
             <div className='w-full lg:w-1/2 h-75 lg:h-auto relative overflow-hidden'>
-                <img className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' src="/images/Recurso56.png" alt="Logistica" />
+                <img className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' src="/images/financiero.jpeg" alt="Logistica" />
                 <div className="absolute inset-0 bg-blue-200/20"></div>
             </div>
 
             <div className='w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 relative'>
-                <div className="absolute -top-6 lg:top-10 lg:-left-6 bg-orange-500 group-hover:bg-blue-200 duration-300 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                <div className="absolute text-white -top-6 lg:top-10 lg:-left-6 bg-orange-500 group-hover:bg-blue-200 duration-300 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="30"
+                        height="30"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <path d="M12 3l-9 6h18z" />
+
+                        <path d="M4 17h16" />
+                        <path d="M3 21h18" />
+
+                        <path d="M6 11v6" />
+                        <path d="M10 11v6" />
+                        <path d="M14 11v6" />
+                        <path d="M18 11v6" />
+                    </svg>
+
                 </div>
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Cumplimiento & Riesgo</p>
                 <h3 className="text-blue-200 font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">Sector Financiero</h3>

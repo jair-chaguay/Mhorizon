@@ -4,7 +4,7 @@ export const Industrial = () => {
     return (
         <div className='flex flex-col lg:flex-row-reverse bg-blue-200 rounded-2xl shadow-xl overflow-hidden reveal-element delay-100 hover:shadow-2xl transition-shadow group'>
             <div className="w-full lg:w-1/2 h-75 lg:h-auto relative overflow-hidden">
-                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" src="/images/Recurso58.png" alt="Finanzas Corporativas" />
+                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" src="/images/industrial.jpeg" alt="Finanzas Corporativas" />
             </div>
 
             <div className='w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 relative'>

@@ -11,7 +11,7 @@ export const Hero = () => {
         playsInline
         className="absolute inset-0 w-full h-full object-cover z-0"
       >
-        <source src="/video/videoportada.mp4" type="video/mp4" />
+        <source src="/video/VIDEOHOME.MOV" type="video/mp4" />
         Tu navegador no soporta el formato de video.
       </video>
 
