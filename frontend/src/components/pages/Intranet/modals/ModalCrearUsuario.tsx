@@ -1,23 +1,44 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../../../../api/axios';
 
 interface ModalCrearUsuarioProps {
     isOpen: boolean;
     onClose: () => void;
     onSuccess: () => void;
+    usuarioAEditar?: any; // <-- 1. Prop para recibir datos a editar
 }
 
-const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, onSuccess }) => {
+const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, onSuccess, usuarioAEditar }) => {
     const [formData, setFormData] = useState({
         nombre: '',
         apellido: '',
         correo: '',
-        correo_personal: '', // <-- 1. Añadido al estado inicial
+        correo_personal: '',
         password: '',
-        cargo: ''
+        cargo: '',
+        activo: true // <-- Nuevo campo para activar/desactivar al editar
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // <-- 2. Rellenar campos si estamos en modo "Editar"
+    useEffect(() => {
+        if (isOpen) {
+            if (usuarioAEditar) {
+                setFormData({
+                    nombre: usuarioAEditar.nombre || '',
+                    apellido: usuarioAEditar.apellido || '',
+                    correo: usuarioAEditar.correo || '',
+                    correo_personal: usuarioAEditar.correo_personal || '',
+                    password: '', // Se deja vacío. En edición solo se envía si se quiere cambiar.
+                    cargo: usuarioAEditar.cargo || '',
+                    activo: usuarioAEditar.activo !== undefined ? usuarioAEditar.activo : true
+                });
+            } else {
+                setFormData({ nombre: '', apellido: '', correo: '', correo_personal: '', password: '', cargo: '', activo: true });
+            }
+        }
+    }, [isOpen, usuarioAEditar]);
 
     if (!isOpen) return null;
 
@@ -25,18 +46,27 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            await api.post('/usuario', {
+            const payload: any = {
                 ...formData,
-                rol_id: 1, // Rol de Cliente forzado
-                activo: true
-            });
+                rol_id: 1 // Rol Cliente forzado
+            };
+
+            // Si es edición y el password está vacío, lo quitamos para que el backend no lo actualice
+            if (usuarioAEditar && !payload.password) {
+                delete payload.password;
+            }
+
+            // <-- 3. Decidir entre POST o PUT
+            if (usuarioAEditar) {
+                await api.put(`/usuario/${usuarioAEditar.id}`, payload);
+            } else {
+                await api.post('/usuario', payload);
+            }
             
-            // <-- 2. Añadido al reseteo del formulario
-            setFormData({ nombre: '', apellido: '', correo: '', correo_personal: '', password: '', cargo: '' });
             onSuccess();
             onClose();
         } catch (error: any) {
-            const msg = error.response?.data?.message || "No se pudo crear el usuario.";
+            const msg = error.response?.data?.message || "No se pudo procesar la solicitud.";
             alert(msg);
         } finally {
             setIsSubmitting(false);
@@ -52,7 +82,9 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                 
                 <div className="mb-5 border-b border-gray-100 pb-4">
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.70rem] uppercase mb-1 block">Control de Accesos</span>
-                    <h2 className="text-blue-200 font-extrabold text-[1.4rem] tracking-tight">Crear Nuevo Usuario</h2>
+                    <h2 className="text-blue-200 font-extrabold text-[1.4rem] tracking-tight">
+                        {usuarioAEditar ? 'Editar Usuario' : 'Crear Nuevo Usuario'}
+                    </h2>
                 </div>
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -77,7 +109,6 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                         </div>
                     </div>
 
-                    {/* Envuelvo los correos en un grid de 2 columnas para que se vea más ordenado */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo Corporativo</label>
@@ -88,8 +119,6 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                                 className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
                             />
                         </div>
-
-                        {/* <-- 3. Nuevo input para el Correo Personal */}
                         <div>
                             <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo Personal <span className="text-gray-400 font-normal normal-case tracking-normal">(Opcional)</span></label>
                             <input 
@@ -102,24 +131,45 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                     </div>
 
                     <div>
-                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Contraseña</label>
+                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">
+                            Contraseña {usuarioAEditar && <span className="text-gray-400 font-normal normal-case tracking-normal">(Dejar en blanco para no cambiar)</span>}
+                        </label>
                         <input 
-                            type="password" required minLength={8}
+                            type="password" 
+                            required={!usuarioAEditar} // Obligatorio solo al crear
+                            minLength={8}
                             value={formData.password}
                             onChange={(e) => setFormData({...formData, password: e.target.value})}
                             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
                         />
                     </div>
 
-                    <div>
-                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Cargo / Título</label>
-                        <input 
-                            type="text"
-                            placeholder="Ej: Gerente Financiero"
-                            value={formData.cargo}
-                            onChange={(e) => setFormData({...formData, cargo: e.target.value})}
-                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
-                        />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Cargo / Título</label>
+                            <input 
+                                type="text"
+                                placeholder="Ej: Gerente Financiero"
+                                value={formData.cargo}
+                                onChange={(e) => setFormData({...formData, cargo: e.target.value})}
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
+                            />
+                        </div>
+
+                        {/* Ocultamos el campo estado al crear nuevo (por defecto se activa). Lo mostramos al editar */}
+                        {usuarioAEditar && (
+                            <div>
+                                <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Estado</label>
+                                <select
+                                    value={formData.activo ? 'true' : 'false'}
+                                    onChange={(e) => setFormData({...formData, activo: e.target.value === 'true'})}
+                                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500"
+                                >
+                                    <option value="true">Activo</option>
+                                    <option value="false">Inactivo</option>
+                                </select>
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex gap-3 pt-4">
@@ -127,7 +177,7 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                             Cancelar
                         </button>
                         <button type="submit" disabled={isSubmitting} className={`flex-1 py-3 bg-blue-200 text-white rounded-md font-bold uppercase tracking-wider text-[0.80rem] transition-colors ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-500 cursor-pointer'}`}>
-                            {isSubmitting ? 'Guardando...' : 'Crear Usuario'}
+                            {isSubmitting ? 'Guardando...' : (usuarioAEditar ? 'Guardar Cambios' : 'Crear Usuario')}
                         </button>
                     </div>
                 </form>

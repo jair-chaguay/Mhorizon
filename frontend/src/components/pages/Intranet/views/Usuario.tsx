@@ -5,6 +5,8 @@ import api from '../../../../api/axios';
 interface UsuarioProps {
     refreshSignal?: number;
     onOpenCrear: () => void;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    onOpenEditar : (usuario: any) => void;
     onOpenEliminar: (endpoint: string, title: string) => void;
 }
 
@@ -13,12 +15,13 @@ interface UsuarioData {
     nombre: string;
     apellido: string;
     correo: string;
+    correo_personal?: string;
     cargo: string | null;
     activo: boolean;
     rol_id: number;
 }
 
-export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, onOpenEliminar }) => {
+export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, onOpenEditar, onOpenEliminar }) => {
     const [usuarios, setUsuarios] = useState<UsuarioData[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -26,7 +29,6 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
         try {
             setLoading(true);
             const { data } = await api.get('/usuario');
-            // Filtramos para mostrar solo los que tienen rol_id 1 (Clientes/Usuarios)
             const filtrados = data.usuarios.filter((u: UsuarioData) => u.rol_id === 1);
             setUsuarios(filtrados);
         } catch (error) {
@@ -101,7 +103,16 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                     <td className="px-6 py-5">
                                         <div className="flex items-center justify-center gap-2">
                                             <button
-                                                onClick={() => onOpenEliminar(`/usuarios/${u.id}`, `${u.nombre} ${u.apellido}`)}
+                                                onClick={()=> onOpenEditar(u)}
+                                                className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-blue-50 text-gray-400 hover:text-blue-500 transition-all"
+                                                title='Editar'
+                                            >
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                onClick={() => onOpenEliminar(`/usuario/${u.id}`, `${u.nombre} ${u.apellido}`)}
                                                 className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-red-50 text-gray-400 hover:text-red-600 transition-all"
                                                 title="Eliminar"
                                             >

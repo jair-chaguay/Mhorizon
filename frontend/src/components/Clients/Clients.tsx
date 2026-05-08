@@ -15,87 +15,87 @@ const props: ClientProps[] = [
         name: 'Banco Amazonas'
     },
     {
-        urlImg: 'marcas/bigcola2.jpg',
+        urlImg: 'marcas/bigcola.png',
         name: 'BigCola'
     },
     {
-        urlImg: 'marcas/bp2.png',
+        urlImg: 'marcas/bancoPacifico.png',
         name: 'Banco del Pacifico'
     },
     {
-        urlImg: 'marcas/cargi2l.png',
+        urlImg: 'marcas/cargill.png',
         name: 'Cargill'
     },
     {
-        urlImg: 'marcas/cmag2.png',
+        urlImg: 'marcas/CmaCgm.png',
         name: 'Cmag'
     },
     {
-        urlImg: 'marcas/datafast2.png',
+        urlImg: 'marcas/datafast.png',
         name: 'Datafast'
     },
     {
-        urlImg: 'marcas/delbank2.png',
+        urlImg: 'marcas/delbank.png',
         name: 'DelBank'
     },
     {
-        urlImg: 'marcas/ecu2.jpg',
+        urlImg: 'marcas/ecuaEstibas.png',
         name: 'EcuaEstibas'
     },
     {
-        urlImg: 'marcas/hotelsol.jpg',
+        urlImg: 'marcas/solymar.png',
         name: 'Hotel Solymar'
     },
     {
-        urlImg: 'marcas/images2.png',
+        urlImg: 'marcas/cruzRoja.png',
         name: 'Cruz Roja'
     },
     {
-        urlImg: 'marcas/interoc2.png',
+        urlImg: 'marcas/interoc.png',
         name: 'Interoc'
     },
     {
-        urlImg: 'marcas/jho2.png',
+        urlImg: 'marcas/jhonson.png',
         name: 'Jhonsom'
     },
     {
-        urlImg: 'marcas/lanec2.png',
+        urlImg: 'marcas/lanec.png',
         name: 'Lanec'
     },
     {
-        urlImg: 'marcas/logo-brenntag2.png',
+        urlImg: 'marcas/brenntag.png',
         name: 'Brenntag'
     },
     {
-        urlImg: 'marcas/marg2.png',
+        urlImg: 'marcas/megarent.png',
         name: 'Megarent'
     },
     {
-        urlImg: 'marcas/pfc.png',
+        urlImg: 'marcas/pacificard.png',
         name: 'Pacific Card'
     },
     {
-        urlImg: 'marcas/proquilarv2.png',
+        urlImg: 'marcas/proquilarv.png',
         name: 'Proquilarv'
     },
     {
-        urlImg: 'marcas/sagemar2.png',
+        urlImg: 'marcas/sagemar.png',
         name: 'Sagemar'
     },
     {
-        urlImg: 'marcas/Saltiveri-Ogilvy-ecuador2.jpg',
+        urlImg: 'marcas/saltiveri.png',
         name: 'Saltiveri'
     },
     {
-        urlImg: 'marcas/sony2.png',
+        urlImg: 'marcas/sony.png',
         name: 'Sony'
     },
     {
-        urlImg: 'marcas/tpg2.png',
+        urlImg: 'marcas/tpg.png',
         name: 'TPG'
     },
     {
-        urlImg: 'marcas/universal2.png',
+        urlImg: 'marcas/universal.png',
         name: 'Universal'
     }
 ]
@@ -109,9 +109,8 @@ export const Clients = () => {
                     PORTAFOLIO DE CLIENTES ACTUALES E HISTÓRICOS
                 </p>
 
-                <div className="absolute left-0 top-0 bottom-0 w-24 bg-linear-to-r from-white to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute right-0 top-0 bottom-0 w-24 bg-linear-to-l from-white to-transparent z-10 pointer-events-none"></div>
-
+                <div className="absolute left-0 top-0 bottom-0 w-20 md:w-40 bg-linear-to-r from-white to-transparent z-10 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-20 md:w-40 bg-linear-to-l from-white to-transparent z-10 pointer-events-none"></div>
                 <Swiper
                     modules={[Autoplay, FreeMode]}
                     loop={true}
@@ -123,15 +122,17 @@ export const Clients = () => {
                         pauseOnMouseEnter: false,
                     }}
                     allowTouchMove={true}
-                    spaceBetween={20}
+                    spaceBetween={30}
+                    className="clients-swiper w-full"
+
                     breakpoints={{
                         0: { slidesPerView: 2 },
                         640: { slidesPerView: 3 },
                         768: { slidesPerView: 4 },
                         1024: { slidesPerView: 5 },
                         1280: { slidesPerView: 6 },
+                        1536: { slidesPerView: 8 }
                     }}
-                    className="clients-swiper px-4 max-w-350 mx-auto"
                 >
                     {props.map((client) => (
                         <SwiperSlide key={client.name}>

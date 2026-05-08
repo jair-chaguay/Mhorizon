@@ -23,7 +23,7 @@ import ModalCrearUsuario from './modals/ModalCrearUsuario';
 
 const IntranetLayout: React.FC = () => {
     const [crearConfig, setCrearConfig] = useState<any>({ title: '', placeholder: '', type: 'ROOT', parentId: null });
-    const [refreshSignal, setRefreshSignal] = useState(0);    
+    const [refreshSignal, setRefreshSignal] = useState(0);
     const triggerRefresh = () => setRefreshSignal(prev => prev + 1);
     const [activeView, setActiveView] = useState<ViewID>('view-directorio');
     const [bibliotecaDirectTo, setBibliotecaDirectTo] = useState<{ clienteId: number; periodoId: number } | null>(null); const [viewTitle, setViewTitle] = useState('Directorio de Clientes');
@@ -46,6 +46,7 @@ const IntranetLayout: React.FC = () => {
     const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
     const [isAñadirClienteOpen, setIsAñadirClienteOpen] = useState(false);
     const [isCrearUsuarioOpen, setIsCrearUsuarioOpen] = useState(false);
+    const [usuarioAEditar, setUsuarioAEditar] = useState<any>(null);
 
 
     const handleConfirmEliminar = async () => {
@@ -67,7 +68,7 @@ const IntranetLayout: React.FC = () => {
 
                 if (endpoint.includes('/cliente/')) {
                     handleViewChange('view-directorio', 'Directorio de Clientes');
-                    setClienteSeleccionado(null); 
+                    setClienteSeleccionado(null);
                 }
             }
         } catch (error) {
@@ -84,7 +85,7 @@ const IntranetLayout: React.FC = () => {
 
 
     const handleOpenRedactar = (info?: any) => {
-        setInfoAEditar(info || null); 
+        setInfoAEditar(info || null);
         setIsRedactarModalOpen(true);
     };
 
@@ -104,7 +105,7 @@ const IntranetLayout: React.FC = () => {
         setIsEliminarModalOpen(true);
     };
 
-    const handleViewChange = (viewId: ViewID, title: string, isJump:boolean = false) => {
+    const handleViewChange = (viewId: ViewID, title: string, isJump: boolean = false) => {
         setActiveView(viewId);
         setViewTitle(title);
         setIsSidebarOpen(false);
@@ -185,14 +186,15 @@ const IntranetLayout: React.FC = () => {
                             <Noticias
                                 key={`info-${refreshSignal}`}
                                 onOpenRedactar={handleOpenRedactarNoticia}
-                                onOpenEliminar={handleOpenEliminar} 
+                                onOpenEliminar={handleOpenEliminar}
                             />
                         )}
 
                         {activeView === 'view-usuarios' && (
                             <Usuario
                                 refreshSignal={refreshSignal}
-                                onOpenCrear={() => setIsCrearUsuarioOpen(true)}
+                                onOpenCrear={() => { setUsuarioAEditar(null); setIsCrearUsuarioOpen(true); }}
+                                onOpenEditar={(usuario) => { setUsuarioAEditar(usuario); setIsCrearUsuarioOpen(true); }}
                                 onOpenEliminar={handleOpenEliminar}
                             />
                         )}
@@ -223,7 +225,7 @@ const IntranetLayout: React.FC = () => {
                 isOpen={isDeclaracionModalOpen}
                 onClose={() => setIsDeclaracionModalOpen(false)}
                 clienteId={clienteSeleccionado?.id}
-                onSuccess={triggerRefresh} 
+                onSuccess={triggerRefresh}
             />
 
             <ModalEliminar
@@ -245,7 +247,7 @@ const IntranetLayout: React.FC = () => {
                 targetId={uploadConfig.targetId}
                 uploadType={uploadConfig.type}
                 onSuccess={() => {
-                    triggerRefresh(); 
+                    triggerRefresh();
                 }}
             />
 
@@ -260,6 +262,7 @@ const IntranetLayout: React.FC = () => {
                 isOpen={isCrearUsuarioOpen}
                 onClose={() => setIsCrearUsuarioOpen(false)}
                 onSuccess={triggerRefresh}
+                usuarioAEditar={usuarioAEditar}
             />
 
         </div>
