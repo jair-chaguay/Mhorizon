@@ -1,15 +1,15 @@
-import { Header, Footer, HeroAuditoria, IntegAudit, MetodologiaAud, Frase} from '../../components'
+import { Header, Footer, HeroAuditoria, IntegAudit, MetodologiaAud, Frase } from '../../components'
 
 export const AuditoriaPage = () => {
     return (
         <main>
             <Header />
             <HeroAuditoria />
-                <IntegAudit/>
-                <MetodologiaAud/>
+            <IntegAudit />
+            <MetodologiaAud />
 
             <section className='bg-blue-200'>
-                <Frase styles=' font-extrabold text-[1.5rem] sm:text-[1.8rem] md:text-[2rem] lg:text-[2.3rem] mt-16 sm:mt-20'  blanco='IMPULSA TU EMPRESA CON' naranja='ASESORÍA EXPERTA'/>
+                <Frase blanco='ELEVE EL ESTÁNDAR DE SU' naranja='GESTIÓN CORPORATIVA' styles='font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[3rem] leading-[1.1] mb-6 uppercase' />
                 <Footer />
             </section>
         </main>

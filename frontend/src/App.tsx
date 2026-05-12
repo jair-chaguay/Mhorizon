@@ -17,6 +17,7 @@ import SuccessVerification from "./components/LoginPage/SuccessVerification";
 import IntranetLayout from "./components/pages/Intranet/IntranetLayout";
 import LayoutCliente from "./components/IntranetClients/LayoutCliente";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { SistemaPage } from "./components/pages/SistemaPage";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/soluciones/auditoria" element={<AuditoriaPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sectores" element={<SectoresPage />} />
+        <Route path="/soluciones/sistema-normativo" element={<SistemaPage />} />
         <Route path="/novedades" element={<NovedadesPage />} />
         <Route path="/sectores/financiero" element={<FinancieroPage />} />
         <Route path="/sectores/industrial-comercial" element={<IndustrialPage />} />

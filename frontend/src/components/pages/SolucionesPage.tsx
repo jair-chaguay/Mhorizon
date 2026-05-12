@@ -9,8 +9,8 @@ export const SolucionesPage = () => {
 
       <Metodologia />
 
-      <section className='bg-blue-200 relative overflow-hidden'>
-        <Frase blanco='ELEVE EL ESTÁNDAR DE SU' naranja='GESTIÓN CORPORATIVA' styles='text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] leading-tight'/>
+      <section className='bg-blue-200'>
+        <Frase  blanco='ELEVE EL ESTÁNDAR DE SU' naranja='GESTIÓN CORPORATIVA' styles='font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[3rem] leading-[1.1] mb-6 uppercase'/>
         <Footer />
       </section>
     </main>

@@ -75,7 +75,7 @@ export const Operamos = () => {
                         <div className="md:w-1/2 relative min-h-75 group">
                             <img alt="Datos Financieros"
                                 className="absolute inset-0 w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
-                                src="/images/Recurso66.avif" />
+                                src="/images/indstrial.jpeg" />
                         </div>
                     </div>
                 </div>

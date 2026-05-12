@@ -53,9 +53,8 @@ export const Sede = () => {
                     </div>
 
                     <div className="lg:col-span-7 h-112.5 md:h-137.5 relative rounded-2xl overflow-hidden border border-gray-200 shadow-2xl reveal-element delay-200">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3986.9113670988636!2d-79.8971485!3d-2.1868351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d6df6cfab74d9%3A0xc07a10be6b33eb1f!2sCarchi%20601%20%26%20Quisquis%2C%20Guayaquil%20090310%2C%20Ecuador!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus" className="w-full h-full border-0 grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-500" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d449.15105009908996!2d-79.89510949343716!3d-2.1863483125435574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x902d6dde48ca34eb%3A0xbc45ee4f04999be1!2sMhorizon-Ecuador%20S.A.!5e0!3m2!1ses!2sec!4v1778606049825!5m2!1ses!2sec" className="w-full h-full border-0 grayscale opacity-90 hover:grayscale-0 hover:opacity-100 transition-all duration-500" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
                     </div>
-
 
                 </ScrollReveal>
             </div>

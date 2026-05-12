@@ -10,18 +10,18 @@ interface estructurasProp {
 const estructuras: estructurasProp[] = [
     {
         numero: '01',
-        title: 'Consultoría Empresarial y Riesgos',
-        content: 'Identificación y mitigación proactiva de riesgos operativos y financieros. Reestructuramos procesos para hacer instituciones más sólidas y rentables.',
+        title: 'Cumplimiento Normativo (SCVS y SB)',
+        content: 'Alineación total de sus cumplimientos y reportes con las exigencias de la Superintendencia de Compañías y la Superintendencia de Bancos del Ecuador.',
     },
     {
         numero: '02',
-        title: 'Cumplimiento Normativo (SCVS y SB)',
-        content: 'Alineación total de sus estatutos, manuales y reportes con las exigencias de la Superintendencia de Compañías y la Superintendencia de Bancos del Ecuador.',
+        title: 'Innovación en Fintech y medios de Pagos',
+        content: 'Asesoría integral para la escalabilidad tributaria de pasarelas de pago, billeteras digitales y nuevos modelos de negocio tecnológico en el país.',
     },
     {
         numero: '03',
-        title: 'Innovación en Fintech y Pagos',
-        content: 'Asesoría integral para la constitución y escalabilidad tributaria de pasarelas de pago, billeteras digitales y nuevos modelos de negocio tecnológico en el país.',
+        title: 'Consultoría Empresarial y Riesgos',
+        content: 'Identificación y mitigación proactiva de riesgos operativos, financieros y tributarios. Reestructuramos procesos para hacer instituciones más sólidas y rentables.',
     }
 ]
 
@@ -36,7 +36,7 @@ export const Estructura = () => {
                         <div className="rounded-2xl overflow-hidden shadow-2xl relative aspect-4/5 lg:aspect-square group-hover:-translate-y-2 transition-transform duration-300">
                             <img alt="Contenedores portuarios"
                                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                src="/images/Recurso62.jpg" />
+                                src="/images/sect_financiero.jpeg" />
                             <div className="absolute inset-0 bg-blue-200/10 mix-blend-multiply"></div>
                         </div>
 

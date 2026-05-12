@@ -9,7 +9,26 @@ export const LogisticoPortuario = () => {
 
             <div className='w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 relative'>
                 <div className="absolute -top-6 lg:top-10 lg:-right-6 bg-white group-hover:bg-orange-500 duration-300 w-12 h-12 flex items-center justify-center rounded-lg shadow-lg">
-                    <svg className="w-6 h-6 text-orange-500 group-hover:text-white duration-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                    className='h-8 text-orange-500 font-bold group-hover:text-white'
+                        viewBox="0 0 64 64"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <rect x="6" y="28" width="20" height="14" rx="2" />
+                        <line x1="10" y1="33" x2="22" y2="33" />
+                        <line x1="10" y1="37" x2="18" y2="37" />
+                        <line x1="32" y1="10" x2="32" y2="46" />
+                        <line x1="32" y1="10" x2="54" y2="10" />
+                        <line x1="48" y1="10" x2="54" y2="18" />
+                        <line x1="44" y1="18" x2="44" y2="30" />
+                        <rect x="40" y="30" width="8" height="8" />
+                        <path d="M12 50H50L44 56H18L12 50Z" />
+                        <line x1="20" y1="46" x2="38" y2="46" />
+                        <path d="M6 58c3 2 5 2 8 0s5-2 8 0 5 2 8 0 5-2 8 0 5 2 8 0" />
+                    </svg>
                 </div>
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Comercio Exterior</p>
                 <h3 className="text-white font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">Logísticos y Portuarios</h3>

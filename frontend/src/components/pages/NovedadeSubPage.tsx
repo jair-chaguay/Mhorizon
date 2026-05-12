@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../api/axios'; 
+import api from '../../api/axios';
 import { Header, Footer, AnalisisBoletin, Frase, InfoRelaci } from '../../components'
 
 export const NovedadeSubPage = () => {
-    const { id } = useParams(); 
+    const { id } = useParams();
     const [informativo, setInformativo] = useState<any>(null);
     const [loading, setLoading] = useState(true);
 
@@ -14,7 +14,7 @@ export const NovedadeSubPage = () => {
             try {
                 setLoading(true);
                 const response = await api.get(`/informativo/${id}`);
-                setInformativo(response.data.informativo || response.data); 
+                setInformativo(response.data.informativo || response.data);
             } catch (error) {
                 console.error("Error al cargar el boletín detallado:", error);
             } finally {
@@ -28,7 +28,7 @@ export const NovedadeSubPage = () => {
     }, [id]);
 
     return (
-        <main className='m-auto overflow-hidden'>
+        <main className='m-auto '>
             <Header />
 
             {loading ? (
@@ -37,8 +37,8 @@ export const NovedadeSubPage = () => {
                 </div>
             ) : informativo ? (
                 <>
-                    
-                    
+
+
                     <AnalisisBoletin informativo={informativo} />
                 </>
             ) : (
@@ -46,11 +46,10 @@ export const NovedadeSubPage = () => {
                     Boletín no encontrado.
                 </div>
             )}
-            
+
             <InfoRelaci />
             <section className='bg-blue-200'>
-                <Frase blanco='¿Necesitas soporte con esta'
-                    naranja='implementación?' styles='font-extrabold text-[2rem] sm:text-[2.6rem] md:text-[3rem] leading-[1.1] mb-6 tracking-tight' />
+                <Frase blanco='ELEVE EL ESTÁNDAR DE SU' naranja='GESTIÓN CORPORATIVA' styles='font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[3rem] leading-[1.1] mb-6 uppercase' />
                 <Footer />
             </section>
         </main>

@@ -66,3 +66,6 @@ export { LogisticoPage } from "./pages/LogisticoPage";
 export { HeroLogistico } from "./Logistico/HeroLogistico";
 export { ArquitecturaLog } from "./Logistico/ArquitecturaLog";
 export { EstrctNegocios } from "./Logistico/EstrctNegocios";
+export { EstrcTributaria } from "./Sistema/EstrcTributaria";
+export { HeroSistema } from "./Sistema/HeroSistema";
+export { MatrizOblig } from "./Sistema/MatrizOblig";

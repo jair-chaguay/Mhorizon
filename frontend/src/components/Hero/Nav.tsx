@@ -63,6 +63,8 @@ export const Nav = ({ mobile = false }: NavProps) => {
                 <li><Link to="/soluciones/gestion-tributaria" className={`${isActive('/soluciones/gestion-tributaria') ? 'text-orange-500 bg-orange-50' : ''} ${mobile ? "hover:text-orange-500 transition-colors block py-1" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}`}>Estrategia y defensa fiscal</Link></li>
                 <li><Link to="/soluciones/outsourcing" className={`${isActive('/soluciones/outsourcing') ? 'text-orange-500 bg-orange-50' : ''} ${mobile ? "hover:text-orange-500 transition-colors block py-1" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}`}>Outsourcing BPO</Link></li>
                 <li><Link to="/soluciones/auditoria" className={`${isActive('/soluciones/auditoria') ? 'text-orange-500 bg-orange-50' : ''} ${mobile ? "hover:text-orange-500 transition-colors block py-1" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}`}>Auditoría Financiera</Link></li>
+                <li><Link to="/soluciones/sistema-normativo" className={`${isActive('/soluciones/sistema-normativo') ? 'text-orange-500 bg-orange-50' : ''} ${mobile ? "hover:text-orange-500 transition-colors block py-1" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}`}>Sistema Normativo</Link></li>
+
               </ul>
             </div>
           </li>

@@ -30,11 +30,10 @@ export const Methodology = () => {
                         </div>
 
                         <h3 className="text-blue-200 font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight group-hover:text-orange-500 transition-colors">
-                            Auditoría y Transparencia
+                            Revisiones Especiales y Control
                         </h3>
                         <p className="text-gray-600 text-[1.05rem] leading-relaxed">
-                            Proporcionamos dictámenes claros y evaluaciones de riesgo de alto estándar. Aseguramos que sus estados financieros reflejen solidez y cumplan con las NIIF y entes de control.
-
+                             Fortalecemos la estructura interna de su institución mediante trabajos técnicos especializados. Ejecutamos análisis profundos de cuentas, levantamiento riguroso de inventarios y revisiones especiales enfocadas tanto en el área contable como en sus procesos operativos.
                         </p>
                     </div>
 
@@ -48,13 +47,11 @@ export const Methodology = () => {
                         </div>
 
                         <h3 className="text-white font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight">
-                            Gestión Tributaria Especializada
+                            Gestión y Asesoría Tributaria
                         </h3>
                         <p className="text-gray-300 text-[1.05rem] leading-relaxed mb-6">
-                            Optimizamos la carga fiscal de sus productos e instituciones financieras, ejecutando prevenciones contingentes y aprovechando los escudos legales vigentes.
-
+                            Brindamos asesoría fiscal permanente diseñada para el sector financiero. Estructuramos estrategias de optimización tributaria de alto nivel, asegurando la máxima eficiencia impositiva de sus productos financieros en estricto cumplimiento legal.
                         </p>
-                        <span className="inline-block px-3 py-1 bg-white/10 text-white border border-white/20 text-[0.70rem] font-bold uppercase tracking-widest rounded-sm">MITIGACIÓN DE RIESGOS</span>
 
                     </div>
 
@@ -63,10 +60,9 @@ export const Methodology = () => {
                         <div className="absolute -top-6 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:-translate-y-2 transition-all duration-300 group-hover:bg-blue-200">
                             <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         </div>
-                        <h3 className="text-blue-200 font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight group-hover:text-orange-500 transition-colors">Outsourcing Financiero & BPO</h3>
+                        <h3 className="text-blue-200 font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight group-hover:text-orange-500 transition-colors">Representación y Reclamos Fiscales</h3>
                         <p className="text-gray-600 text-[1.05rem] leading-relaxed">
-                            Asumimos la gestión de nómina corporativa, contabilidad de back-office y obligaciones patronales para que su entidad se enfoque plenamente en su negocio central.
-
+                            Protegemos el patrimonio de su entidad ante los entes de control. Lideramos el acompañamiento integral en procesos de determinación con el SRI y gestionamos de manera técnica los reclamos formales y las devoluciones tributarias.
                         </p>
                     </div>
 

@@ -4,7 +4,7 @@ import { ScrollReveal } from "../ScrollReveal"
 export const HeroFinanciero = () => {
 
     return (
-        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-132.5 md:h-132.5 bg-[url('/images/Recurso61.jpg')] bg-cover bg-center overflow-hidden">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-132.5 md:h-132.5 bg-[url('/images/financiero.jpeg')] bg-cover bg-center overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/80 to-transparent"></div>
 
 

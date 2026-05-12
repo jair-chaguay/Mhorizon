@@ -53,7 +53,6 @@ export const ArquitecturaEst = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="absolute -top-6 -left-6 w-32 h-32 border-l-4 border-t-4 border-orange-500 z-0"></div>
                         <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gray-50 rounded-xl z-0"></div>
                     </div>
 
