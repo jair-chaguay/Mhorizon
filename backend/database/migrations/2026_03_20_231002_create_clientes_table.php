@@ -22,6 +22,10 @@ public function up(): void
         $table->softDeletes();
         $table->timestamps();
     });
+
+    Schema::table('usuarios', function (Blueprint $table) {
+            $table->foreign('cliente_id')->references('id')->on('clientes')->onDelete('cascade');
+        });
 }
 
     /**

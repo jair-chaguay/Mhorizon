@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('rol_id')->constrained('roles')->onDelete('restrict');
-            $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
+            $table->foreignId('cliente_id')->nullable();
             $table->string('nombre');
             $table->string('apellido');
             $table->string('correo')->unique();
