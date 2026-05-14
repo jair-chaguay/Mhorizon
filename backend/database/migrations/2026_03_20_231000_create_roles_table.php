@@ -22,7 +22,8 @@ return new class extends Migration
 
         DB::table('roles')->insert([
             ['nombre' => 'admin', 'es_interno'=>true, 'nivel_acceso'=> 1, 'created_at' => now(), 'updated_at' => now()],
-            ['nombre' => 'cliente', 'es_interno'=>false, 'nivel_acceso'=> 2, 'created_at' => now(), 'updated_at' => now()]
+            ['nombre' => 'cliente', 'es_interno'=>false, 'nivel_acceso'=> 2, 'created_at' => now(), 'updated_at' => now()],
+            ['nombre' => 'creacion', 'es_interno'=>true, 'nivel_acceso'=> 3, created_at => now(), 'updated_at'=> now()]
         ]);
     }
 

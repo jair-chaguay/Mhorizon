@@ -22,6 +22,12 @@ return new class extends Migration
             $table->softDeletes();
             $table->timestamp('ultimo_acceso')->nullable();
         });
+
+        DB::table('usuarios')->insert([
+            ['rol_id' => 3, "nombre" => "Milton", "apellido" => "Montece", "correo" => "mmontece@mhorizon.com.ec", "password_hash" => "mhorizon2026", "cargo" => "Creacion", "activo" =>true, 'created_at' => now(), 'updated_at' => now()],
+            ['rol_id' => 3, "nombre" => "Marcos", "apellido" => "Nuñez", "correo" => "mnunez@mhorizon.com.ec", "password_hash" => "mhorizon2026", "cargo" => "Creacion", "activo" =>true, 'created_at' => now(), 'updated_at' => now()],
+            ['rol_id' => 3, "nombre" => "Richard", "apellido" => "Castro", "correo" => "rcastro@mhorizon.com.ec", "password_hash" => "mhorizon2026", "cargo" => "Creacion", "activo" =>true, 'created_at' => now(), 'updated_at' => now()],
+        ]);
     }
 
     public function down(): void
