@@ -12,7 +12,7 @@ export const HeroSectores = () => {
                 </p>
                 <h1 className='text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]'>
                     IMPULSANDO EL ÉXITO <br className="hidden md:block" />
-                    EN <span className="text-orange-500">CADA INDUSTRIA</span>
+                    EN <span >CADA INDUSTRIA</span>
                 </h1>
                 <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light">
                     Nuestra visión estratégica se adapta a los desafíos específicos de los mercados más dinámicos, ofreciendo soluciones a medida que garantizan competitividad y cumplimiento en entornos corporativos complejos.

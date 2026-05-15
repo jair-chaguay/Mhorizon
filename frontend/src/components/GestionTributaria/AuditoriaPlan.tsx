@@ -30,7 +30,7 @@ export const AuditoriaPlan = () => {
         <div className="w-full lg:w-[50%] flex flex-col gap-10 reveal-element">
           <div className="border-l-4 border-l-orange-500 px-4 md:px-8">
             <h2 className="text-blue-200 text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] font-extrabold tracking-tight leading-tight">
-              Autoridad en <br />Planificación Fiscal
+              AUTORIDAD EN <br />PLANIFICACIÓN FISCAL
             </h2>
             <p className="mt-5 text-gray-700 font-light text-justify md:text-left w-full md:pr-10 leading-relaxed text-[1.05rem]">
               En MHORIZON, redefinimos la consultoría tributaria al trascender el simple cumplimiento básico. A través de un enfoque holístico, combinamos una profunda inteligencia regulatoria del SRI y SCVS con una visión corporativa a largo plazo para blindar su patrimonio.

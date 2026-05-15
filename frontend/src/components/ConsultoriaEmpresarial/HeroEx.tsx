@@ -38,9 +38,9 @@ export const HeroEx = () => {
                     EXCELENCIA EMPRESARIAL
                 </h3>
 
-                <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]">
+                <h1 className="text-white drop-shadow-lg text-[2.3rem] sm:text-[2.8rem] md:text-[2.8rem] font-bold w-full tracking-tight leading-[1.1]">
                     CONSULTORÍA <br/>
-                    <span className="text-orange-500">
+                    <span>
                         EMPRESARIAL
                     </span>
                 </h1>

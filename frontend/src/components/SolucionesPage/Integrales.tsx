@@ -51,7 +51,7 @@ export const Integrales = () => {
 
                 <div className='w-full mt-2'>
                     <h1 className='font-bold text-white text-[2.4rem] sm:text-[2.6rem] md:text-[3.3rem] leading-[1.1] drop-shadow-lg'>
-                        SOLUCIONES   <span className='text-orange-500'>
+                        SOLUCIONES   <span>
                           INTEGRALES
                         </span>
                     </h1>

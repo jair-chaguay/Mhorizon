@@ -10,9 +10,9 @@ export const HeroNovedades = () => {
                     BOLETINES & ACTUALIZACIONES
                 </p>
 
-                <h1 className="text-white drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[4rem] font-bold w-full tracking-tight leading-[1.05]">
-                    Impulsando el conocimiento<br className="hidden md:block" />
-                    <span className="text-orange-500"> corporativo</span>
+                <h1 className="text-white drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[3rem] font-bold w-full tracking-tight leading-[1.05]">
+                    IMPULSANDO EL CONOCIMIENTO<br className="hidden md:block" />
+                    <span > CORPORATIVO</span>
                 </h1>
 
                 <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">

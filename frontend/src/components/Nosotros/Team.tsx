@@ -22,21 +22,21 @@ const teams: TeamProp[] = [
         frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
     },
     {
-        image: "VIOLETA.png",
+        image: "gary.png",
         rol: "Gerente de auditoría",
-        nombre: "Violeta Rodriguez",
+        nombre: "Gary Sanchez",
         frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
     },
     {
-        image: "VIOLETA.png",
+        image: "marcos.png",
         rol: "Gerente de auditoría",
-        nombre: "Violeta Rodriguez",
+        nombre: "Marcos Nuñez",
         frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
     },
     {
-        image: "VIOLETA.png",
+        image: "sandrita.png",
         rol: "Gerente de auditoría",
-        nombre: "Violeta Rodriguez",
+        nombre: "Sandra",
         frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
     }
 ]

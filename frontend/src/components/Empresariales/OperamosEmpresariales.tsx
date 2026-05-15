@@ -13,14 +13,14 @@ interface operamosProps {
 const operamosP: operamosProps[] = [
   {
     icon: Recurso70,
-    title: "Consultoría y Estructuración Corporativa",
+    title: "Estrategia Avanzada en Modelos de Negocio",
     content: "Acompañamos el crecimiento de su empresa B2B diseñando modelos de negocio eficientes y estrategias de mitigación de riesgos financieros.",
     list1: "Asesoría en fusiones y adquisiciones",
     list2: "Reestructuración societaria"
   },
   {
     icon: Recurso71,
-    title: "Cumplimiento Normativo y Prevención",
+    title: "Dominio en Prevención de Riesgos Societarios",
     content: "Blindamos su patrimonio asegurando que sus reportes, estatutos y obligaciones tributarias estén perfectamente alineados con el SRI y la SCVS.",
     list1: "Auditoría de estados financieros",
     list2: "Control de riesgos regulatorios"
@@ -62,7 +62,7 @@ export const OperamosEmpresariales = () => {
 
             <div className="mt-2 relative z-10">
               <h3 className="font-bold text-white text-[1.2rem] md:text-[1.3rem] leading-tight">
-                Outsourcing BPO & Contabilidad
+                Control Integral de Back-Office
               </h3>
               <p className="mt-4 text-white/90 text-[0.95rem] leading-relaxed mb-8">
                 Asumimos el control integral de su back-office, gestión de nómina patronal y contabilidad bajo normas NIIF, permitiendo a su equipo enfocarse al 100% en captar clientes y brindar servicios.

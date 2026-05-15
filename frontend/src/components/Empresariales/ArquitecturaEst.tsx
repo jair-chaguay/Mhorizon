@@ -10,12 +10,12 @@ interface arquitecturaProps {
 const arquitecturas: arquitecturaProps[] = [
     {
         numero: "01",
-        title: "Gestión Fiscal de Servicios",
+        title: "Inteligencia Tributaria B2B",
         content: "Optimizamos su carga tributaria, el manejo de retenciones y la declaración de IVA, diseñando planeaciones fiscales eficientes y adaptadas a la naturaleza intangible de sus servicios."
     },
     {
         numero: "02",
-        title: "Auditoría Financiera Preventiva",
+        title: "Rigor Analítico bajo Estándares Internacionales",
         content: "Evaluamos la salud económica de su empresa con rigor internacional (NIIF). Garantizamos la máxima transparencia de su gestión ante socios directores, inversionistas y la SCVS."
     }
 ]

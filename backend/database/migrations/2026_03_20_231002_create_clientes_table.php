@@ -16,7 +16,7 @@ public function up(): void
         $table->id();
         $table->enum('tipo_persona', ['Régimen General', 'Rimpe', 'Contribuyente Especial', 'Persona Natural'])->default('Persona Natural');
         $table->string('razon_social_nombres');
-        $table->string('identificacion', 20)->unique();
+        $table->string('identificacion', 13)->unique();
         $table->integer('score_tributario')->default(100);
         $table->foreignId('creado_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
         $table->softDeletes();

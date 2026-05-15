@@ -54,18 +54,12 @@ export const Estrategia = () => {
 
                         <div className="flex flex-col gap-4 py-8 px-8 sm:px-10 shadow-xl rounded-2xl bg-gray-50 border border-gray-100 hover:border-orange-500/50 transition-colors cursor-pointer group">
                             <p className="font-medium text-[1.1rem] text-blue-200">
-                                Informe de Mercado 2026
+                                Delegación Operativa (BPO)
                             </p>
 
                             <p className="text-gray-500 leading-relaxed text-[0.95rem]">
-                                Descargue nuestro último análisis sobre las tendencias corporativas
-                                globales.
+                                Asumimos la gestión integral de su back-office contable para que su empresa escale sus operaciones sin fricciones administrativas.
                             </p>
-
-                            <div className="flex justify-between items-center mt-2">
-                                <span className="text-orange-500 font-bold text-sm uppercase tracking-wider group-hover:text-blue-200 transition-colors">Descargar PDF</span>
-                                <img className="w-8 h-8 opacity-50 group-hover:opacity-100 transition-opacity" src="/images/Recurso37.png" alt="Descargar" />
-                            </div>
                         </div>
 
                     </div>

@@ -11,7 +11,7 @@ interface estructurasFinancieras {
 const estrucutras: estructurasFinancieras[] = [
     {
         icon: Resiliencia,
-        title: "Outsourcing Contable y BPO",
+        title: "Gestión Integral de Back-Office",
         content: "Asumimos la gestión integral de su nómina, contabilidad y cumplimiento patronal, permitiendo que se enfoque 100% en la producción y las ventas."
     },
     {

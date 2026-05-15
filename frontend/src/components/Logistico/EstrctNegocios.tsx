@@ -8,7 +8,7 @@ export const EstrctNegocios = () => {
                 <div className="px-5 sm:px-8 md:px-12 flex flex-col bg-blue-200 lg:flex-row items-center gap-12 lg:gap-20 mb-20 py-12 reveal-element ">
                     <div className="w-full lg:w-1/2 order-2 lg:order-1">
                         <h3 className="text-white font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight mb-6 border-l-4 border-l-orange-500 pl-4">
-                            Estructuración de Negocios Logísticos
+                            ARQUITECTURA PARA LA EXPANSIÓN LOGÍSTICA
                         </h3>
                         <p className="text-white font-light text-[1.05rem] leading-relaxed mb-6">
                             Asesoría integral para la viabilidad y expansión de flotas de transporte, desarrollo de nuevos centros de distribución y estrategias de inversión en infraestructura de almacenamiento.
@@ -43,7 +43,7 @@ export const EstrctNegocios = () => {
                     </div>
                     <div className="w-full lg:w-1/2">
                         <h3 className="text-blue-200 font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight mb-6 border-l-orange-500 border-l-4 pl-4">
-                            Control de Riesgos en  Comercio Exterior
+                            BLINDAJE Y DEFENSA EN COMERCIO EXTERIOR
                         </h3>
                         <p className="text-blue-200 font-light text-[1.05rem] leading-relaxed mb-6">
                             Mapeamos y mitigamos las contingencias inherentes a los procesos aduaneros, contables y de facturación internacional, protegiendo a su agencia frente a multas, glosas o clausuras.

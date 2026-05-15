@@ -18,11 +18,13 @@ import IntranetLayout from "./components/pages/Intranet/IntranetLayout";
 import LayoutCliente from "./components/IntranetClients/LayoutCliente";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { SistemaPage } from "./components/pages/SistemaPage";
+import { AnalyticsTracker, CookieBanner } from "./components/Analytics";
 
 function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <AnalyticsTracker />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/soluciones" element={<SolucionesPage />} />
@@ -57,6 +59,8 @@ function App() {
         </Route>
 
       </Routes>
+
+      <CookieBanner />
     </BrowserRouter>
   );
 }

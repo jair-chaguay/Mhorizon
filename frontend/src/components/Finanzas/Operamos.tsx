@@ -33,7 +33,7 @@ export const Operamos = () => {
                             </div>
 
                             <h3 className="font-bold text-blue-200 text-[1.4rem] md:text-[1.6rem] mb-4">
-                                Auditoría de Procesos e Inventarios
+                                Intervención Estratégica en Cadenas de Suministro
                             </h3>
                             <p className="text-gray-600 text-[1rem] leading-relaxed max-w-xl">
                                 Proporcionamos evaluaciones de control interno exhaustivas, asegurando que su gestión de inventarios minimice las mermas y sus estados financieros reflejen total solidez ante reguladores.
@@ -50,7 +50,7 @@ export const Operamos = () => {
                             </div>
 
                             <h3 className="font-bold text-white text-[1.4rem] mb-4">
-                                Gestión Tributaria Industrial
+                                Experiencia en Inteligencia Fiscal para Producción
                             </h3>
                             <p className=" text-gray-300 text-[0.95rem] leading-relaxed">
                                 Optimizamos la carga fiscal de sus operaciones, gestionando eficientemente el IVA, retenciones y aprovechando los incentivos vigentes.
@@ -65,7 +65,7 @@ export const Operamos = () => {
                                 <span className="w-4 h-0.5 bg-orange-500"></span> Gestión de riesgos
                             </span>
                             <h3 className="font-bold text-blue-200 text-[1.6rem] md:text-[2rem] mb-4 leading-tight">
-                                Optimización de Costos y Control Operativo
+                                Maximización Comprobada de Márgenes Industriales
                             </h3>
                             <p className=" text-gray-600 text-[1rem] leading-relaxed">
                                 Sistemas avanzados de detección de ineficiencias en líneas de producción y distribución. Evaluamos y reestructuramos sus controles internos para proteger el margen de ganancia de su empresa.
