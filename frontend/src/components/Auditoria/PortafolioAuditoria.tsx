@@ -10,7 +10,7 @@ interface servicioAuditoria {
 
 const servicioAuditoria: servicioAuditoria[] = [
     {
-        titulo: 'Estrategia y defensa fiscal',
+        titulo: 'Entre nuestros productos tenemos:',
         listaServicios: [
             "Asesoría y Servicios de Auditoría y Revisiones Especiales",
             "Evaluación de control interno",

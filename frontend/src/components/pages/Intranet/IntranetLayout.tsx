@@ -6,7 +6,7 @@ import Directorio from './views/Directorio';
 import Biblioteca from './views/Biblioteca';
 import Informativos from './views/Informativos';
 import Noticias from './views/Noticia';
-
+import Configuracion from './views/Configuracion';
 import ModalCrearCarpeta from './modals/ModalCrearCarpeta';
 import ModalRedactarInformativo from './modals/ModalRedactarInformativo';
 import ModalRedactarNoticia from './modals/ModalRedactarNoticia';
@@ -197,6 +197,10 @@ const IntranetLayout: React.FC = () => {
                                 onOpenEditar={(usuario) => { setUsuarioAEditar(usuario); setIsCrearUsuarioOpen(true); }}
                                 onOpenEliminar={handleOpenEliminar}
                             />
+                        )}
+
+                        {activeView === 'view-configuracion' && (
+                            <Configuracion />
                         )}
 
                     </div>

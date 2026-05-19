@@ -10,7 +10,7 @@ interface servicioConsultoria {
 
 const serviciosConsultoria: servicioConsultoria[] = [
     {
-        titulo: 'CONSULTORÍA empresarial',
+        titulo: 'Entre nuestros productos tenemos:',
         listaServicios: [
             "Valoración de compañías",
             "Evaluación de proyectos",

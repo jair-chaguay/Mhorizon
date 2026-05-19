@@ -10,7 +10,7 @@ interface servicioEstrategia {
 
 const serviciosEstrategia: servicioEstrategia[] = [
     {
-        titulo: 'Estrategia y defensa fiscal',
+        titulo: 'Entre nuestros productos tenemos:',
         listaServicios: [
             "Asesoría y Servicios Tributarios",
             "Consultoría Tributaria Permanente",

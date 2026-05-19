@@ -9,7 +9,7 @@ export const PortafolioContainer = ({ titulo, listaServicios }: PortafolioProps)
             <div className="max-w-275 mx-auto px-5 sm:px-8 md:px-12">
                 <div className="text-center mb-14 reveal-element">
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block">
-                        NUESTRO PORTAFOLIO DE
+                        PORTAFOLIO
                     </span>
                     <h2 className="text-blue-200 uppercase font-extrabold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
                         {titulo}

@@ -10,7 +10,7 @@ interface servicioOutsourcing {
 
 const serviciosOutsourcing: servicioOutsourcing[] = [
     {
-        titulo: 'Estrategia y defensa fiscal',
+        titulo: 'Entre nuestros productos tenemos:',
         listaServicios: [
             "Servicios de Outsourcing Contable y Nómina",
             "Elaboración y análisis de Estados financieros",
