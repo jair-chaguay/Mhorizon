@@ -22,9 +22,9 @@ export const Operamos = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-                    <div className="lg:col-span-2 bg-white p-10 md:p-12 shadow-lg rounded-xl border border-gray-100 reveal-element delay-100 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group">
+                    <div className="bg-white p-10 md:p-12 shadow-lg rounded-xl border border-gray-100 reveal-element delay-100 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group">
                         <div className="absolute -right-10 -top-10 bg-gray-50 rounded-full w-40 h-40 group-hover:scale-150 transition-transform duration-700 ease-in-out opacity-50 z-0"></div>
 
                         <div className="relative z-10">
@@ -41,7 +41,7 @@ export const Operamos = () => {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-1 bg-blue-200 p-10 md:p-12 shadow-xl rounded-xl border border-blue-200 reveal-element delay-200 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group">
+                    <div className="bg-blue-200 p-10 md:p-12 shadow-xl rounded-xl border border-blue-200 reveal-element delay-200 hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group">
                         <div className="absolute top-0 right-0 bg-orange-500 w-2 h-full"></div>
 
                         <div className="relative z-10 flex flex-col h-full justify-center">
@@ -58,7 +58,7 @@ export const Operamos = () => {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-3 bg-white shadow-lg rounded-xl border border-gray-100 flex flex-col md:flex-row overflow-hidden reveal-element delay-300 hover:shadow-2xl transition-shadow">
+                    <div className="lg:col-span-2 bg-white shadow-lg rounded-xl border border-gray-100 flex flex-col md:flex-row overflow-hidden reveal-element delay-300 hover:shadow-2xl transition-shadow">
 
                         <div className="md:w-1/2 p-10 md:p-16 flex flex-col justify-center">
                             <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.75rem] uppercase mb-4 block items-center gap-2">
@@ -73,9 +73,9 @@ export const Operamos = () => {
 
                         </div>
                         <div className="md:w-1/2 relative min-h-75 group">
-                            <img alt="Datos Financieros"
+                            <img alt="MaximizacionComprobada"
                                 className="absolute inset-0 w-full h-full object-cover mix-blend-multiply group-hover:scale-105 transition-transform duration-700"
-                                src="/images/indstrial.jpeg" />
+                                src="/images/MaximizacionComprobada.jpeg" />
                         </div>
                     </div>
                 </div>

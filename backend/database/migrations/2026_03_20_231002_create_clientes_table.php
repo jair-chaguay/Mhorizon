@@ -14,7 +14,7 @@ public function up(): void
 {
     Schema::create('clientes', function (Blueprint $table) {
         $table->id();
-        $table->enum('tipo_persona', ['Régimen General', 'Rimpe', 'Contribuyente Especial', 'Persona Natural'])->default('Persona Natural');
+        $table->enum('tipo_persona', ['Régimen General', 'RIMPE', 'Contribuyente Especial', 'Persona Natural', 'Entidad Pública'])->default('Persona Natural');
         $table->string('razon_social_nombres');
         $table->string('identificacion', 13)->unique();
         $table->integer('score_tributario')->default(100);

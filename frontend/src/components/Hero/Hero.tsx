@@ -3,17 +3,8 @@ import { ScrollReveal } from "../ScrollReveal";
 
 export const Hero = () => {
   return (
-<ScrollReveal as={"section"} className="-mt-px relative min-h-140 md:h-140.5 overflow-hidden flex items-center">      
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0"
-      >
-        <source src="/video/VIDEOHOME.MOV" type="video/mp4" />
-        Tu navegador no soporta el formato de video.
-      </video>
+<ScrollReveal as={"section"} className="-mt-px relative min-h-140 md:h-140.5 overflow-hidden flex items-center bg-[url('/images/HomeHero.png')] bg-cover bg-center overflow-hidden">      
+
 
       <div className="absolute w-full h-full inset-0 bg-linear-to-r from-blue-200/95 from-0% via-blue-200/70 via-35% to-transparent to-70% z-0"></div>
 

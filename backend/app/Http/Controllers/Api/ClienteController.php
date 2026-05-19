@@ -42,9 +42,9 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'tipo_persona' => 'required|in:Régimen General,Rimpe,Contribuyente Especial,Persona Natural',
+            'tipo_persona' => 'required|in:Régimen General,RIMPE,Contribuyente Especial,Persona Natural,Entidad Pública',
             'razon_social_nombres' => 'required|string|max:255',
-            'identificacion' => 'required|string|max:20|unique:clientes,identificacion',
+            'identificacion' => 'required|string|max:13|unique:clientes,identificacion',
             'score_tributario' => 'required|integer|min:0|max:100',
             
             // Datos del Usuario de acceso
@@ -114,9 +114,9 @@ class ClienteController extends Controller
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 
         $validator = Validator::make($request->all(), [
-            'tipo_persona' => 'sometimes|required|in:Régimen General,Rimpe,Contribuyente Especial,Persona Natural',
+            'tipo_persona' => 'sometimes|required|in:Régimen General,RIMPE,Contribuyente Especial,Persona Natural,Entidad Pública',
             'razon_social_nombres' => 'sometimes|required|string|max:255',
-            'identificacion' => 'sometimes|required|string|max:20|unique:clientes,identificacion,'.$id,
+            'identificacion' => 'sometimes|required|string|max:13|unique:clientes,identificacion,'.$id,
             'direccion_matriz' => 'nullable|string',
             'score_tributario' => 'sometimes|required|integer|min:0|max:100',
             'correo' => 'sometimes|required|email|max:150',

@@ -15,7 +15,7 @@ const HeaderCliente: React.FC<Props> = ({ title, onOpenSidebar, onGoHome }) => {
 
             <div className="flex items-center text-sm font-medium text-gray-500 truncate">
                 <span className="cursor-pointer hover:text-orange-500 transition-colors" onClick={onGoHome}>
-                    MHorizon
+                    MHORIZON
                 </span>
 
                 <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -11,17 +11,17 @@ interface HeroProps {
 const hero: HeroProps[] = [
 
     {
-        img: "/images/Recurso32.png",
+        img: "/images/DominacionFinanciera.png",
         title: "Dominancia financiera",
         content: "Mejoramiento de la huella corporativa a través de estrategias basadas en datos financieros."
     },
     {
-        img: "/images/Recurso33.png",
+        img: "/images/AgilidadCorporativa.png",
         title: "Agilidad operativa",
         content: "Reestructuración de los procesos principales para lograr la máxima eficiencia y reducción de costos."
     },
     {
-        img: "/images/Recurso34.png",
+        img: "/images/Aceleracion.png",
         title: "Aceleración del crecimiento",
         content: "Hoja de ruta estratégica para un valor sostenido a largo plazo ante accionistas y organismos de control."
     }
@@ -29,7 +29,7 @@ const hero: HeroProps[] = [
 
 export const HeroEx = () => {
     return (
-        <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex flex-col md:flex-row gap-10 md:gap-10 items-center relative h-auto min-h-137.5 bg-[url('/images/Recurso02.avif')] bg-cover bg-center py-16 md:py-0">
+        <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex flex-col md:flex-row gap-10 md:gap-10 items-center relative h-auto min-h-137.5 bg-[url('/images/ConsultoriaHero.jpeg')] bg-cover bg-center py-16 md:py-0">
 
             <div className="absolute inset-0 bg-linear-to-r from-[#0f172a]/95 via-[#0f172a]/70 to-[#0f172a]/30"></div>
 
@@ -39,10 +39,8 @@ export const HeroEx = () => {
                 </h3>
 
                 <h1 className="text-white drop-shadow-lg text-[2.3rem] sm:text-[2.8rem] md:text-[2.8rem] font-bold w-full tracking-tight leading-[1.1]">
-                    CONSULTORÍA <br/>
-                    <span>
-                        EMPRESARIAL
-                    </span>
+                    CONSULTORÍA EMPRESARIAL
+                    
                 </h1>
 
                 <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full md:w-[90%] leading-relaxed">

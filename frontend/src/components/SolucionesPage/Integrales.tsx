@@ -41,7 +41,7 @@ export const Integrales = () => {
     }, []); 
 
     return (
-        < section ref={sectionRef} className="bg-[url('/images/Integrales.avif')] bg-cover bg-center relative flex gap-4 px-5 sm:px-8 md:px-20 w-full h-auto min-h-125 md:h-125 pt-16 md:pt-0 pb-28 md:pb-0 items-center overflow-hidden">
+        < section ref={sectionRef} className="bg-[url('/images/SolucionesHero.avif')] bg-cover bg-center relative flex gap-4 px-5 sm:px-8 md:px-20 w-full h-auto min-h-125 md:h-125 pt-16 md:pt-0 pb-28 md:pb-0 items-center overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-r from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
 
             <div className='w-full md:w-[60%] relative flex flex-col justify-center mt-0 z-10 reveal-element'>
@@ -66,7 +66,7 @@ export const Integrales = () => {
 
             <div className="hidden md:flex gap-5 bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl absolute w-95 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300">
                 <div className="bg-white rounded-lg shrink-0 relative">
-                    <img className="w-11 h-11 object-contain" src="/images/Recurso29.png" alt="Crecimiento Operativo" />
+                    <img className="w-11 h-11 object-contain" src="/images/flechaIntegrales.png" alt="Crecimiento Operativo" />
                 </div>
                 <div>
                     <p className="text-[0.75rem] font-bold text-gray-300 uppercase tracking-wider">CRECIMIENTO SOSTENIDO</p>

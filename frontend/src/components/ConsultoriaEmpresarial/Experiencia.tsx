@@ -2,7 +2,7 @@ import { ScrollReveal } from "../ScrollReveal"
 
 export const Experiencia = () => {
     return (
-        <ScrollReveal as={"section"} className="relative h-112.5 sm:h-125 bg-[url('/images/Recurso38.avif')] bg-cover bg-fixed bg-center flex items-center">
+        <ScrollReveal as={"section"} className="relative h-112.5 sm:h-125 bg-[url('/images/Experiencia.avif')] bg-cover bg-fixed bg-center flex items-center">
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/80 to-transparent"></div>
 
             <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 w-full relative z-10 reveal-element">

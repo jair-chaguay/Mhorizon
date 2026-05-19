@@ -5,14 +5,14 @@ import { ScrollReveal } from '../ScrollReveal';
 export const HeroNosotros = () => {
 
     return (
-        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-117.5 md:h-122.5 bg-[url('/images/Recurso02.avif')] bg-cover bg-center overflow-hidden">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-117.5 md:h-122.5 bg-[url('/images/NosotrosHero.jpeg')] bg-cover bg-center overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent"></div>
 
 
             <div className="relative z-10 w-full md:w-[85%] lg:w-[70%] reveal-element">
                 <div className="max-w-6xl">
                     <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-2 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-6 backdrop-blur-sm shadow-lg">
-                        NUESTRA IDENTIDAD CORPORATIVA
+                        CREANDO NUEVOS HORIZONTES
                     </p>
 
                     <h1 className="text-white drop-shadow-2xl text-[2.6rem] sm:text-[3.2rem] md:text-[3.3rem] font-extrabold w-full tracking-tight leading-[1.05]">

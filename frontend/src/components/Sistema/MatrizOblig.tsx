@@ -8,9 +8,9 @@ export const MatrizOblig = () => {
     return (
         <ScrollReveal as={"section"} className="py-16 md:py-24 bg-white border-b border-gray-200 overflow-hidden">
             <ScrollReveal className="max-w-7xl mx-auto px-4 sm:px-8 md:px-12">
-                <div className="max-w-2xl border-l-orange-500 border-l-[6px] pl-4 mb-8 md:mb-10">
+                <div className="max-w-3xl border-l-orange-500 border-l-[6px] pl-4 mb-8 md:mb-10">
                     <h2 className="text-blue-200 font-bold text-2xl sm:text-[2.1rem] md:text-[2.5rem] uppercase tracking-tight leading-tight">
-                        MATRIZ DE OBLIGACIONES POR PERIODICIDAD
+                        MATRIZ DE OBLIGACIONES LEGALES
                     </h2>
                 </div>
 

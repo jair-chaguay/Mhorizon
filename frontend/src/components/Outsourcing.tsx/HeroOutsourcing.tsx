@@ -4,7 +4,7 @@ import { ScrollReveal } from '../ScrollReveal';
 export const HeroOutsourcing = () => {
 
     return (
-        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-138.5 bg-[url('/images/outsourcing_bpo.jpeg')] bg-cover bg-center overflow-hidden">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-138.5 bg-[url('/images/OutsourcingHero.jpeg')] bg-cover bg-center overflow-hidden">
 
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent">
             </div>
@@ -15,8 +15,7 @@ export const HeroOutsourcing = () => {
                 </p>
 
                 <h1 className='text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]'>
-                    OUTSOURCING BPO<br />
-                    ESTRATÉGICO
+                    OUTSOURCING BPO
                 </h1>
 
                 <p className='text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full leading-relaxed drop-shadow-md text-left'>

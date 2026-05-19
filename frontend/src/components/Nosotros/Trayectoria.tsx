@@ -34,7 +34,7 @@ export const Trayectoria = () => {
                         <div className="md:w-[45%] w-full pl-12 md:pl-12 order-1 md:order-2">
                             <div className="overflow-hidden rounded-xl border border-white/10 shadow-2xl">
                                 <img className="w-full h-full object-cover  transition-transform duration-700 group-hover:scale-110 opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 grayscale group-hover:grayscale-0 group-hover:opacity-100 "
-                                    alt="Oficinas Guayaquil" src="/images/Recurso09.jpeg"
+                                    alt="Oficinas Guayaquil" src="/images/Consolidacion.jpeg"
                                 />
                                 <div className="absolute inset-0 bg-blue-200/40 group-hover:bg-transparent transition-colors duration-500"></div>
                             </div>
@@ -59,7 +59,7 @@ export const Trayectoria = () => {
                                 <img className="w-full h-72 object-cover grayscale opacity-70 
                                     group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 
                                     group-hover:scale-105" alt="Reunión Corporativa"
-                                    src="/images/Recurso11.jpeg"
+                                    src="/images/ExpansionServicios.jpeg"
                                 />
                                 <div className="absolute inset-0 bg-blue-200/40 group-hover:bg-transparent transition-colors duration-500"></div>
 
@@ -83,7 +83,7 @@ export const Trayectoria = () => {
                                 <img className="w-full h-72 object-cover grayscale opacity-70 
                                     group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 
                                     group-hover:scale-105" alt="Tecnología Financiera"
-                                    src="/images/Recurso65.jpeg"
+                                    src="/images/InnovacionAnalitica.jpeg"
                                 />
                                 <div className="absolute inset-0 bg-blue-200/40 group-hover:bg-transparent transition-colors duration-500"></div>
                             </div>

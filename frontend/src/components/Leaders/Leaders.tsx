@@ -5,24 +5,29 @@ import { Link } from 'react-router-dom'
 interface LeaderProps {
   name: string
   cargo: string
-  email?: string
   urlImg: string
   link: string
+  tiktok?: string
+  tiktokUser?: string 
+  instagram?: string
+  instagramUser?: string 
 }
 
 const leadersProp: LeaderProps[] = [
   {
     name: 'Milton Montecé Q.',
     cargo: 'Partner Manager',
-    urlImg: 'images/MILTON.png',
-    email: 'mmontece@mhorizon.com.ec',
+    urlImg: 'images/Milton_Montece.png',
     link: 'https://ec.linkedin.com/in/milton-montec%C3%A9-94283029',
+    tiktok: 'https://www.tiktok.com/@milton_montece',
+    tiktokUser: '@milton_montece', 
+    instagram: 'https://www.instagram.com/milton.montece',
+    instagramUser: '@milton.montece', 
   },
   {
     name: 'Violeta Rodriguez',
     cargo: 'Tax Partner',
-    urlImg: 'images/VIOLETA.png',
-    email: 'vrodriguez@mhorizon.com.ec',
+    urlImg: 'images/Violeta_Rodriguez.png',
     link: 'https://ec.linkedin.com/in/violeta-rodriguez-35a658a1',
   },
 ]
@@ -35,7 +40,7 @@ export const Leaders = () => {
         <div className="relative w-full lg:w-[50%] reveal-element">
           <div className='relative rounded-2xl overflow-hidden shadow-2xl h-112.5'>
             <img
-              src="images/foto1.jpeg"
+              src="images/PerspectivaGlobal.jpeg"
               alt="Perspectiva global"
               className="w-full h-full object-cover"
             />

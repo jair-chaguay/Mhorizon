@@ -30,8 +30,7 @@ export const CookieBanner: React.FC = () => {
       expires={365}
       onAccept={handleAccept}
     >
-      Utilizamos cookies propias y de terceros para analizar el tráfico y mejorar tu experiencia. 
-      ¿Aceptas el uso de cookies?
+      Este sitio web utiliza cookies propias y de terceros para optimizar la funcionalidad, analizar el tráfico y mejorar la experiencia del usuario. Al continuar navegando, usted acepta nuestra política de cookies y privacidad.
     </CookieConsent>
   );
 }

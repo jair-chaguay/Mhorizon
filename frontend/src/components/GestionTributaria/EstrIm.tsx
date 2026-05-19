@@ -8,7 +8,7 @@ export const EstrIm = () => {
 
                 <div className="w-full md:w-[50%] h-87.5 sm:h-100 md:h-120 relative flex flex-col items-center reveal-element">
                     <img className='w-full h-full object-cover relative rounded-2xl shadow-2xl'
-                        src="/images/Recurso42.png" alt="Estrategia de Impuestos"
+                        src="/images/EstrategiaImpuestos.png" alt="Estrategia de Impuestos"
                     />
                     <div className="absolute inset-0 bg-blue-200/10 rounded-2xl"></div>
 

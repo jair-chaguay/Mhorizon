@@ -4,7 +4,7 @@ export const Financiero = () => {
     return (
         <div className='flex flex-col lg:flex-row bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden reveal-element hover:shadow-2xl transition-shadow group'>
             <div className='w-full lg:w-1/2 h-75 lg:h-auto relative overflow-hidden'>
-                <img className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' src="/images/financiero.jpeg" alt="Logistica" />
+                <img className='absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700' src="/images/FinancieroHero.jpeg" alt="Logistica" />
                 <div className="absolute inset-0 bg-blue-200/20"></div>
             </div>
 
@@ -34,7 +34,7 @@ export const Financiero = () => {
 
                 </div>
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Cumplimiento & Riesgo</p>
-                <h3 className="text-blue-200 font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">Financiero</h3>
+                <h3 className="text-blue-200 font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">FINANCIERO</h3>
                 <p className="text-gray-600 font-light text-[1.05rem] leading-relaxed mb-6">
                     Garantizamos la integridad operativa, el cumplimiento normativo y la eficiencia fiscal en instituciones bancarias, aseguradoras y empresas de tecnología financiera (Fintech). Protegemos su estructura frente a regulaciones cambiantes.
                 </p>

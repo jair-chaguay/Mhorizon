@@ -43,9 +43,9 @@ export const CumplimientoNorm = () => {
 
                 <div className="w-full lg:w-[45%] h-112.5 relative order-1 lg:order-2 reveal-element delay-200">
                     <div className="bg-blue-200 flex flex-col items-center justify-center rounded-2xl overflow-hidden shadow-2xl w-full h-full relative group">
-                        <img className="w-full h-full object-cover opacity-40 mix-blend-overlay group-hover:scale-105 transition-transform duration-700" src="/images/Recurso01.avif" alt="Cumplimiento Normativo" />
+                        <img className="w-full h-full object-cover opacity-40 mix-blend-overlay group-hover:scale-105 transition-transform duration-700" src="/images/CumplimientoNormativoBg.avif" alt="Cumplimiento Normativo" />
                         <div className="absolute inset-0 flex flex-col items-center justify-center p-8 text-center">
-                            <img className="w-24 mb-6 drop-shadow-2xl" src="/images/Recurso43.png" alt="Escudo Institucional" />
+                            <img className="w-24 mb-6 drop-shadow-2xl" src="/images/EscurdoCorporativo.png" alt="Escudo Institucional" />
                             <h3 className="text-white font-extrabold text-[1.4rem] uppercase tracking-widest drop-shadow-md">Escudo Corporativo</h3>
                             <div className="w-12 h-1 bg-orange-500 mt-4"></div>
                         </div>

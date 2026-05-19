@@ -4,7 +4,7 @@ import { ScrollReveal } from "../ScrollReveal"
 export const HeroGestion = () => {
 
   return (
-    <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex gap-6 items-center relative min-h-137.5 bg-[url('/images/Recurso39.avif')] bg-cover bg-center overflow-hidden">
+    <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex gap-6 items-center relative min-h-137.5 bg-[url('/images/HeroEstrategia.avif')] bg-cover bg-center overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-r from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
 
       <div className="relative z-10 w-full pt-10 reveal-element">
@@ -12,7 +12,7 @@ export const HeroGestion = () => {
           INTELIGENCIA TRIBUTARIA
         </p>
 
-        <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full md:w-[800px] tracking-tight leading-[1.1]">
+        <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full md:w-200px tracking-tight leading-[1.1]">
           ESTRATEGIA Y <br />
           <span>DEFENSA FISCAL</span>
         </h1>

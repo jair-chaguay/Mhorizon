@@ -18,7 +18,7 @@ export const Estrategia = () => {
                     <div className="w-full lg:w-[60%] relative rounded-2xl overflow-hidden shadow-2xl group reveal-element">
                         <img
                             className="w-full h-100 sm:h-125 object-cover group-hover:scale-105 transition-transform duration-700"
-                            src="/images/Recurso36.avif"
+                            src="/images/TransformacionInstitucional.avif"
                             alt="recurso_36"
                         />
 

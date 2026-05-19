@@ -5,7 +5,7 @@ import { SectoresPage } from "./components/pages/SectoresPage";
 import { NovedadesPage } from "./components/pages/NovedadesPage";
 import { NosotrosPage } from "./components/pages/NosotrosPage";
 import { ConsultoriaEmpresarial } from "./components/pages/ConsultoriaEmpresarial";
-import { AuditoriaPage, CalculadoraPage, IndustrialPage, GestionPage, Login, OutsourcingPage, FinancieroPage, LogisticoPage } from "./components";
+import { AuditoriaPage, CalculadoraPage, IndustrialPage, GestionPage, OutsourcingPage, FinancieroPage, LogisticoPage } from "./components";
 import { EmpresarialesPage } from "./components/pages/EmpresarialesPage";
 import { NovedadeSubPage } from "./components/pages/NovedadeSubPage";
 import { ScrollToTop } from "./components/ScrollTop";
@@ -19,6 +19,8 @@ import LayoutCliente from "./components/IntranetClients/LayoutCliente";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { SistemaPage } from "./components/pages/SistemaPage";
 import { AnalyticsTracker, CookieBanner } from "./components/Analytics";
+import { PoliticasPage } from "./components/pages/PoliticasPage";
+import { TerminosPage } from "./components/pages/TerminosPage";
 
 function App() {
   return (
@@ -32,7 +34,6 @@ function App() {
         <Route path="/soluciones/gestion-tributaria" element={<GestionPage />} />
         <Route path="/soluciones/outsourcing" element={<OutsourcingPage />} />
         <Route path="/soluciones/auditoria" element={<AuditoriaPage />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/sectores" element={<SectoresPage />} />
         <Route path="/soluciones/sistema-normativo" element={<SistemaPage />} />
         <Route path="/novedades" element={<NovedadesPage />} />
@@ -40,6 +41,8 @@ function App() {
         <Route path="/sectores/industrial-comercial" element={<IndustrialPage />} />
         <Route path="/sectores/servicios-empresariales" element={<EmpresarialesPage />} />
         <Route path="/sectores/logistico-portuario" element={<LogisticoPage />} />
+        <Route path="/politicas-de-privacidad" element={<PoliticasPage />} />
+        <Route path="/terminos-de-uso" element={<TerminosPage />} />
 
         <Route path="/novedades-sub/:id" element={<NovedadeSubPage />} />
         <Route path="/calculadora" element={<CalculadoraPage />} />

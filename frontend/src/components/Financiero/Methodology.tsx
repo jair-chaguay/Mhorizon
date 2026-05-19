@@ -26,7 +26,7 @@ export const Methodology = () => {
 
                     <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 sm:p-10 relative reveal-element hover:shadow-2xl transition-shadow mt-6 md:mt-0 group">
                         <div className='absolute -top-6 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:-translate-y-2 transition-all group-hover:bg-blue-200 duration-300'>
-                            <img className="w-7" src="/images/Recurso63.png" alt="Recurso63" />
+                            <img className="w-7" src="/images/Fortalecimiento.png" alt="Fortalecimiento" />
                         </div>
 
                         <h3 className="text-blue-200 font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight group-hover:text-orange-500 transition-colors">
@@ -43,7 +43,7 @@ export const Methodology = () => {
                     <div className="bg-blue-200 rounded-2xl shadow-xl p-8 sm:p-10 relative reveal-element delay-100 hover:shadow-2xl transition-shadow mt-6 md:mt-0 group">
 
                         <div className='absolute -top-6 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:-translate-y-2 transition-transform duration-300'>
-                            <img className='w-7 text-orange-500' src="/images/Recurso64.png" alt="Recurso64" />
+                            <img className='w-7 text-orange-500' src="/images/OptimizacionTributaria.png" alt="OptimizacionTributaria" />
                         </div>
 
                         <h3 className="text-white font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight">

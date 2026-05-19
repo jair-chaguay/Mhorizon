@@ -9,12 +9,12 @@ interface autProps {
 
 const aut: autProps[] = [
   {
-    icon: "/images/Recurso40.png",
+    icon: "/images/Compliance.png",
     title: "Compliance Total",
     content: "Aseguramos la integridad de sus operaciones frente a marcos normativos nacionales y de fiscalidad internacional, mitigando riesgos antes de que surjan.",
   },
   {
-    icon: "/images/Recurso41.png",
+    icon: "/images/OptimizacionEstrc.png",
     title: "Optimización estructural",
     content: "Analizamos y rediseñamos arquitecturas fiscales para maximizar la eficiencia en la cadena de valor global de su organización.",
   }

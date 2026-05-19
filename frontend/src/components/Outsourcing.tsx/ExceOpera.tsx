@@ -19,7 +19,7 @@ export const ExceOpera = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-10">
                     <div className="bg-white py-12 px-8 md:px-10 shadow-lg rounded-xl relative border border-gray-200 reveal-element delay-100 hover:shadow-2xl transition-shadow group">
                         <div className="absolute -top-6 left-8 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 transition-transform">
-                            <img className="w-7 h-7 object-contain invert brightness-0" src="/images/Recurso47.png" alt="Soporte contable" />
+                            <img className="w-7 h-7 object-contain invert brightness-0" src="/images/BPOContable.png" alt="Soporte contable" />
                         </div>
                         <div className="mt-4 text-blue-200">
                             <h3 className="font-bold text-[1.3rem] md:text-[1.4rem]">
@@ -33,7 +33,7 @@ export const ExceOpera = () => {
 
                     <div className="bg-blue-200 py-12 px-8 md:px-10 shadow-xl rounded-xl relative border border-white/5 reveal-element delay-200 hover:shadow-2xl transition-shadow group">
                         <div className="absolute -top-6 left-8 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-lg shadow-lg group-hover:scale-110 transition-transform">
-                            <img className="w-7 h-7 object-contain invert brightness-0" src="/images/Recurso46.png" alt="Gestión de Nómina" />
+                            <img className="w-7 h-7 object-contain invert brightness-0" src="/images/GestionNomina.png" alt="Gestión de Nómina" />
                         </div>
 
                         <div className="mt-4 text-white">

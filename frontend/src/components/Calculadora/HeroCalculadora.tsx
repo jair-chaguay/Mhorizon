@@ -2,7 +2,7 @@ import { ScrollReveal } from "../ScrollReveal"
 
 export const HeroCalculadora = () => {
     return (
-        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-97.5 bg-[url('/images/Recurso03.jpeg')] bg-cover bg-center overflow-hidden">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-97.5 bg-[url('/images/SimuladorHero.jpeg')] bg-cover bg-center overflow-hidden">
 
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent">
             </div>

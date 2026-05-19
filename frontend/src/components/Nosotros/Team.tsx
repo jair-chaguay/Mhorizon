@@ -5,39 +5,49 @@ interface TeamProp {
     image: string,
     rol: string,
     nombre: string,
-    frase: string
+    frase: string,
+    linkedin?: string,
+    instagram?: string,
+    tiktok?: string,
+    compact?: boolean
 }
 
 const teams: TeamProp[] = [
     {
-        image: "MILTON.png",
-        rol: "Socio Fundador",
-        nombre: "Milton Montecé Q.",
+        image: "Milton_Montece.png",
+        rol: "PARTNER MANAGER",
+        nombre: "MILTON MONTECÉ Q.",
+        linkedin: "https://ec.linkedin.com/in/milton-montec%C3%A9-94283029",
+        instagram: "https://www.instagram.com/milton.montece/", 
+        tiktok: "https://www.tiktok.com/@milton_montece", 
         frase: "Nuestra misión es ser el faro que guía a las empresas hacia la estabilidad y el crecimiento sostenible mediante una correcta planificación tributaria."
     },
     {
-        image: "VIOLETA.png",
-        rol: "Gerente de auditoría",
-        nombre: "Violeta Rodriguez",
+        image: "Violeta_Rodriguez.png",
+        rol: "TAX PARTNER",
+        nombre: "VIOLETA RODRIGUEZ",
+        linkedin: "https://ec.linkedin.com/in/violeta-rodriguez-35a658a1",
         frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
     },
     {
-        image: "gary.png",
-        rol: "Gerente de auditoría",
-        nombre: "Gary Sanchez",
-        frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
+        image: "Gary_Sanchez.png",
+        rol: "SENIOR OUTSOURCING",
+        nombre: "GARY SANCHEZ",
+        frase: "Asumimos el control de su back-office con absoluto rigor técnico, permitiendo que su corporación escale operaciones sin fricciones administrativas."
     },
     {
-        image: "marcos.png",
-        rol: "Gerente de auditoría",
-        nombre: "Marcos Nuñez",
-        frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
+        image: "Marcos_Nuñez.png",
+        rol: "TAX SENIOR",
+        nombre: "MARCOS NUÑEZ",
+        linkedin: "https://www.linkedin.com/in/marco-núñez-zambrano-808621124/",
+        frase: "Transformamos la complejidad normativa en estrategias claras. Nuestra prioridad es blindar el patrimonio corporativo mediante una eficiencia fiscal impecable."
     },
     {
-        image: "sandrita.png",
-        rol: "Gerente de auditoría",
-        nombre: "Sandra",
-        frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
+        image: "Sandra_Sarmiento.png",
+        rol: "RRHH",
+        nombre: "SANDRA SARMIENTO",
+        linkedin: "https://www.linkedin.com/in/sandra-sarmiento-755306172/",
+        frase: "El activo más valioso de toda gran estructura es su talento. Impulsamos una cultura de excelencia organizacional orientada al alto rendimiento y compromiso."
     }
 ]
 

@@ -33,14 +33,12 @@ export const ConsultoriaEje = () => {
                     <div className="absolute inset-0 p-6 sm:p-10 lg:p-14">
                         <div className="relative w-full h-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl">
 
-                            {/* Imagen */}
                             <img
                                 className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                src="/images/Recurso49.avif"
-                                alt="Recurso49"
+                                src="/images/ReduccionCostos.avif"
+                                alt="ReduccionCostos"
                             />
 
-                            {/* Degradado */}
                             <div className="absolute inset-0 bg-linear-to-t from-blue-200 via-blue-200/50 to-transparent"></div>
 
                         </div>

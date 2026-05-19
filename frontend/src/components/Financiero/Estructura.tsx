@@ -36,7 +36,7 @@ export const Estructura = () => {
                         <div className="rounded-2xl overflow-hidden shadow-2xl relative aspect-4/5 lg:aspect-square group-hover:-translate-y-2 transition-transform duration-300">
                             <img alt="Contenedores portuarios"
                                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                src="/images/sect_financiero.jpeg" />
+                                src="/images/PilaresServicio.jpeg" />
                             <div className="absolute inset-0 bg-blue-200/10 mix-blend-multiply"></div>
                         </div>
 

@@ -15,6 +15,7 @@ interface EditorProps {
   onChange: (content: string) => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const MenuBar = ({ editor }: { editor: any }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);

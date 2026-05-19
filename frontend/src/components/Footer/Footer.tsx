@@ -39,23 +39,23 @@ export const Footer = () => {
       </ul>
       <ul className="flex gap-4 sm:gap-8 my-6 pb-18">
         <li>
-          <a href="">
-            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/fb.png" alt="Facebook" />
+          <a href="https://www.facebook.com/MhorizonEcuador/" target="_blank" rel="noopener noreferrer">
+            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/IconFb.png" alt="Facebook" />
           </a>
         </li>
         <li>
-          <a href="">
-            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/ig.png" alt="Instagram" />
+          <a href="https://www.instagram.com/mhorizon.ec/" target="_blank" rel="noopener noreferrer">
+            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/IconIg.png" alt="Instagram" />
           </a>
         </li>
         <li>
-          <a href="">
-            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/in.png" alt="LinkedIn" />
+          <a href="https://www.linkedin.com/company/mhorizon" target="_blank" rel="noopener noreferrer">
+            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/IconLinkedin.png" alt="LinkedIn" />
           </a>
         </li>
         <li>
-          <a href="">
-            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/tk.png" alt="TikTok" />
+          <a href="https://www.tiktok.com/@mhorizon.ec" target="_blank" rel="noopener noreferrer">
+            <img className="size-7 sm:size-8 opacity-70 hover:opacity-100" src="/images/IconTk.png" alt="TikTok" />
           </a>
         </li>
       </ul>
@@ -64,7 +64,7 @@ export const Footer = () => {
           © 2026 MHORIZON. TODOS LOS DERECHOS RESERVADOS 
         </p>
         <p className="text-white/70 text-[0.75rem] sm:text-[0.80rem]">
-          TÉRMINOS DE USO | POLÍTICAS DE PRIVACIDAD
+          <Link className="hover:text-white transition-colors duration-300" to={"/terminos-de-uso"}>TÉRMINOS DE USO</Link> | <Link className="hover:text-white transition-colors duration-300" to="/politicas-de-privacidad">POLÍTICAS DE PRIVACIDAD</Link>
         </p>
       </div>
     </footer>

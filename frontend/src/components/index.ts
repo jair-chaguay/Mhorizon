@@ -8,7 +8,6 @@ export { Clients } from "./Clients/Clients";
 export { Soluciones } from "./Soluciones/Soluciones"
 export { Calculadora } from "./Calculadora/Calculadora"
 export { Perspectiva } from "./Leaders/Perspectiva"
-export { Informativos } from "./Informativos/Informativos"
 export { Footer } from "./Footer/Footer"
 export { Integrales } from "./SolucionesPage/Integrales"
 export { ServiciosEsp } from "./SolucionesPage/ServiciosEsp";
@@ -24,7 +23,6 @@ export { EstrIm } from "./GestionTributaria/EstrIm";
 export { CumplimientoNorm } from "./GestionTributaria/CumplimientoNorm";
 export { OutsourcingPage } from "./pages/OutsourcingPage";
 export { AuditoriaPage } from "./pages/AuditoriaPage";
-export { Login } from "./login/Login";
 export { HeroOutsourcing } from "./Outsourcing.tsx/HeroOutsourcing";
 export { ExceOpera } from "./Outsourcing.tsx/ExceOpera";
 export { ConsultoriaEje } from "./Outsourcing.tsx/ConsultoriaEje";
@@ -69,3 +67,9 @@ export { EstrctNegocios } from "./Logistico/EstrctNegocios";
 export { EstrcTributaria } from "./Sistema/EstrcTributaria";
 export { HeroSistema } from "./Sistema/HeroSistema";
 export { MatrizOblig } from "./Sistema/MatrizOblig";
+export { PoliticasPrivacidad } from "./Politicas/PoliticasPrivacidad";
+export { Terminos } from "./Terminos/Terminos";
+export { PortafoliaEmpresarial } from "./ConsultoriaEmpresarial/PortafoliaEmpresarial";
+export { PortafolioEstr } from "./GestionTributaria/PortafolioEstr";
+export { PortafolioOutso } from "./Outsourcing.tsx/PortafolioOutso";
+export { PortafolioAuditoria } from "./Auditoria/PortafolioAuditoria";

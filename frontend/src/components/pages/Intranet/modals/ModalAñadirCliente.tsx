@@ -1,6 +1,81 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import api from '../../../../api/axios';
 
+const validarModulo10 = (cedula: string): boolean => {
+    const coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2];
+    const verificador = parseInt(cedula.charAt(9), 10);
+    let suma = 0;
+    
+    for (let i = 0; i < 9; i++) {
+        let valor = parseInt(cedula.charAt(i), 10) * coeficientes[i];
+        if (valor >= 10) valor -= 9;
+        suma += valor;
+    }
+    
+    const modulo = suma % 10;
+    const digitoCalculado = modulo === 0 ? 0 : 10 - modulo;
+    return digitoCalculado === verificador;
+};
+
+const validarModulo11Sociedades = (ruc: string): boolean => {
+    const coeficientes = [4, 3, 2, 7, 6, 5, 4, 3, 2];
+    const verificador = parseInt(ruc.charAt(9), 10);
+    let suma = 0;
+    
+    for (let i = 0; i < 9; i++) {
+        suma += parseInt(ruc.charAt(i), 10) * coeficientes[i];
+    }
+    
+    const modulo = suma % 11;
+    const digitoCalculado = modulo === 0 ? 0 : 11 - modulo;
+    return digitoCalculado === verificador;
+};
+
+const validarModulo11Publicas = (ruc: string): boolean => {
+    if (ruc.charAt(9) !== '0') return false; 
+    
+    const coeficientes = [3, 2, 7, 6, 5, 4, 3, 2];
+    const verificador = parseInt(ruc.charAt(8), 10);
+    let suma = 0;
+    
+    for (let i = 0; i < 8; i++) {
+        suma += parseInt(ruc.charAt(i), 10) * coeficientes[i];
+    }
+    
+    const modulo = suma % 11;
+    const digitoCalculado = modulo === 0 ? 0 : 11 - modulo;
+    return digitoCalculado === verificador;
+};
+
+interface ValidacionResult {
+    valido: boolean;
+    mensaje?: string;
+    tipo?: "Persona Natural" | "Sociedad Privada" | "Entidad Pública";
+}
+
+const validarEstructuraRUC = (ruc: string): ValidacionResult => {
+    if (!ruc || ruc.length !== 13) return { valido: false, mensaje: "El RUC debe tener exactamente 13 dígitos numéricos." };
+    if (ruc.substring(10, 13) !== "001") return { valido: false, mensaje: "Todo RUC debe terminar invariablemente en 001." };
+
+    const provincia = parseInt(ruc.substring(0, 2), 10);
+    if (provincia < 1 || provincia > 24) return { valido: false, mensaje: "Los dos primeros dígitos (código de provincia) son inválidos." };
+
+    const tercerDigito = parseInt(ruc.charAt(2), 10);
+
+    if (tercerDigito < 6) {
+        if (!validarModulo10(ruc.substring(0, 10))) return { valido: false, mensaje: "Fallo en la validación de Cédula/Persona Natural (Módulo 10)." };
+        return { valido: true, tipo: "Persona Natural" };
+    } else if (tercerDigito === 9) {
+        if (!validarModulo11Sociedades(ruc)) return { valido: false, mensaje: "Fallo en la validación de Sociedad Privada (Módulo 11)." };
+        return { valido: true, tipo: "Sociedad Privada" };
+    } else if (tercerDigito === 6) {
+        if (!validarModulo11Publicas(ruc)) return { valido: false, mensaje: "Fallo en la validación de Entidad Pública (Módulo 11)." };
+        return { valido: true, tipo: "Entidad Pública" };
+    } else {
+        return { valido: false, mensaje: "El tercer dígito del RUC es inválido." };
+    }
+};
 
 interface ModalAñadirClienteProps {
     isOpen: boolean;
@@ -10,7 +85,6 @@ interface ModalAñadirClienteProps {
 
 export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen, onClose, onSuccess }) => {
     
-    // Estados del formulario
     const [razonSocial, setRazonSocial] = useState('');
     const [identificacion, setIdentificacion] = useState('');
     const [score, setScore] = useState<number>(100);
@@ -23,14 +97,47 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        setLoading(true);
         setErrorMsg('');
 
+        const identificacionClean = identificacion.trim();
+
+        const validacion = validarEstructuraRUC(identificacionClean);
+        if (!validacion.valido) {
+            setErrorMsg("RUC Inválido: " + validacion.mensaje);
+            return; 
+        }
+
+        let regimenIncorrecto = false;
+        let mensajeErrorRegimen = "";
+        
+        if (validacion.tipo === "Persona Natural") {
+            if (tipoPersona === "Régimen General" || tipoPersona === "Entidad Pública") {
+                regimenIncorrecto = true;
+                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Persona Natural (3er dígito menor a 6). No puedes seleccionarlo como "${tipoPersona}".`;
+            }
+        } else if (validacion.tipo === "Sociedad Privada") {
+            if (tipoPersona === "Persona Natural" || tipoPersona === "Entidad Pública") {
+                regimenIncorrecto = true;
+                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Sociedad (3er dígito es 9). No puedes seleccionarlo como "${tipoPersona}".`;
+            }
+        } else if (validacion.tipo === "Entidad Pública") {
+            if (tipoPersona === "Persona Natural" || tipoPersona === "Régimen General") {
+                regimenIncorrecto = true;
+                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Entidad Pública (3er dígito es 6). No puedes seleccionarlo como "${tipoPersona}".`;
+            }
+        }
+
+        if (regimenIncorrecto) {
+            setErrorMsg(mensajeErrorRegimen);
+            return; 
+        }
+
+        setLoading(true);
         try {
             const payload = {
                 tipo_persona: tipoPersona,
                 razon_social_nombres: razonSocial,
-                identificacion: identificacion,
+                identificacion: identificacionClean,
                 score_tributario: score,
                 correo: correo,
                 password: password
@@ -49,7 +156,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             onClose();   
             alert("Cliente añadido exitosamente");
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             const msg = error?.response?.data?.message || "Error al crear cliente";
             setErrorMsg(msg);
@@ -79,8 +185,9 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                 <form onSubmit={handleSubmit} className="space-y-4">
                     
                     {errorMsg && (
-                        <div className="bg-red-50 text-red-500 p-3 rounded-lg text-sm font-medium border border-red-100">
-                            {errorMsg}
+                        <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-2">
+                            <svg className="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            <span>{errorMsg}</span>
                         </div>
                     )}
 
@@ -92,7 +199,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                     <div className="grid grid-cols-2 gap-4">
                         <div>
                             <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">RUC / Cédula</label>
-                            <input type="text" value={identificacion} onChange={(e) => setIdentificacion(e.target.value)} placeholder="Ej. 1790000000001" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
+                            <input type="text" maxLength={13} value={identificacion} onChange={(e) => setIdentificacion(e.target.value)} placeholder="Ej. 1790000000001" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
                         </div>
                         <div>
                             <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Score Tributario</label>
@@ -113,10 +220,11 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                     <div>
                         <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Tipo de Contribuyente</label>
                         <select value={tipoPersona} onChange={(e) => setTipoPersona(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500">
-                            <option value="Régimen General">Régimen General</option>
-                            <option value="Rimpe">Rimpe</option>
-                            <option value="Contribuyente Especial">Contribuyente Especial</option>
                             <option value="Persona Natural">Persona Natural</option>
+                            <option value="Régimen General">Régimen General (Sociedad)</option>
+                            <option value="Entidad Pública">Entidad Pública</option>
+                            <option value="RIMPE">RIMPE</option>
+                            <option value="Contribuyente Especial">Contribuyente Especial</option>
                         </select>
                     </div>
                     

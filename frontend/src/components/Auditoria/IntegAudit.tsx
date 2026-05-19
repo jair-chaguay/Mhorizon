@@ -9,13 +9,13 @@ interface inteProps {
 
 const integridad: inteProps[] = [
     {
-        image: "/images/Recurso50.png",
+        image: "/images/ProtocoloTransparencia.png",
         title: "Protocolo de Transparencia",
         content: "Implementamos sistemas avanzados de verificación y auditoría digital que van más allá de los métodos de muestreo tradicionales. Garantizamos una trazabilidad absoluta en cada movimiento financiero registrado en sus balances."
     },
     {
-        image: "/images/Recurso51.png",
-        title: "Mitigación de Riesgos", // Nota: Verifica si este título se repite o si era otro
+        image: "/images/MitigacionRiesgos.png",
+        title: "Mitigación de Riesgos",
         content: "Ejecutamos análisis predictivo diseñado específicamente para identificar debilidades estructurales antes de que se conviertan en pasivos financieros, asegurando la continuidad y rentabilidad de sus operaciones corporativas."
     }
 ]

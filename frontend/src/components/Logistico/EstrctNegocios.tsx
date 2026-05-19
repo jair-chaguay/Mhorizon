@@ -26,7 +26,7 @@ export const EstrctNegocios = () => {
                     </div>
                     <div className="w-full lg:w-1/2 order-1 lg:order-2">
                         <div className=" group relative rounded-2xl overflow-hidden shadow-2xl aspect-4/3">
-                            <img src="/images/Recurso08.avif" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Logística y Transporte" />
+                            <img src="/images/ExpansionLogistica.jpeg" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Logística y Transporte" />
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@ export const EstrctNegocios = () => {
                 <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 reveal-element delay-100">
                     <div className="w-full lg:w-1/2">
                         <div className="group relative rounded-2xl overflow-hidden shadow-2xl aspect-4/3">
-                            <img src="/images/Recurso03.avif" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Consultoría Portuaria" />
+                            <img src="/images/blindaje.webp" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Consultoría Portuaria" />
                             <div className="absolute inset-0 bg-blue-200/10"></div>
                         </div>
                     </div>

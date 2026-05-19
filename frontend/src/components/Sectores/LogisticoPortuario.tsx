@@ -4,7 +4,7 @@ export const LogisticoPortuario = () => {
     return (
         <div className='flex flex-col lg:flex-row-reverse bg-blue-200 rounded-2xl shadow-xl overflow-hidden reveal-element delay-100 hover:shadow-2xl transition-shadow group'>
             <div className="w-full lg:w-1/2 h-75 lg:h-auto relative overflow-hidden">
-                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" src="/images/Recurso08.avif" alt="Finanzas Corporativas" />
+                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80" src="/images/LogisticoHero.avif" alt="Finanzas Corporativas" />
             </div>
 
             <div className='w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 relative'>
@@ -31,7 +31,7 @@ export const LogisticoPortuario = () => {
                     </svg>
                 </div>
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Comercio Exterior</p>
-                <h3 className="text-white font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">Logísticos y Portuarios</h3>
+                <h3 className="text-white font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4 uppercase">Logísticos y Portuarios</h3>
                 <p className="text-gray-300 font-light text-[1.05rem] leading-relaxed mb-6">
                     Aportamos rigor analítico, gestión aduanera y planeación fiscal en procesos críticos para empresas de comercio exterior, navieras y operadores logísticos a nivel nacional e internacional.
                 </p>

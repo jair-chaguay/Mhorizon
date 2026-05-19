@@ -4,7 +4,7 @@ export const Empresariales = () => {
     return (
         <div className='flex flex-col lg:flex-row bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden reveal-element delay-200 hover:shadow-2xl transition-shadow group'>
             <div className="w-full lg:w-1/2 h-75 lg:h-auto relative overflow-hidden">
-                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/images/Empresariales.jpeg" alt="Consumo y Tecnología" />
+                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/images/EmpresarialesHero.jpeg" alt="Consumo y Tecnología" />
                 <div className="absolute inset-0 bg-blue-200/10"></div>
             </div>
 
@@ -30,7 +30,7 @@ export const Empresariales = () => {
 
 
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Asesoría Corporativa</p>
-                <h3 className="text-blue-200 font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">Servicios Empresariales</h3>
+                <h3 className="text-blue-200 font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4 uppercase">Servicios Empresariales</h3>
                 <p className="text-gray-600 font-light text-[1.05rem] leading-relaxed mb-6">
                     Brindamos planeación corporativa, cumplimiento normativo y outsourcing estratégico para empresas orientadas al servicio. Blindamos su patrimonio y aseguramos el cumplimiento estricto ante SCVS y el SRI.
                 </p>
