@@ -12,7 +12,7 @@ export const HeroLogistico = () => {
                         MERCADO GLOBAL
                     </p>
 
-                    <h1 className="text-white drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[4rem] font-bold w-full tracking-tight leading-[1.05]">
+                    <h1 className="text-white drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.05]">
                         LOGÍSTICO & PORTUARIO
                     </h1>
 

@@ -19,7 +19,8 @@ class Cliente extends Model
         'direccion_matriz',
         'score_tributario',
         'proximo_vencimiento',
-        'creado_por_id'
+        'creado_por_id',
+        'gestionado_por_id',
     ];
 
     protected $casts = [
@@ -45,5 +46,11 @@ class Cliente extends Model
     public function obligaciones()
     {
         return $this->hasMany(ObligacionTributaria::class, 'cliente_id');
+    }
+    public function gestor()
+    {
+        return $this->belongsTo(Usuario::class, 'gestionado_por_id')
+                    ->select(['id', 'nombre', 'apellido'])
+                    ->withTrashed();
     }
 }

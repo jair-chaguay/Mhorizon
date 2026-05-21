@@ -12,7 +12,7 @@ export const HeroEmpresariales = () => {
                     ESPECIALIZACIÓN SECTORIAL
                 </p>
 
-                <h1 className="text-white  drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[4rem] font-bold w-full tracking-tight leading-[1.05]">
+                <h1 className="text-white  drop-shadow-lg text-[2.6rem] sm:text-[3rem] md:text-[3.3rem] font-bold w-full tracking-tight leading-[1.05]">
                     SERVICIOS EMPRESARIALES
                 </h1>
 

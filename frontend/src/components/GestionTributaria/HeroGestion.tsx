@@ -12,9 +12,8 @@ export const HeroGestion = () => {
           INTELIGENCIA TRIBUTARIA
         </p>
 
-        <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full md:w-200px tracking-tight leading-[1.1]">
-          ESTRATEGIA Y <br />
-          <span>DEFENSA FISCAL</span>
+        <h1 className="text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.3rem] font-bold w-full md:w-200px tracking-tight leading-[1.1]">
+          ESTRATEGIA Y DEFENSA FISCAL
         </h1>
 
         <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full md:w-[70%] lg:w-[55%] leading-relaxed">

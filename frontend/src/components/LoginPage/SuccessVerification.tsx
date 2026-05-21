@@ -5,8 +5,6 @@ import { ScrollReveal } from '../ScrollReveal';
 const SuccessVerification: React.FC = () => {
   return (
     <ScrollReveal className="bg-blue-200 text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative font-sans">
-      <div className="absolute inset-0 bg-[url('/images/Recurso38.avif')] bg-cover bg-center opacity-40 mix-blend-luminosity z-0 reveal-element" />
-      <div className="absolute inset-0 bg-linear-to-b from-blue-200/95 via-blue-200/90 to-blue-200 z-0" />
 
       <header className="relative z-10 w-full py-6 px-5 sm:px-8 md:px-12 flex justify-between items-center">
         <Link className="w-36 sm:w-44 md:w-35 h:6 transition-transform hover:scale-105 duration-300" to="/">

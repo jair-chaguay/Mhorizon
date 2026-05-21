@@ -15,7 +15,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::with('creador', 'usuarios')
+        $clientes = Cliente::with('creador', 'gestor', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -28,7 +28,7 @@ class ClienteController extends Controller
     public function indexBiblioteca()
     {
         $clientes = Cliente::withTrashed()
-                           ->with('creador', 'usuarios')
+                           ->with('creador','gestor', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -65,7 +65,8 @@ class ClienteController extends Controller
                 'razon_social_nombres' => $request->razon_social_nombres,
                 'identificacion' => $request->identificacion,
                 'score_tributario' => $request->score_tributario,
-                'creado_por_id' => Auth::id() // El admin que lo está creando
+                'creado_por_id' => Auth::id(),
+                'gestionado_por_id' => Auth::id() // El admin que lo está creando
             ]);
 
             // B. Crear el Usuario asociado a ese Cliente
@@ -121,12 +122,13 @@ class ClienteController extends Controller
             'score_tributario' => 'sometimes|required|integer|min:0|max:100',
             'correo' => 'sometimes|required|email|max:150',
             'password' => 'nullable|string|min:8',
-            'representante' => 'nullable|string|max:200'
+            'representante' => 'nullable|string|max:200',
+            'gestionado_por_id' => 'nullable|exists:usuarios,id'
         ]);
 
         if ($validator->fails()) return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
 
-        $cliente->update($request->only(['tipo_persona', 'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario']));
+        $cliente->update($request->only(['tipo_persona', 'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id']));
 
         $usuario = \App\Models\Usuario::where('cliente_id', $cliente->id)->first();
         if ($usuario) {

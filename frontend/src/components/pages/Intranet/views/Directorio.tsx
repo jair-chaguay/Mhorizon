@@ -13,6 +13,11 @@ interface Cliente {
     nombre: string;
     apellido: string;
   };
+  gestor?: {
+    id: number;
+    nombre: string;
+    apellido: string;
+  };
 }
 
 interface DirectorioProps {
@@ -24,7 +29,7 @@ interface DirectorioProps {
 const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, refreshSignal }) => {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
-  
+
   const [busqueda, setBusqueda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
@@ -33,7 +38,6 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     try {
       setLoading(true);
       const { data } = await api.get('/cliente');
-      console.log("Estructura de un cliente desde la API:", data.clientes[0]);
       setClientes(data.clientes);
     } catch (error) {
       console.error("Error al cargar clientes:", error);
@@ -48,18 +52,18 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
 
   const handleBusqueda = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBusqueda(e.target.value);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   // 1. Filtrar todos los clientes basados en la búsqueda
-  const clientesFiltrados = clientes.filter(c => 
+  const clientesFiltrados = clientes.filter(c =>
     c.razon_social_nombres.toLowerCase().includes(busqueda.toLowerCase()) ||
     c.identificacion.includes(busqueda)
   );
 
   const totalPages = Math.ceil(clientesFiltrados.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  
+
   const clientesActuales = clientesFiltrados.slice(startIndex, startIndex + itemsPerPage);
 
   const goToNextPage = () => {
@@ -82,7 +86,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
   return (
     <ScrollReveal>
       <div className="max-w-350 mx-auto space-y-6 reveal-element delay-300">
-        
+
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
@@ -100,7 +104,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
         </div>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
-          
+
           <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-white">
             <div className="relative w-full lg:w-96">
               <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,6 +127,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                   <th className="px-6 py-4">Empresa / Cliente</th>
                   <th className="px-6 py-4 text-center">Tipo</th>
                   <th className="px-6 py-4">Score Tributario</th>
+                  <th className="px-6 py-4">Creado por</th>
                   <th className="px-6 py-4">Gestionado por</th>
                   <th className="px-6 py-4 text-center">Acciones</th>
                 </tr>
@@ -151,7 +156,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
                         <div className="flex-1 h-2 bg-gray-100 rounded-full max-w-15 overflow-hidden">
-                          <div 
+                          <div
                             className={`h-full rounded-full ${cliente.score_tributario > 80 ? 'bg-green-500' : 'bg-orange-500'}`}
                             style={{ width: `${cliente.score_tributario}%` }}
                           ></div>
@@ -162,6 +167,15 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                     <td className="px-6 py-5">
                       <p className="text-gray-500 italic text-xs">
                         {cliente.creador ? `${cliente.creador.nombre} ${cliente.creador.apellido}` : 'Sistema'}
+                      </p>
+                    </td>
+                    <td className="px-6 py-5">
+                      <p className="text-gray-500 italic text-xs">
+                        {cliente.gestor
+                          ? `${cliente.gestor.nombre} ${cliente.gestor.apellido}`
+                          : cliente.creador
+                            ? `${cliente.creador.nombre} ${cliente.creador.apellido}`
+                            : 'Sistema'}
                       </p>
                     </td>
                     <td className="px-6 py-5 text-center">
@@ -177,7 +191,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
               </tbody>
             </table>
           </div>
-          
+
           {clientesFiltrados.length === 0 && (
             <div className="py-20 text-center">
               <p className="text-gray-400 italic">No se encontraron clientes que coincidan con la búsqueda.</p>
@@ -190,8 +204,8 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                 Mostrando {startIndex + 1} a {Math.min(startIndex + itemsPerPage, clientesFiltrados.length)} de {clientesFiltrados.length} resultados
               </span>
               <div className="flex items-center gap-2">
-                <button 
-                  onClick={goToPreviousPage} 
+                <button
+                  onClick={goToPreviousPage}
                   disabled={currentPage === 1}
                   className="p-2 cursor-pointer rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
@@ -200,8 +214,8 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                 <span className="text-xs font-bold text-gray-600 px-2">
                   Página {currentPage} de {totalPages || 1}
                 </span>
-                <button 
-                  onClick={goToNextPage} 
+                <button
+                  onClick={goToNextPage}
                   disabled={currentPage >= totalPages}
                   className="p-2 cursor-pointer rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >

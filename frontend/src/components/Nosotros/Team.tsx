@@ -36,7 +36,7 @@ const teams: TeamProp[] = [
         frase: "Asumimos el control de su back-office con absoluto rigor técnico, permitiendo que su corporación escale operaciones sin fricciones administrativas."
     },
     {
-        image: "Marcos_Nuñez.png",
+        image: "Marcos_Nunez.png",
         rol: "TAX SENIOR",
         nombre: "MARCOS NUÑEZ",
         linkedin: "https://www.linkedin.com/in/marco-núñez-zambrano-808621124/",

@@ -26,6 +26,82 @@ interface PerfilClienteProps {
     onOpenCrearPeriodo: () => void;
 }
 
+const validarModulo10 = (cedula: string): boolean => {
+    const coeficientes = [2, 1, 2, 1, 2, 1, 2, 1, 2];
+    const verificador = parseInt(cedula.charAt(9), 10);
+    let suma = 0;
+
+    for (let i = 0; i < 9; i++) {
+        let valor = parseInt(cedula.charAt(i), 10) * coeficientes[i];
+        if (valor >= 10) valor -= 9;
+        suma += valor;
+    }
+
+    const modulo = suma % 10;
+    const digitoCalculado = modulo === 0 ? 0 : 10 - modulo;
+    return digitoCalculado === verificador;
+};
+
+const validarModulo11Sociedades = (ruc: string): boolean => {
+    const coeficientes = [4, 3, 2, 7, 6, 5, 4, 3, 2];
+    const verificador = parseInt(ruc.charAt(9), 10);
+    let suma = 0;
+
+    for (let i = 0; i < 9; i++) {
+        suma += parseInt(ruc.charAt(i), 10) * coeficientes[i];
+    }
+
+    const modulo = suma % 11;
+    const digitoCalculado = modulo === 0 ? 0 : 11 - modulo;
+    return digitoCalculado === verificador;
+};
+
+const validarModulo11Publicas = (ruc: string): boolean => {
+    if (ruc.charAt(9) !== '0') return false;
+
+    const coeficientes = [3, 2, 7, 6, 5, 4, 3, 2];
+    const verificador = parseInt(ruc.charAt(8), 10);
+    let suma = 0;
+
+    for (let i = 0; i < 8; i++) {
+        suma += parseInt(ruc.charAt(i), 10) * coeficientes[i];
+    }
+
+    const modulo = suma % 11;
+    const digitoCalculado = modulo === 0 ? 0 : 11 - modulo;
+    return digitoCalculado === verificador;
+};
+
+interface ValidacionResult {
+    valido: boolean;
+    mensaje?: string;
+    tipo?: "Persona Natural" | "Sociedad Privada" | "Entidad Pública";
+}
+
+const validarEstructuraRUC = (ruc: string): ValidacionResult => {
+    if (!ruc || ruc.length !== 13) return { valido: false, mensaje: "El RUC debe tener exactamente 13 dígitos numéricos." };
+    if (ruc.substring(10, 13) !== "001") return { valido: false, mensaje: "Todo RUC debe terminar invariablemente en 001." };
+
+    const provincia = parseInt(ruc.substring(0, 2), 10);
+    if (provincia < 1 || provincia > 24) return { valido: false, mensaje: "Los dos primeros dígitos (código de provincia) son inválidos." };
+
+    const tercerDigito = parseInt(ruc.charAt(2), 10);
+
+    if (tercerDigito < 6) {
+        if (!validarModulo10(ruc.substring(0, 10))) return { valido: false, mensaje: "Fallo en la validación de Cédula/Persona Natural (Módulo 10)." };
+        return { valido: true, tipo: "Persona Natural" };
+    } else if (tercerDigito === 9) {
+        if (!validarModulo11Sociedades(ruc)) return { valido: false, mensaje: "Fallo en la validación de Sociedad Privada (Módulo 11)." };
+        return { valido: true, tipo: "Sociedad Privada" };
+    } else if (tercerDigito === 6) {
+        if (!validarModulo11Publicas(ruc)) return { valido: false, mensaje: "Fallo en la validación de Entidad Pública (Módulo 11)." };
+        return { valido: true, tipo: "Entidad Pública" };
+    } else {
+        return { valido: false, mensaje: "El tercer dígito del RUC es inválido." };
+    }
+};
+
+
 const PerfilCliente: React.FC<PerfilClienteProps> = ({
     cliente,
     onBack,
@@ -46,14 +122,16 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         tipo_persona: cliente.tipo_persona || 'Persona Natural',
         score_tributario: cliente.score_tributario || 100,
         correo: usuarioAsociado ? usuarioAsociado.correo : '',
-        password: ''
+        password: '',
+        gestionado_por_id: cliente.gestionado_por_id || ''
     });
 
     const [periodos, setPeriodos] = useState<any[]>([]);
     const [obligaciones, setObligaciones] = useState<ObligacionTributaria[]>([]);
     const [isLoadingObligaciones, setIsLoadingObligaciones] = useState(true);
-
+    const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
     const [isSaving, setIsSaving] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
 
     const fetchPeriodos = async () => {
         try {
@@ -79,9 +157,20 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
             setIsLoadingObligaciones(false);
         }
     };
+    const fetchUsuariosGestores = async () => {
+        try {
+            const { data } = await api.get('/usuario');
+            const filtrados = data.usuarios.filter((u: any) => u.rol_id === 1 || u.rol_id === 3);
+            setUsuariosGestores(filtrados);
+        } catch (error) {
+            console.error("Error al cargar usuarios gestores:", error);
+        }
+    };
 
     useEffect(() => {
+        fetchPeriodos();
         fetchObligaciones();
+        fetchUsuariosGestores();
     }, [cliente.id, refreshSignal]);
 
 
@@ -94,19 +183,55 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     };
 
     const handleGuardarPerfil = async () => {
+        setErrorMsg(''); // Limpiar errores previos
+        const identificacionClean = formData.identificacion.trim();
+
+        // 1. Validar RUC
+        const validacion = validarEstructuraRUC(identificacionClean);
+        if (!validacion.valido) {
+            setErrorMsg("RUC Inválido: " + validacion.mensaje);
+            return;
+        }
+
+        // 2. Validar coherencia de régimen
+        let regimenIncorrecto = false;
+        let mensajeErrorRegimen = "";
+
+        if (validacion.tipo === "Persona Natural") {
+            if (formData.tipo_persona === "Régimen General" || formData.tipo_persona === "Entidad Pública") {
+                regimenIncorrecto = true;
+                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Persona Natural (3er dígito menor a 6). No puedes seleccionarlo como "${formData.tipo_persona}".`;
+            }
+        } else if (validacion.tipo === "Sociedad Privada") {
+            if (formData.tipo_persona === "Persona Natural" || formData.tipo_persona === "Entidad Pública") {
+                regimenIncorrecto = true;
+                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Sociedad (3er dígito es 9). No puedes seleccionarlo como "${formData.tipo_persona}".`;
+            }
+        } else if (validacion.tipo === "Entidad Pública") {
+            if (formData.tipo_persona === "Persona Natural" || formData.tipo_persona === "Régimen General") {
+                regimenIncorrecto = true;
+                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Entidad Pública (3er dígito es 6). No puedes seleccionarlo como "${formData.tipo_persona}".`;
+            }
+        }
+
+        if (regimenIncorrecto) {
+            setErrorMsg(mensajeErrorRegimen);
+            return;
+        }
+
         setIsSaving(true);
         try {
             await api.put(`/cliente/${cliente.id}`, formData);
             alert('Perfil Actualizado Exitosamente.');
             onUpdateSuccess();
-        } catch (error) {
+        } catch (error: any) {
             console.error("Error al actualizar el perfil:", error);
-            alert("Hubo un error al intentar actualizar el perfil.");
+            const msg = error?.response?.data?.message || "Hubo un error al intentar actualizar el perfil.";
+            setErrorMsg(msg);
         } finally {
             setIsSaving(false);
         }
     };
-
 
 
     return (
@@ -159,6 +284,13 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                     <div className="relative z-10">
                         <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.75rem] uppercase mb-2 block">Datos del Perfil (Modificable)</span>
 
+                        {errorMsg && (
+                            <div className="bg-red-500/20 text-red-200 p-3 rounded-lg text-sm font-bold border border-red-500/50 flex items-start gap-2 mb-4">
+                                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                <span>{errorMsg}</span>
+                            </div>
+                        )}
+
                         <input
                             type="text"
                             name="razon_social_nombres"
@@ -167,11 +299,11 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             className="w-full bg-transparent border-b-2 border-white/20 text-[2rem] sm:text-[2.5rem] font-extrabold text-white tracking-tight leading-none mb-6 outline-none focus:border-orange-500 transition-colors pb-1"
                         />
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">RUC/Cédula</p>
-                                <input type="text" name="identificacion" value={formData.identificacion} onChange={handleInputChange} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1" />
+                                <input type="text" maxLength={13} name="identificacion" value={formData.identificacion} onChange={handleInputChange} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1" />
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
@@ -188,21 +320,32 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de contribuyente</p>
                                 <select name="tipo_persona" value={formData.tipo_persona} onChange={handleInputChange} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer">
                                     <option value="Régimen General">Régimen General</option>
-                                    <option value="Rimpe">RIMPE</option>
+                                    <option value="RIMPE">RIMPE</option>
                                     <option value="Contribuyente Especial">Contribuyente Especial</option>
                                     <option value="Persona Natural">Persona Natural</option>
+                                    <option value="Entidad Pública">Entidad Pública</option>
                                 </select>
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Score Tributario</p>
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Gestionado por</p>
+                                <select name="gestionado_por_id" value={formData.gestionado_por_id} onChange={handleInputChange} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer">
+                                    <option value="">Seleccionar gestor...</option>
+                                    {usuariosGestores.map((u) => (
+                                        <option key={u.id} value={u.id}>{u.nombre} {u.apellido}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Score</p>
                                 <div className="flex items-center gap-1 border-b border-transparent focus-within:border-orange-500 pb-1">
                                     <input type="number" name="score_tributario" value={formData.score_tributario} onChange={handleInputChange} min="0" max="100" className="w-full bg-transparent text-white font-black text-[1rem] outline-none" />
                                     <span className="text-gray-400 text-[0.75rem] font-bold">/100</span>
                                 </div>
                             </div>
 
-                            <div className="sm:col-span-2 lg:col-span-3 xl:col-span-5 flex flex-col sm:flex-row gap-4 mt-2">
+                            <div className="sm:col-span-2 lg:col-span-3 xl:col-span-6 flex flex-col sm:flex-row gap-4 mt-2">
                                 <button
                                     type="button"
                                     onClick={() => onOpenEliminar(`/cliente/${cliente.id}`, `Cliente ${cliente.razon_social_nombres} y su usuario`)}
