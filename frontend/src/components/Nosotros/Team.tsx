@@ -9,7 +9,8 @@ interface TeamProp {
     linkedin?: string,
     instagram?: string,
     tiktok?: string,
-    compact?: boolean
+    compact?: boolean,
+    email?: string
 }
 
 const teams: TeamProp[] = [
@@ -20,25 +21,29 @@ const teams: TeamProp[] = [
         linkedin: "https://ec.linkedin.com/in/milton-montec%C3%A9-94283029",
         instagram: "https://www.instagram.com/milton.montece/", 
         tiktok: "https://www.tiktok.com/@milton_montece", 
+        email: "mmontece@mhhorizon.com.ec",
         frase: "Nuestra misión es ser el faro que guía a las empresas hacia la estabilidad y el crecimiento sostenible mediante una correcta planificación tributaria."
     },
     {
         image: "Violeta_Rodriguez.png",
         rol: "TAX PARTNER",
         nombre: "VIOLETA RODRIGUEZ",
+        email:"vrodriguez@mhorizon.com.ec",
         linkedin: "https://ec.linkedin.com/in/violeta-rodriguez-35a658a1",
         frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
     },
     {
-        image: "Gary_Sanchez.png",
+        image: "Gary.png",
         rol: "SENIOR OUTSOURCING",
         nombre: "GARY SANCHEZ",
+        email:"gsanchez@mhorizon.com.ec",
         frase: "Asumimos el control de su back-office con absoluto rigor técnico, permitiendo que su corporación escale operaciones sin fricciones administrativas."
     },
     {
         image: "Marcos_Nunez.png",
         rol: "TAX SENIOR",
         nombre: "MARCOS NUÑEZ",
+        email:"mnunez@mhorizon.com.ec",
         linkedin: "https://www.linkedin.com/in/marco-núñez-zambrano-808621124/",
         frase: "Transformamos la complejidad normativa en estrategias claras. Nuestra prioridad es blindar el patrimonio corporativo mediante una eficiencia fiscal impecable."
     },
@@ -46,6 +51,7 @@ const teams: TeamProp[] = [
         image: "Sandra_Sarmiento.png",
         rol: "RRHH",
         nombre: "SANDRA SARMIENTO",
+        email:"ssarmiento@mhorizon.com.ec",
         linkedin: "https://www.linkedin.com/in/sandra-sarmiento-755306172/",
         frase: "El activo más valioso de toda gran estructura es su talento. Impulsamos una cultura de excelencia organizacional orientada al alto rendimiento y compromiso."
     }

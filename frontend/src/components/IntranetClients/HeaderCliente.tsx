@@ -13,7 +13,7 @@ const HeaderCliente: React.FC<Props> = ({ title, onOpenSidebar, onGoHome }) => {
                 <span className="material-symbols-outlined">menu</span>
             </button>
 
-            <div className="flex items-center text-sm font-medium text-gray-500 truncate">
+            <div className="flex items-center text-sm font-medium text-gray-500 truncate uppercase">
                 <span className="cursor-pointer hover:text-orange-500 transition-colors" onClick={onGoHome}>
                     MHORIZON
                 </span>
@@ -29,7 +29,7 @@ const HeaderCliente: React.FC<Props> = ({ title, onOpenSidebar, onGoHome }) => {
 
             <div className="flex items-center gap-5 ml-auto">
                 <div className="text-right hidden sm:block">
-                    <p className="text-[0.75rem] font-bold text-blue-200 leading-none mb-1">MHorizon Portal</p>
+                    <p className="text-[0.75rem] font-bold text-blue-200 leading-none mb-1 uppercase">MHorizon Portal</p>
                     <p className="text-[0.65rem] text-orange-500 uppercase tracking-widest leading-none font-bold">Acceso Cliente</p>
                 </div>
             </div>

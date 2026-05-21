@@ -29,7 +29,7 @@ const Header: React.FC<HeaderProps> = ({ title, onOpenSidebar }) => {
 
       <div className="flex items-center gap-5 ml-auto">
         <div className="text-right hidden sm:block">
-          <p className="text-[0.75rem] font-bold text-blue-200 leading-none mb-1">MHorizon Admin</p>
+          <p className="text-[0.75rem] font-bold text-blue-200 leading-none mb-1 uppercase">MHorizon Admin</p>
           <p className="text-[0.65rem] text-orange-500 uppercase tracking-widest leading-none font-bold">Colaborador</p>
         </div>
       </div>

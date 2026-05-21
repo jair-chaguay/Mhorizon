@@ -11,6 +11,7 @@ interface LeaderProps {
   tiktokUser?: string
   instagram?: string
   instagramUser?: string
+  email?: string
 }
 
 export const LeaderCard = ({
@@ -22,10 +23,11 @@ export const LeaderCard = ({
   tiktok,
   tiktokUser,
   instagram,
-  instagramUser
+  instagramUser,
+  email
 }: LeaderProps) => {
   
-  const hasContactInfo = tiktok || instagram;
+  const hasContactInfo = tiktok || instagram || email;
 
   return (
     <div className="group relative flex flex-col sm:flex-row w-full bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 overflow-hidden transform hover:-translate-y-1">
@@ -94,6 +96,14 @@ export const LeaderCard = ({
                     <FontAwesomeIcon className="w-3.5 h-3.5 text-[#151E28] group-hover:text-orange-500 transition-colors" icon={faInstagram} />
                   </div>
                   <span className="break-all">{instagramUser || "Instagram Profile"}</span>
+                </a>
+              )}
+              {email && (
+                <a href={`mailto:${email}`} className="flex items-center gap-3 text-[0.85rem] text-gray-200 hover:text-orange-500 transition-colors font-medium">
+                  <div className="w-7 h-7 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-orange-50 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5 text-[#151E28] group-hover:text-orange-500 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M12 13.065l-11.999-8v16h24v-16l-12 8zm11.999-10c.001-.001.001-.001 0 0l-11.999 8-11.999-8c-.001-.001-.001-.001 0 0h23.998z"/></svg>
+                  </div>
+                  <span className="break-all">{email}</span>
                 </a>
               )}
 

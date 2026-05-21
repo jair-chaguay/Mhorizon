@@ -11,6 +11,7 @@ interface LeaderProps {
   tiktokUser?: string 
   instagram?: string
   instagramUser?: string 
+  email?: string
 }
 
 const leadersProp: LeaderProps[] = [
@@ -23,12 +24,14 @@ const leadersProp: LeaderProps[] = [
     tiktokUser: '@milton_montece', 
     instagram: 'https://www.instagram.com/milton.montece',
     instagramUser: '@milton.montece', 
+    email: "mmontece@mhorizon.com.ec"
   },
   {
     name: 'Violeta Rodriguez',
     cargo: 'Tax Partner',
     urlImg: 'images/Violeta_Rodriguez.png',
     link: 'https://ec.linkedin.com/in/violeta-rodriguez-35a658a1',
+    email: "vrodriguez@mhorizon.com.ec"
   },
 ]
 
