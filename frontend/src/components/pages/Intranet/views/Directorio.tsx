@@ -33,6 +33,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     try {
       setLoading(true);
       const { data } = await api.get('/cliente');
+      console.log("Estructura de un cliente desde la API:", data.clientes[0]);
       setClientes(data.clientes);
     } catch (error) {
       console.error("Error al cargar clientes:", error);
