@@ -3,7 +3,7 @@ import { Button } from '../Button'
 
 export const Perspectiva = () => {
     return (
-        <div className='flex bg-blue-200 h-[610px] mt-25 '>
+        <div className='flex bg-blue-200 h-152.5 mt-25 '>
             <div className='w-[48%] relative'>
                 <img className='w-full h-full object-cover border-r-sky-900 border-r-20' src="images/consultoria.jpg" alt="" />
                 <div className='absolute inset-0 bg-linear-to-r from-black/60 to-transparent'></div>
@@ -31,7 +31,7 @@ export const Perspectiva = () => {
                 }}
                     transition={{ duration: 0.8 }}
 
-                    className='mt-5 text-[1.15rem] text-white font-extralight w-[65%] leading-[28px]'>
+                    className='mt-5 text-[1.15rem] text-white font-extralight w-[65%] leading-7'>
                     En <span className='font-semibold'>MHORIZON</span> hemos traducido la complejidad del entorno empresarial y
                     normativo en estrategias claras durante más de dos décadas. Nuestro equipo
                     multidisciplinario de socios y directores combina una sólida experiencia técnica en
