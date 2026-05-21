@@ -18,7 +18,7 @@ public function up(): void
         $table->string('razon_social_nombres');
         $table->string('identificacion', 13)->unique();
         $table->integer('score_tributario')->default(100);
-        $table->foreignId('creado_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
+        $table->foreignId('gestionado_por_id')->nullable()->constrained('usuarios')->onDelete('set null');
         $table->softDeletes();
         $table->timestamps();
     });

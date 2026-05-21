@@ -15,7 +15,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::with('creador', 'gestor', 'usuarios')
+        $clientes = Cliente::with('gestor', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -28,7 +28,7 @@ class ClienteController extends Controller
     public function indexBiblioteca()
     {
         $clientes = Cliente::withTrashed()
-                           ->with('creador','gestor', 'usuarios')
+                           ->with('gestor', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -46,6 +46,7 @@ class ClienteController extends Controller
             'razon_social_nombres' => 'required|string|max:255',
             'identificacion' => 'required|string|max:13|unique:clientes,identificacion',
             'score_tributario' => 'required|integer|min:0|max:100',
+            'gestionado_por_id' => 'required|exists:usuarios,id',
             
             // Datos del Usuario de acceso
             'correo' => 'required|email|max:150|unique:usuarios,correo',
@@ -65,8 +66,7 @@ class ClienteController extends Controller
                 'razon_social_nombres' => $request->razon_social_nombres,
                 'identificacion' => $request->identificacion,
                 'score_tributario' => $request->score_tributario,
-                'creado_por_id' => Auth::id(),
-                'gestionado_por_id' => Auth::id() // El admin que lo está creando
+                'gestionado_por_id' => $request->gestionado_por_id
             ]);
 
             // B. Crear el Usuario asociado a ese Cliente
@@ -101,7 +101,7 @@ class ClienteController extends Controller
 
     public function show($id)
     {
-        $cliente = Cliente::with(['usuarios', 'creador'])->find($id);
+        $cliente = Cliente::with(['usuarios', 'gestor'])->find($id);
 
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 

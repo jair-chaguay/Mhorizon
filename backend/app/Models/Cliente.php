@@ -19,8 +19,7 @@ class Cliente extends Model
         'direccion_matriz',
         'score_tributario',
         'proximo_vencimiento',
-        'creado_por_id',
-        'gestionado_por_id',
+        'gestionado_por_id'
     ];
 
     protected $casts = [
@@ -31,11 +30,6 @@ class Cliente extends Model
     public function usuarios()
     {
         return $this->hasMany(Usuario::class, 'cliente_id');
-    }
-
-    public function creador()
-    {
-        return $this->belongsTo(Usuario::class, 'creado_por_id')->select(['id', 'nombre', 'apellido'])->withTrashed();;
     }
     
     public function periodos()

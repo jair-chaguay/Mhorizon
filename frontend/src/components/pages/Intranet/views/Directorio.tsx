@@ -2,22 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../../ScrollReveal';
 import api from '../../../../api/axios';
 
-interface Cliente {
-  id: number;
-  tipo_persona: 'Natural' | 'Jurídica';
-  razon_social_nombres: string;
-  identificacion: string;
-  score_tributario: number;
-  creador?: {
+export interface Cliente {
     id: number;
-    nombre: string;
-    apellido: string;
-  };
-  gestor?: {
-    id: number;
-    nombre: string;
-    apellido: string;
-  };
+    tipo_persona: 'Régimen General' | 'RIMPE' | 'Contribuyente Especial' | 'Persona Natural' | 'Entidad Pública';
+    razon_social_nombres: string;
+    identificacion: string;
+    score_tributario: number;
+    gestionado_por_id?: number | string | null;
+    usuarios?: Array<{
+        id: number;
+        nombre: string;
+        apellido: string;
+        correo: string;
+    }>;
+    gestor?: {
+        id: number;
+        nombre: string;
+        apellido: string;
+    };
 }
 
 interface DirectorioProps {
@@ -55,7 +57,6 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     setCurrentPage(1);
   };
 
-  // 1. Filtrar todos los clientes basados en la búsqueda
   const clientesFiltrados = clientes.filter(c =>
     c.razon_social_nombres.toLowerCase().includes(busqueda.toLowerCase()) ||
     c.identificacion.includes(busqueda)
@@ -127,7 +128,6 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                   <th className="px-6 py-4">Empresa / Cliente</th>
                   <th className="px-6 py-4 text-center">Tipo</th>
                   <th className="px-6 py-4">Score Tributario</th>
-                  <th className="px-6 py-4">Creado por</th>
                   <th className="px-6 py-4">Gestionado por</th>
                   <th className="px-6 py-4 text-center">Acciones</th>
                 </tr>
@@ -137,7 +137,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                   <tr key={cliente.id} className="hover:bg-gray-50/50 transition-colors group">
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-4">
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-black text-white ${cliente.tipo_persona === 'Jurídica' ? 'bg-blue-200' : 'bg-orange-400'}`}>
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-black text-white ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-blue-200' : 'bg-orange-400'}`}>
                           {cliente.razon_social_nombres.substring(0, 2).toUpperCase()}
                         </div>
                         <div>
@@ -149,7 +149,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                       </div>
                     </td>
                     <td className="px-6 py-5 text-center">
-                      <span className={`px-2 py-1 rounded text-[0.65rem] font-bold uppercase ${cliente.tipo_persona === 'Jurídica' ? 'bg-blue-50 text-blue-200' : 'bg-orange-50 text-orange-600'}`}>
+                      <span className={`px-2 py-1 rounded text-[0.65rem] font-bold uppercase ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-blue-50 text-blue-200' : 'bg-orange-50 text-orange-600'}`}>
                         {cliente.tipo_persona}
                       </span>
                     </td>
@@ -166,16 +166,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                     </td>
                     <td className="px-6 py-5">
                       <p className="text-gray-500 italic text-xs">
-                        {cliente.creador ? `${cliente.creador.nombre} ${cliente.creador.apellido}` : 'Sistema'}
-                      </p>
-                    </td>
-                    <td className="px-6 py-5">
-                      <p className="text-gray-500 italic text-xs">
-                        {cliente.gestor
-                          ? `${cliente.gestor.nombre} ${cliente.gestor.apellido}`
-                          : cliente.creador
-                            ? `${cliente.creador.nombre} ${cliente.creador.apellido}`
-                            : 'Sistema'}
+                        {cliente.gestor ? `${cliente.gestor.nombre} ${cliente.gestor.apellido}` : 'Sin Asignar'}
                       </p>
                     </td>
                     <td className="px-6 py-5 text-center">

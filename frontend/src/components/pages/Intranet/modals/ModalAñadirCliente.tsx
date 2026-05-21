@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../../../../api/axios';
 
 const validarModulo10 = (cedula: string): boolean => {
@@ -91,13 +91,46 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
     const [tipoPersona, setTipoPersona] = useState('Persona Natural');
+    const [gestionadoPorId, setGestionadoPorId] = useState<string>('');
+    const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
     
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
 
+    useEffect(() => {
+        const fetchUsuarios = async () => {
+            try {
+                const { data } = await api.get('/usuario');
+                const filtrados = data.usuarios.filter((u: any) => u.rol_id === 1 || u.rol_id === 3);
+                setUsuariosGestores(filtrados);
+                if (filtrados.length > 0) {
+                    setGestionadoPorId(filtrados[0].id.toString());
+                }
+            } catch (error) {
+                console.error("Error al cargar usuarios gestores:", error);
+            }
+        };
+
+        if (isOpen) {
+            fetchUsuarios();
+            setRazonSocial('');
+            setIdentificacion('');
+            setScore(100);
+            setCorreo('');
+            setPassword('');
+            setTipoPersona('Persona Natural');
+            setErrorMsg('');
+        }
+    }, [isOpen]);
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setErrorMsg('');
+
+        if (!gestionadoPorId) {
+            setErrorMsg("Debes seleccionar un gestor para el cliente.");
+            return;
+        }
 
         const identificacionClean = identificacion.trim();
 
@@ -140,17 +173,11 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                 identificacion: identificacionClean,
                 score_tributario: score,
                 correo: correo,
-                password: password
+                password: password,
+                gestionado_por_id: parseInt(gestionadoPorId)
             };
 
             await api.post('/cliente', payload); 
-            
-            setRazonSocial('');
-            setIdentificacion('');
-            setScore(100);
-            setCorreo('');
-            setPassword('');
-            setTipoPersona('Persona Natural');
             
             onSuccess(); 
             onClose();   
@@ -205,6 +232,16 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                             <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Score Tributario</label>
                             <input type="number" value={score} onChange={(e) => setScore(Number(e.target.value))} max="100" min="0" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
                         </div>
+                    </div>
+
+                    <div>
+                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Gestionado Por</label>
+                        <select value={gestionadoPorId} onChange={(e) => setGestionadoPorId(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required>
+                            <option value="">Seleccione un Gestor...</option>
+                            {usuariosGestores.map((u) => (
+                                <option key={u.id} value={u.id}>{u.nombre} {u.apellido}</option>
+                            ))}
+                        </select>
                     </div>
                     
                     <div>
