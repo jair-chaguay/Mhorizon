@@ -18,6 +18,7 @@ import api from '../../../api/axios';
 import { ModalAñadirCliente } from './modals/ModalAñadirCliente';
 import PerfilCliente from './views/PerfilCliente';
 import ModalAñadirObligacion from './modals/ModalAñadirObligacion';
+import ModalEditarObligacion from './modals/ModalEditarObligacion';
 import { Usuario } from './views/Usuario';
 import ModalCrearUsuario from './modals/ModalCrearUsuario';
 
@@ -47,7 +48,8 @@ const IntranetLayout: React.FC = () => {
     const [isAñadirClienteOpen, setIsAñadirClienteOpen] = useState(false);
     const [isCrearUsuarioOpen, setIsCrearUsuarioOpen] = useState(false);
     const [usuarioAEditar, setUsuarioAEditar] = useState<any>(null);
-
+    const [isEditarObligacionOpen, setIsEditarObligacionOpen] = useState(false);
+    const [obligacionAEditar, setObligacionAEditar] = useState<any>(null);
 
     const handleConfirmEliminar = async () => {
         try {
@@ -155,6 +157,10 @@ const IntranetLayout: React.FC = () => {
                                     setCrearConfig({ title: 'Nuevo Periodo Fiscal', placeholder: 'Ej. 2026', type: 'PERIODOS', parentId: clienteSeleccionado.id });
                                     setIsCrearFolderOpen(true);
                                 }}
+                                onOpenEditarObligacion={(obligacion) => {
+                                    setObligacionAEditar(obligacion);
+                                    setIsEditarObligacionOpen(true);
+                                }}
                             />
                         )}
 
@@ -225,6 +231,19 @@ const IntranetLayout: React.FC = () => {
                 datosEdicion={infoAEditar}
 
             />
+
+            <ModalEditarObligacion
+                isOpen={isEditarObligacionOpen}
+                onClose={() => {
+                    setIsEditarObligacionOpen(false);
+                    setObligacionAEditar(null);
+                }}
+                onSuccess={triggerRefresh}
+                obligacionId={obligacionAEditar?.id || null}
+                currentUserId={obligacionAEditar?.creador?.id}
+                tipoImpuesto={obligacionAEditar?.tipo_impuesto}
+            />
+
             <ModalAñadirObligacion
                 isOpen={isDeclaracionModalOpen}
                 onClose={() => setIsDeclaracionModalOpen(false)}

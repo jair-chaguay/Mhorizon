@@ -11,6 +11,11 @@ export interface ObligacionTributaria {
     fecha_presentacion: string;
     fecha_vencimiento_exacta: string;
     estado: 'Pendiente' | 'Presentado';
+    creador?: {
+        id: number;
+        nombre: string;
+        apellido: string;
+    };
 }
 
 
@@ -24,6 +29,7 @@ interface PerfilClienteProps {
     onUpdateSuccess: () => void;
     onJumpToBiblioteca: (clienteId: number, periodoId: number) => void;
     onOpenCrearPeriodo: () => void;
+    onOpenEditarObligacion: (obligacion: ObligacionTributaria) => void;
 }
 
 const validarModulo10 = (cedula: string): boolean => {
@@ -111,7 +117,8 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     onOpenEliminar,
     onUpdateSuccess,
     onJumpToBiblioteca,
-    onOpenCrearPeriodo
+    onOpenCrearPeriodo,
+    onOpenEditarObligacion
 }) => {
 
     const usuarioAsociado = cliente.usuarios && cliente.usuarios.length > 0 ? cliente.usuarios[0] : null;
@@ -446,6 +453,14 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                         </svg>
                                                     </button>
                                                 )}
+
+                                                <button
+                                                    onClick={() => onOpenEditarObligacion(ob)}
+                                                    className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all cursor-pointer"
+                                                    title="Cambiar Encargado"
+                                                >
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                                                </button>
 
                                                 <button
                                                     onClick={() => onOpenEliminar(`/obligacion/${ob.id}`, `Obligacion ${ob.tipo_impuesto}`)}

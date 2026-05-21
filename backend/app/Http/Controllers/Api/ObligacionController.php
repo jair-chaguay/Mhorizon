@@ -20,7 +20,8 @@ class ObligacionController extends Controller
     public function indexCliente($cliente_id)
     {
         $hoy = \Carbon\Carbon::today()->format('Y-m-d');
-        $obligaciones = ObligacionTributaria::where('cliente_id', $cliente_id)
+        $obligaciones = ObligacionTributaria::with('creador')
+        ->where('cliente_id', $cliente_id)
         ->whereDate('fecha_vencimiento_exacta', '>=', $hoy)
         ->get();
         return response()->json([
@@ -36,6 +37,7 @@ class ObligacionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'cliente_id' => 'required|exists:clientes,id',
+            'usuario_id' => 'required|exists:usuarios,id',
             'tipo_impuesto' => ['required',Rule::in(['IVA (Mensual)','IVA (Semestral)','ICE','ISD (MENSUAL)', 'IRBP', 'ISD (ANUAL)', 'IR (Régimen Sociedad)', 'IR (Régimen Emprendedor)', 'IR (Régimen NP)', 'RETENCIONES FUENTE', 'ANTICIPO UTILIDADES ACUMULADAS', 'ACTIVOS EN EL EXTERIOR', 'IRBP-ANEXO', 'ROTEF', 'OPRE', 'ICT', 'ADI', 'DECLARACIÓN PATRIMONIAL/APP', 'APS-REBEFICS', 'RDEP', 'ATS', 'PRECIOS VENTA ICE'])],
              'dia_vencimiento' => 'required|integer|min:1|max:31',
         ]);
@@ -63,7 +65,7 @@ class ObligacionController extends Controller
 
         $obligacion = ObligacionTributaria::create([
             'cliente_id'         => $request->cliente_id,
-            'usuario_id'         => Auth::id() ?? 1,
+            'usuario_id'         => $request->usuario_id,
             'tipo_impuesto'      => $request->tipo_impuesto,
             'fecha_presentacion' => $periodoTexto,
             'fecha_vencimiento_exacta' => $fechaExacta->format('Y-m-d'),
@@ -121,6 +123,35 @@ class ObligacionController extends Controller
         return response()->json([
             'message'    => 'Estado actualizado correctamente',
             'obligacion' => $obligacion,
+            'status'     => 200
+        ], 200);
+    }
+
+    /**
+     * Actualizar el encargado (usuario) de la obligación tributaria.
+     */
+    public function update(Request $request, $id)
+    {
+        $obligacion = ObligacionTributaria::find($id);
+
+        if (!$obligacion) {
+            return response()->json(['message' => 'Obligación no encontrada', 'status' => 404], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'usuario_id' => 'required|exists:usuarios,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
+        }
+
+        $obligacion->usuario_id = $request->usuario_id;
+        $obligacion->save();
+
+        return response()->json([
+            'message'    => 'Encargado de obligación actualizado exitosamente.',
+            'obligacion' => $obligacion->load('creador'),
             'status'     => 200
         ], 200);
     }

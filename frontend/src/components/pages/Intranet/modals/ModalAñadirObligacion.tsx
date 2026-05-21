@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import api from '../../../../api/axios'; 
 
 interface ModalAñadirObligacionProps {
@@ -12,9 +12,32 @@ interface ModalAñadirObligacionProps {
 const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen, onClose, onSuccess, clienteId }) => {
     const [formData, setFormData] = useState({
         tipo_impuesto: 'IR (Régimen Sociedad)',
-        dia_vencimiento: '' 
+        dia_vencimiento: '',
+        usuario_id: '' 
     });
+    
+    const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    useEffect(() => {
+        const fetchUsuarios = async () => {
+            try {
+                const { data } = await api.get('/usuario');
+                const filtrados = data.usuarios.filter((u: any) => u.rol_id === 1 || u.rol_id === 3);
+                setUsuariosGestores(filtrados);
+                if (filtrados.length > 0) {
+                    setFormData(prev => ({ ...prev, usuario_id: filtrados[0].id.toString() }));
+                }
+            } catch (error) {
+                console.error("Error al cargar usuarios gestores:", error);
+            }
+        };
+
+        if (isOpen) {
+            fetchUsuarios();
+            setFormData({ tipo_impuesto: 'IR (Régimen Sociedad)', dia_vencimiento: '', usuario_id: '' });
+        }
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -26,22 +49,24 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
             return;
         }
 
+        if (!formData.usuario_id) {
+            alert("Error: Debes asignar un encargado.");
+            return;
+        }
+
         setIsSubmitting(true);
         try {
             await api.post('/obligacion', {
                 tipo_impuesto: formData.tipo_impuesto,
                 dia_vencimiento: Number(formData.dia_vencimiento), 
-                cliente_id: clienteId
+                cliente_id: clienteId,
+                usuario_id: Number(formData.usuario_id)
             });
             
-            setFormData({ tipo_impuesto: 'IR (Régimen Sociedad)', dia_vencimiento: '' });
             onSuccess(); 
             onClose();
         } catch (error: any) {
             console.error("Error al guardar la obligación:", error);
-            
-            console.error("Detalles de validación (Laravel):", error.response?.data?.errors); 
-            
             const msg = error.response?.data?.message || "No se pudo guardar la obligación.";
             alert(msg);
         } finally {
@@ -69,12 +94,9 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
                             onChange={(e) => setFormData({...formData, tipo_impuesto: e.target.value})}
                             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500"
                         >
-
-                    
                             <option value="IR (Régimen Emprendedor)">IR (Régimen Emprendedor)</option>
                             <option value="IR (Régimen Sociedad)">IR (Régimen Sociedad)</option>
                             <option value="IR (Régimen NP)">IR (Régimen NP)</option>
-
                             <option value="IVA (Mensual)">IVA (Mensual)</option>
                             <option value="IVA (Semestral)">IVA (Semestral)</option>
                             <option value="ICE">ICE</option>
@@ -97,18 +119,33 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
                         </select>
                     </div>
 
-                    <div>
-                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Día Límite de Vencimiento (1-31)</label>
-                        <input 
-                            type="number" 
-                            min="1"
-                            max="31"
-                            placeholder="Ej. 15" 
-                            value={formData.dia_vencimiento}
-                            onChange={(e) => setFormData({...formData, dia_vencimiento: e.target.value})}
-                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
-                            required 
-                        />
+                    <div className="grid grid-cols-2 gap-4">
+                        <div>
+                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Día Límite (1-31)</label>
+                            <input 
+                                type="number" 
+                                min="1" max="31"
+                                placeholder="Ej. 15" 
+                                value={formData.dia_vencimiento}
+                                onChange={(e) => setFormData({...formData, dia_vencimiento: e.target.value})}
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" 
+                                required 
+                            />
+                        </div>
+                        <div>
+                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Encargado (Notificar a)</label>
+                            <select 
+                                value={formData.usuario_id}
+                                onChange={(e) => setFormData({...formData, usuario_id: e.target.value})}
+                                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500"
+                                required
+                            >
+                                <option value="">Seleccionar Gestor...</option>
+                                {usuariosGestores.map((u) => (
+                                    <option key={u.id} value={u.id}>{u.nombre} {u.apellido}</option>
+                                ))}
+                            </select>
+                        </div>
                     </div>
 
                     <div className="flex gap-3 pt-4">
