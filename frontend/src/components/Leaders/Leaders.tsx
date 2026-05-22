@@ -43,7 +43,7 @@ export const Leaders = () => {
         <div className="relative w-full lg:w-[50%] reveal-element">
           <div className='relative rounded-2xl overflow-hidden shadow-2xl h-112.5'>
             <img
-              src="images/PerspectivaGlobal.jpeg"
+              src="images/PerspectivaGlobal.webp"
               alt="Perspectiva global"
               className="w-full h-full object-cover"
             />

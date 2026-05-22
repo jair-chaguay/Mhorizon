@@ -4,7 +4,7 @@ export const Empresariales = () => {
     return (
         <div className='flex flex-col lg:flex-row bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden reveal-element delay-200 hover:shadow-2xl transition-shadow group'>
             <div className="w-full lg:w-1/2 h-75 lg:h-auto relative overflow-hidden">
-                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/images/EmpresarialesHero.jpeg" alt="Consumo y Tecnología" />
+                <img className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/images/EmpresarialesHero.webp" alt="Consumo y Tecnología" />
                 <div className="absolute inset-0 bg-blue-200/10"></div>
             </div>
 

@@ -76,7 +76,7 @@ export const Metodologia = () => {
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 md:gap-16 px-5 sm:px-8 md:px-12 items-center relative z-10">
         <div className="w-full lg:w-[45%] relative reveal-element">
           <div className="relative rounded-2xl overflow-hidden shadow-2xl h-112.5 md:h-150 group">
-            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/images/metodologiaSoluciones.png" alt="Metodología Estratégica" />
+            <img className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="/images/metodologiaSoluciones.webp" alt="Metodología Estratégica" />
             <div className="absolute inset-0 bg-blue-200/40 mix-blend-multiply"></div>
             <div className="absolute inset-0 border border-white/10 rounded-2xl"></div>
           </div>

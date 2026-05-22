@@ -28,7 +28,7 @@ export const ArquitecturaEst = () => {
 
                     <div className="w-full lg:w-1/2 relative reveal-element">
                         <div className="aspect-4/3 rounded-xl overflow-hidden relative shadow-2xl z-10 group">
-                            <img alt="Arquitectura Estratégica" className="w-full h-full object-cover group-hover:scale-105 transform-all duration-300 " src="/images/ARQUITECTURA.jpeg" />
+                            <img alt="Arquitectura Estratégica" className="w-full h-full object-cover group-hover:scale-105 transform-all duration-300 " src="/images/ARQUITECTURA.webp" />
                             <div className="absolute inset-0 bg-blue-200/20 mix-blend-multiply"></div>
 
                             <div className="absolute bottom-6 right-6 left-6 sm:left-auto bg-white/10 backdrop-blur-md p-6 sm:p-8 text-white rounded-lg shadow-2xl border border-white/10">
