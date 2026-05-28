@@ -63,19 +63,19 @@ export const EstrcTributaria = () => {
 
                             <tr className={trClasses}>
                                 <td className={`${tdClasses} font-bold text-[#151E28]`}>Patente Municipal</td>
-                                <td className={tdClasses}>Tabla Progresiva Cantonal</td>
+                                <td className={tdClasses}> Tarfica aplicable tendrá un valor mínimo de USD 10,00 y un máximo de USD 25.000,00.</td>
                                 <td className={tdClasses}>Se calcula anualmente sobre el patrimonio de los sujetos pasivos (comerciantes, sociedades) en base a la tabla fijada por cada Municipio.</td>
                             </tr>
 
                             <tr className={trClasses}>
                                 <td className={`${tdClasses} font-bold text-[#151E28]`}>Impuesto 1.5 por mil sobre activos</td>
-                                <td className={tdClasses}>1.5‰ (0.15%)</td>
+                                <td className={tdClasses}>0.15% (0.0015)</td>
                                 <td className={tdClasses}>Se aplica sobre los activos totales del año calendario anterior, deduciendo las obligaciones de hasta un año plazo y pasivos contingentes.</td>
                             </tr>
 
                             <tr className={trClasses}>
                                 <td className={`${tdClasses} font-bold text-[#151E28]`}>Impuesto predial urbano</td>
-                                <td className={tdClasses}>Variable (0.25‰ al 5‰)</td>
+                                <td className={tdClasses}>Variable (0.025% al 0.5%)</td>
                                 <td className={tdClasses}>Calculado sobre el avalúo catastral de los predios ubicados en el sector urbano del cantón. Se cobran anualmente con descuentos los primeros meses.</td>
                             </tr>
 
