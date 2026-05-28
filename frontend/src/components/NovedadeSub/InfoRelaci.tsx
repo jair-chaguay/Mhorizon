@@ -30,6 +30,7 @@ export const InfoRelaci = () => {
             const mapeados = lista.slice(0, 3).map((info: any) => ({
                 id: info.id,
                 fecha: formatearFecha(info.created_at),
+                resolucion: info.resolucion_oficial || '',
                 image: info.imagen_portada_url,
                 titulo: info.titulo,
                 content: info.descripcion_portada

@@ -12,10 +12,10 @@ interface BibliotecaProps {
   refreshSignal: number;
   directTo?: { clienteId: number; periodoId: number } | null;
   onOpenEliminar?: (endpoint: string, titulo: string) => void;
-
+  onOpenEditar?: (config: { endpoint: string; currentName: string; title: string }) => void;
 }
 
-const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refreshSignal, directTo, onOpenEliminar }) => {
+const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refreshSignal, directTo, onOpenEliminar, onOpenEditar }) => {
   const [navLevel, setNavLevel] = useState<NavLevel>('ROOT');
   const [path, setPath] = useState({ cliente: '', periodo: '', subcarpeta: '', subcarpetaHija: '' });
 
@@ -156,7 +156,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
 
   const handleSubcarpetaHijaClick = (hija: any) => {
     setPath({ ...path, subcarpetaHija: hija.nombre });
-    setSelectionIds({ ...selectionIds, subcarpetaId: hija.id }); 
+    setSelectionIds({ ...selectionIds, subcarpetaId: hija.id });
     setArchivos(hija.documentos || []);
     setNavLevel('ARCHIVOS');
   };
@@ -269,11 +269,11 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {clientes?.map((cliente) => (
                 <div key={cliente.id} onClick={() => handleClientClick(cliente)} className="relative border border-gray-200 rounded-2xl p-6 hover:border-orange-500 hover:shadow-lg transition-all cursor-pointer group bg-gray-50 hover:bg-white flex flex-col items-center text-center">
-                  
+
                   <button
-                    onClick={(e) => { 
-                      e.stopPropagation(); 
-                      onOpenEliminar && onOpenEliminar(`/cliente/${cliente.id}`, `Directorio de ${cliente.razon_social_nombres}`); 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onOpenEliminar && onOpenEliminar(`/cliente/${cliente.id}`, `Directorio de ${cliente.razon_social_nombres}`);
                     }}
                     className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
                     title="Eliminar Cliente"
@@ -295,13 +295,22 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                 <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6 p-8">
                   {periodos.map(p => (
                     <div key={p.id} className="relative border border-orange-200 bg-orange-50 rounded-2xl p-5 hover:bg-orange-100 transition-all group flex flex-col items-center text-center shadow-sm">
-                      <button
-                        onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/periodo/${p.id}`, `Periodo ${p.anio}`); }}
-                        className="absolute top-2 right-2 text-orange-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
-                        title="Eliminar Periodo"
-                      >
-                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                      </button>
+                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all flex gap-2 z-10">
+                        <button
+                          onClick={(e) => { e.stopPropagation(); onOpenEditar && onOpenEditar({ endpoint: `/biblioteca/carpeta/periodo/${p.id}`, currentName: p.anio.toString(), title: 'Editar Periodo' }); }}
+                          className="text-orange-300 hover:text-blue-500 cursor-pointer transition-all"
+                          title="Editar Periodo"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        </button>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/periodo/${p.id}`, `Periodo ${p.anio}`); }}
+                          className="text-orange-300 hover:text-red-500 cursor-pointer transition-all"
+                          title="Eliminar Periodo"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                      </div>
                       <div onClick={() => handlePeriodoClick(p)} className="cursor-pointer w-full flex flex-col items-center">
                         <svg className="w-12 h-12 text-orange-500 mb-2 transition-transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
                         <h3 className="font-extrabold text-orange-700 text-[1.1rem]">{p.anio}</h3>
@@ -335,13 +344,22 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {subcarpetas.map((sub) => (
                 <div key={sub.id} className="relative border border-gray-200 bg-gray-50 rounded-xl p-5 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all group flex items-center gap-4">
-                  <button
-                    onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/subcarpeta/${sub.id}`, `Carpeta ${sub.nombre}`); }}
-                    className="absolute top-2 right-2 text-gray-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
-                    title="Eliminar Carpeta"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                  </button>
+                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all flex gap-2 z-10">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onOpenEditar && onOpenEditar({ endpoint: `/biblioteca/carpeta/subcarpeta/${sub.id}`, currentName: sub.nombre, title: 'Editar Subcarpeta' }); }}
+                      className="text-gray-300 hover:text-blue-500 cursor-pointer transition-all"
+                      title="Editar Carpeta"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/subcarpeta/${sub.id}`, `Carpeta ${sub.nombre}`); }}
+                      className="text-gray-300 hover:text-red-500 cursor-pointer transition-all"
+                      title="Eliminar Carpeta"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                  </div>
                   <div onClick={() => handleSubcarpetaClick(sub)} className="cursor-pointer w-full flex items-center gap-4">
                     <div className="w-12 h-12 bg-white rounded-lg shadow-sm border border-gray-100 flex items-center justify-center text-gray-400 group-hover:text-orange-500 transition-colors shrink-0">
                       <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
@@ -356,7 +374,25 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
           {navLevel === 'SUBCARPETAS_HIJAS' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
               {subcarpetasHijas.map((hija) => (
-                <div key={hija.id} onClick={() => handleSubcarpetaHijaClick(hija)} className="border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 hover:shadow-md transition-all cursor-pointer group flex items-center gap-4">
+                <div key={hija.id} onClick={() => handleSubcarpetaHijaClick(hija)} className="relative border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 hover:shadow-md transition-all cursor-pointer group flex items-center gap-4">
+
+                  <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all flex gap-2 z-10">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onOpenEditar && onOpenEditar({ endpoint: `/biblioteca/carpeta/subcarpeta/${hija.id}`, currentName: hija.nombre, title: 'Editar Subcarpeta' }); }}
+                      className="text-orange-300 hover:text-blue-500 cursor-pointer transition-all"
+                      title="Editar Carpeta"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/subcarpeta/${hija.id}`, `Carpeta ${hija.nombre}`); }}
+                      className="text-orange-300 hover:text-red-500 cursor-pointer transition-all"
+                      title="Eliminar Carpeta"
+                    >
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                  </div>
+
                   <div className="w-12 h-12 bg-white rounded-lg shadow-sm border border-orange-100 flex items-center justify-center text-orange-500 transition-colors shrink-0">
                     <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
                   </div>

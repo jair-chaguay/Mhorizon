@@ -12,7 +12,7 @@ import ModalRedactarInformativo from './modals/ModalRedactarInformativo';
 import ModalRedactarNoticia from './modals/ModalRedactarNoticia';
 import ModalEliminar from './modals/ModalEliminar';
 import ModalSubirArchivo from './modals/ModalSubirArchivo';
-
+import ModalEditarCarpeta from './modals/ModalEditarCarpeta';
 import { type ViewID, type Cliente } from './types';
 import api from '../../../api/axios';
 import { ModalAñadirCliente } from './modals/ModalAñadirCliente';
@@ -37,6 +37,8 @@ const IntranetLayout: React.FC = () => {
 
     const [isRedactarModalOpen, setIsRedactarModalOpen] = useState(false);
 
+    const [isEditarCarpetaOpen, setIsEditarCarpetaOpen] = useState(false);
+    const [editarCarpetaConfig, setEditarCarpetaConfig] = useState<{ endpoint: string; currentName: string; title: string } | null>(null);
     const [isEliminarModalOpen, setIsEliminarModalOpen] = useState(false);
     const [itemAEliminar, setItemAEliminar] = useState<{ id: number | string; title: string }>({
         id: 0,
@@ -177,6 +179,10 @@ const IntranetLayout: React.FC = () => {
                                     setItemAEliminar({ id: endpoint, title: title });
                                     setIsEliminarModalOpen(true);
                                 }}
+                                onOpenEditar={(conf) => {
+                                    setEditarCarpetaConfig(conf);
+                                    setIsEditarCarpetaOpen(true);
+                                }}
                             />
                         )}
 
@@ -249,6 +255,12 @@ const IntranetLayout: React.FC = () => {
                 onClose={() => setIsDeclaracionModalOpen(false)}
                 clienteId={clienteSeleccionado?.id}
                 onSuccess={triggerRefresh}
+            />
+            <ModalEditarCarpeta
+                isOpen={isEditarCarpetaOpen}
+                onClose={() => setIsEditarCarpetaOpen(false)}
+                onSuccess={triggerRefresh}
+                config={editarCarpetaConfig}
             />
 
             <ModalEliminar

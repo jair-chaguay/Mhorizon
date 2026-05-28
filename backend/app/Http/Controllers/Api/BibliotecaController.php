@@ -300,5 +300,46 @@ class BibliotecaController extends Controller
         return response()->json(['message' => 'Documento eliminado'], 200);
     }
 
+    public function updateCarpeta(Request $request, $tipo, $id){
+        $user = Auth::user();
+        if (!$user || $user->rol_id !== 3) {
+            return response()->json([
+                'message' => 'Acceso denegado. Solo los usuarios autorizados pueden modificar carpetas.',
+                'status' => 403
+            ], 403);
+        }
+        if ($tipo === 'periodo') {
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|digits:4'
+            ]);
+
+            if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
+
+            $carpeta = BibliotecaPeriodo::find($id);
+            if (!$carpeta) return response()->json(['message' => 'Periodo no encontrado', 'status' => 404], 404);
+
+            $carpeta->anio = $request->nombre;
+            $carpeta->save();
+
+        } elseif ($tipo === 'subcarpeta') {
+            $validator = Validator::make($request->all(), [
+                'nombre' => 'required|string|max:100'
+            ]);
+
+            if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
+
+            $carpeta = BibliotecaSubcarpeta::find($id);
+            if (!$carpeta) return response()->json(['message' => 'Carpeta no encontrada', 'status' => 404], 404);
+
+            $carpeta->nombre = $request->nombre;
+            $carpeta->save();
+            
+        } else {
+            return response()->json(['message' => 'Tipo de carpeta no válido', 'status' => 400], 400);
+        }
+
+        return response()->json(['message' => 'Carpeta actualizada con éxito', 'status' => 200], 200);
+    }
+
 
 }
