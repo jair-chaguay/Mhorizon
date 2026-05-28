@@ -31,4 +31,25 @@ class Informativo extends Model
         return $this->belongsTo(Usuario::class, 'modificado_por_id')->select(['id', 'nombre', 'apellido']);
     }
 
+    public function getImagenPortadaUrlAttribute($value)
+    {
+        if ($value) {
+            if (filter_var($value, FILTER_VALIDATE_URL)) {
+                return $value;
+            }
+            return secure_asset($value);
+        }
+        return null;
+    }
+
+    public function getPdfUrlAttribute($value)
+    {
+        if ($value) {
+            if (filter_var($value, FILTER_VALIDATE_URL)) {
+                return $value;
+            }
+            return secure_asset($value);
+        }
+        return null;
+    }
 }

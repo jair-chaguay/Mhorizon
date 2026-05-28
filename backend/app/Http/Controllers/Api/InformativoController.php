@@ -54,7 +54,7 @@ class InformativoController extends Controller
             'descripcion_portada' => $request->descripcion_portada,
             'resolucion_oficial' => $request->resolucion_oficial,
             'contenido' => $request->contenido,
-            'imagen_portada_url' => $rutaImagen ? secure_asset('storage/' .$rutaImagen) : null,
+            'imagen_portada_url' => $rutaImagen ? 'storage/' . $rutaImagen : null,
             'pdf_url' => $rutaPdf ? secure_asset('storage/' .$rutaPdf) : null
         ]);
 
@@ -88,7 +88,7 @@ class InformativoController extends Controller
             }
 
             $path = $request->file('imagen')->store('informativos/portadas', 'public');
-            $informativo->imagen_portada_url = secure_asset('storage/'.$path);
+            $informativo->imagen_portada_url = 'storage/' . $path;
         }
 
         // Lógica para el PDF
@@ -98,7 +98,7 @@ class InformativoController extends Controller
             }
 
             $path = $request->file('archivo_pdf')->store('informativos/documentos', 'public');
-            $informativo->pdf_url = secure_asset('storage/'.$path);
+            $informativo->pdf_url = 'storage/' . $path;
         }
 
         $informativo->fill($request->except(['imagen', 'archivo_pdf']));
