@@ -118,8 +118,9 @@ class InformativoController extends Controller
         if ($request->hasFile('imagen_editor')) {
             $path = $request->file('imagen_editor')->store('informativos/editor', 'public');
             
+            $url = Storage::url($path);
             return response()->json([
-                'url' => Storage::url($path)
+                'url' => str_replace('http://', 'https://', $url)
             ], 200);
         }
 
