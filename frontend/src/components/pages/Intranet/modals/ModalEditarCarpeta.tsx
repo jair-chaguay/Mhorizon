@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import api from "../../../../api/axios"
+import api from '../../../../api/axios';
+import { ScrollReveal } from '../../../ScrollReveal';
 
 interface ModalEditarCarpetaProps {
   isOpen: boolean;
@@ -31,7 +32,7 @@ const ModalEditarCarpeta: React.FC<ModalEditarCarpetaProps> = ({ isOpen, onClose
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       if (error.response?.status === 403) {
-        alert("Acceso denegado: Solo los usuarios autorizados (Rol asignado) pueden modificar el nombre de las carpetas.");
+        alert("Acceso denegado: Solo los usuarios autorizados pueden modificar el nombre de las carpetas.");
       } else {
         console.error("Error al actualizar la carpeta:", error);
         alert("Ocurrió un error al intentar actualizar el nombre.");
@@ -42,41 +43,55 @@ const ModalEditarCarpeta: React.FC<ModalEditarCarpetaProps> = ({ isOpen, onClose
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6 transform transition-all">
-        <div className="flex justify-between items-center mb-6">
-          <h3 className="text-xl font-bold text-gray-800">{config.title}</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-red-500 transition-colors cursor-pointer">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
-          </button>
+    <ScrollReveal className="fixed inset-0 bg-black/80 backdrop-blur-sm z-130 flex justify-center items-center p-4 animate-fadeIn">
+      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative scale-100 transition-transform duration-300 reveal-element">
+        
+        {/* Botón Cerrar */}
+        <button 
+          onClick={onClose} 
+          className="absolute top-5 right-5 text-gray-400 hover:text-orange-500 focus:outline-none transition-colors cursor-pointer"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+        
+        {/* Cabecera */}
+        <div className="mb-5 border-b border-gray-100 pb-4">
+          <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.70rem] uppercase mb-1 block">Gestión de Directorio</span>
+          <h2 className="text-blue-200 font-extrabold text-[1.4rem] tracking-tight">{config.title}</h2>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Formulario */}
+        <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Nombre</label>
-            <input
-              type="text"
+            <label className="block text-[0.70rem] font-bold text-blue-200 uppercase tracking-widest mb-1">
+              Nombre de la Carpeta / Periodo
+            </label>
+            <input 
+              type="text" 
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all"
-              required
+              className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.85rem] outline-none focus:border-orange-500 transition-colors" 
+              required 
               autoFocus
             />
           </div>
 
-          <div className="flex justify-end gap-3 mt-8">
-            <button
-              type="button"
-              onClick={onClose}
+          {/* Botones de Acción */}
+          <div className="flex gap-3 pt-4 border-t border-gray-100 mt-6">
+            <button 
+              type="button" 
+              onClick={onClose} 
               disabled={loading}
-              className="px-5 py-2.5 text-sm font-bold text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors cursor-pointer disabled:opacity-50"
+              className="flex-1 py-3 mt-2 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50"
             >
               Cancelar
             </button>
-            <button
-              type="submit"
-              disabled={loading || nombre.trim() === ''}
-              className="px-5 py-2.5 text-sm font-bold text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-md transition-colors cursor-pointer disabled:opacity-50 flex items-center gap-2"
+            <button 
+              type="submit" 
+              disabled={loading || nombre.trim() === '' || nombre === config.currentName}
+              className="flex-1 py-3 mt-2 bg-blue-200 text-white rounded-md font-bold uppercase tracking-wider text-[0.80rem] hover:bg-orange-500 transition-colors cursor-pointer disabled:opacity-50 flex justify-center items-center gap-2"
             >
               {loading ? (
                 <>
@@ -92,8 +107,9 @@ const ModalEditarCarpeta: React.FC<ModalEditarCarpetaProps> = ({ isOpen, onClose
             </button>
           </div>
         </form>
+
       </div>
-    </div>
+    </ScrollReveal>
   );
 };
 

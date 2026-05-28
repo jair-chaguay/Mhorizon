@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../../ScrollReveal';
@@ -18,7 +19,7 @@ interface BibliotecaProps {
 const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refreshSignal, directTo, onOpenEliminar, onOpenEditar }) => {
   const [navLevel, setNavLevel] = useState<NavLevel>('ROOT');
   const [path, setPath] = useState({ cliente: '', periodo: '', subcarpeta: '', subcarpetaHija: '' });
-
+  const [userRole, setUserRole] = useState<number | null>(null);
   const BASE_URL = 'https://api.miltonmontece.com';
   const [selectionIds, setSelectionIds] = useState({
     clienteId: null as number | null,
@@ -70,6 +71,20 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
       console.error("Error al cargar periodos:", error)
     }
   }
+
+
+  useEffect(() => {
+    const userData = localStorage.getItem('user'); 
+    if (userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUserRole(parsedUser.rol_id);
+      } catch (error) {
+        console.error("Error al parsear el usuario del localStorage:", error);
+      }
+    }
+  }, []);
+
 
   useEffect(() => {
     if (navLevel === 'ROOT') fetchClientes();
@@ -296,13 +311,16 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                   {periodos.map(p => (
                     <div key={p.id} className="relative border border-orange-200 bg-orange-50 rounded-2xl p-5 hover:bg-orange-100 transition-all group flex flex-col items-center text-center shadow-sm">
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all flex gap-2 z-10">
-                        <button
+                        {userRole === 3 && (
+                          <button
                           onClick={(e) => { e.stopPropagation(); onOpenEditar && onOpenEditar({ endpoint: `/biblioteca/carpeta/periodo/${p.id}`, currentName: p.anio.toString(), title: 'Editar Periodo' }); }}
                           className="text-orange-300 hover:text-blue-500 cursor-pointer transition-all"
                           title="Editar Periodo"
                         >
                           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                         </button>
+                        )
+                        }
                         <button
                           onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/periodo/${p.id}`, `Periodo ${p.anio}`); }}
                           className="text-orange-300 hover:text-red-500 cursor-pointer transition-all"
@@ -345,13 +363,17 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
               {subcarpetas.map((sub) => (
                 <div key={sub.id} className="relative border border-gray-200 bg-gray-50 rounded-xl p-5 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all group flex items-center gap-4">
                   <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all flex gap-2 z-10">
-                    <button
+                    {userRole === 3 && (
+                      <button
                       onClick={(e) => { e.stopPropagation(); onOpenEditar && onOpenEditar({ endpoint: `/biblioteca/carpeta/subcarpeta/${sub.id}`, currentName: sub.nombre, title: 'Editar Subcarpeta' }); }}
                       className="text-gray-300 hover:text-blue-500 cursor-pointer transition-all"
                       title="Editar Carpeta"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                     </button>
+                    )
+
+                    }
                     <button
                       onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/subcarpeta/${sub.id}`, `Carpeta ${sub.nombre}`); }}
                       className="text-gray-300 hover:text-red-500 cursor-pointer transition-all"
@@ -377,13 +399,17 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                 <div key={hija.id} onClick={() => handleSubcarpetaHijaClick(hija)} className="relative border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 hover:shadow-md transition-all cursor-pointer group flex items-center gap-4">
 
                   <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all flex gap-2 z-10">
-                    <button
+                    {userRole===3 && (
+                      <button
                       onClick={(e) => { e.stopPropagation(); onOpenEditar && onOpenEditar({ endpoint: `/biblioteca/carpeta/subcarpeta/${hija.id}`, currentName: hija.nombre, title: 'Editar Subcarpeta' }); }}
                       className="text-orange-300 hover:text-blue-500 cursor-pointer transition-all"
                       title="Editar Carpeta"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                     </button>
+                    )
+
+                    }
                     <button
                       onClick={(e) => { e.stopPropagation(); onOpenEliminar && onOpenEliminar(`/biblioteca/carpeta/subcarpeta/${hija.id}`, `Carpeta ${hija.nombre}`); }}
                       className="text-orange-300 hover:text-red-500 cursor-pointer transition-all"
