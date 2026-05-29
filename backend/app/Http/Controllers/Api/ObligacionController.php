@@ -38,7 +38,22 @@ class ObligacionController extends Controller
         $validator = Validator::make($request->all(), [
             'cliente_id' => 'required|exists:clientes,id',
             'usuario_id' => 'required|exists:usuarios,id',
-            'tipo_impuesto' => ['required',Rule::in(['IVA (Mensual)','IVA (Semestral)','ICE','ISD (MENSUAL)', 'IRBP', 'ISD (ANUAL)', 'IR (Régimen Sociedad)', 'IR (Régimen Emprendedor)', 'IR (Régimen NP)', 'RETENCIONES FUENTE', 'ANTICIPO UTILIDADES ACUMULADAS', 'ACTIVOS EN EL EXTERIOR', 'IRBP-ANEXO', 'ROTEF', 'OPRE', 'ICT', 'ADI', 'DECLARACIÓN PATRIMONIAL/APP', 'APS-REBEFICS', 'RDEP', 'ATS', 'PRECIOS VENTA ICE'])],
+            'tipo_impuesto' => ['required', Rule::in([
+                'IVA (MENSUAL)', 'RETENCIONES FUENTE IR (MENSUAL)', 'RETENCIONES IVA', 
+                'IRBP', 'ATS (MENSUAL)', 'ANEXO ICE', 'ANEXO IRBP', 'PAGO APORTE IESS', 
+                'FONDOS DE RESERVA', 'ANEXO REOC', 'ICE (MENSUAL)', 'ISD (MENSUAL)',
+                'IVA (RÉGIMEN RIMPE)', 'IR (RÉGIMEN RIMPE SEMESTRAL)', 'RETENCIONES IR (RÉGIMEN RIMPE)', 
+                'ATS (RÉGIMEN RIMPE)', 'ICE (SEMESTRAL)', 'ICE - PVP', 'ANEXO GASTOS PERSONALES', 
+                'APS', 'RDEP', 'ROTEF', 'IR (PERSONAS NATURALES)', 'DÉCIMO CUARTO SUELDO (COSTA)', 
+                'DÉCIMO CUARTO SUELDO (SIERRA)', 'IR (SOCIEDADES)', 'ISD (ANUAL)', 
+                'PRESENTACIÓN ESTADOS FINANCIEROS', 'PARTICIPACIÓN DE UTILIDADES', 
+                'IR (RIMPE ANUAL)', 'ADI', 'DECLARACIÓN PATRIMONIAL', 'PATENTE MUNICIPAL', 
+                'IMPUESTO 1.5 POR MIL', 'LUAE', 'PERMISO DE FUNCIONAMIENTO', 'TASA DE BOMBEROS', 
+                'ANEXO PARTES RELACIONADAS', 'INFORME PRECIOS DE TRANSFERENCIA', 
+                'IMPUESTO PREDIAL URBANO', 'IMPUESTO PREDIAL RURAL', 'PAGO A CUENTA', 
+                'ANTICIPO UTILIDADES ACUMULADAS', 'CONTRIBUCIÓN SOCIETARIA', 
+                'IMPUESTO PUBLICIDAD EXTERIOR', 'DÉCIMO TERCER SUELDO'
+            ])],
              'dia_vencimiento' => 'required|integer|min:1|max:31',
         ]);
 
@@ -55,9 +70,14 @@ class ObligacionController extends Controller
         \Carbon\Carbon::setLocale('es');
         $tipoUpper = strtoupper(trim($request->tipo_impuesto));
 
+        $semestrales = [
+            'IVA (RÉGIMEN RIMPE)', 'IR (RÉGIMEN RIMPE SEMESTRAL)', 
+            'RETENCIONES IR (RÉGIMEN RIMPE)', 'ATS (RÉGIMEN RIMPE)', 'ICE (SEMESTRAL)'
+        ];
+
         if ($tipoUpper === 'ANTICIPO UTILIDADES ACUMULADAS') {
             $periodoTexto = 'Agosto - Octubre ' . $fechaExacta->year; 
-        } elseif ($tipoUpper === 'IVA (SEMESTRAL)') {
+        } elseif (in_array($tipoUpper, $semestrales)) {
             $periodoTexto = 'Semestre ' . ucfirst($fechaExacta->translatedFormat('F Y')); 
         } else {
             $periodoTexto = ucfirst($fechaExacta->translatedFormat('F Y'));
