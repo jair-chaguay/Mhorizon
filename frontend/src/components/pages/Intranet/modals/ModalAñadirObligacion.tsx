@@ -11,7 +11,7 @@ interface ModalAñadirObligacionProps {
 
 const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen, onClose, onSuccess, clienteId }) => {
     const [formData, setFormData] = useState({
-        tipo_impuesto: 'IR (Régimen Sociedad)',
+        tipo_impuesto: 'IVA (MENSUAL)', 
         dia_vencimiento: '',
         usuario_id: '' 
     });
@@ -35,7 +35,7 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
 
         if (isOpen) {
             fetchUsuarios();
-            setFormData({ tipo_impuesto: 'IR (Régimen Sociedad)', dia_vencimiento: '', usuario_id: '' });
+            setFormData({ tipo_impuesto: 'IVA (MENSUAL)', dia_vencimiento: '', usuario_id: '' });
         }
     }, [isOpen]);
 
@@ -94,28 +94,58 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
                             onChange={(e) => setFormData({...formData, tipo_impuesto: e.target.value})}
                             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500"
                         >
-                            <option value="IR (Régimen Emprendedor)">IR (Régimen Emprendedor)</option>
-                            <option value="IR (Régimen Sociedad)">IR (Régimen Sociedad)</option>
-                            <option value="IR (Régimen NP)">IR (Régimen NP)</option>
-                            <option value="IVA (Mensual)">IVA (Mensual)</option>
-                            <option value="IVA (Semestral)">IVA (Semestral)</option>
-                            <option value="ICE">ICE</option>
-                            <option value="ISD (MENSUAL)">ISD (Mensual)</option>
-                            <option value="IRBP">IRBP</option>
-                            <option value="ISD (ANUAL)">ISD (Anual)</option>
-                            <option value="RETENCIONES FUENTE">RETENCIONES FUENTE</option>
-                            <option value="ANTICIPO UTILIDADES ACUMULADAS">ANTICIPO UTILIDADES ACUMULADAS</option>
-                            <option value="ACTIVOS EN EL EXTERIOR">ACTIVOS EN EL EXTERIOR</option>
-                            <option value="IRBP-ANEXO">IRBP-ANEXO</option>
-                            <option value="ROTEF">ROTEF</option>
-                            <option value="OPRE">OPRE</option>
-                            <option value="ICT">ICT</option>
-                            <option value="ADI">ADI</option>
-                            <option value="DECLARACIÓN PATRIMONIAL/APP">DECLARACIÓN PATRIMONIAL/APP</option>
-                            <option value="APS-REBEFICS">APS-REBEFICS</option>
-                            <option value="RDEP">RDEP</option>
-                            <option value="ATS">ATS</option>
-                            <option value="PRECIOS VENTA ICE">PRECIOS VENTA ICE</option>                        
+                            <optgroup label="Mensuales">
+                                <option value="IVA (MENSUAL)">IVA (Mensual)</option>
+                                <option value="RETENCIONES FUENTE IR (MENSUAL)">Retenciones Fuente IR (Mensual)</option>
+                                <option value="RETENCIONES IVA">Retenciones IVA</option>
+                                <option value="IRBP">IRBP</option>
+                                <option value="ATS (MENSUAL)">ATS (Mensual)</option>
+                                <option value="ANEXO ICE">Anexo ICE</option>
+                                <option value="ANEXO IRBP">Anexo IRBP</option>
+                                <option value="PAGO APORTES IESS">Pago Aportes IESS</option>
+                                <option value="FONDOS DE RESERVA">Fondos de Reserva</option>
+                                <option value="ANEXO REOC">Anexo REOC</option>
+                                <option value="ICE (MENSUAL)">ICE (Mensual)</option>
+                                <option value="ISD (MENSUAL)">ISD (Mensual)</option>
+                            </optgroup>
+                            <optgroup label="Semestrales">
+                                <option value="IVA (RÉGIMEN RIMPE)">IVA (Régimen RIMPE)</option>
+                                <option value="IR (RÉGIMEN RIMPE SEMESTRAL)">IR (Régimen RIMPE Semestral)</option>
+                                <option value="RETENCIONES IR (RÉGIMEN RIMPE)">Retenciones IR (Régimen RIMPE)</option>
+                                <option value="ATS (RÉGIMEN RIMPE)">ATS (Régimen RIMPE)</option>
+                                <option value="ICE (SEMESTRAL)">ICE (Semestral)</option>
+                            </optgroup>
+                            <optgroup label="Anuales">
+                                <option value="ICE - PVP">ICE - PVP</option>
+                                <option value="ANEXO GASTOS PERSONALES">Anexo Gastos Personales</option>
+                                <option value="APS">APS</option>
+                                <option value="RDEP">RDEP</option>
+                                <option value="ROTEF">ROTEF</option>
+                                <option value="IR (PERSONAS NATURALES)">IR (Personas Naturales)</option>
+                                <option value="DÉCIMO CUARTO SUELDO (COSTA)">Décimo Cuarto Sueldo (Costa)</option>
+                                <option value="DÉCIMO CUARTO SUELDO (SIERRA)">Décimo Cuarto Sueldo (Sierra)</option>
+                                <option value="IR (SOCIEDADES)">IR (Sociedades)</option>
+                                <option value="ISD (ANUAL)">ISD (Anual)</option>
+                                <option value="PRESENTACIÓN ESTADOS FINANCIEROS">Presentación Estados Financieros</option>
+                                <option value="PARTICIPACIÓN DE UTILIDADES">Participación de Utilidades</option>
+                                <option value="IR (RIMPE ANUAL)">IR (RIMPE Anual)</option>
+                                <option value="ADI">ADI</option>
+                                <option value="DECLARACIÓN PATRIMONIAL">Declaración Patrimonial</option>
+                                <option value="PATENTE MUNICIPAL">Patente Municipal</option>
+                                <option value="IMPUESTO 1.5 POR MIL">Impuesto 1.5 por mil</option>
+                                <option value="LUAE">LUAE / Tasa de habilitación</option>
+                                <option value="PERMISO DE FUNCIONAMIENTO">Permiso de Funcionamiento</option>
+                                <option value="TASA DE BOMBEROS">Tasa de Bomberos</option>
+                                <option value="ANEXO PARTES RELACIONADAS">Anexo Partes Relacionadas</option>
+                                <option value="INFORME PRECIOS DE TRANSFERENCIA">Informe Precios de Transferencia</option>
+                                <option value="IMPUESTO PREDIAL URBANO">Impuesto Predial Urbano</option>
+                                <option value="IMPUESTO PREDIAL RURAL">Impuesto Predial Rural</option>
+                                <option value="PAGO A CUENTA">Pago a Cuenta</option>
+                                <option value="ANTICIPO UTILIDADES ACUMULADAS">Anticipo Utilidades Acumuladas</option>
+                                <option value="CONTRIBUCIÓN SOCIETARIA">Contribución Societaria</option>
+                                <option value="IMPUESTO PUBLICIDAD EXTERIOR">Impuesto Publicidad Exterior</option>
+                                <option value="DÉCIMO TERCER SUELDO">Décimo Tercer Sueldo</option>
+                            </optgroup>                      
                         </select>
                     </div>
 

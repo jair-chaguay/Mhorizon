@@ -45,7 +45,7 @@ export const MatrizOblig = () => {
                         </thead>
                         <tbody>
                             <tr className={trClasses}>
-                                <td rowSpan={11} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>MENSUAL</td>
+                                <td rowSpan={12} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>MENSUAL</td>
                                 <td className={tdClasses}>Declaración del IVA</td>
                                 <td className={tdClasses}>SRI</td>
                                 <td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td>
@@ -60,17 +60,18 @@ export const MatrizOblig = () => {
                             <tr className={trClasses}><td className={tdClasses}>Fondos de reserva</td><td className={tdClasses}>IESS</td><td className={`${tdClasses} text-sm`}>Hasta el día 15 del mes siguiente</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Anexo REOC (operaciones con el exterior)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>ICE (Impuesto a los Consumos Especiales)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td></tr>
-
+                            <tr className={trClasses}><td className={tdClasses}>ISD (Impuesto a la Salida de Divisas)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td></tr>
+                            
                             <tr className={trClasses}>
                                 <td rowSpan={5} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>SEMESTRAL</td>
                                 <td className={tdClasses}>Declaración del IVA (RIMPE)</td>
                                 <td className={tdClasses}>SRI</td>
-                                <td className={`${tdClasses} text-sm`}>Julio y Enero (Según 9no dígito)</td>
+                                <td className={`${tdClasses} text-sm`}>Enero y Julio (Según 9no dígito)</td>
                             </tr>
-                            <tr className={trClasses}><td className={tdClasses}>Declaración de Impuesto a la Renta (RIMPE)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Julio y Enero (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Declaración de retenciones en la fuente (RIMPE)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Julio y Enero (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>ATS (RIMPE)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Julio y Enero (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>ICE (si aplica)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Julio y Enero (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Declaración de Impuesto a la Renta (RIMPE)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Enero y Julio (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Declaración de retenciones en la fuente del IR (RIMPE)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Enero y Julio (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Anexo Transaccional Simplificado - ATS (RIMPE)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Enero y Julio (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Impuesto a los Consumos Especiales - ICE</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Enero y Julio (Según 9no dígito)</td></tr>
 
                             <tr className={trClasses}>
                                 <td rowSpan={12} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>

@@ -41,28 +41,55 @@ class ObligacionTributaria extends Model
         $mesActual = $hoy->month;
         $tipo = strtoupper(trim($tipoImpuesto));
 
-        if($tipo === 'IVA (SEMESTRAL)'){
-            if($mesActual < 7 || ($mesActual == 7 && $hoy->day < $dia)){
+        $semestrales = [
+            'IVA (RÉGIMEN RIMPE)',
+            'IR (RÉGIMEN RIMPE SEMESTRAL)',
+            'RETENCIONES IR (RÉGIMEN RIMPE)',
+            'ATS (RÉGIMEN RIMPE)',
+            'ICE (SEMESTRAL)'
+        ];
+        if(in_array($tipo, $semestrales)){
+            if($mesActual < 1 || ($mesActual == 1 && $hoy->day < $dia)){
+                return Carbon::createFromDate($anioActual, 1, $dia);
+            } 
+            // Si pasamos enero pero no hemos llegado a la de julio
+            elseif ($mesActual < 7 || ($mesActual == 7 && $hoy->day < $dia)) {
                 return Carbon::createFromDate($anioActual, 7, $dia);
             }
+            // Si ya pasamos julio, la siguiente es enero del próximo año
             return Carbon::createFromDate($anioActual + 1, 1, $dia);
         }
 
         $mesesFijos = [
-            'ISD'=> 7,
-            'PRECIOS VENTA ICE' => 1,
-            'ROTEF' => 2,
-            'APS-REBEFICS' => 2,
+            'ICE - PVP' => 1, // Enero
+            'ANEXO GASTOS PERSONALES' => 2, // Febrero
+            'APS' => 2,
             'RDEP' => 2,
-            'ACTIVOS EN EL EXTERIOR' => 5,
-            'IR (RÉGIMEN EMRENDEDOR)' => 3,
-            'IR (RÉGIMEN SOCIEDAD)' => 4,
+            'ROTEF' => 2,
+            'IR (PERSONAS NATURALES)' => 3, // Marzo
+            'DÉCIMO CUARTO SUELDO (COSTA)' => 3,
+            'IR (SOCIEDADES)' => 4, // Abril
+            'ISD (ANUAL)' => 4,
+            'PRESENTACIÓN ESTADOS FINANCIEROS' => 4,
+            'PARTICIPACIÓN DE UTILIDADES' => 4,
+            'IR (RIMPE ANUAL)' => 5, // Mayo
             'ADI' => 5,
-            'DECLARACIÓN PATRIMONIAL/AAP' => 5,
-            'OPRE' => 6,
-            'ICT' => 7,
-            'ADI'=>5,
-            'ANTICIPO UTILIDADES ACUMULADAS' => 10
+            'DECLARACIÓN PATRIMONIAL' => 5,
+            'PATENTE MUNICIPAL' => 5,
+            'IMPUESTO 1.5 POR MIL' => 5,
+            'LUAE' => 5,
+            'PERMISO DE FUNCIONAMIENTO' => 5,
+            'TASA DE BOMBEROS' => 5,
+            'ANEXO PARTES RELACIONADAS' => 6, // Junio
+            'INFORME PRECIOS DE TRANSFERENCIA' => 6,
+            'IMPUESTO PREDIAL URBANO' => 6,
+            'IMPUESTO PREDIAL RURAL' => 6,
+            'DÉCIMO CUARTO SUELDO (SIERRA)' => 8, // Agosto
+            'PAGO A CUENTA' => 8,
+            'ANTICIPO UTILIDADES ACUMULADAS' => 8,
+            'CONTRIBUCIÓN SOCIETARIA' => 9, // Septiembre 
+            'IMPUESTO PUBLICIDAD EXTERIOR' => 10, // Octubre
+            'DÉCIMO TERCER SUELDO' => 12 // Diciembre
         ];
 
         if (array_key_exists($tipo, $mesesFijos)) {
@@ -86,8 +113,20 @@ class ObligacionTributaria extends Model
     public function obtenerMesesFrecuencia()
     {
         $tipo = strtoupper(trim($this->tipo_impuesto));
-        if (str_contains($tipo, 'SEMESTRAL')) return 6;
-        if (str_contains($tipo, 'MENSUAL') || in_array($tipo, ['ICE', 'IRBP', 'RETENCIONES FUENTE', 'IRBP-ANEXO', 'ATS', 'IR (Régimen NP)'])) return 1;
+
+        $semestrales = [
+            'IVA (RÉGIMEN RIMPE)', 'IR (RÉGIMEN RIMPE SEMESTRAL)', 
+            'RETENCIONES IR (RÉGIMEN RIMPE)', 'ATS (RÉGIMEN RIMPE)', 'ICE (SEMESTRAL)'
+        ];
+        if (in_array($tipo, $semestrales)) return 6;
+
+        $mensuales = [
+            'IVA (MENSUAL)', 'RETENCIONES FUENTE IR (MENSUAL)', 'RETENCIONES IVA', 
+            'IRBP', 'ATS (MENSUAL)', 'ANEXO ICE', 'ANEXO IRBP', 'PAGO APORTES IESS', 
+            'FONDOS DE RESERVA', 'ANEXO REOC', 'ICE (MENSUAL)', 'ISD (MENSUAL)'
+        ];
+        if (in_array($tipo, $mensuales)) return 1;
+        
         return 12; // Anuales
     }
 
