@@ -16,21 +16,22 @@ export const MatrizOblig = () => {
 
                 <div className="w-full overflow-x-auto shadow-sm rounded-sm mb-8">
                     <div className="bg-gray-100 p-4 md:p-5 rounded-sm border border-gray-200 mb-6 flex flex-col md:flex-row gap-4 md:gap-6 items-start md:items-center min-w-75">
-                        <div className="w-full md:w-1/3">
-                            <h3 className="font-bold text-[#151E28] mb-1">Fechas de Vencimiento SRI</h3>
-                            <p className="text-sm text-gray-600">Las obligaciones marcadas con <strong>"Según 9no dígito"</strong> se rigen por la siguiente tabla correspondiente al noveno dígito del RUC o Cédula:</p>
+                        <div className="w-full md:w-3/5">
+                            <h3 className="font-bold text-[#151E28] mb-1">Fechas de Vencimiento</h3>
+                            <p className="text-sm text-gray-600">Las obligaciones que incluyan la frase <strong>"Según 9no dígito"</strong> se rigen por la siguiente tabla de acuerdo con el noveno dígito del RUC:</p>
+                            <p className= "text-sm text-gray-600"><strong>Contribuyentes especiales:</strong> Su fecha maxima de presentacion “DIA 11” de cada mes.</p>
                         </div>
-                        <div className="w-full md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 1</strong>:</span> <span className="font-semibold text-[#151E28]">Día 10</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 6</strong>:</span> <span className="font-semibold text-[#151E28]">Día 20</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 2</strong>:</span> <span className="font-semibold text-[#151E28]">Día 12</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 7</strong>:</span> <span className="font-semibold text-[#151E28]">Día 22</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 3</strong>:</span> <span className="font-semibold text-[#151E28]">Día 14</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 8</strong>:</span> <span className="font-semibold text-[#151E28]">Día 24</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 4</strong>:</span> <span className="font-semibold text-[#151E28]">Día 16</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 9</strong>:</span> <span className="font-semibold text-[#151E28]">Día 26</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 5</strong>:</span> <span className="font-semibold text-[#151E28]">Día 18</span></div>
-                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 0</strong>:</span> <span className="font-semibold text-[#151E28]">Día 28</span></div>
+                        <div className="w-full md:w-3/7 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm border border-gray-300 p-2">
+                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 1</strong>:</span> <span className=" text-gray-600">Día 10</span></div>
+                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 6</strong>:</span> <span className=" text-gray-600">Día 20</span></div>
+                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 2</strong>:</span> <span className="text-gray-600">Día 12</span></div>
+                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 7</strong>:</span> <span className="text-gray-600">Día 22</span></div>
+                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 3</strong>:</span> <span className="text-gray-600">Día 14</span></div>
+                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 8</strong>:</span> <span className="text-gray-600">Día 24</span></div>
+                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 4</strong>:</span> <span className="text-gray-600">Día 16</span></div>
+                            <div className="flex justify-between border-b border-gray-300 py-1"><span><strong>Dígito 9</strong>:</span> <span className="text-gray-600">Día 26</span></div>
+                            <div className="flex justify-between  py-1"><span><strong>Dígito 5</strong>:</span> <span className="text-gray-600">Día 18</span></div>
+                            <div className="flex justify-between  py-1"><span><strong>Dígito 0</strong>:</span> <span className="text-gray-600">Día 28</span></div>
                         </div>
                     </div>
 

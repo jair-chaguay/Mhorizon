@@ -2,6 +2,7 @@ import { ScrollReveal } from '../ScrollReveal'
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import api from '../../api/axios';
+import { SupportModal } from '../SupportModal';
 
 export const LoginPage = () => {
     const navigate = useNavigate();
@@ -9,6 +10,7 @@ export const LoginPage = () => {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
+    const [isSupportOpen, setIsSupportOpen] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -41,7 +43,7 @@ export const LoginPage = () => {
     return (
         <ScrollReveal as={"section"} className="bg-blue-200 text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative">
 
-            
+
 
             <header className="relative z-10 w-full py-6 px-5 sm:px-8 md:px-12 flex justify-between items-center reveal-element">
                 <Link className="w-36 sm:w-44 md:w-35 h:6 transition-transform hover:scale-105 duration-300" to="/">
@@ -161,9 +163,18 @@ export const LoginPage = () => {
                 <div className="max-w-350 mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-[0.75rem] text-white/50 font-light">
                     <p>&copy; 2026 MHORIZON ECUADOR. Todos los derechos reservados.</p>
                     <div className="flex gap-6 uppercase tracking-wider">
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Privacidad</a>
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Términos Legales</a>
-                        <a href="#" className="hover:text-orange-500 transition-colors duration-300">Soporte Corporativo</a>
+                        <Link to="/politicas-de-privacidad" target='_blank' className="hover:text-orange-500 transition-colors duration-300">Políticas de Privacidad</Link>
+                        <Link to="/terminos-de-uso" target='_blank' className="hover:text-orange-500 transition-colors duration-300">Términos de uso</Link>
+                        <button
+                            onClick={() => setIsSupportOpen(true)}
+                            className="hover:text-orange-500 upppercase transition-colors duration-300 text-left bg-transparent border-none p-0 cursor-pointer font-inherit text-inherit"
+                        >
+                            SOPORTE CORPORATIVO
+                        </button>
+                        <SupportModal
+                            isOpen={isSupportOpen}
+                            onClose={() => setIsSupportOpen(false)}
+                        />
                     </div>
                 </div>
             </footer>

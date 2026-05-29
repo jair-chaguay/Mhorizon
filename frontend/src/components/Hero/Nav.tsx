@@ -108,7 +108,6 @@ export const Nav = ({ mobile = false }: NavProps) => {
             <Link to="/novedades" className="block w-full">INFORMATIVOS</Link>
           </li>
 
-          {/* Item Nuevo: Inteligencia (Desplegable) */}
           <li className={mobile ? "relative w-full border-b border-white/10" : "relative group py-4"}>
             <div
               className={`flex items-center cursor-pointer transition-colors duration-300 hover:text-orange-500 
@@ -117,8 +116,7 @@ export const Nav = ({ mobile = false }: NavProps) => {
               }
               onClick={() => mobile && toggleDropdown('inteligencia')}
             >
-              {/* Le puse un link "#" temporal para mantener la misma estructura, si tienes una landing para Inteligencia puedes cambiar el 'to' */}
-              <Link to="#" onClick={(e) => mobile && e.preventDefault()}>INTELIGENCIA</Link>
+              <Link to="#" onClick={(e) => mobile && e.preventDefault()}>CONSULTAS</Link>
               <svg
                 className={`w-4 h-4 transition-transform duration-300 ${!mobile ? 'group-hover:-rotate-180' : (openDropdown === 'inteligencia' ? '-rotate-180' : '')}`}
                 fill="none" stroke="currentColor" viewBox="0 0 24 24"

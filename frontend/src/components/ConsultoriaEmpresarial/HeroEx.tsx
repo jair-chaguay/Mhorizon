@@ -29,7 +29,7 @@ const hero: HeroProps[] = [
 
 export const HeroEx = () => {
     return (
-        <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex flex-col md:flex-row gap-10 md:gap-10 items-center relative h-auto min-h-137.5 bg-[url('/images/ConsultoriaHero.jpeg')] bg-cover bg-center py-16 md:py-0">
+        <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex flex-col md:flex-row gap-10 md:gap-10 items-center relative h-auto min-h-137.5 bg-[url('/images/ConsultoriaHero.webp')] bg-cover bg-center py-16 md:py-0">
 
             <div className="absolute inset-0 bg-linear-to-r from-[#0f172a]/95 via-[#0f172a]/70 to-[#0f172a]/30"></div>
 
