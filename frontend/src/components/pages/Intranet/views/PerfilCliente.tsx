@@ -129,14 +129,18 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         tipo_persona: cliente.tipo_persona || 'Persona Natural',
         score_tributario: cliente.score_tributario || 100,
         correo: usuarioAsociado ? usuarioAsociado.correo : '',
-        password: '',
-        gestionado_por_id: cliente.gestionado_por_id || ''
+        password: ''
     });
+
+
 
     const [periodos, setPeriodos] = useState<any[]>([]);
     const [obligaciones, setObligaciones] = useState<ObligacionTributaria[]>([]);
     const [isLoadingObligaciones, setIsLoadingObligaciones] = useState(true);
     const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
+    const [gestoresSeleccionados, setGestoresSeleccionados] = useState<number[]>(
+        cliente.gestores?.map((g => g.id)) || []
+    )
     const [isSaving, setIsSaving] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
 
@@ -228,7 +232,10 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
         setIsSaving(true);
         try {
-            await api.put(`/cliente/${cliente.id}`, formData);
+            await api.put(`/cliente/${cliente.id}`, {
+                ...formData,
+                gestores : gestoresSeleccionados
+            });
             alert('Perfil Actualizado Exitosamente.');
             onUpdateSuccess();
         } catch (error: any) {
@@ -334,14 +341,29 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </select>
                             </div>
 
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Gestionado por</p>
-                                <select name="gestionado_por_id" value={formData.gestionado_por_id} onChange={handleInputChange} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer">
-                                    <option value="">Seleccionar gestor...</option>
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-2">Gestionado por (Múltiple)</p>
+                                <div className="max-h-24 overflow-y-auto space-y-2 pr-2">
                                     {usuariosGestores.map((u) => (
-                                        <option key={u.id} value={u.id}>{u.nombre} {u.apellido}</option>
+                                        <label key={u.id} className="flex items-center gap-2 cursor-pointer group">
+                                            <input 
+                                                type="checkbox"
+                                                checked={gestoresSeleccionados.includes(u.id)}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) setGestoresSeleccionados([...gestoresSeleccionados, u.id]);
+                                                    else setGestoresSeleccionados(gestoresSeleccionados.filter(id => id !== u.id));
+                                                }}
+                                                className="react-custom-checkbox"
+                                            />
+                                            <span className="text-white font-semibold text-[0.85rem] group-hover:text-orange-400 transition-colors">
+                                                {u.nombre} {u.apellido}
+                                            </span>
+                                        </label>
                                     ))}
-                                </select>
+                                    {usuariosGestores.length === 0 && (
+                                        <p className="text-xs text-gray-400">No hay gestores disponibles.</p>
+                                    )}
+                                </div>
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">

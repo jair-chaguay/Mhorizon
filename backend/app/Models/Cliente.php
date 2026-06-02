@@ -44,7 +44,7 @@ class Cliente extends Model
     public function gestores()
     {
         return $this->belongsToMany(Usuario::class, 'cliente_gestor', 'cliente_id', 'usuario_id')
-                    ->select(['usuarios.usuario', 'nombre', 'apellido'])
+                    ->select(['usuarios.id', 'nombre', 'apellido'])
                     ->withTrashed();
     }
 }
