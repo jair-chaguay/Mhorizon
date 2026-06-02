@@ -18,7 +18,6 @@ export interface ObligacionTributaria {
     };
 }
 
-
 interface PerfilClienteProps {
     cliente: Cliente;
     refreshSignal?: number;
@@ -132,17 +131,36 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         password: ''
     });
 
-
-
     const [periodos, setPeriodos] = useState<any[]>([]);
     const [obligaciones, setObligaciones] = useState<ObligacionTributaria[]>([]);
     const [isLoadingObligaciones, setIsLoadingObligaciones] = useState(true);
     const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
     const [gestoresSeleccionados, setGestoresSeleccionados] = useState<number[]>(
         cliente.gestores?.map((g => g.id)) || []
-    )
+    );
     const [isSaving, setIsSaving] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
+    
+    // Estado para almacenar el usuario activo logueado
+    const [currentUser, setCurrentUser] = useState<any>(null);
+
+    // Obtener el usuario autenticado del sistema
+    useEffect(() => {
+        const fetchCurrentUser = async () => {
+            try {
+                const { data } = await api.get('/user');
+                setCurrentUser(data);
+            } catch (error) {
+                console.error("Error al obtener el usuario actual:", error);
+            }
+        };
+        fetchCurrentUser();
+    }, []);
+
+    // Evaluación de permisos en el Frontend
+    const isSuperAdmin = currentUser?.rol_id === 3;
+    const isGestorAsignado = gestoresSeleccionados.includes(currentUser?.id);
+    const canEdit = isSuperAdmin || isGestorAsignado;
 
     const fetchPeriodos = async () => {
         try {
@@ -168,6 +186,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
             setIsLoadingObligaciones(false);
         }
     };
+
     const fetchUsuariosGestores = async () => {
         try {
             const { data } = await api.get('/usuario');
@@ -194,17 +213,15 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     };
 
     const handleGuardarPerfil = async () => {
-        setErrorMsg(''); // Limpiar errores previos
+        setErrorMsg('');
         const identificacionClean = formData.identificacion.trim();
 
-        // 1. Validar RUC
         const validacion = validarEstructuraRUC(identificacionClean);
         if (!validacion.valido) {
             setErrorMsg("RUC Inválido: " + validacion.mensaje);
             return;
         }
 
-        // 2. Validar coherencia de régimen
         let regimenIncorrecto = false;
         let mensajeErrorRegimen = "";
 
@@ -287,7 +304,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                     <div className="flex items-center text-sm font-medium text-gray-500 truncate">
                         <span className="cursor-pointer hover:text-orange-500 transition-colors" onClick={onBack}>Directorio de Clientes</span>
                         <svg className="w-4 h-4 mx-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg>
-                        <span className="text-blue-200 font-bold">Perfil Editable</span>
+                        <span className="text-blue-200 font-bold">{canEdit ? 'Perfil Editable' : 'Perfil (Modo Lectura)'}</span>
                     </div>
                 </div>
 
@@ -296,11 +313,11 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                         <svg className="w-32 h-32 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l7-3 7 3z"></path></svg>
                     </div>
                     <div className="relative z-10">
-                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.75rem] uppercase mb-2 block">Datos del Perfil (Modificable)</span>
+                        <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.75rem] uppercase mb-2 block">Datos del Perfil</span>
 
                         {errorMsg && (
                             <div className="bg-red-500/20 text-red-200 p-3 rounded-lg text-sm font-bold border border-red-500/50 flex items-start gap-2 mb-4">
-                                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77(1.333.192 3 1.732 3z"></path></svg>
                                 <span>{errorMsg}</span>
                             </div>
                         )}
@@ -310,29 +327,30 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             name="razon_social_nombres"
                             value={formData.razon_social_nombres}
                             onChange={handleInputChange}
-                            className="w-full bg-transparent border-b-2 border-white/20 text-[2rem] sm:text-[2.5rem] font-extrabold text-white tracking-tight leading-none mb-6 outline-none focus:border-orange-500 transition-colors pb-1"
+                            disabled={!canEdit}
+                            className="w-full bg-transparent border-b-2 border-white/20 text-[2rem] sm:text-[2.5rem] font-extrabold text-white tracking-tight leading-none mb-6 outline-none focus:border-orange-500 transition-colors pb-1 disabled:opacity-60"
                         />
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">RUC/Cédula</p>
-                                <input type="text" maxLength={13} name="identificacion" value={formData.identificacion} onChange={handleInputChange} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1" />
+                                <input type="text" maxLength={13} name="identificacion" value={formData.identificacion} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo (Acceso)</p>
-                                <input type="email" name="correo" value={formData.correo} onChange={handleInputChange} placeholder="Asignar correo..." className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1" />
+                                <input type="email" name="correo" value={formData.correo} onChange={handleInputChange} placeholder="Asignar correo..." disabled={!canEdit} className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Cambiar Clave</p>
-                                <input type="text" name="password" value={formData.password} onChange={handleInputChange} placeholder="Escribir nueva clave..." className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1" />
+                                <input type="text" name="password" value={formData.password} onChange={handleInputChange} placeholder="Escribir nueva clave..." disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de contribuyente</p>
-                                <select name="tipo_persona" value={formData.tipo_persona} onChange={handleInputChange} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer">
+                                <select name="tipo_persona" value={formData.tipo_persona} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
                                     <option value="Régimen General">Régimen General</option>
                                     <option value="RIMPE">RIMPE</option>
                                     <option value="Contribuyente Especial">Contribuyente Especial</option>
@@ -353,7 +371,8 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                     if (e.target.checked) setGestoresSeleccionados([...gestoresSeleccionados, u.id]);
                                                     else setGestoresSeleccionados(gestoresSeleccionados.filter(id => id !== u.id));
                                                 }}
-                                                className="react-custom-checkbox"
+                                                disabled={!canEdit}
+                                                className="react-custom-checkbox disabled:opacity-50"
                                             />
                                             <span className="text-white font-semibold text-[0.85rem] group-hover:text-orange-400 transition-colors">
                                                 {u.nombre} {u.apellido}
@@ -369,32 +388,35 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Score</p>
                                 <div className="flex items-center gap-1 border-b border-transparent focus-within:border-orange-500 pb-1">
-                                    <input type="number" name="score_tributario" value={formData.score_tributario} onChange={handleInputChange} min="0" max="100" className="w-full bg-transparent text-white font-black text-[1rem] outline-none" />
+                                    <input type="number" name="score_tributario" value={formData.score_tributario} onChange={handleInputChange} min="0" max="100" disabled={!canEdit} className="w-full bg-transparent text-white font-black text-[1rem] outline-none disabled:opacity-60" />
                                     <span className="text-gray-400 text-[0.75rem] font-bold">/100</span>
                                 </div>
                             </div>
 
-                            <div className="sm:col-span-2 lg:col-span-3 xl:col-span-6 flex flex-col sm:flex-row gap-4 mt-2">
-                                <button
-                                    type="button"
-                                    onClick={() => onOpenEliminar(`/cliente/${cliente.id}`, `Cliente ${cliente.razon_social_nombres} y su usuario`)}
-                                    className="flex-1 bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center justify-center gap-2 hover:bg-red-500 hover:text-white text-red-400 transition-all cursor-pointer group shadow-sm"
-                                >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                    <span className="font-bold text-[0.90rem] uppercase tracking-wider">Eliminar Cliente</span>
-                                </button>
+                            {/* Ocultación de botones de guardar y eliminar si no cuenta con privilegios */}
+                            {canEdit && (
+                                <div className="sm:col-span-2 lg:col-span-3 xl:col-span-6 flex flex-col sm:flex-row gap-4 mt-2">
+                                    <button
+                                        type="button"
+                                        onClick={() => onOpenEliminar(`/cliente/${cliente.id}`, `Cliente ${cliente.razon_social_nombres} y su usuario`)}
+                                        className="flex-1 bg-red-500/10 border border-red-500/30 rounded-xl p-4 flex items-center justify-center gap-2 hover:bg-red-500 hover:text-white text-red-400 transition-all cursor-pointer group shadow-sm"
+                                    >
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        <span className="font-bold text-[0.90rem] uppercase tracking-wider">Eliminar Cliente</span>
+                                    </button>
 
-                                <button
-                                    onClick={handleGuardarPerfil}
-                                    disabled={isSaving}
-                                    className={`flex-2 bg-orange-500/20 rounded-xl p-4 border border-orange-500/50 flex flex-col justify-center transition-colors group shadow-sm ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-orange-500'}`}
-                                >
-                                    <div className="flex items-center justify-center gap-3 w-full">
-                                        <span className="text-white font-bold text-[0.90rem] uppercase tracking-wider">{isSaving ? 'Guardando...' : 'Guardar Perfil'}</span>
-                                        {!isSaving && <svg className="w-5 h-5 text-orange-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>}
-                                    </div>
-                                </button>
-                            </div>
+                                    <button
+                                        onClick={handleGuardarPerfil}
+                                        disabled={isSaving}
+                                        className={`flex-2 bg-orange-500/20 rounded-xl p-4 border border-orange-500/50 flex flex-col justify-center transition-colors group shadow-sm ${isSaving ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-orange-500'}`}
+                                    >
+                                        <div className="flex items-center justify-center gap-3 w-full">
+                                            <span className="text-white font-bold text-[0.90rem] uppercase tracking-wider">{isSaving ? 'Guardando...' : 'Guardar Perfil'}</span>
+                                            {!isSaving && <svg className="w-5 h-5 text-orange-500 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>}
+                                        </div>
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -406,10 +428,13 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <p className="text-gray-500 text-[0.85rem] mt-1">Se guardan automáticamente al marcar la casilla.</p>
                         </div>
                         <div className="flex items-center gap-3">
-                            <button onClick={onOpenDeclaracion} className="cursor-pointer bg-orange-50 text-orange-600 border border-orange-200 text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 hover:text-white transition-all flex items-center gap-2 shrink-0">
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
-                                Añadir Obligación
-                            </button>
+                            {/* Ocultar Añadir Obligación */}
+                            {canEdit && (
+                                <button onClick={onOpenDeclaracion} className="cursor-pointer bg-orange-50 text-orange-600 border border-orange-200 text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 hover:text-white transition-all flex items-center gap-2 shrink-0">
+                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                                    Añadir Obligación
+                                </button>
+                            )}
                         </div>
                     </div>
 
@@ -420,17 +445,18 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                     <th className="px-5 py-4">Tipo de Impuesto</th>
                                     <th className="px-5 py-4">Periodo / Fecha Límite</th>
                                     <th className="px-5 py-4">Estado Actual</th>
-                                    <th className="px-5 py-4 text-center">Acciones</th>
+                                    {/* Mostrar columna Acciones solo si puede editar */}
+                                    {canEdit && <th className="px-5 py-4 text-center">Acciones</th>}
                                 </tr>
                             </thead>
                             <tbody className="text-[0.85rem] divide-y divide-gray-50">
                                 {isLoadingObligaciones ? (
                                     <tr>
-                                        <td colSpan={4} className="text-center py-8 text-gray-400 font-bold uppercase tracking-widest text-[0.75rem]">Cargando obligaciones...</td>
+                                        <td colSpan={canEdit ? 4 : 3} className="text-center py-8 text-gray-400 font-bold uppercase tracking-widest text-[0.75rem]">Cargando obligaciones...</td>
                                     </tr>
                                 ) : obligaciones.length === 0 ? (
                                     <tr>
-                                        <td colSpan={4} className="text-center py-8 text-gray-400 italic">No hay obligaciones registradas para este cliente.</td>
+                                        <td colSpan={canEdit ? 4 : 3} className="text-center py-8 text-gray-400 italic">No hay obligaciones registradas para este cliente.</td>
                                     </tr>
                                 ) : (
                                     obligaciones.map((ob) => (
@@ -463,35 +489,38 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                 )}
                                             </td>
 
-                                            <td className="px-5 py-4 text-center flex justify-center items-center gap-2">
-                                                {ob.estado === 'Pendiente' && (
+                                            {/* Ocultar los botones de acción individuales de la tabla si no es gestor o admin */}
+                                            {canEdit && (
+                                                <td className="px-5 py-4 text-center flex justify-center items-center gap-2">
+                                                    {ob.estado === 'Pendiente' && (
+                                                        <button
+                                                            onClick={() => onOpenSubir(ob.id)}
+                                                            className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-green-500 hover:text-white hover:border-green-500 transition-all cursor-pointer"
+                                                            title="Subir Documento Final"
+                                                        >
+                                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                                                            </svg>
+                                                        </button>
+                                                    )}
+
                                                     <button
-                                                        onClick={() => onOpenSubir(ob.id)}
-                                                        className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-green-500 hover:text-white hover:border-green-500 transition-all cursor-pointer"
-                                                        title="Subir Documento Final"
+                                                        onClick={() => onOpenEditarObligacion(ob)}
+                                                        className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all cursor-pointer"
+                                                        title="Cambiar Encargado"
                                                     >
-                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
-                                                        </svg>
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                                     </button>
-                                                )}
 
-                                                <button
-                                                    onClick={() => onOpenEditarObligacion(ob)}
-                                                    className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all cursor-pointer"
-                                                    title="Cambiar Encargado"
-                                                >
-                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-                                                </button>
-
-                                                <button
-                                                    onClick={() => onOpenEliminar(`/obligacion/${ob.id}`, `Obligacion ${ob.tipo_impuesto}`)}
-                                                    className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer"
-                                                    title="Eliminar Obligación"
-                                                >
-                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                                </button>
-                                            </td>
+                                                    <button
+                                                        onClick={() => onOpenEliminar(`/obligacion/${ob.id}`, `Obligacion ${ob.tipo_impuesto}`)}
+                                                        className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer"
+                                                        title="Eliminar Obligación"
+                                                    >
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                                    </button>
+                                                </td>
+                                            )}
                                         </tr>
                                     ))
                                 )}
@@ -507,10 +536,13 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <p className="text-gray-500 text-[0.85rem] mt-1">Seleccione el Periodo Fiscal para saltar al gestor documental.</p>
                         </div>
 
-                        <button onClick={onOpenCrearPeriodo} className="cursor-pointer bg-[#151E28] text-white text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 transition-all flex items-center gap-2 shrink-0 shadow-sm">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
-                            Añadir Periodo
-                        </button>
+                        {/* Ocultar Añadir Periodo */}
+                        {canEdit && (
+                            <button onClick={onOpenCrearPeriodo} className="cursor-pointer bg-[#151E28] text-white text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 transition-all flex items-center gap-2 shrink-0 shadow-sm">
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+                                Añadir Periodo
+                            </button>
+                        )}
                     </div>
 
                     {periodos.length > 0 ? (

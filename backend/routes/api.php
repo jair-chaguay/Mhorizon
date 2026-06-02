@@ -56,6 +56,10 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/cliente', [ClienteController::class, 'store']);
 
+Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
 Route::put('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'updateCarpeta']);
 Route::put('/cliente/{id}', [ClienteController::class, 'update']);
 Route::get('/cliente/{id}/obligaciones', [ObligacionController::class, 'indexCliente']);
