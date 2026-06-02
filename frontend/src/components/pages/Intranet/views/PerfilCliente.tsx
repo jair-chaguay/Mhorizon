@@ -162,45 +162,35 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     const isGestorAsignado = gestoresSeleccionados.includes(currentUser?.id);
     const canEdit = isSuperAdmin || isGestorAsignado;
 
-    const fetchPeriodos = async () => {
-        try {
-            const { data } = await api.get(`/biblioteca/arbol/${cliente.id}`);
-            setPeriodos(data.biblioteca || []);
-        } catch (error) {
-            console.error("Error al cargar periodos en perfil:", error);
-        }
-    };
-
     useEffect(() => {
-        fetchPeriodos();
-    }, [cliente.id, refreshSignal]);
+        const loadPerfilData = async () => {
+            try {
+                setIsLoadingObligaciones(true);
 
-    const fetchObligaciones = async () => {
-        try {
-            setIsLoadingObligaciones(true);
-            const { data } = await api.get(`/cliente/${cliente.id}/obligaciones`);
-            setObligaciones(data.obligaciones || []);
-        } catch (error) {
-            console.error("Error al cargar obligaciones:", error);
-        } finally {
-            setIsLoadingObligaciones(false);
-        }
-    };
+                // Ejecuta las 3 peticiones HTTP de forma simultánea en hilos paralelos
+                const [resPeriodos, resObligaciones, resUsuarios] = await Promise.all([
+                    api.get(`/biblioteca/arbol/${cliente.id}`),
+                    api.get(`/cliente/${cliente.id}/obligaciones`),
+                    api.get('/usuario')
+                ]);
 
-    const fetchUsuariosGestores = async () => {
-        try {
-            const { data } = await api.get('/usuario');
-            const filtrados = data.usuarios.filter((u: any) => u.rol_id === 1 || u.rol_id === 3);
-            setUsuariosGestores(filtrados);
-        } catch (error) {
-            console.error("Error al cargar usuarios gestores:", error);
-        }
-    };
+                // Seteamos los estados juntos (React agrupa estos renders automáticamente)
+                setPeriodos(resPeriodos.data.biblioteca || []);
+                setObligaciones(resObligaciones.data.obligaciones || []);
+                
+                const filtrados = resUsuarios.data.usuarios.filter(
+                    (u: any) => u.rol_id === 1 || u.rol_id === 3
+                );
+                setUsuariosGestores(filtrados);
 
-    useEffect(() => {
-        fetchPeriodos();
-        fetchObligaciones();
-        fetchUsuariosGestores();
+            } catch (error) {
+                console.error("Error al cargar los datos del perfil del cliente:", error);
+            } finally {
+                setIsLoadingObligaciones(false);
+            }
+        };
+
+        loadPerfilData();
     }, [cliente.id, refreshSignal]);
 
 
@@ -393,7 +383,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </div>
                             </div>
 
-                            {/* Ocultación de botones de guardar y eliminar si no cuenta con privilegios */}
                             {canEdit && (
                                 <div className="sm:col-span-2 lg:col-span-3 xl:col-span-6 flex flex-col sm:flex-row gap-4 mt-2">
                                     <button
@@ -428,7 +417,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <p className="text-gray-500 text-[0.85rem] mt-1">Se guardan automáticamente al marcar la casilla.</p>
                         </div>
                         <div className="flex items-center gap-3">
-                            {/* Ocultar Añadir Obligación */}
                             {canEdit && (
                                 <button onClick={onOpenDeclaracion} className="cursor-pointer bg-orange-50 text-orange-600 border border-orange-200 text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 hover:text-white transition-all flex items-center gap-2 shrink-0">
                                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
@@ -445,7 +433,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                     <th className="px-5 py-4">Tipo de Impuesto</th>
                                     <th className="px-5 py-4">Periodo / Fecha Límite</th>
                                     <th className="px-5 py-4">Estado Actual</th>
-                                    {/* Mostrar columna Acciones solo si puede editar */}
                                     {canEdit && <th className="px-5 py-4 text-center">Acciones</th>}
                                 </tr>
                             </thead>
@@ -489,7 +476,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                 )}
                                             </td>
 
-                                            {/* Ocultar los botones de acción individuales de la tabla si no es gestor o admin */}
                                             {canEdit && (
                                                 <td className="px-5 py-4 text-center flex justify-center items-center gap-2">
                                                     {ob.estado === 'Pendiente' && (
@@ -536,7 +522,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <p className="text-gray-500 text-[0.85rem] mt-1">Seleccione el Periodo Fiscal para saltar al gestor documental.</p>
                         </div>
 
-                        {/* Ocultar Añadir Periodo */}
                         {canEdit && (
                             <button onClick={onOpenCrearPeriodo} className="cursor-pointer bg-[#151E28] text-white text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 transition-all flex items-center gap-2 shrink-0 shadow-sm">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
