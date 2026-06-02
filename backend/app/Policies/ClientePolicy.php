@@ -37,8 +37,11 @@ class ClientePolicy
      */
     public function update(Usuario $usuario, Cliente $cliente): bool
     {
+        if($usuario->rol_id === 3){
+            return true;
+        }
         return $cliente->gestores()
-            ->where('usuario_id', $usuario->id)
+            ->where('usuarios.id', $usuario->id)
             ->exists();
     }
 
