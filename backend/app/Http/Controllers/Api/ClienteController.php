@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Hash; 
+use Illuminate\Support\Facades\Gate;
 
 class ClienteController extends Controller
 {
@@ -116,6 +117,13 @@ class ClienteController extends Controller
         $cliente = Cliente::find($id);
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 
+        if(!Gate::allows('update', $cliente)){
+            return response()->json([
+                'message' => 'Acceso denegado. Solo el gestor asignado a este cliente puede modificar datos',
+                'status' => 403
+            ], 403);
+        }
+
         $validator = Validator::make($request->all(), [
             'tipo_persona' => 'sometimes|required|in:Régimen General,RIMPE,Contribuyente Especial,Persona Natural,Entidad Pública',
             'razon_social_nombres' => 'sometimes|required|string|max:255',
@@ -132,7 +140,10 @@ class ClienteController extends Controller
 
         $cliente->update($request->only(['tipo_persona', 'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id']));
 
-        $cliente->gestores()->sync($request->gestores);
+        if ($request->has('gestores')) {
+            $cliente->gestores()->sync($request->gestores);
+        }
+        
         $usuario = \App\Models\Usuario::where('cliente_id', $cliente->id)->first();
         if ($usuario) {
             if ($request->filled('correo')) {

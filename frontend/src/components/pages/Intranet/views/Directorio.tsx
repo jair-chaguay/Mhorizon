@@ -8,18 +8,17 @@ export interface Cliente {
     razon_social_nombres: string;
     identificacion: string;
     score_tributario: number;
-    gestionado_por_id?: number | string | null;
     usuarios?: Array<{
         id: number;
         nombre: string;
         apellido: string;
         correo: string;
     }>;
-    gestor?: {
+    gestores?: Array<{
         id: number;
         nombre: string;
         apellido: string;
-    };
+    }>;
 }
 
 interface DirectorioProps {
@@ -149,7 +148,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                       </div>
                     </td>
                     <td className="px-6 py-5 text-center">
-                      <span className={`px-2 py-1 rounded text-[0.65rem] font-bold uppercase ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-blue-50 text-blue-200' : 'bg-orange-50 text-orange-600'}`}>
+                      <span className={`py-1 rounded text-[0.65rem] font-bold uppercase ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-blue-50 text-blue-200' : 'bg-orange-50 text-orange-600'}`}>
                         {cliente.tipo_persona}
                       </span>
                     </td>
@@ -165,9 +164,17 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                       </div>
                     </td>
                     <td className="px-6 py-5">
-                      <p className="text-gray-500 italic text-xs">
-                        {cliente.gestor ? `${cliente.gestor.nombre} ${cliente.gestor.apellido}` : 'Sin Asignar'}
-                      </p>
+                      <div className="flex flex-wrap gap-1">
+                        {cliente.gestores && cliente.gestores.length > 0 ? (
+                          cliente.gestores.map(gestor => (
+                            <span key={gestor.id} className="text-gray-600 font-medium text-xs bg-gray-100 px-2 py-1 rounded w-max">
+                              {gestor.nombre} {gestor.apellido}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-gray-400 italic text-xs">Sin Asignar</span>
+                        )}
+                      </div>
                     </td>
                     <td className="px-6 py-5 text-center">
                       <button
