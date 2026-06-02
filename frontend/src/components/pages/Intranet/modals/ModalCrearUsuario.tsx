@@ -17,11 +17,11 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
         correo_personal: '',
         password: '',
         cargo: '',
-        activo: true // <-- Nuevo campo para activar/desactivar al editar
+        activo: true,
+        rol_id: 1
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // <-- 2. Rellenar campos si estamos en modo "Editar"
     useEffect(() => {
         if (isOpen) {
             if (usuarioAEditar) {
@@ -30,12 +30,13 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                     apellido: usuarioAEditar.apellido || '',
                     correo: usuarioAEditar.correo || '',
                     correo_personal: usuarioAEditar.correo_personal || '',
-                    password: '', // Se deja vacío. En edición solo se envía si se quiere cambiar.
+                    password: '', 
                     cargo: usuarioAEditar.cargo || '',
-                    activo: usuarioAEditar.activo !== undefined ? usuarioAEditar.activo : true
+                    activo: usuarioAEditar.activo !== undefined ? usuarioAEditar.activo : true,
+                    rol_id: usuarioAEditar.rol_id || 1
                 });
             } else {
-                setFormData({ nombre: '', apellido: '', correo: '', correo_personal: '', password: '', cargo: '', activo: true });
+                setFormData({ nombre: '', apellido: '', correo: '', correo_personal: '', password: '', cargo: '', activo: true, rol_id:1 });
             }
         }
     }, [isOpen, usuarioAEditar]);
@@ -48,15 +49,13 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
         try {
             const payload: any = {
                 ...formData,
-                rol_id: 1 // Rol Cliente forzado
+                rol_id: Number(formData.rol_id)
             };
 
-            // Si es edición y el password está vacío, lo quitamos para que el backend no lo actualice
             if (usuarioAEditar && !payload.password) {
                 delete payload.password;
             }
 
-            // <-- 3. Decidir entre POST o PUT
             if (usuarioAEditar) {
                 await api.put(`/usuario/${usuarioAEditar.id}`, payload);
             } else {
@@ -156,7 +155,6 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                             />
                         </div>
 
-                        {/* Ocultamos el campo estado al crear nuevo (por defecto se activa). Lo mostramos al editar */}
                         {usuarioAEditar && (
                             <div>
                                 <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Estado</label>
@@ -171,6 +169,19 @@ const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, 
                             </div>
                         )}
                     </div>
+
+                    <div>
+                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Rol de Usuario</label>
+                        <select 
+                            value={formData.rol_id}
+                            onChange={(e) => setFormData({...formData, rol_id: Number(e.target.value)})}
+                            className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500"
+                        >
+                            <option value="1">Colaborador</option>
+                            <option value="3">Creador</option>
+                        </select>
+                    </div>
+                    
 
                     <div className="flex gap-3 pt-4">
                         <button type="button" onClick={onClose} disabled={isSubmitting} className="flex-1 py-3 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors cursor-pointer">

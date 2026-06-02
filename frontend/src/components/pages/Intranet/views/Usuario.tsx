@@ -29,7 +29,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
         try {
             setLoading(true);
             const { data } = await api.get('/usuario');
-            const filtrados = data.usuarios.filter((u: UsuarioData) => u.rol_id === 1);
+            const filtrados = data.usuarios.filter((u: UsuarioData) => u.rol_id === 1 || u.rol_id === 3);
             setUsuarios(filtrados);
         } catch (error) {
             console.error("Error al cargar usuarios:", error);
@@ -80,6 +80,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                 <th className="px-6 py-4">Correo Electrónico</th>
                                 <th className="px-6 py-4">Cargo</th>
                                 <th className="px-6 py-4">Estado</th>
+                                <th className="px-6 py-4 flex items-center justify-center">Rol</th>
                                 <th className="px-6 py-4 text-center">Acciones</th>
                             </tr>
                         </thead>
@@ -100,6 +101,19 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                             {u.activo ? 'Activo' : 'Inactivo'}
                                         </span>
                                     </td>
+                                    <td className="px-6 py-5 items-center justify-center flex">
+                                        {u.rol_id === 3 && (
+                                            <span className="px-2 py-1 bg-blue-200 text-white text-[0.65rem] rounded-full">
+                                                Creador
+                                            </span>
+                                        )}
+                                        {u.rol_id === 1 && (
+                                            <span className="px-2 py-1 bg-gray-300 text-gray-700 text-[0.65rem] rounded-full">
+                                                Colaborador
+                                            </span>
+                                        )}
+                                    </td>
+                                    
                                     <td className="px-6 py-5">
                                         <div className="flex items-center justify-center gap-2">
                                             <button

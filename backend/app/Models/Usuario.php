@@ -41,6 +41,7 @@ class Usuario extends Authenticatable
     {
         return $this->password_hash;
     }
+    
     public function rol()
     {
         return $this->belongsTo(Rol::class, 'rol_id');
