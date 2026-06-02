@@ -43,7 +43,6 @@ Route::delete('/rol/{id}', [RolController::class, 'destroy']);
 //EMPRESAS
 Route::get('/cliente', [ClienteController::class, 'index']);
 Route::get('/cliente/{id}', [ClienteController::class, 'show']);
-Route::put('/cliente/{id}', [ClienteController::class, 'update']);
 Route::delete('/cliente/{id}', [ClienteController::class, 'destroy']);
 
 Route::get('/usuario', [UsuarioController::class, 'index']);
@@ -58,7 +57,7 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/cliente', [ClienteController::class, 'store']);
 
 Route::put('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'updateCarpeta']);
-
+Route::put('/cliente/{id}', [ClienteController::class, 'update']);
 Route::get('/cliente/{id}/obligaciones', [ObligacionController::class, 'indexCliente']);
 Route::post('/obligacion', [ObligacionController::class, 'store']);
 Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstado']);
