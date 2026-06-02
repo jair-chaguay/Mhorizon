@@ -6,7 +6,11 @@ export interface Cliente {
     razon_social_nombres: string;
     identificacion: string;
     score_tributario: number;
-    gestionado_por_id?: number | string | null;
+    gestores ?: Array <{
+        id:number;
+        nombre: string;
+        apellido: string;
+    }>;
     creador?: {
         id: number;
         nombre: string;
@@ -18,9 +22,5 @@ export interface Cliente {
         apellido: string;
         correo: string;
     }>;
-    gestionador?: {
-        id: number;
-        nombre: string;
-        apellido: string;
-    };
+    
 }

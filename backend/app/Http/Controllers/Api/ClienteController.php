@@ -15,7 +15,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::with('gestor', 'usuarios')
+        $clientes = Cliente::with('gestores', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -28,7 +28,7 @@ class ClienteController extends Controller
     public function indexBiblioteca()
     {
         $clientes = Cliente::withTrashed()
-                           ->with('gestor', 'usuarios')
+                           ->with('gestores', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -46,7 +46,8 @@ class ClienteController extends Controller
             'razon_social_nombres' => 'required|string|max:255',
             'identificacion' => 'required|string|max:13|unique:clientes,identificacion',
             'score_tributario' => 'required|integer|min:0|max:100',
-            'gestionado_por_id' => 'required|exists:usuarios,id',
+            'gestores' => 'required|array|min:1',
+            'gestores.*' => 'exists:usuarios,id',
             
             // Datos del Usuario de acceso
             'correo' => 'required|email|max:150|unique:usuarios,correo',
@@ -66,8 +67,9 @@ class ClienteController extends Controller
                 'razon_social_nombres' => $request->razon_social_nombres,
                 'identificacion' => $request->identificacion,
                 'score_tributario' => $request->score_tributario,
-                'gestionado_por_id' => $request->gestionado_por_id
             ]);
+
+            $cliente->gestores()->sync($request->gestores);
 
             // B. Crear el Usuario asociado a ese Cliente
             $usuario = Usuario::create([
@@ -101,7 +103,7 @@ class ClienteController extends Controller
 
     public function show($id)
     {
-        $cliente = Cliente::with(['usuarios', 'gestor'])->find($id);
+        $cliente = Cliente::with(['usuarios', 'gestores'])->find($id);
 
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 
@@ -123,13 +125,14 @@ class ClienteController extends Controller
             'correo' => 'sometimes|required|email|max:150',
             'password' => 'nullable|string|min:8',
             'representante' => 'nullable|string|max:200',
-            'gestionado_por_id' => 'nullable|exists:usuarios,id'
+            'gestores' => 'sometimes|required|array'
         ]);
 
         if ($validator->fails()) return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
 
         $cliente->update($request->only(['tipo_persona', 'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id']));
 
+        $cliente->gestores()->sync($request->gestores);
         $usuario = \App\Models\Usuario::where('cliente_id', $cliente->id)->first();
         if ($usuario) {
             if ($request->filled('correo')) {

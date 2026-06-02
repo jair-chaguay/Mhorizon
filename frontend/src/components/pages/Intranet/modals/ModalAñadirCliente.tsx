@@ -91,7 +91,8 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
     const [tipoPersona, setTipoPersona] = useState('Persona Natural');
-    const [gestionadoPorId, setGestionadoPorId] = useState<string>('');
+
+    const [gestoresSeleccionados, setGestoresSeleccionados] = useState<number[]>([]);
     const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
     
     const [loading, setLoading] = useState(false);
@@ -103,9 +104,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                 const { data } = await api.get('/usuario');
                 const filtrados = data.usuarios.filter((u: any) => u.rol_id === 1 || u.rol_id === 3);
                 setUsuariosGestores(filtrados);
-                if (filtrados.length > 0) {
-                    setGestionadoPorId(filtrados[0].id.toString());
-                }
             } catch (error) {
                 console.error("Error al cargar usuarios gestores:", error);
             }
@@ -119,6 +117,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             setCorreo('');
             setPassword('');
             setTipoPersona('Persona Natural');
+            setGestoresSeleccionados([]);
             setErrorMsg('');
         }
     }, [isOpen]);
@@ -127,8 +126,8 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
         e.preventDefault();
         setErrorMsg('');
 
-        if (!gestionadoPorId) {
-            setErrorMsg("Debes seleccionar un gestor para el cliente.");
+        if (gestoresSeleccionados.length === 0) {
+            setErrorMsg("Debes seleccionar al menos un gestor para el cliente.");
             return;
         }
 
@@ -174,7 +173,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                 score_tributario: score,
                 correo: correo,
                 password: password,
-                gestionado_por_id: parseInt(gestionadoPorId)
+                gestores: gestoresSeleccionados
             };
 
             await api.post('/cliente', payload); 
@@ -212,7 +211,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                 <form onSubmit={handleSubmit} className="space-y-4">
                     
                     {errorMsg && (
-                        <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-2">
+                        <div className="bg-red-55 text-red-600 p-3 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-2">
                             <svg className="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                             <span>{errorMsg}</span>
                         </div>
@@ -234,14 +233,31 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                         </div>
                     </div>
 
+                    {/* Contenedor scrolleable corregido para asignación de múltiples gestores */}
                     <div>
-                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Gestionado Por</label>
-                        <select value={gestionadoPorId} onChange={(e) => setGestionadoPorId(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required>
-                            <option value="">Seleccione un Gestor...</option>
+                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Gestionado Por (Selecciona uno o más)</label>
+                        <div className="w-full border border-gray-200 rounded-lg max-h-36 overflow-y-auto bg-gray-50 p-2 space-y-1">
                             {usuariosGestores.map((u) => (
-                                <option key={u.id} value={u.id}>{u.nombre} {u.apellido}</option>
+                                <label key={u.id} className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-md cursor-pointer transition-colors">
+                                    <input 
+                                        type="checkbox"
+                                        checked={gestoresSeleccionados.includes(u.id)}
+                                        onChange={(e) => {
+                                            if (e.target.checked) {
+                                                setGestoresSeleccionados([...gestoresSeleccionados, u.id]);
+                                            } else {
+                                                setGestoresSeleccionados(gestoresSeleccionados.filter(id => id !== u.id));
+                                            }
+                                        }}
+                                        className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
+                                    />
+                                    <span className="text-[0.85rem] font-medium text-blue-200">{u.nombre} {u.apellido}</span>
+                                </label>
                             ))}
-                        </select>
+                            {usuariosGestores.length === 0 && (
+                                <p className="text-xs text-gray-400 p-2">No hay gestores disponibles.</p>
+                            )}
+                        </div>
                     </div>
                     
                     <div>

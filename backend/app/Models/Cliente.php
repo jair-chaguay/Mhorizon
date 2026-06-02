@@ -41,10 +41,10 @@ class Cliente extends Model
     {
         return $this->hasMany(ObligacionTributaria::class, 'cliente_id');
     }
-    public function gestor()
+    public function gestores()
     {
-        return $this->belongsTo(Usuario::class, 'gestionado_por_id')
-                    ->select(['id', 'nombre', 'apellido'])
+        return $this->belongsToMany(Usuario::class, 'cliente_gestor', 'cliente_id', 'usuario_id')
+                    ->select(['usuarios.usuario', 'nombre', 'apellido'])
                     ->withTrashed();
     }
 }
