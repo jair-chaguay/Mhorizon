@@ -37,7 +37,11 @@ class ObligacionController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'cliente_id' => 'required|exists:clientes,id',
-            'usuario_id' => 'required|exists:usuarios,id',
+            'usuario_id' => [
+                'required',
+                'exists:usuarios,id',
+                Rule::exists('cliente_gestor', 'usuario_id')->where('cliente_id', $request->cliente_id)
+            ],
             'tipo_impuesto' => ['required', Rule::in([
                 'IVA (MENSUAL)', 'RETENCIONES FUENTE IR (MENSUAL)', 'RETENCIONES IVA', 
                 'IRBP', 'ATS (MENSUAL)', 'ANEXO ICE', 'ANEXO IRBP', 'PAGO APORTE IESS', 
