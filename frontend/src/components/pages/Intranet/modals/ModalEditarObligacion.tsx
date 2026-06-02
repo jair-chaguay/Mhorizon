@@ -9,26 +9,24 @@ interface ModalEditarObligacionProps {
     obligacionId: number | null;
     currentUserId?: number | string;
     tipoImpuesto?: string;
+    // 👇 NUEVA PROP: Recibe solo los gestores actualizados del cliente
+    gestoresCliente?: Array<{id: number, nombre: string, apellido: string}>;
 }
 
-const ModalEditarObligacion: React.FC<ModalEditarObligacionProps> = ({ isOpen, onClose, onSuccess, obligacionId, currentUserId, tipoImpuesto }) => {
+const ModalEditarObligacion: React.FC<ModalEditarObligacionProps> = ({ 
+    isOpen, 
+    onClose, 
+    onSuccess, 
+    obligacionId, 
+    currentUserId, 
+    tipoImpuesto,
+    gestoresCliente = [] // Inicializamos por seguridad
+}) => {
     const [usuarioId, setUsuarioId] = useState<string>('');
-    const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        const fetchUsuarios = async () => {
-            try {
-                const { data } = await api.get('/usuario');
-                const filtrados = data.usuarios.filter((u: any) => u.rol_id === 1 || u.rol_id === 3);
-                setUsuariosGestores(filtrados);
-            } catch (error) {
-                console.error("Error al cargar usuarios gestores:", error);
-            }
-        };
-
         if (isOpen) {
-            fetchUsuarios();
             setUsuarioId(currentUserId ? currentUserId.toString() : '');
         }
     }, [isOpen, currentUserId]);
@@ -39,7 +37,7 @@ const ModalEditarObligacion: React.FC<ModalEditarObligacionProps> = ({ isOpen, o
         e.preventDefault();
         
         if (!usuarioId) {
-            alert("Error: Debes asignar un encargado.");
+            alert("Error: Debes asignar un encargado de la lista de gestores.");
             return;
         }
 
@@ -81,17 +79,23 @@ const ModalEditarObligacion: React.FC<ModalEditarObligacionProps> = ({ isOpen, o
                             required
                         >
                             <option value="">Seleccionar Gestor...</option>
-                            {usuariosGestores.map((u) => (
+                            {gestoresCliente.map((u) => (
                                 <option key={u.id} value={u.id}>{u.nombre} {u.apellido}</option>
                             ))}
                         </select>
                     </div>
 
+                    {gestoresCliente.length === 0 && (
+                        <p className="text-red-500 text-xs text-center font-semibold mt-2">
+                            Este cliente no tiene gestores. Asigna uno antes de cambiar el encargado.
+                        </p>
+                    )}
+
                     <div className="flex gap-3 pt-4">
                         <button type="button" onClick={onClose} disabled={isSubmitting} className="flex-1 py-3 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors cursor-pointer">
                             Cancelar
                         </button>
-                        <button type="submit" disabled={isSubmitting} className={`flex-1 py-3 bg-orange-50 text-orange-600 border border-orange-200 rounded-md font-bold uppercase tracking-wider text-[0.80rem] transition-colors ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-500 hover:text-white cursor-pointer'}`}>
+                        <button type="submit" disabled={isSubmitting || gestoresCliente.length === 0} className={`flex-1 py-3 bg-orange-50 text-orange-600 border border-orange-200 rounded-md font-bold uppercase tracking-wider text-[0.80rem] transition-colors ${isSubmitting || gestoresCliente.length === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-500 hover:text-white cursor-pointer'}`}>
                             {isSubmitting ? 'Actualizando...' : 'Actualizar'}
                         </button>
                     </div>

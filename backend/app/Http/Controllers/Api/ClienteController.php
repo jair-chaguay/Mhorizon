@@ -50,7 +50,6 @@ class ClienteController extends Controller
             'gestores' => 'required|array|min:1',
             'gestores.*' => 'exists:usuarios,id',
             
-            // Datos del Usuario de acceso
             'correo' => 'required|email|max:150|unique:usuarios,correo',
             'password' => 'required|string|min:8'
         ]);
@@ -159,6 +158,8 @@ class ClienteController extends Controller
             }
             $usuario->save();
         }
+
+        $cliente->load('usuarios', 'gestores');
 
         return response()->json(['message' => 'Perfil del cliente actualizado', 'cliente' => $cliente, 'status' => 200], 200);
     }

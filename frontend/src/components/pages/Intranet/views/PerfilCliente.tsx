@@ -25,7 +25,7 @@ interface PerfilClienteProps {
     onOpenDeclaracion: () => void;
     onOpenSubir: (obligacionId: number) => void;
     onOpenEliminar: (id: number | string, title: string) => void;
-    onUpdateSuccess: () => void;
+    onUpdateSuccess: (updatedCliente: Cliente) => void;
     onJumpToBiblioteca: (clienteId: number, periodoId: number) => void;
     onOpenCrearPeriodo: () => void;
     onOpenEditarObligacion: (obligacion: ObligacionTributaria) => void;
@@ -239,17 +239,18 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
         setIsSaving(true);
         try {
-            await api.put(`/cliente/${cliente.id}`, {
+            const { data } = await api.put(`/cliente/${cliente.id}`, {
                 ...formData,
                 gestores : gestoresSeleccionados
             });
             alert('Perfil Actualizado Exitosamente.');
-            onUpdateSuccess();
+            onUpdateSuccess(data.cliente);
         } catch (error: any) {
             console.error("Error al actualizar el perfil:", error);
             const msg = error?.response?.data?.message || "Hubo un error al intentar actualizar el perfil.";
             setErrorMsg(msg);
         } finally {
+           
             setIsSaving(false);
         }
     };

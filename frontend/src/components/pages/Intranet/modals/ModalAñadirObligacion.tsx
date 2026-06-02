@@ -7,37 +7,35 @@ interface ModalAñadirObligacionProps {
     onClose: () => void;
     onSuccess: () => void;
     clienteId?: number;
+    gestoresCliente?: Array<{id: number, nombre: string, apellido: string}>; 
 }
 
-const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen, onClose, onSuccess, clienteId }) => {
+const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ 
+    isOpen, 
+    onClose, 
+    onSuccess, 
+    clienteId,
+    gestoresCliente = [] 
+}) => {
     const [formData, setFormData] = useState({
         tipo_impuesto: 'IVA (MENSUAL)', 
         dia_vencimiento: '',
         usuario_id: '' 
     });
     
-    const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
-        const fetchUsuarios = async () => {
-            try {
-                const { data } = await api.get('/usuario');
-                const filtrados = data.usuarios.filter((u: any) => u.rol_id === 1 || u.rol_id === 3);
-                setUsuariosGestores(filtrados);
-                if (filtrados.length > 0) {
-                    setFormData(prev => ({ ...prev, usuario_id: filtrados[0].id.toString() }));
-                }
-            } catch (error) {
-                console.error("Error al cargar usuarios gestores:", error);
-            }
-        };
-
         if (isOpen) {
-            fetchUsuarios();
-            setFormData({ tipo_impuesto: 'IVA (MENSUAL)', dia_vencimiento: '', usuario_id: '' });
+            const defaultGestor = gestoresCliente.length > 0 ? gestoresCliente[0].id.toString() : '';
+            
+            setFormData({ 
+                tipo_impuesto: 'IVA (MENSUAL)', 
+                dia_vencimiento: '', 
+                usuario_id: defaultGestor 
+            });
         }
-    }, [isOpen]);
+    }, [isOpen, gestoresCliente]);
 
     if (!isOpen) return null;
 
@@ -50,7 +48,7 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
         }
 
         if (!formData.usuario_id) {
-            alert("Error: Debes asignar un encargado.");
+            alert("Error: Debes asignar un encargado de la lista de gestores.");
             return;
         }
 
@@ -171,7 +169,7 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
                                 required
                             >
                                 <option value="">Seleccionar Gestor...</option>
-                                {usuariosGestores.map((u) => (
+                                {gestoresCliente.map((u) => (
                                     <option key={u.id} value={u.id}>{u.nombre} {u.apellido}</option>
                                 ))}
                             </select>
@@ -182,10 +180,15 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({ isOpen,
                         <button type="button" onClick={onClose} disabled={isSubmitting} className="flex-1 py-3 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors cursor-pointer">
                             Cancelar
                         </button>
-                        <button type="submit" disabled={isSubmitting} className={`flex-1 py-3 bg-blue-200 text-white rounded-md font-bold uppercase tracking-wider text-[0.80rem] transition-colors ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-orange-500 cursor-pointer'}`}>
+                        <button type="submit" disabled={isSubmitting || gestoresCliente.length === 0} className={`flex-1 py-3 text-white rounded-md font-bold uppercase tracking-wider text-[0.80rem] transition-colors ${isSubmitting || gestoresCliente.length === 0 ? 'bg-gray-400 opacity-50 cursor-not-allowed' : 'bg-blue-200 hover:bg-orange-500 cursor-pointer'}`}>
                             {isSubmitting ? 'Guardando...' : 'Guardar Obligación'}
                         </button>
                     </div>
+                    {gestoresCliente.length === 0 && (
+                        <p className="text-red-500 text-xs text-center font-semibold mt-2">
+                             Este cliente no tiene gestores asignados. Asigna un gestor en el perfil antes de añadir obligaciones.
+                        </p>
+                    )}
                 </form>
             </div>
         </div>

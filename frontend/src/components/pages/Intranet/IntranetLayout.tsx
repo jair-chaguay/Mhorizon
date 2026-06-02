@@ -153,7 +153,10 @@ const IntranetLayout: React.FC = () => {
                                     setIsSubirArchivoOpen(true);
                                 }}
                                 onOpenEliminar={handleOpenEliminar}
-                                onUpdateSuccess={triggerRefresh}
+                                onUpdateSuccess={(updatedCliente) => {
+                                    setClienteSeleccionado(updatedCliente);
+                                    triggerRefresh();
+                                }}
                                 onJumpToBiblioteca={handleJumpToBiblioteca}
                                 onOpenCrearPeriodo={() => {
                                     setCrearConfig({ title: 'Nuevo Periodo Fiscal', placeholder: 'Ej. 2026', type: 'PERIODOS', parentId: clienteSeleccionado.id });
@@ -248,13 +251,16 @@ const IntranetLayout: React.FC = () => {
                 obligacionId={obligacionAEditar?.id || null}
                 currentUserId={obligacionAEditar?.creador?.id}
                 tipoImpuesto={obligacionAEditar?.tipo_impuesto}
+                gestoresCliente={clienteSeleccionado?.gestores || []}
             />
+
 
             <ModalAñadirObligacion
                 isOpen={isDeclaracionModalOpen}
                 onClose={() => setIsDeclaracionModalOpen(false)}
                 clienteId={clienteSeleccionado?.id}
                 onSuccess={triggerRefresh}
+                gestoresCliente={clienteSeleccionado?.gestores || []}
             />
             <ModalEditarCarpeta
                 isOpen={isEditarCarpetaOpen}
