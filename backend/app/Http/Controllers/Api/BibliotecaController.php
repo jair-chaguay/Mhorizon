@@ -19,25 +19,18 @@ use Illuminate\Support\Facades\Auth;
  */
 class BibliotecaController extends Controller
 {
-    /**
-     * Obtiene el árbol completo de carpetas y archivos de un cliente.
-     *
-     * Carga de forma anidada: Cliente -> Periodos (Años) -> Subcarpetas Principales 
-     * -> Subcarpetas Secundarias y Documentos.
-     *
-     * @param  int  $cliente_id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function getArbolBiblioteca($cliente_id) 
     {
         $cliente = Cliente::withTrashed()
             ->with([
-                'periodos.subcarpetas' => function($query) {
-                    $query->whereNull('parent_id') 
-                          ->with([                 
-                              'subcarpetas.documentos.subidoPor', 
-                              'documentos.subidoPor'              
-                          ]);
+                'carpetasRaiz' => function($query) {
+                    $query->with([
+                        // Cargamos hasta 4 niveles de profundidad para cubrir: Obligaciones -> Impuesto -> Año -> Mes
+                        'subcarpetas.subcarpetas.subcarpetas.documentos.subidoPor',
+                        'subcarpetas.subcarpetas.documentos.subidoPor',
+                        'subcarpetas.documentos.subidoPor',
+                        'documentos.subidoPor'
+                    ]);
                 }
             ])
             ->find($cliente_id);
@@ -46,113 +39,61 @@ class BibliotecaController extends Controller
 
         return response()->json([
             'cliente' => $cliente->razon_social_nombres,
-            'biblioteca' => $cliente->periodos ?? [],
+            'biblioteca' => $cliente->carpetasRaiz ?? [],
             'status' => 200
         ], 200);
     }
 
 
-    /**
-     * Crea un nuevo periodo (año) para un cliente con su estructura base.
-     *
-     * Genera automáticamente las carpetas "Obligaciones Tributarias" (y sus 
-     * respectivas subcarpetas por tipo de impuesto) y "Estados Financieros".
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function storePeriodo(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'cliente_id' => 'required|exists:clientes,id',
-            'anio' => 'required|digits:4'
+            'anio' => 'required|string'
         ]);
 
         if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
-        //Crea el período
-        $periodo = BibliotecaPeriodo::create([
+
+        $carpetaRaiz = BibliotecaSubcarpeta::create([
             'cliente_id' => $request->cliente_id,
-            'anio' => $request->anio,
-            'creado_por_id' => Auth::id()
-        ]);
-        //Crea las subcarpeta Obligaciones Tributarias
-        $carpetaObligaciones = BibliotecaSubcarpeta::create([
-            'periodo_id' => $periodo->id,
             'parent_id' => null,
-            'nombre' => 'Obligaciones Tributarias',
-            'creado_por_id' => Auth::id()
+            'nombre' => $request->anio,
+            'creado_por_id' => Auth::id() ?? 1
         ]);
 
-        //Crea las subcarpetas para la carpeta Obligaciones tributarias segun las obligaciones que tenga asignadas el cliente
-        $obligaciones = \App\Models\ObligacionTributaria::where('cliente_id', $request->cliente_id)->get();
-        
-        foreach ($obligaciones as $obligacion) {
-            BibliotecaSubcarpeta::create([
-                'periodo_id' => $periodo->id,
-                'parent_id' => $carpetaObligaciones->id, 
-                'nombre' => $obligacion->tipo_impuesto,
-                'creado_por_id' => Auth::id()
-            ]);
-        }
-
-        BibliotecaSubcarpeta::create([
-            'periodo_id' => $periodo->id,
-            'parent_id' => null,
-            'nombre' => 'Estados Financieros',
-            'creado_por_id' => Auth::id()
-        ]);
-
-        return response()->json(['message' => 'Periodo y carpetas creadas', 'periodo' => $periodo], 201);
+        return response()->json(['message' => 'Carpeta raíz creada', 'periodo' => $carpetaRaiz], 201);
     }
 
-    /**
-     * Crea una subcarpeta genérica dentro de un periodo.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function storeSubcarpeta(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'periodo_id' => 'required|exists:biblioteca_periodos,id',
+            'periodo_id' => 'required|exists:biblioteca_subcarpetas,id', // Recibimos periodo_id del front
             'nombre' => 'required|string|max:100'
         ]);
 
         if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
         $subcarpeta = BibliotecaSubcarpeta::create([
-            'periodo_id' => $request->periodo_id,
+            'parent_id' => $request->periodo_id, // Lo guardamos internamente como parent_id
             'nombre' => $request->nombre,
-            'creado_por_id' => Auth::id()
+            'creado_por_id' => Auth::id() ?? 1
         ]);
 
         return response()->json(['message' => 'Subcarpeta creada', 'subcarpeta' => $subcarpeta], 201);
     }
 
-    /**
-     * Elimina una carpeta (sea un Periodo completo o una Subcarpeta).
-     *
-     * Si es una subcarpeta, también elimina físicamente los archivos del disco (Storage).
-     *
-     * @param  string $tipo ('periodo' | 'subcarpeta')
-     * @param  int    $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function deleteCarpeta($tipo, $id)
     {
-        if ($tipo === 'periodo') {
-            $carpeta = BibliotecaPeriodo::find($id);
-        } elseif ($tipo === 'subcarpeta') {
-            $carpeta = BibliotecaSubcarpeta::find($id);
-            if (\Illuminate\Support\Facades\Storage::disk('public')->exists("biblioteca/subcarpeta_{$id}")) {
-                \Illuminate\Support\Facades\Storage::disk('public')->deleteDirectory("biblioteca/subcarpeta_{$id}");
-            }
-        } else {
-             return response()->json(['message' => 'Tipo de carpeta no válido', 'status' => 400], 400);
-        }
+        $carpeta = BibliotecaSubcarpeta::find($id);
 
         if (!$carpeta) {
             return response()->json(['message' => 'Carpeta no encontrada', 'status' => 404], 404);
+        }
+
+        // Eliminamos el directorio físico
+        if (Storage::disk('public')->exists("biblioteca/carpeta_{$id}")) {
+            Storage::disk('public')->deleteDirectory("biblioteca/carpeta_{$id}");
         }
 
         $carpeta->delete();
@@ -161,12 +102,6 @@ class BibliotecaController extends Controller
     }
 
 
-    /**
-     * Sube un documento genérico a una subcarpeta específica.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function uploadDocumento(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -180,18 +115,17 @@ class BibliotecaController extends Controller
         $file = $request->file('archivo');
         $nombreOriginal = $file->getClientOriginalName();
         $extension = strtolower($file->getClientOriginalExtension());
-        //Clasifica el tipo de archivo como pdf, excel o word y sus extensiones
+        
         $tipo = 'otro';
         if($extension == 'pdf') $tipo = 'pdf';
         elseif(in_array($extension, ['xls', 'xlsx'])) $tipo = 'excel';
         elseif(in_array($extension, ['doc', 'docx'])) $tipo = 'word';
 
-        //Lo guarda en el disco público
-            $ruta = $file->store("biblioteca/subcarpeta_{$request->subcarpeta_id}", 'public');
+        $ruta = $file->store("biblioteca/carpeta_{$request->subcarpeta_id}", 'public');
 
         $documento = Documento::create([
             'subcarpeta_id' => $request->subcarpeta_id,
-            'subido_por_id' => Auth::id(),
+            'subido_por_id' => Auth::id() ?? 1,
             'nombre_archivo' => $nombreOriginal,
             'tipo' => $tipo,
             'url_archivo' => $ruta,
@@ -204,16 +138,6 @@ class BibliotecaController extends Controller
     }
 
 
-    /**
-     * Sube un documento vinculado a una Obligación Tributaria específica.
-     *
-     * Este método automatiza el proceso: si las carpetas del año o del impuesto no 
-     * existen, las crea. Además, actualiza el estado de la obligación a "Presentado"
-     * y notifica al equipo.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function uploadDocumentoObligacion(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -225,33 +149,56 @@ class BibliotecaController extends Controller
         if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
         $obligacion = \App\Models\ObligacionTributaria::find($request->obligacion_id);
+        $userId = Auth::id() ?? 1;
         
-        $anioActual = date('Y');
-        $periodo = BibliotecaPeriodo::firstOrCreate(
-            ['cliente_id' => $obligacion->cliente_id, 'anio' => $anioActual],
-            ['creado_por_id' => Auth::id() ?? 1]
-        );
-
+        // 1. NIVEL RAÍZ
         $carpetaMadre = BibliotecaSubcarpeta::firstOrCreate(
-            ['periodo_id' => $periodo->id, 'parent_id' => null, 'nombre' => 'Obligaciones Tributarias'],
-            ['creado_por_id' => Auth::id() ?? 1]
+            ['cliente_id' => $obligacion->cliente_id, 'parent_id' => null, 'nombre' => 'Obligaciones Tributarias'],
+            ['creado_por_id' => $userId]
         );
 
-        $carpetaHija = BibliotecaSubcarpeta::firstOrCreate(
-            ['periodo_id' => $periodo->id, 'parent_id' => $carpetaMadre->id, 'nombre' => $obligacion->tipo_impuesto],
-            ['creado_por_id' => Auth::id() ?? 1]
+        // 2. NIVEL IMPUESTO 
+        $carpetaImpuesto = BibliotecaSubcarpeta::firstOrCreate(
+            ['parent_id' => $carpetaMadre->id, 'nombre' => $obligacion->tipo_impuesto],
+            ['creado_por_id' => $userId]
         );
 
+        // 3. NIVEL AÑO 
+        $anio = \Carbon\Carbon::parse($obligacion->fecha_vencimiento_exacta)->format('Y');
+        $carpetaAnio = BibliotecaSubcarpeta::firstOrCreate(
+            ['parent_id' => $carpetaImpuesto->id, 'nombre' => $anio],
+            ['creado_por_id' => $userId]
+        );
+
+        // 4. NIVEL MES (Si aplica)
+        $tipoUpper = strtoupper(trim($obligacion->tipo_impuesto));
+        $esMensual = str_contains($tipoUpper, 'MENSUAL');
+        $esSemestral = in_array($tipoUpper, [
+            'IVA (RÉGIMEN RIMPE)', 'IMPUESTO A LA RENTA (RÉGIMEN RIMPE SEMESTRAL)', 
+            'RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)', 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (RÉGIMEN RIMPE)'
+        ]);
+
+        $carpetaDestino = $carpetaAnio; 
+
+        if ($esMensual || $esSemestral) {
+            $carpetaMes = BibliotecaSubcarpeta::firstOrCreate(
+                ['parent_id' => $carpetaAnio->id, 'nombre' => $obligacion->fecha_presentacion],
+                ['creado_por_id' => $userId]
+            );
+            $carpetaDestino = $carpetaMes;
+        }
+
+        // 5. GUARDAR ARCHIVO
         $file = $request->file('archivo');
         $nombreOriginal = $file->getClientOriginalName();
         $extension = strtolower($file->getClientOriginalExtension());
         $tipo = in_array($extension, ['pdf']) ? 'pdf' : (in_array($extension, ['xls', 'xlsx']) ? 'excel' : 'word');
         
-        $ruta = $file->store("biblioteca/subcarpeta_{$carpetaHija->id}", 'public');
+        $ruta = $file->store("biblioteca/carpeta_{$carpetaDestino->id}", 'public');
 
         $documento = Documento::create([
-            'subcarpeta_id' => $carpetaHija->id,
-            'subido_por_id' => Auth::id() ?? 1,
+            'subcarpeta_id' => $carpetaDestino->id,
+            'subido_por_id' => $userId,
             'nombre_archivo' => $nombreOriginal,
             'tipo' => $tipo,
             'url_archivo' => $ruta,
@@ -261,6 +208,7 @@ class BibliotecaController extends Controller
         $obligacion->estado = 'Presentado';
         $obligacion->save();
 
+        // Notificaciones (Tu lógica original de correos)
         $admins = \App\Models\Usuario::whereHas('rol', function ($q) {
             $q->where('nombre', 'like', '%admin%');
         })->where('activo', true)->get();
@@ -268,24 +216,16 @@ class BibliotecaController extends Controller
         $jefeCorreo = env('JEFE_CORREO');
 
         foreach ($admins as $admin) {
-            \Illuminate\Support\Facades\Mail::to($admin->correo)
-                ->send(new \App\Mail\ObligacionSubidaMail($obligacion));
+            \Illuminate\Support\Facades\Mail::to($admin->correo)->send(new \App\Mail\ObligacionSubidaMail($obligacion));
         }
         if ($jefeCorreo) {
-             \Illuminate\Support\Facades\Mail::to($jefeCorreo)
-                ->send(new \App\Mail\ObligacionSubidaMail($obligacion));
+             \Illuminate\Support\Facades\Mail::to($jefeCorreo)->send(new \App\Mail\ObligacionSubidaMail($obligacion));
         }
 
         return response()->json(['message' => 'Obligación subida y notificada', 'documento' => $documento], 201);
     }
 
     
-    /**
-     * Elimina un documento específico de la base de datos y del disco físico.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function deleteDocumento($id)
     {
         $documento = Documento::find($id);
@@ -308,36 +248,19 @@ class BibliotecaController extends Controller
                 'status' => 403
             ], 403);
         }
-        if ($tipo === 'periodo') {
-            $validator = Validator::make($request->all(), [
-                'nombre' => 'required|digits:4'
-            ]);
+        
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:100'
+        ]);
 
-            if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
+        if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
 
-            $carpeta = BibliotecaPeriodo::find($id);
-            if (!$carpeta) return response()->json(['message' => 'Periodo no encontrado', 'status' => 404], 404);
+        $carpeta = BibliotecaSubcarpeta::find($id);
+        if (!$carpeta) return response()->json(['message' => 'Carpeta no encontrada', 'status' => 404], 404);
 
-            $carpeta->anio = $request->nombre;
-            $carpeta->save();
-
-        } elseif ($tipo === 'subcarpeta') {
-            $validator = Validator::make($request->all(), [
-                'nombre' => 'required|string|max:100'
-            ]);
-
-            if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);
-
-            $carpeta = BibliotecaSubcarpeta::find($id);
-            if (!$carpeta) return response()->json(['message' => 'Carpeta no encontrada', 'status' => 404], 404);
-
-            $carpeta->nombre = $request->nombre;
-            $carpeta->save();
-            
-        } else {
-            return response()->json(['message' => 'Tipo de carpeta no válido', 'status' => 400], 400);
-        }
-
+        $carpeta->nombre = $request->nombre;
+        $carpeta->save();
+        
         return response()->json(['message' => 'Carpeta actualizada con éxito', 'status' => 200], 200);
     }
 

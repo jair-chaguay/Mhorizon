@@ -7,16 +7,12 @@ use Illuminate\Http\Request;
 use App\Models\ObligacionTributaria;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-use App\Models\BibliotecaPeriodo;
 use App\Models\BibliotecaSubcarpeta;
 use Illuminate\Support\Facades\Auth;
 
 class ObligacionController extends Controller
 {
 
-    /**
-     * Obtener las obligaciones de un cliente específico.
-     */
     public function indexCliente($cliente_id)
     {
         $hoy = \Carbon\Carbon::today()->format('Y-m-d');
@@ -30,9 +26,6 @@ class ObligacionController extends Controller
         ]);
     }
 
-    /**
-     * Almacenar una nueva obligación tributaria y sincronizar carpetas.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -92,40 +85,25 @@ class ObligacionController extends Controller
             'estado'             => 'Pendiente' 
         ]);
 
-        $periodos = BibliotecaPeriodo::where('cliente_id', $obligacion->cliente_id)->get();
+        // Asegurar que exista la carpeta raíz de Obligaciones
+        $carpetaMadre = BibliotecaSubcarpeta::firstOrCreate(
+            ['cliente_id' => $obligacion->cliente_id, 'parent_id' => null, 'nombre' => 'Obligaciones Tributarias'],
+            ['creado_por_id' => Auth::id() ?? 1]
+        );
 
-        foreach ($periodos as $periodo) {
-            $carpetaMadre = BibliotecaSubcarpeta::where('periodo_id', $periodo->id)
-                                ->where('nombre', 'Obligaciones Tributarias')
-                                ->whereNull('parent_id')
-                                ->first();
-
-            if ($carpetaMadre) {
-                $carpetaHijaExiste = BibliotecaSubcarpeta::where('parent_id', $carpetaMadre->id)
-                                        ->where('nombre', $obligacion->tipo_impuesto)
-                                        ->exists();
-
-                if (!$carpetaHijaExiste) {
-                    BibliotecaSubcarpeta::create([
-                        'periodo_id'    => $periodo->id,
-                        'parent_id'     => $carpetaMadre->id,
-                        'nombre'        => $obligacion->tipo_impuesto,
-                        'creado_por_id' => Auth::id() ?? 1 
-                    ]);
-                }
-            }
-        }
+        // Asegurar que exista la carpeta del impuesto
+        BibliotecaSubcarpeta::firstOrCreate(
+            ['parent_id' => $carpetaMadre->id, 'nombre' => $obligacion->tipo_impuesto],
+            ['creado_por_id' => Auth::id() ?? 1]
+        );
 
         return response()->json([
-            'message'    => 'Obligación añadida y carpetas sincronizadas con éxito',
+            'message'    => 'Obligación añadida y estructura base sincronizada con éxito',
             'obligacion' => $obligacion,
             'status'     => 201
         ], 201);
     }
 
-    /**
-     * Cambiar el estado de la obligación (Pendiente <-> Presentado).
-     */
     public function toggleEstado($id)
     {
         $obligacion = ObligacionTributaria::find($id);
@@ -147,9 +125,6 @@ class ObligacionController extends Controller
         ], 200);
     }
 
-    /**
-     * Actualizar el encargado (usuario) de la obligación tributaria.
-     */
     public function update(Request $request, $id)
     {
         $obligacion = ObligacionTributaria::find($id);
@@ -176,9 +151,6 @@ class ObligacionController extends Controller
         ], 200);
     }
 
-    /**
-     * Eliminar una obligación tributaria.
-     */
     public function destroy($id)
     {
         $obligacion = ObligacionTributaria::find($id);

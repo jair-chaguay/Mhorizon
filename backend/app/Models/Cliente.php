@@ -47,4 +47,8 @@ class Cliente extends Model
                     ->select(['usuarios.id', 'nombre', 'apellido'])
                     ->withTrashed();
     }
+
+    public function carpetasRaiz(){
+        return $this->hasMany(BibliotecaSubcarpeta::class, 'cliente_id')->whereNull('parent_id');
+    }
 }

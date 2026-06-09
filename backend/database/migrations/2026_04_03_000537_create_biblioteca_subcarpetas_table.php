@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('biblioteca_subcarpetas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('periodo_id')->constrained('biblioteca_periodos')->onDelete('cascade');
+            $table->foreignId('cliente_id')->nullable()->constrained('clientes')->onDelete('cascade');
             $table->foreignId('parent_id')->nullable()->constrained('biblioteca_subcarpetas')->onDelete('cascade');
             $table->string('nombre')->comment('Ej: Estados Financieros, Declaraciones');
             $table->foreignId('creado_por_id')->constrained('usuarios')->onDelete('restrict');
