@@ -82,7 +82,6 @@ body {
   transform: translateY(0);
 }
 
-/* Retrasos escalonados para tarjetas (Staggered effect) */
 .delay-100 {
   transition-delay: 100ms;
 }

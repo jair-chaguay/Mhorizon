@@ -43,10 +43,9 @@ class ObligacionTributaria extends Model
 
         $semestrales = [
             'IVA (RÉGIMEN RIMPE)',
-            'IR (RÉGIMEN RIMPE SEMESTRAL)',
-            'RETENCIONES IR (RÉGIMEN RIMPE)',
-            'ATS (RÉGIMEN RIMPE)',
-            'ICE (SEMESTRAL)'
+            'IMPUESTO A LA RENTA (RÉGIMEN RIMPE SEMESTRAL)',
+            'RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)',
+            'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (RÉGIMEN RIMPE)'
         ];
         if(in_array($tipo, $semestrales)){
             if($mesActual < 1 || ($mesActual == 1 && $hoy->day < $dia)){
@@ -61,34 +60,35 @@ class ObligacionTributaria extends Model
         }
 
         $mesesFijos = [
-            'ICE - PVP' => 1, // Enero
-            'ANEXO GASTOS PERSONALES' => 2, // Febrero
-            'APS' => 2,
-            'RDEP' => 2,
-            'ROTEF' => 2,
-            'IR (PERSONAS NATURALES)' => 3, // Marzo
+            'ANEXO DE PRECIOS DE VENTA AL PÚBLICO (ICE - PVP)' => 1, // Enero
+            'ANEXO DE GASTOS PERSONALES' => 2, // Febrero
+            'REPORTE BENEFICIARIOS FINALES Y COMPOSICIÓN SOCIETARIA (REBEFICS)' => 2,
+            'ANEXO DE RELACION DE DEPENDENCIA (RDEP)' => 2,
+            'ANEXO DE OPERACIONES Y TRANSACCIONES ECONÓMICAS FINANCIERAS (ROTEF)' => 2,
+            'IMPUESTO A LA RENTA (PERSONAS NATURALES)' => 3, // Marzo
             'DÉCIMO CUARTO SUELDO (COSTA)' => 3,
-            'IR (SOCIEDADES)' => 4, // Abril
-            'ISD (ANUAL)' => 4,
+            'IMPUESTO A LA RENTA (SOCIEDADES)' => 4, // Abril
+            'IMPUESTO A LA SALIDA DE DIVISAS - ISD TARJETAS DE CRÉDITO' => 4,
             'PRESENTACIÓN ESTADOS FINANCIEROS' => 4,
-            'PARTICIPACIÓN DE UTILIDADES' => 4,
-            'IR (RIMPE ANUAL)' => 5, // Mayo
-            'ADI' => 5,
-            'DECLARACIÓN PATRIMONIAL' => 5,
+            'PARTICIPACIÓN DE UTILIDADES (15%)' => 4,
+            'IMPUESTO A LA RENTA (PERSONAS NATURALES RÉGIMEN RIMPE ANUAL)' => 5, // Mayo
+            'ANEXO DE DIVIDENDOS (ADI)' => 5,
+            'DECLARACIÓN PATRIMONIAL PERSONAS NATURALES' => 5,
             'PATENTE MUNICIPAL' => 5,
-            'IMPUESTO 1.5 POR MIL' => 5,
-            'LUAE' => 5,
+            'IMPUESTO 1.5 POR MIL SOBRE ACTIVOS' => 5,
+            'TASA DE HABILITACIÓN/LUAE' => 5,
             'PERMISO DE FUNCIONAMIENTO' => 5,
             'TASA DE BOMBEROS' => 5,
-            'ANEXO PARTES RELACIONADAS' => 6, // Junio
-            'INFORME PRECIOS DE TRANSFERENCIA' => 6,
+            'ANEXO DE OPERACIONES CON PARTES RELACIONADAS' => 6, // Junio
+            'IMPUESTO A LA SALIDA DE DIVISAS - ISD PRESUNTIVO' => 6,
+            'INFORME DE PRECIOS DE TRANSFERENCIA' => 6,
             'IMPUESTO PREDIAL URBANO' => 6,
             'IMPUESTO PREDIAL RURAL' => 6,
             'DÉCIMO CUARTO SUELDO (SIERRA)' => 8, // Agosto
-            'PAGO A CUENTA' => 8,
+            'DECLARACIÓN DEL PAGO A CUENTA SOBRE UTILIDADES NO DISTRIBUIDAS' => 8,
             'ANTICIPO UTILIDADES ACUMULADAS' => 8,
             'CONTRIBUCIÓN SOCIETARIA' => 9, // Septiembre 
-            'IMPUESTO PUBLICIDAD EXTERIOR' => 10, // Octubre
+            'TASA MUNICIPAL POR PUBLICIDAD EXTERIOR' => 10, // Octubre
             'DÉCIMO TERCER SUELDO' => 12 // Diciembre
         ];
 
@@ -115,15 +115,15 @@ class ObligacionTributaria extends Model
         $tipo = strtoupper(trim($this->tipo_impuesto));
 
         $semestrales = [
-            'IVA (RÉGIMEN RIMPE)', 'IR (RÉGIMEN RIMPE SEMESTRAL)', 
-            'RETENCIONES IR (RÉGIMEN RIMPE)', 'ATS (RÉGIMEN RIMPE)', 'ICE (SEMESTRAL)'
+            'IVA (RÉGIMEN RIMPE)', 'IMPUESTO A LA RENTA (RÉGIMEN RIMPE SEMESTRAL)', 
+            'RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)', 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (RÉGIMEN RIMPE)'
         ];
         if (in_array($tipo, $semestrales)) return 6;
 
         $mensuales = [
-            'IVA (MENSUAL)', 'RETENCIONES FUENTE IR (MENSUAL)', 'RETENCIONES IVA', 
-            'IRBP', 'ATS (MENSUAL)', 'ANEXO ICE', 'ANEXO IRBP', 'PAGO APORTES IESS', 
-            'FONDOS DE RESERVA', 'ANEXO REOC', 'ICE (MENSUAL)', 'ISD (MENSUAL)'
+            'IVA (MENSUAL)', 'RETENCIONES FUENTE IR (MENSUAL)', 'DECLARACIÓN DE AUTORETENCIONES EN LA FUENTE DEL IR', 'DECLARACIÓN DEL IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS', 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (MENSUAL)',
+            'ANEXO IMPUESTO CONSUMOS ESPECIALES (ICE)', 'ANEXO IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS', 'PAGO DE APORTE AL IESS', 'FONDOS DE RESERVA', 'IMPUESTO A LOS CONSUMOS ESPECIALES - ICE (MENSUAL)', 
+            'IMPUESTO A LA SALIDA DE DIVISAS - ISD (MENSUAL)', 'IMPUESTO A LOS ACTIVOS EN EL EXTERIOR', 'REPORTE OPERACIONES INUSUALES INJUSTIFICADAS (ROI)', 'REPORTE OPERACIONES IGUALES O SUPERIORES AL UMBRAL LEGAL', 'REPORTE VENTAS A CRÉDITO'
         ];
         if (in_array($tipo, $mensuales)) return 1;
         
