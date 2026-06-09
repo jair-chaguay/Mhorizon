@@ -131,7 +131,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         password: ''
     });
 
-    const [periodos, setPeriodos] = useState<any[]>([]);
+    const [carpetasRaiz, setCarpetasRaiz] = useState<any[]>([]);
     const [obligaciones, setObligaciones] = useState<ObligacionTributaria[]>([]);
     const [isLoadingObligaciones, setIsLoadingObligaciones] = useState(true);
     const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
@@ -140,7 +140,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     );
     const [isSaving, setIsSaving] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
-    
+
     // Estado para almacenar el usuario activo logueado
     const [currentUser, setCurrentUser] = useState<any>(null);
 
@@ -168,16 +168,15 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                 setIsLoadingObligaciones(true);
 
                 // Ejecuta las 3 peticiones HTTP de forma simultánea en hilos paralelos
-                const [resPeriodos, resObligaciones, resUsuarios] = await Promise.all([
+                const [resArbol, resObligaciones, resUsuarios] = await Promise.all([
                     api.get(`/biblioteca/arbol/${cliente.id}`),
                     api.get(`/cliente/${cliente.id}/obligaciones`),
                     api.get('/usuario')
                 ]);
 
-                // Seteamos los estados juntos (React agrupa estos renders automáticamente)
-                setPeriodos(resPeriodos.data.biblioteca || []);
+                setCarpetasRaiz(resArbol.data.biblioteca || []);
                 setObligaciones(resObligaciones.data.obligaciones || []);
-                
+
                 const filtrados = resUsuarios.data.usuarios.filter(
                     (u: any) => u.rol_id === 1 || u.rol_id === 3
                 );
@@ -241,7 +240,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         try {
             const { data } = await api.put(`/cliente/${cliente.id}`, {
                 ...formData,
-                gestores : gestoresSeleccionados
+                gestores: gestoresSeleccionados
             });
             alert('Perfil Actualizado Exitosamente.');
             onUpdateSuccess(data.cliente);
@@ -250,7 +249,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
             const msg = error?.response?.data?.message || "Hubo un error al intentar actualizar el perfil.";
             setErrorMsg(msg);
         } finally {
-           
+
             setIsSaving(false);
         }
     };
@@ -355,7 +354,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 <div className="max-h-24 overflow-y-auto space-y-2 pr-2">
                                     {usuariosGestores.map((u) => (
                                         <label key={u.id} className="flex items-center gap-2 cursor-pointer group">
-                                            <input 
+                                            <input
                                                 type="checkbox"
                                                 checked={gestoresSeleccionados.includes(u.id)}
                                                 onChange={(e) => {
@@ -516,33 +515,33 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                     </div>
                 </div>
 
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:p-8">
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:p-8 mt-6">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                         <div>
                             <h2 className="text-[1.4rem] font-extrabold text-blue-200 tracking-tight">Biblioteca Operativa</h2>
-                            <p className="text-gray-500 text-[0.85rem] mt-1">Seleccione el Periodo Fiscal para saltar al gestor documental.</p>
+                            <p className="text-gray-500 text-[0.85rem] mt-1">Seleccione la Carpeta Principal para saltar al gestor documental.</p>
                         </div>
 
                         {canEdit && (
                             <button onClick={onOpenCrearPeriodo} className="cursor-pointer bg-[#151E28] text-white text-[0.75rem] font-bold uppercase tracking-widest px-4 py-2.5 rounded-lg hover:bg-orange-500 transition-all flex items-center gap-2 shrink-0 shadow-sm">
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
-                                Añadir Periodo
+                                Añadir Carpeta Raíz
                             </button>
                         )}
                     </div>
 
-                    {periodos.length > 0 ? (
+                    {carpetasRaiz.length > 0 ? (
                         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-4">
-                            {periodos.map(p => (
-                                <div key={p.id} onClick={() => onJumpToBiblioteca(cliente.id, p.id)} className="border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 transition-all cursor-pointer group flex flex-col items-center text-center shadow-sm">
+                            {carpetasRaiz.map(carpeta => (
+                                <div key={carpeta.id} onClick={() => onJumpToBiblioteca(cliente.id, carpeta.id)} className="border border-orange-200 bg-orange-50 rounded-xl p-5 hover:bg-orange-100 transition-all cursor-pointer group flex flex-col items-center text-center shadow-sm">
                                     <svg className="w-10 h-10 text-orange-500 mb-2 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"></path></svg>
-                                    <h3 className="font-extrabold text-orange-700 text-[1rem]">{p.anio}</h3>
+                                    <h3 className="font-extrabold text-orange-700 text-[1rem] leading-tight">{carpeta.nombre}</h3>
                                 </div>
                             ))}
                         </div>
                     ) : (
                         <div className="py-8 text-center border-2 border-dashed border-gray-200 rounded-xl">
-                            <p className="text-gray-400 italic text-sm">Este cliente aún no tiene periodos fiscales en la biblioteca.</p>
+                            <p className="text-gray-400 italic text-sm">Este cliente aún no tiene directorios en la biblioteca.</p>
                         </div>
                     )}
                 </div>

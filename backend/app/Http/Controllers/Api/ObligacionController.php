@@ -91,12 +91,33 @@ class ObligacionController extends Controller
             ['creado_por_id' => Auth::id() ?? 1]
         );
 
-        // Asegurar que exista la carpeta del impuesto
-        BibliotecaSubcarpeta::firstOrCreate(
+        $carpetaImpuesto = BibliotecaSubcarpeta::firstOrCreate(
             ['parent_id' => $carpetaMadre->id, 'nombre' => $obligacion->tipo_impuesto],
             ['creado_por_id' => Auth::id() ?? 1]
         );
 
+        $anio = $fechaExacta->format('Y');
+        $carpetaAnio = BibliotecaSubcarpeta::firstOrCreate(
+            ['parent_id' => $carpetaImpuesto->id, 'nombre' => $anio],
+            ['creado_por_id' => Auth::id() ?? 1]
+        );
+
+        $esMensual = in_array($tipoUpper, [
+            'IVA (MENSUAL)', 'RETENCIONES FUENTE IR (MENSUAL)', 'DECLARACIÓN DE AUTORETENCIONES EN LA FUENTE DEL IR', 'DECLARACIÓN DEL IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS', 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (MENSUAL)', 
+            'ANEXO IMPUESTO CONSUMOS ESPECIALES (ICE)', 'ANEXO IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS', 'PAGO DE APORTE AL IESS', 'FONDOS DE RESERVA', 'IMPUESTO A LOS CONSUMOS ESPECIALES - ICE (MENSUAL)', 
+            'IMPUESTO A LA SALIDA DE DIVISAS - ISD (MENSUAL)', 'IMPUESTO A LOS ACTIVOS EN EL EXTERIOR', 'REPORTE OPERACIONES INUSUALES INJUSTIFICADAS (ROI)', 'REPORTE OPERACIONES IGUALES O SUPERIORES AL UMBRAL LEGAL', 
+            'REPORTE VENTAS A CRÉDITO'
+        ]);
+
+        $esSemestral = in_array($tipoUpper, $semestrales);
+
+        if ($esMensual || $esSemestral) {
+            BibliotecaSubcarpeta::firstOrCreate(
+                ['parent_id' => $carpetaAnio->id, 'nombre' => $periodoTexto], // Ej: "Enero 2024"
+                ['creado_por_id' => Auth::id() ?? 1]
+            );
+        }
+        
         return response()->json([
             'message'    => 'Obligación añadida y estructura base sincronizada con éxito',
             'obligacion' => $obligacion,

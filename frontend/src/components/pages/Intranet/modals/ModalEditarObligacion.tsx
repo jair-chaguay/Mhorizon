@@ -9,9 +9,10 @@ interface ModalEditarObligacionProps {
     obligacionId: number | null;
     currentUserId?: number | string;
     tipoImpuesto?: string;
-    // 👇 NUEVA PROP: Recibe solo los gestores actualizados del cliente
     gestoresCliente?: Array<{id: number, nombre: string, apellido: string}>;
 }
+
+
 
 const ModalEditarObligacion: React.FC<ModalEditarObligacionProps> = ({ 
     isOpen, 
