@@ -23,7 +23,8 @@ interface PerfilClienteProps {
     refreshSignal?: number;
     onBack: () => void;
     onOpenDeclaracion: () => void;
-    onOpenSubir: (obligacionId: number) => void;
+    // MODIFICADO: Añadimos tipoImpuesto como segundo parámetro
+    onOpenSubir: (obligacionId: number, tipoImpuesto: string) => void;
     onOpenEliminar: (id: number | string, title: string) => void;
     onUpdateSuccess: (updatedCliente: Cliente) => void;
     onJumpToBiblioteca: (clienteId: number, periodoId: number) => void;
@@ -141,10 +142,8 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     const [isSaving, setIsSaving] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
 
-    // Estado para almacenar el usuario activo logueado
     const [currentUser, setCurrentUser] = useState<any>(null);
 
-    // Obtener el usuario autenticado del sistema
     useEffect(() => {
         const fetchCurrentUser = async () => {
             try {
@@ -157,7 +156,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         fetchCurrentUser();
     }, []);
 
-    // Evaluación de permisos en el Frontend
     const isSuperAdmin = currentUser?.rol_id === 3;
     const isGestorAsignado = gestoresSeleccionados.includes(currentUser?.id);
     const canEdit = isSuperAdmin || isGestorAsignado;
@@ -167,7 +165,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
             try {
                 setIsLoadingObligaciones(true);
 
-                // Ejecuta las 3 peticiones HTTP de forma simultánea en hilos paralelos
                 const [resArbol, resObligaciones, resUsuarios] = await Promise.all([
                     api.get(`/biblioteca/arbol/${cliente.id}`),
                     api.get(`/cliente/${cliente.id}/obligaciones`),
@@ -480,9 +477,10 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                 <td className="px-5 py-4 text-center flex justify-center items-center gap-2">
                                                     {ob.estado === 'Pendiente' && (
                                                         <button
-                                                            onClick={() => onOpenSubir(ob.id)}
+                                                            // MODIFICADO: Pasamos el tipo_impuesto al manejador
+                                                            onClick={() => onOpenSubir(ob.id, ob.tipo_impuesto)}
                                                             className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-green-500 hover:text-white hover:border-green-500 transition-all cursor-pointer"
-                                                            title="Subir Documento Final"
+                                                            title="Subir Anexos y Presentar"
                                                         >
                                                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>

@@ -209,22 +209,23 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
           </div>
         )}
 
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <div>
-            <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+          
+          <div className="flex-1">
+            <h1 className="text-[1.3rem] sm:text-[1.7rem] font-extrabold text-blue-200 tracking-tight leading-tight break-words">
               {!clienteActual ? 'Biblioteca de Operatividad' : 
                 pathStack.length === 0 ? 'Directorios Principales' : 
                 pathStack[pathStack.length - 1].nombre}
             </h1>
-            <p className="text-gray-500 font-light mt-1 text-[1rem]">
+            <p className="text-gray-500 font-light mt-1 text-[0.98rem]">
               {!clienteActual ? 'Nivel 1: Seleccione el Directorio del Cliente.' : 
                pathStack.length === 0 ? 'Nivel 2: Seleccione la carpeta raíz operativa.' : 
                'Navegando en los archivos del cliente.'}
             </p>
           </div>
           
-          <div className="flex gap-2">
-            {clienteActual && pathStack.length >= 3 && (
+          <div className="flex gap-2 shrink-0">
+            {clienteActual && (pathStack.length >= 4 || (pathStack.length === 3 && currentItems.carpetas.length === 0)) && (
               <button 
                 onClick={() => onOpenSubir(pathStack[pathStack.length - 1].id)} 
                 className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2"
@@ -240,8 +241,8 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                 {!clienteActual ? 'Crear Cliente' : 'Crear Carpeta'}
               </button>
             )}
-
           </div>
+
         </div>
 
         <div className={`bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${(!clienteActual || currentItems.carpetas.length > 0) ? 'p-6 lg:p-8' : ''} animate-fadeIn`}>
@@ -344,3 +345,4 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
 };
 
 export default Biblioteca;
+

@@ -142,7 +142,9 @@ class BibliotecaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'obligacion_id' => 'required|exists:obligaciones_tributarias,id',
-            'archivo' => 'required|file|mimes:pdf,xls,xlsx,doc,docx|max:15360',
+            'archivos' => 'required|array', // Recibimos el paquete de archivos
+            'archivos.*' => 'file|mimes:pdf,xls,xlsx,doc,docx|max:15360',
+            'nombres_slots' => 'required|array', // Recibimos los nombres de las categorías
             'observacion_cliente' => 'nullable|string'
         ]);
 
@@ -151,26 +153,23 @@ class BibliotecaController extends Controller
         $obligacion = \App\Models\ObligacionTributaria::find($request->obligacion_id);
         $userId = Auth::id() ?? 1;
         
-        // 1. NIVEL RAÍZ
+        // 1. CARPETAS (Se mantiene tu lógica dinámica)
         $carpetaMadre = BibliotecaSubcarpeta::firstOrCreate(
             ['cliente_id' => $obligacion->cliente_id, 'parent_id' => null, 'nombre' => 'Obligaciones Tributarias'],
             ['creado_por_id' => $userId]
         );
 
-        // 2. NIVEL IMPUESTO 
         $carpetaImpuesto = BibliotecaSubcarpeta::firstOrCreate(
             ['parent_id' => $carpetaMadre->id, 'nombre' => $obligacion->tipo_impuesto],
             ['creado_por_id' => $userId]
         );
 
-        // 3. NIVEL AÑO 
         $anio = \Carbon\Carbon::parse($obligacion->fecha_vencimiento_exacta)->format('Y');
         $carpetaAnio = BibliotecaSubcarpeta::firstOrCreate(
             ['parent_id' => $carpetaImpuesto->id, 'nombre' => $anio],
             ['creado_por_id' => $userId]
         );
 
-        // 4. NIVEL MES (Si aplica)
         $tipoUpper = strtoupper(trim($obligacion->tipo_impuesto));
         $esMensual = str_contains($tipoUpper, 'MENSUAL');
         $esSemestral = in_array($tipoUpper, [
@@ -188,27 +187,37 @@ class BibliotecaController extends Controller
             $carpetaDestino = $carpetaMes;
         }
 
-        // 5. GUARDAR ARCHIVO
-        $file = $request->file('archivo');
-        $nombreOriginal = $file->getClientOriginalName();
-        $extension = strtolower($file->getClientOriginalExtension());
-        $tipo = in_array($extension, ['pdf']) ? 'pdf' : (in_array($extension, ['xls', 'xlsx']) ? 'excel' : 'word');
-        
-        $ruta = $file->store("biblioteca/carpeta_{$carpetaDestino->id}", 'public');
+        // 2. GUARDAR TODOS LOS ARCHIVOS
+        $archivosSubidos = [];
+        $archivos = $request->file('archivos');
+        $nombresSlots = $request->input('nombres_slots');
 
-        $documento = Documento::create([
-            'subcarpeta_id' => $carpetaDestino->id,
-            'subido_por_id' => $userId,
-            'nombre_archivo' => $nombreOriginal,
-            'tipo' => $tipo,
-            'url_archivo' => $ruta,
-            'observacion_cliente' => $request->observacion_cliente
-        ]);
+        foreach ($archivos as $index => $file) {
+            $nombreOriginal = $file->getClientOriginalName();
+            $extension = strtolower($file->getClientOriginalExtension());
+            $tipo = in_array($extension, ['pdf']) ? 'pdf' : (in_array($extension, ['xls', 'xlsx']) ? 'excel' : 'word');
+            
+            $ruta = $file->store("biblioteca/carpeta_{$carpetaDestino->id}", 'public');
 
+            // Formateamos la observación para saber de qué slot vino
+            $slotAsignado = $nombresSlots[$index] ?? 'Anexo General';
+            $obsFinal = "[{$slotAsignado}] " . ($request->observacion_cliente ? " - " . $request->observacion_cliente : '');
+
+            $archivosSubidos[] = Documento::create([
+                'subcarpeta_id' => $carpetaDestino->id,
+                'subido_por_id' => $userId,
+                'nombre_archivo' => $nombreOriginal,
+                'tipo' => $tipo,
+                'url_archivo' => $ruta,
+                'observacion_cliente' => $obsFinal
+            ]);
+        }
+
+        // 3. ACTUALIZAR ESTADO A PRESENTADO
         $obligacion->estado = 'Presentado';
         $obligacion->save();
 
-        // Notificaciones (Tu lógica original de correos)
+        // 4. NOTIFICAR (Se envía una sola vez aunque haya 5 archivos)
         $admins = \App\Models\Usuario::whereHas('rol', function ($q) {
             $q->where('nombre', 'like', '%admin%');
         })->where('activo', true)->get();
@@ -222,7 +231,7 @@ class BibliotecaController extends Controller
              \Illuminate\Support\Facades\Mail::to($jefeCorreo)->send(new \App\Mail\ObligacionSubidaMail($obligacion));
         }
 
-        return response()->json(['message' => 'Obligación subida y notificada', 'documento' => $documento], 201);
+        return response()->json(['message' => 'Obligación subida y completada', 'documentos' => $archivosSubidos], 201);
     }
 
     

@@ -45,8 +45,7 @@ const IntranetLayout: React.FC = () => {
         title: ''
     });
     const [isSubirArchivoOpen, setIsSubirArchivoOpen] = useState(false);
-    const [uploadConfig, setUploadConfig] = useState<{ type: 'archivo' | 'obligacion', targetId: number | null }>({ type: 'archivo', targetId: null });
-    const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
+    const [uploadConfig, setUploadConfig] = useState<{ type: 'archivo' | 'obligacion', targetId: number | null, tipoImpuesto?: string }>({ type: 'archivo', targetId: null }); const [isRedactarNoticiaOpen, setIsRedactarNoticiaOpen] = useState(false);
     const [isAñadirClienteOpen, setIsAñadirClienteOpen] = useState(false);
     const [isCrearUsuarioOpen, setIsCrearUsuarioOpen] = useState(false);
     const [usuarioAEditar, setUsuarioAEditar] = useState<any>(null);
@@ -148,8 +147,8 @@ const IntranetLayout: React.FC = () => {
                                 refreshSignal={refreshSignal}
                                 onBack={() => handleViewChange('view-directorio', 'Directorio de Clientes')}
                                 onOpenDeclaracion={() => setIsDeclaracionModalOpen(true)}
-                                onOpenSubir={(obligacionId) => {
-                                    setUploadConfig({ type: 'obligacion', targetId: obligacionId }); // Archivo de obligación
+                                onOpenSubir={(obligacionId, tipoImpuesto) => {
+                                    setUploadConfig({ type: 'obligacion', targetId: obligacionId, tipoImpuesto: tipoImpuesto });
                                     setIsSubirArchivoOpen(true);
                                 }}
                                 onOpenEliminar={handleOpenEliminar}
@@ -287,6 +286,7 @@ const IntranetLayout: React.FC = () => {
                 onClose={() => setIsSubirArchivoOpen(false)}
                 targetId={uploadConfig.targetId}
                 uploadType={uploadConfig.type}
+                tipoImpuesto={uploadConfig.tipoImpuesto}
                 onSuccess={() => {
                     triggerRefresh();
                 }}
