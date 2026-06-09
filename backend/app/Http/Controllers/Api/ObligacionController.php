@@ -71,9 +71,9 @@ class ObligacionController extends Controller
         if ($tipoUpper === 'CONTRIBUCIÓN SOCIETARIA') {
             $periodoTexto = 'Septiembre - Diciembre ' . $fechaExacta->year; 
         } elseif (in_array($tipoUpper, $semestrales)) {
-            $periodoTexto = 'Semestre ' . ucfirst($fechaExacta->translatedFormat('F Y')); 
+            $periodoTexto = 'Semestre ' . ucfirst($fechaExacta->translatedFormat('F')); 
         } else {
-            $periodoTexto = ucfirst($fechaExacta->translatedFormat('F Y'));
+            $periodoTexto = ucfirst($fechaExacta->translatedFormat('F'));
         }
 
         $obligacion = ObligacionTributaria::create([

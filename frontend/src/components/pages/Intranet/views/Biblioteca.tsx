@@ -165,10 +165,8 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     if (!clienteActual) {
       onOpenCrear({ title: 'Nuevo Cliente', placeholder: 'Razón Social...', type: 'ROOT', parentId: null });
     } else if (pathStack.length === 0) {
-      // Estamos en la raíz del cliente
       onOpenCrear({ title: 'Nueva Carpeta Principal', placeholder: 'Ej. Obligaciones 2026', type: 'PERIODOS', parentId: clienteActual.id });
     } else {
-      // Estamos dentro de una carpeta, podemos crear subcarpeta o subir archivo
       const currentFolder = pathStack[pathStack.length - 1];
       onOpenCrear({ title: 'Nueva Subcarpeta', placeholder: 'Ej. Enero', type: 'SUBCARPETAS', parentId: currentFolder.id });
     }
@@ -214,31 +212,35 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
             <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
-              {!clienteActual ? 'Biblioteca de Operatividad' :
-                pathStack.length === 0 ? 'Directorios Principales' :
-                  pathStack[pathStack.length - 1].nombre}
+              {!clienteActual ? 'Biblioteca de Operatividad' : 
+                pathStack.length === 0 ? 'Directorios Principales' : 
+                pathStack[pathStack.length - 1].nombre}
             </h1>
             <p className="text-gray-500 font-light mt-1 text-[1rem]">
-              {!clienteActual ? 'Nivel 1: Seleccione el Directorio del Cliente.' :
-                pathStack.length === 0 ? 'Nivel 2: Seleccione la carpeta raíz operativa.' :
-                  'Navegando en los archivos del cliente.'}
+              {!clienteActual ? 'Nivel 1: Seleccione el Directorio del Cliente.' : 
+               pathStack.length === 0 ? 'Nivel 2: Seleccione la carpeta raíz operativa.' : 
+               'Navegando en los archivos del cliente.'}
             </p>
           </div>
-
+          
           <div className="flex gap-2">
-            {clienteActual && pathStack.length > 0 && (
-              <button
-                onClick={() => onOpenSubir(pathStack[pathStack.length - 1].id)}
-                className="bg-green-600 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-green-500 transition-all flex items-center justify-center gap-2"
+            {clienteActual && pathStack.length >= 3 && (
+              <button 
+                onClick={() => onOpenSubir(pathStack[pathStack.length - 1].id)} 
+                className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
                 Subir Archivo
               </button>
             )}
-            <button onClick={handleActionClick} className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
-              {!clienteActual ? 'Crear Cliente' : 'Crear Carpeta'}
-            </button>
+
+            {(!clienteActual || pathStack.length < 3 || (pathStack.length === 3 && currentItems.carpetas.length > 0)) && (
+              <button onClick={handleActionClick} className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+                {!clienteActual ? 'Crear Cliente' : 'Crear Carpeta'}
+              </button>
+            )}
+
           </div>
         </div>
 
