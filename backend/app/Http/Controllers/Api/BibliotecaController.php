@@ -185,7 +185,7 @@ class BibliotecaController extends Controller
         ];
 
 
-        $esMensual = str_contains($tipoUpper, $mensuales);
+        $esMensual = in_array($tipoUpper, $mensuales);
         $esSemestral = in_array($tipoUpper, $semestrales);
 
         $carpetaDestino = $carpetaAnio; 
