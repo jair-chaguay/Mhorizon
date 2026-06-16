@@ -198,3 +198,4 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
 };
 
 export default ModalAñadirObligacion;
+

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\BibliotecaSubcarpeta;
 
 class ObligacionTributaria extends Model
 {
@@ -21,6 +22,58 @@ class ObligacionTributaria extends Model
         'estado'
     ];
 
+    protected static function booted(){
+        static::created(function ($obligacion){
+            $obligacion-> sincronizarCarpetasBiblioteca();
+        });
+    }
+
+    public function sincronizarCarpetasBiblioteca()
+    {
+        $userId = $this->usuario_id ?? 1;
+        
+        $carpetaMadre = BibliotecaSubcarpeta::firstOrCreate(
+            ['cliente_id' => $this->cliente_id, 'parent_id' => null, 'nombre' => 'Obligaciones Tributarias'],
+            ['creado_por_id' => $userId]
+        );
+
+        $carpetaImpuesto = BibliotecaSubcarpeta::firstOrCreate(
+            ['parent_id' => $carpetaMadre->id, 'nombre' => $this->tipo_impuesto],
+            ['creado_por_id' => $userId]
+        );
+
+        $fechaExacta = Carbon::parse($this->fecha_vencimiento_exacta);
+        $anio = $fechaExacta->format('Y');
+        
+        $carpetaAnio = BibliotecaSubcarpeta::firstOrCreate(
+            ['parent_id' => $carpetaImpuesto->id, 'nombre' => $anio],
+            ['creado_por_id' => $userId]
+        );
+
+        $mesesFrecuencia = $this->obtenerMesesFrecuencia();
+        
+        if ($mesesFrecuencia === 1 || $mesesFrecuencia === 6) {
+            $nombreMes = $this->fecha_presentacion;
+            
+            // Fallback por si la generación automática omitió el texto de presentación
+            if (empty($nombreMes)) {
+                Carbon::setLocale('es');
+                $nombreMes = ($mesesFrecuencia === 6) 
+                    ? 'Semestre ' . ucfirst($fechaExacta->translatedFormat('F'))
+                    : ucfirst($fechaExacta->translatedFormat('F'));
+                
+                $this->fecha_presentacion = $nombreMes;
+                $this->saveQuietly();
+            }
+
+            BibliotecaSubcarpeta::firstOrCreate(
+                ['parent_id' => $carpetaAnio->id, 'nombre' => $nombreMes],
+                ['creado_por_id' => $userId]
+            );
+        }
+    }
+
+    
     public function cliente()
     {
         return $this->belongsTo(Cliente::class, 'cliente_id');
