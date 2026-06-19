@@ -4,7 +4,7 @@ import { initGA, logPageView } from "./analyticsConfig";
 
 export const CookieBanner: React.FC = () => {
     useEffect(() => {
-        const isConsentGiven = getCookieConsentValue("cookie-consent");
+        const isConsentGiven = getCookieConsentValue("mi_web_consentimiento");
         if (isConsentGiven === "true") {
             initGA();
             logPageView();
