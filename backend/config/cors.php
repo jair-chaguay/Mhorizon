@@ -21,6 +21,7 @@ return [
 
     'allowed_origins' => [
         'https://prueba.miltonmontece.com',
+        'https://prueba2.miltonmontece.com',
         'https://www.prueba.miltonmontece.com',
         'https://www.prueba2.miltonmontece.com',
         'http://localhost:5173'
