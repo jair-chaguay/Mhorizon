@@ -14,7 +14,7 @@ export const MetodologíaCard = ({ numero, title, content, index = 0 }: Metodolo
         <span className="bg-orange-500 text-white w-8 h-8 rounded-md flex items-center justify-center text-sm shadow-md px-2">{numero}</span>
         {title}
       </p>
-      <p className="text-gray-400 font-light mt-4 leading-relaxed text-[0.95rem]">{content}</p>
+      <p className="text-gray-400 font-light mt-4 leading-relaxed text-[0.9rem]">{content}</p>
     </div>
   )
 }

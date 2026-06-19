@@ -15,7 +15,7 @@ export const HeroNovedades = () => {
                     <span > CORPORATIVO</span>
                 </h1>
 
-                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
+                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.25rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
                     Informativos, actualizaciones tributarias y análisis estratégico del mercado ecuatoriano para una toma de decisiones precisa.
                 </p>
 

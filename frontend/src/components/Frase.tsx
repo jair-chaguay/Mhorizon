@@ -21,7 +21,7 @@ export const Frase = ({ blanco, naranja, styles = '' }: Palabra) => {
                         <span className='text-orange-500 '> {naranja}</span>
                     </h2>
                     <p className="text-gray-300 font-light text-[1.1rem] sm:text-[1.2rem] mt-6 max-w-3xl mx-auto leading-relaxed">
-                        Programe una sesión estratégica confidencial con nuestros socios directores y descubra el impacto real de una asesoría corporativa, contable y legal verdaderamente experta.
+                        Programe una sesión estratégica confidencial con nuestros socios directores y descubra el impacto real de una asesoría corporativa, contable y legal experta.
                     </p>
                     <div className='mt-10'>
                         <button onClick={() => setIsModalOpen(true)} className='inline-block bg-orange-500 text-white font-bold tracking-wider uppercase px-10 py-5 rounded-md hover:bg-white hover:text-orange-600 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer'>

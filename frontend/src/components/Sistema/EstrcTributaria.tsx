@@ -46,9 +46,14 @@ export const EstrcTributaria = () => {
                                 <td className={tdClasses}>. Para contribuyentes considerados como agentes de retencion. El porcentaje varía según la naturaleza de la operación (adquisición de bienes, servicios, pagos al exterior). Constituyen crédito tributario para el proveedor.</td>
                             </tr>
                             <tr className={trClasses}>
-                                <td className={`${tdClasses} font-bold text-[#151E28]`}>Retenciones de IVA</td>
-                                <td className={tdClasses}>10%, 20%, 30%, 50%, 70%, 100%</td>
-                                <td className={tdClasses}>Para contribuyentes considerados como agentes de retencion. Constituyen crédito tributario para el proveedor.</td>
+                                <td className={`${tdClasses} font-bold text-[#151E28]`}>Autoretenciones en la fuente del IR</td>
+                                <td className={tdClasses}>Según Resolución SRI (0% al 10%)</td>
+                                <td className={tdClasses}>Pago anticipado mensual obligatorio aplicado sobre el total de ingresos gravados. Porcentaje variable determinado por el SRI para Grandes Contribuyentes y otros designados.</td>
+                            </tr>
+                            <tr className={trClasses}>
+                                <td className={`${tdClasses} font-bold text-[#151E28]`}>Imp. Redimible a las Botellas Plásticas</td>
+                                <td className={tdClasses}>USD 0.02 por botella</td>
+                                <td className={tdClasses}>Grava el embotellado de bebidas en envases plásticos no retornables (PET), aplicable también a importadores. El valor es reembolsable al reciclador.</td>
                             </tr>
                             <tr className={trClasses}>
                                 <td className={`${tdClasses} font-bold text-[#151E28]`}>Impuesto a la Salida de Divisas (ISD)</td>
@@ -59,6 +64,12 @@ export const EstrcTributaria = () => {
                                 <td className={`${tdClasses} font-bold text-[#151E28]`}>Impuesto a los Consumos Especiales (ICE)</td>
                                 <td className={tdClasses}>Específica / Ad Valorem / Mixta</td>
                                 <td className={tdClasses}>Grava consumo selectivo: bebidas alcohólicas, cigarrillos, armas, vehículos de alta gama, telefonía, etc.</td>
+                            </tr>
+
+                            <tr className={trClasses}>
+                                <td className={`${tdClasses} font-bold text-[#151E28]`}>Impuesto a los Activos en el Exterior</td>
+                                <td className={tdClasses}> 0.25% o 0.35% mensual</td>
+                                <td className={tdClasses}>Grava la tenencia de fondos y activos monetarios en el exterior por parte de entidades del sistema financiero y administradoras de fondos.</td>
                             </tr>
 
                             <tr className={trClasses}>
@@ -104,7 +115,7 @@ export const EstrcTributaria = () => {
                             </tr>
 
                             <tr className={trClasses}>
-                                <td className={`${tdClasses} font-bold text-[#151E28]`}>Impuesto a la publicidad exterior</td>
+                                <td className={`${tdClasses} font-bold text-[#151E28]`}>Tasa Municipal por publicidad exterior</td>
                                 <td className={tdClasses}>Variable por m²</td>
                                 <td className={tdClasses}>Se paga anualmente al Municipio por la exhibición de letreros, vallas u otros elementos publicitarios al exterior del local o en la vía pública.</td>
                             </tr>

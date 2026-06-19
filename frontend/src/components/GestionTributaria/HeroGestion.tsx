@@ -4,7 +4,7 @@ import { ScrollReveal } from "../ScrollReveal"
 export const HeroGestion = () => {
 
   return (
-    <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex gap-6 items-center relative min-h-137.5 bg-[url('/images/HeroEstrategia.webp')] bg-cover bg-center overflow-hidden">
+    <ScrollReveal as={"section"} className="px-5 sm:px-8 md:px-20 flex gap-6 items-center relative min-h-132.5 bg-[url('/images/HeroEstrategia.webp')] bg-cover bg-center overflow-hidden">
       <div className="absolute inset-0 bg-linear-to-r from-[#0f172a] via-[#0f172a]/80 to-transparent"></div>
 
       <div className="relative z-10 w-full pt-10 reveal-element">
@@ -16,8 +16,8 @@ export const HeroGestion = () => {
           ESTRATEGIA Y DEFENSA FISCAL
         </h1>
 
-        <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full md:w-[70%] lg:w-[55%] leading-relaxed">
-          Aseguramos el estricto cumplimiento normativo frente al SRI y optimizamos su carga fiscal corporativa mediante una planificación estratégica de clase mundial, mitigando contingencias antes de que ocurran.
+        <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.15rem] w-full md:w-[70%] lg:w-[55%] leading-relaxed">
+          Aseguramos el estricto cumplimiento normativo frente al SRI y optimizamos su carga fiscal corporativa mediante una planificación estratégica de clase mundial, que mitigan contingencias antes de que ocurran.
         </p>
 
         <div className="mt-10 md:mt-12">

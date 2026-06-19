@@ -38,7 +38,7 @@ export const EstrIm = () => {
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-orange-500">Estudios de Precios de Transferencia</p>
-                                <p className="text-[0.95rem]  text-gray-200 mt-1">Elaboración técnica y soporte de anexos transaccionales para grupos multinacionales.</p>
+                                <p className="text-[0.98rem]  text-gray-200 mt-1">Elaboración técnica y soporte de anexos transaccionales para grupos multinacionales.</p>
                             </div>
                         </li>
                         <li className="flex items-start gap-4 group">
@@ -47,7 +47,7 @@ export const EstrIm = () => {
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-orange-500">Reclamaciones y Devoluciones</p>
-                                <p className="text-[0.95rem] text-gray-200 mt-1">Gestión ágil para la recuperación de impuestos, por pago en exceso o indebido y Reclamos.</p>
+                                <p className="text-[0.98rem] text-gray-200 mt-1">Gestión ágil para la recuperación de impuestos, por pago en exceso o indebido y Reclamos.</p>
                             </div>
                         </li>
                         <li className="flex items-start gap-4 group">
@@ -56,7 +56,7 @@ export const EstrIm = () => {
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-orange-500">Patrocinio en Determinaciones</p>
-                                <p className="text-[0.95rem] text-gray-200 mt-1">Defensa técnica, financiera y jurídica exhaustiva ante procesos de auditoría del SRI.</p>
+                                <p className="text-[0.98rem] text-gray-200 mt-1">Defensa técnica, financiera y jurídica exhaustiva ante procesos de auditoría del SRI.</p>
                             </div>
                         </li>
                     </ul>

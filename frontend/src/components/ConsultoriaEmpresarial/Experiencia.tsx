@@ -12,7 +12,7 @@ export const Experiencia = () => {
                     </h2>
 
                     <p className="text-gray-300  mt-6 text-[1.05rem] sm:text-[1.15rem] leading-relaxed">
-                        "En <span className="font-bold text-white">MHORIZON</span> nos encargamos de proporcionar la claridad estratégica que necesita tu negocio para navegar una reestructuración corporativa compleja, resultando en una optimización inmediata."
+                        "En <span className="font-bold text-white">MHORIZON</span> nos encargamos de proporcionar la claridad estratégica que necesita su negocio para navegar una reestructuración corporativa compleja, resultando en una optimización inmediata."
                     </p>
                     
                     <p className="text-orange-500 font-bold uppercase tracking-widest text-[0.8rem] mt-6">

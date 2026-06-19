@@ -13,7 +13,7 @@ export const MethodCard = ({ fase, title, content }: methodPorp) => {
             <h4 className="font-bold text-white text-[1.15rem] mb-3 uppercase tracking-wide">
                 {title}
             </h4>
-            <p className="text-gray-300 leading-relaxed text-[0.95rem]">
+            <p className="text-gray-300 leading-relaxed text-[0.9rem]">
                 {content}
             </p>
         </div>

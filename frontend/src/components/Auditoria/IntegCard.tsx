@@ -14,10 +14,10 @@ export const IntegCard = ({ image, title, content }: inteProps) => {
             </div>
             
            <div className="mt-2 text-white">
-                <h3 className="font-bold text-[1.25rem] text-blue-200 mb-4 uppercase tracking-tight">
+                <h3 className="font-bold text-[1.2rem] text-blue-200 mb-4 uppercase tracking-tight">
                     {title}
                 </h3>
-                <p className="text-gray-600 text-[0.95rem] leading-relaxed">
+                <p className="text-gray-600 text-[0.92rem] leading-relaxed">
                     {content}
                 </p>
             </div>

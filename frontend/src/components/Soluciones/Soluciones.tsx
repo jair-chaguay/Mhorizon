@@ -42,7 +42,7 @@ const solucionProp: SolucionesProp[] = [
     icon: <GraficoLupa className="w-8 h-8" />,
     title: "AUDITORÍA FINANCIERA",
     paragraph:
-      "Datos claros, transparentes y confiables. Evaluamos la salud financiera acorde con Normas Internacionales de Información Financiera (NIIF), detectando oportunidades de mejora.",
+      "Datos claros, transparentes y confiables. Evaluamos la salud financiera de su empresa acorde con las Normas Internacionales de Información Financiera (NIIF), detectando oportunidades de mejora.",
     ruta: "/soluciones/auditoria",
         delay: "delay-400"
 
@@ -61,8 +61,8 @@ export const Soluciones = () => {
           <h2 className="relative inline-block text-blue-200 font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[3.2rem] tracking-tight leading-tight pb-4 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-1 after:bg-orange-500 after:rounded-full">
             SOLUCIONES INTEGRALES
           </h2>
-          <p className="mt-4 text-blue-200/70 font-light text-[1.15rem] leading-relaxed max-w-3xl mx-auto">
-            Alineamos la estrategia operativa con la eficiencia fiscal y el rigor contable. Nuestras líneas de servicio están diseñadas para mitigar riesgos y catalizar el crecimiento de su corporación.
+          <p className="mt-4 text-blue-200/70 font-light text-[1.1rem] leading-relaxed max-w-3xl mx-auto">
+            Alineamos la estrategia operativa con la eficiencia fiscal y el rigor contable. Nuestras líneas de servicio están diseñadas para mitigar sus riesgos y catalizar el crecimiento de su corporación.
           </p>
         </div>
 

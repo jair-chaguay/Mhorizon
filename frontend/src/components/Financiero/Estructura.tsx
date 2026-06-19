@@ -15,7 +15,7 @@ const estructuras: estructurasProp[] = [
     },
     {
         numero: '02',
-        title: 'Innovación en Fintech y medios de Pagos',
+        title: 'Innovación en Fintech y Medios de Pagos',
         content: 'Asesoría integral para la escalabilidad tributaria de pasarelas de pago, billeteras digitales y nuevos modelos de negocio tecnológico en el país.',
     },
     {

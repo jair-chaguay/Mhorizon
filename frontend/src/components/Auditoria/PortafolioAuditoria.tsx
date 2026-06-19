@@ -12,12 +12,12 @@ const servicioAuditoria: servicioAuditoria[] = [
     {
         titulo: 'Entre nuestros productos tenemos:',
         listaServicios: [
-            "Asesoría y Servicios de Auditoría y Revisiones Especiales",
+            "Asesoría y servicios de auditoría y revisiones especiales",
             "Evaluación de control interno",
-            "Auditoría de Estados Financieros",
+            "Auditoría de estados financieros",
             "Auditoria operativa",
-            "Revisiones Especiales de Acuerdo con Procedimientos Previamente Acordados",
-            "Due Diligence",
+            "Revisiones especiales de acuerdo con procedimientos previamente acordados",
+            "Due diligence",
             "Revisión de controles de inventarios y activos fijos"
         ]
     }

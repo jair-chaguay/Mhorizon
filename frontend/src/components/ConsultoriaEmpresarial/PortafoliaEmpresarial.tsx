@@ -14,7 +14,7 @@ const serviciosConsultoria: servicioConsultoria[] = [
         listaServicios: [
             "Valoración de compañías",
             "Evaluación de proyectos",
-            "Diseño de Manuales de funciones y procedimientos",
+            "Diseño de manuales de funciones y procedimientos",
             "Diseños de procesos administrativos, operativos y financieros",
             "Manejo contable y financiero de compañías",
             "Manejo de nóminas"

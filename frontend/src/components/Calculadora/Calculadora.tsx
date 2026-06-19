@@ -12,12 +12,12 @@ const calculadora: CalculadoraItem[] = [
   {
     image: "images/Recurso10.png",
     title: "Análisis Predictivo",
-    subtitle: "Proyecte su impuesto a la renta antes del cierre del ejercicio.",
+    subtitle: "Proyecte su Impuesto a la Renta antes del cierre del ejercicio.",
   },
   {
     image: "images/Recurso10.png",
     title: "Cumplimiento Legal",
-    subtitle: "Basado en las normativas vigentes del SRI para el período actual.",
+    subtitle: "¿Cumple con las normativas vigentes del SRI para el período actual?",
   },
 ]
 

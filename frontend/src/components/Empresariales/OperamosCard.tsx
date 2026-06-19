@@ -19,7 +19,7 @@ export const OperamosCard = ({ icon: Icon, title, content, list1, list2 }: opera
         <h3 className="font-bold text-blue-200 text-[1.2rem] md:text-[1.3rem] leading-tight">
           {title}
         </h3>
-        <p className="mt-4 text-gray-600 text-[0.95rem] leading-relaxed mb-6">
+        <p className="mt-4 text-gray-600 text-[0.97rem] leading-relaxed mb-6">
           {content}
         </p>
         <ul className="space-y-3">

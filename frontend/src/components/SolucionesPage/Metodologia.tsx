@@ -21,12 +21,12 @@ const metodologia: MetodologiaProps[] = [
   {
     numero: '03',
     title: 'Monitoreo',
-    content: 'Portal del cliente para visualizar en tiempo real el impacto de cada gestión.'
+    content: 'Visualizamos en tiempo real el impacto de cada gestión a través del Portal del cliente'
   },
   {
     numero:'04',
     title: 'Evolución',
-    content: 'Ajuste proactivo ante cambios en la legislación nacional.'
+    content: 'Nos ajustamos proactivamente ante cambios en la legislación nacional.'
   }
 ]
 
@@ -87,12 +87,12 @@ export const Metodologia = () => {
             METODOLOGÍA MHORIZON
           </span>
 
-          <h2 className="text-white font-extrabold mt-2 text-[2rem] sm:text-[2.4rem] leading-tight text-center lg:text-left tracking-tight uppercase reveal-element delay-100">
-            MÁS QUE NÚMEROS, <br /> ESTRATEGIA PURA
+          <h2 className="text-white font-extrabold mt-2 text-[2rem] sm:text-[2.3rem] leading-tight text-center lg:text-left tracking-tight uppercase reveal-element delay-100">
+            MÁS QUE NÚMEROS, ESTRATEGIA 
           </h2>
 
           <p className="text-gray-300 font-light mt-5 text-[1.05rem] text-center lg:text-left leading-relaxed max-w-lg mx-auto lg:mx-0 reveal-element delay-200">
-            Combinamos el pensamiento analítico riguroso con la resolución creativa de problemas para ofrecer un impacto medible en cada etapa del ciclo de negocio.
+            Combinamos el pensamiento analítico riguroso con la resolución creativa de problemas para ofrecer un impacto medible en cada etapa del ciclo de su negocio.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">

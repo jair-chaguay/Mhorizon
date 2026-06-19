@@ -23,12 +23,12 @@ const valores: valoresProps[] = [
     {
         icon: Eyee,
         title: "Visión estratégica",
-        content: "No solo auditamos el pasado, proyectamos el futuro financiero de nuestros clientes mediante análisis de datos precisos."
+        content: "No solo auditamos el pasado, proyectamos su futuro financiero mediante análisis de datos precisos."
     },
     {
         icon: Hands,
         title: "Cercanía Local",
-        content: "Conocemos a profundidad el entorno de negocios del Ecuador, brindando un acompañamiento personalizado y directo."
+        content: "Conocemos a profundidad el entorno de negocios del Ecuador, brindándole un acompañamiento personalizado y directo."
     }
 ]
 

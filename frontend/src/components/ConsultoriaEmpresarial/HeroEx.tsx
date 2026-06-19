@@ -44,7 +44,7 @@ export const HeroEx = () => {
                 </h1>
 
                 <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full md:w-[90%] leading-relaxed">
-                    Transformamos la estructura de su organización para asegurar resiliencia, eficiencia operativa y un dominio sostenible en el mercado ecuatoriano y global.
+                    Transformamos la estructura de su organización para asegurar resiliencia, eficiencia operativa y un dominio sostenible en los mercados ecuatorianos y globales.
                 </p>
 
                 <Button texto="Agendar asesoría" estilosPersonalizados="cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-auto rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300"/>

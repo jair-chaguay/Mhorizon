@@ -73,7 +73,7 @@ export const Trayectoria = () => {
                                 Innovación Analítica
                             </h4>
                             <p className="text-gray-300 font-light leading-relaxed text-[1.05rem]">
-                                Modernizamos nuestras plataformas de análisis tributario e inteligencia financiera, garantizando a nuestros clientes confidencialidad, seguridad de datos y proyecciones fiscales de altísima precisión.
+                                Modernizamos nuestras plataformas de análisis tributario e inteligencia financiera, garantizándole a usted confidencialidad, seguridad de datos y proyecciones fiscales de altísima precisión.
                             </p>
                         </div>
                         <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-orange-500 shadow-[0_0_15px_rgba(217,128,5,0.8)] transform -translate-x-1.75 md:-translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 z-20 transition-transform group-hover:scale-150"></div>

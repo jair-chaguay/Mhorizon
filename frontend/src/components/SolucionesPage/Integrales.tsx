@@ -58,7 +58,7 @@ export const Integrales = () => {
                 </div>
 
                 <p className='mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] text-gray-300 font-light w-full md:w-[85%] leading-relaxed'>
-                    Potenciamos la arquitectura financiera de su empresa con estrategias de alto impacto, precisión técnica y visión de futuro en el mercado ecuatoriano e internacional.
+                    Potenciamos la arquitectura financiera de su empresa con estrategias de alto impacto, precisión técnica y visión de futuro en los mercados ecuatorianos e internacionales.
                 </p>
                 <Button estilosPersonalizados='cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-70 rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300 ' texto='Agendar asesoría'/>
                 

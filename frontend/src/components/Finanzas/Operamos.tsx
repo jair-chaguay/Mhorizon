@@ -52,7 +52,7 @@ export const Operamos = () => {
                             <h3 className="font-bold text-white text-[1.4rem] mb-4">
                                 Experiencia en Inteligencia Fiscal para Producción
                             </h3>
-                            <p className=" text-gray-300 text-[0.95rem] leading-relaxed">
+                            <p className=" text-gray-300 text-[0.921rem] leading-relaxed">
                                 Optimizamos la carga fiscal de sus operaciones, gestionando eficientemente el IVA, retenciones y aprovechando los incentivos vigentes.
                             </p>
                         </div>
@@ -67,7 +67,7 @@ export const Operamos = () => {
                             <h3 className="font-bold text-blue-200 text-[1.6rem] md:text-[2rem] mb-4 leading-tight">
                                 Maximización Comprobada de Márgenes Industriales
                             </h3>
-                            <p className=" text-gray-600 text-[1rem] leading-relaxed">
+                            <p className=" text-gray-600 text-[0.93rem] leading-relaxed">
                                 Sistemas avanzados de detección de ineficiencias en líneas de producción y distribución. Evaluamos y reestructuramos sus controles internos para proteger el margen de ganancia de su empresa.
                             </p>
 

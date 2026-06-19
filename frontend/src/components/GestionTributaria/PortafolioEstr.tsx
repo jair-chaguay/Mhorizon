@@ -12,28 +12,28 @@ const serviciosEstrategia: servicioEstrategia[] = [
     {
         titulo: 'Entre nuestros productos tenemos:',
         listaServicios: [
-            "Asesoría y Servicios Tributarios",
-            "Consultoría Tributaria Permanente",
+            "Asesoría y servicios tributarios",
+            "Consultoría tributaria permanente",
 
-            "Planificación Tributaria",
-            "Auditoría Tributaria",
-            "Elaboración y/o Revisión de declaraciones fiscales",
+            "Planificación tributaria",
+            "Auditoría tributaria",
+            "Elaboración y/o revisión de declaraciones fiscales",
 
-            "Conciliación Tributaria de impuesto a la renta",
+            "Conciliación tributaria de impuesto a la renta",
 
-            "Seminarios y Talleres de actualización tributaria",
+            "Seminarios y talleres de actualización tributaria",
 
             "Cumplimiento de obligaciones tributarias",
 
-            "Reclamos administrativo de Pago en Exceso o Indebido",
+            "Reclamos administrativo de pago en exceso o indebido",
 
-            "Solicitud de Devolución IVA - Exportadores",
+            "Solicitud de devolución IVA - exportadores",
 
-            "Devolución Condicionada de Tributos (Drawback)",
+            "Devolución condicionada de tributos (drawback)",
 
             "Preparación de anexos tributarios",
-            "Peticiones, Autorizaciones y Consultas al SRI",
-            "Atención a Requerimientos del SRI",
+            "Peticiones, autorizaciones y consultas al SRI",
+            "Atención a requerimientos del SRI",
 
             "Obtención y actualización del RUC"
         ]

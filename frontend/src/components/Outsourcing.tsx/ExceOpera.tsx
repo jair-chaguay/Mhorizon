@@ -12,7 +12,7 @@ export const ExceOpera = () => {
                         EXCELENCIA OPERACIONAL
                     </h2>
                     <p className="mt-4 text-gray-600 text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
-                        Enfoque toda su energía en el núcleo de su negocio mientras nuestros especialistas administran su operatividad financiera y de talento humano bajo los más altos estándares normativos.
+                        Enfoque toda su energía en el núcleo de su negocio mientras nuestros especialistas administran su operatividad financiera y de talento humano con los más altos estándares normativos.
                     </p>
                 </div>
 

@@ -77,7 +77,7 @@ export const Leaders = () => {
             </h2>
           </div>
 
-          <p className="font-light mt-6 text-[1.05rem] leading-relaxed text-gray-600">
+          <p className="font-light mt-6 text-[1.1rem] leading-relaxed text-gray-600">
             En MHORIZON traducimos la complejidad del entorno empresarial en estrategias claras. Nuestro equipo multidisciplinario combina más de dos décadas de excelencia técnica en auditoría, impuestos y finanzas corporativas.
           </p>
 

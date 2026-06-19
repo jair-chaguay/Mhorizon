@@ -20,7 +20,7 @@ export const EstructuraCard = ({ numero, title, content }: estructurasProp) => {
                 <h4 className="text-blue-200 font-bold text-[1.3rem] mb-2 leading-tight group-hover:text-orange-500">
                     {title}
                 </h4>
-                <p className="text-gray-600 text-[1.05rem] leading-relaxed">
+                <p className="text-gray-600 text-[1.1rem] leading-relaxed">
                     {content}
                 </p>
             </div>

@@ -12,8 +12,8 @@ export const HeroExCard = ({ img, title, content }: HeroProps) => {
 
             </div>
             <div>
-                <h4 className="font-bold text-[1.05rem] text-white">{title}</h4>
-                <p className="text-[0.9rem] text-gray-300 leading-relaxed mt-1">{content}</p>
+                <h4 className="font-bold text-[1.07rem] text-white">{title}</h4>
+                <p className="text-[0.99rem] text-gray-300 leading-relaxed mt-1">{content}</p>
             </div>
         </div>
     )

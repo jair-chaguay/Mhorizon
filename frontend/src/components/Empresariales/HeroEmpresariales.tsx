@@ -7,7 +7,7 @@ export const HeroEmpresariales = () => {
         <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-138.5 bg-[url('/images/EmpresarialesHero.webp')] bg-cover bg-center overflow-hidden">
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/80 to-blue-200/20"></div>
 
-            <div className="relative z-10 w-full md:w-[75%] lg:w-[60%] pt-10 reveal-element">
+            <div className="relative z-10 w-full md:w-[75%] lg:w-[60%] pt-4 reveal-element">
                 <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-2 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm">
                     ESPECIALIZACIÓN SECTORIAL
                 </p>
@@ -16,7 +16,7 @@ export const HeroEmpresariales = () => {
                     SERVICIOS EMPRESARIALES
                 </h1>
 
-                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
+                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.26rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
                     Brindamos planeación corporativa, cumplimiento normativo y outsourcing estratégico para empresas B2B, corporaciones de tecnología, sector salud y desarrollo inmobiliario.
                 </p>
 

@@ -53,7 +53,7 @@ export const TeamCard = ({ image, rol, nombre, frase, linkedin, instagram, tikto
 
                 <p className={`
                     text-gray-600 italic font-light leading-relaxed 
-                    ${compact ? "text-[0.80rem] mb-2" : "text-[0.95rem] mb-6"}
+                    ${compact ? "text-[0.78rem] mb-2" : "text-[0.95rem] mb-6"}
                 `}>
 
                     "{frase}"

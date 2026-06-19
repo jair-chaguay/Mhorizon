@@ -49,7 +49,7 @@ export const Methodology = () => {
                         <h3 className="text-white font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight">
                             Estrategia de Optimización Tributaria
                         </h3>
-                        <p className="text-gray-300 text-[1.05rem] leading-relaxed mb-6">
+                        <p className="text-gray-300 text-[1.02rem] leading-relaxed mb-6">
                             Brindamos asesoría fiscal permanente diseñada para el sector financiero. Estructuramos estrategias de optimización tributaria de alto nivel, asegurando la máxima eficiencia impositiva de sus productos financieros en estricto cumplimiento legal.
                         </p>
 
@@ -61,7 +61,7 @@ export const Methodology = () => {
                             <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                         </div>
                         <h3 className="text-blue-200 font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight group-hover:text-orange-500 transition-colors">Protección Patrimonial ante Entes de Control</h3>
-                        <p className="text-gray-600 text-[1.05rem] leading-relaxed">
+                        <p className="text-gray-600 text-[1.04rem] leading-relaxed">
                             Protegemos el patrimonio de su entidad ante los entes de control. Lideramos el acompañamiento integral en procesos de determinación con el SRI y gestionamos de manera técnica los reclamos formales y las devoluciones tributarias.
                         </p>
                     </div>

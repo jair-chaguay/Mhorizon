@@ -9,7 +9,7 @@ export const HeroOutsourcing = () => {
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent">
             </div>
 
-            <div className="relative z-10 w-full md:w-[65%] lg:w-[55%] pt-10 reveal-element">
+            <div className="relative z-10 w-full md:w-[65%] lg:w-[55%] pt-4 reveal-element">
                 <p className='inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-2 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-4 backdrop-blur-sm'>
                     GESTIÓN DELEGADA DE CLASE MUNDIAL
                 </p>
@@ -18,7 +18,7 @@ export const HeroOutsourcing = () => {
                     OUTSOURCING BPO
                 </h1>
 
-                <p className='text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full leading-relaxed drop-shadow-md text-left'>
+                <p className='text-gray-200 mt-6 text-[1.03rem] sm:text-[1.12rem] md:text-[1.18rem] w-full leading-relaxed drop-shadow-md text-left'>
                     Potenciamos la eficiencia de su back-office contable y financiero. Garantizamos el estricto cumplimiento ante el SRI, IESS y el Ministerio del Trabajo, optimizando sus recursos corporativos con tecnología de punta.
                 </p>
 

@@ -16,7 +16,7 @@ export const Confianza = () => {
                             </h2>
                         </div>
                         <p className="mt-6 text-blue-200/80  text-[1.1rem] leading-relaxed">
-                            MHORIZON ECUADOR se consolida como el aliado estratégico de las corporaciones más dinámicas del país. Entendemos que en el entorno empresarial actual, el rigor técnico y la innovación no son opcionales, son el estándar.
+                            MHORIZON ECUADOR se consolida como su aliado estratégico y el de las corporaciones más dinámicas del país. Entendemos que en el entorno empresarial actual, el rigor técnico y la innovación no son opcionales, son el estándar.
                         </p>
                     </div>
 

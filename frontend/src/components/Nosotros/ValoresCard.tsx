@@ -15,7 +15,7 @@ export const ValoresCard = ({icon: Icon, title, content}: valoresProps) => {
             <h3 className="font-bold text-[1.25rem] text-blue-200 mb-4 uppercase tracking-tight">
                 {title}
             </h3>
-            <p className="text-gray-600 text-[0.95rem] leading-relaxed">
+            <p className="text-gray-600 text-[0.915rem] leading-relaxed">
                 {content}    
             </p>
         </div>

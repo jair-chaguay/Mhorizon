@@ -12,14 +12,14 @@ const serviciosOutsourcing: servicioOutsourcing[] = [
     {
         titulo: 'Entre nuestros productos tenemos:',
         listaServicios: [
-            "Servicios de Outsourcing Contable y Nómina",
-            "Elaboración y análisis de Estados financieros",
+            "Servicios de outsourcing contable y nómina",
+            "Elaboración y análisis de estados financieros",
             "Preparación de nómina general y confidencial",
             "Implementación de políticas contables",
             "Elaboración de presupuestos y flujos de caja",
             "Diseño y evaluación de controles internos operativos",
             "Capacitación contable y financiera",
-            "Toma física de Inventarios y Activos Fijos"
+            "Toma física de inventarios y activos fijos"
         ]
     }
 ]
