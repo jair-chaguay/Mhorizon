@@ -25,8 +25,8 @@ export const TeamCard = ({ image, rol, nombre, frase, linkedin, instagram, tikto
                     : "h-80 md:h-auto"
                 }
             `}>
-                <img className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform opacity-90
-                    duration-700 group-hover:opacity-100"
+                <img loading="lazy" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform opacity-90
+                    duration-500 group-hover:opacity-100"
                     alt={nombre} src={`/images/${image}`} />
                 <div className="absolute inset-0 bg-linear-to-t from-blue-200 via-blue-200/20 to-transparent opacity-60"></div>
             </div>

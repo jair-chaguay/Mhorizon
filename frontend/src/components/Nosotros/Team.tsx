@@ -15,7 +15,7 @@ interface TeamProp {
 
 const teams: TeamProp[] = [
     {
-        image: "Milton_Montece.png",
+        image: "Milton_Montece.webp",
         rol: "PARTNER MANAGER",
         nombre: "MILTON MONTECÉ Q.",
         linkedin: "https://ec.linkedin.com/in/milton-montec%C3%A9-94283029",
@@ -25,7 +25,7 @@ const teams: TeamProp[] = [
         frase: "Nuestra misión es ser el faro que guía a las empresas hacia la estabilidad y el crecimiento sostenible mediante una correcta planificación tributaria."
     },
     {
-        image: "Violeta_Rodriguez.png",
+        image: "Violeta_Rodriguez.webp",
         rol: "TAX PARTNER",
         nombre: "VIOLETA RODRIGUEZ",
         email:"vrodriguez@mhorizon.com.ec",
@@ -33,14 +33,14 @@ const teams: TeamProp[] = [
         frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
     },
     {
-        image: "Gary.png",
+        image: "Gary.webp",
         rol: "SENIOR OUTSOURCING",
         nombre: "GARY SANCHEZ",
         email:"gsanchez@mhorizon.com.ec",
         frase: "Asumimos el control de su back-office con absoluto rigor técnico, permitiendo que su corporación escale operaciones sin fricciones administrativas."
     },
     {
-        image: "Marcos_Nunez.png",
+        image: "Marcos_Nunez.webp",
         rol: "TAX SENIOR",
         nombre: "MARCOS NUÑEZ",
         email:"mnunez@mhorizon.com.ec",
@@ -48,7 +48,7 @@ const teams: TeamProp[] = [
         frase: "Transformamos la complejidad normativa en estrategias claras. Nuestra prioridad es blindar el patrimonio corporativo mediante una eficiencia fiscal impecable."
     },
     {
-        image: "Sandra_Sarmiento.png",
+        image: "Sandra_Sarmiento.webp",
         rol: "RRHH",
         nombre: "SANDRA SARMIENTO",
         email:"ssarmiento@mhorizon.com.ec",

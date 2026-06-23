@@ -33,8 +33,8 @@ export const Trayectoria = () => {
 
                         <div className="md:w-[45%] w-full pl-12 md:pl-12 order-1 md:order-2">
                             <div className="overflow-hidden rounded-xl border border-white/10 shadow-2xl">
-                                <img className="w-full h-full object-cover  transition-transform duration-700 group-hover:scale-110 opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 grayscale group-hover:grayscale-0 group-hover:opacity-100 "
-                                    alt="Oficinas Guayaquil" src="/images/Consolidacion.jpeg"
+                                <img className="w-full h-full object-cover  transition-transform duration-300 group-hover:scale-110 opacity-80 mix-blend-luminosity hover:mix-blend-normal hover:opacity-100 grayscale group-hover:grayscale-0 group-hover:opacity-100 "
+                                    alt="Oficinas Guayaquil" src="/images/Consolidacion.webp"
                                 />
                                 <div className="absolute inset-0 bg-blue-200/40 group-hover:bg-transparent transition-colors duration-500"></div>
                             </div>
@@ -56,10 +56,10 @@ export const Trayectoria = () => {
 
                         <div className="md:w-[45%] w-full pl-12 md:pl-0 pr-0 md:pr-12 order-1">
                             <div className="overflow-hidden rounded-xl border border-white/10 shadow-2xl">
-                                <img className="w-full h-72 object-cover grayscale opacity-70 
+                                <img loading='lazy' className="w-full h-72 object-cover grayscale opacity-70 
                                     group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 
                                     group-hover:scale-105" alt="Reunión Corporativa"
-                                    src="/images/ExpansionServicios.jpeg"
+                                    src="/images/ExpansionServicios.webp"
                                 />
                                 <div className="absolute inset-0 bg-blue-200/40 group-hover:bg-transparent transition-colors duration-500"></div>
 
@@ -80,10 +80,10 @@ export const Trayectoria = () => {
 
                         <div className="md:w-[45%] w-full pl-12 md:pl-12 order-1 md:order-2">
                             <div className="rounded-xl overflow-hidden border border-white/10 shadow-2xl relative aspect-video">
-                                <img className="w-full h-72 object-cover grayscale opacity-70 
+                                <img loading='lazy' className="w-full h-72 object-cover grayscale opacity-70 
                                     group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 
                                     group-hover:scale-105" alt="Tecnología Financiera"
-                                    src="/images/InnovacionAnalitica.jpeg"
+                                    src="/images/InnovacionAnalitica.webp"
                                 />
                                 <div className="absolute inset-0 bg-blue-200/40 group-hover:bg-transparent transition-colors duration-500"></div>
                             </div>
