@@ -32,7 +32,6 @@ export const Nav = ({ mobile = false }: NavProps) => {
               : "flex gap-10 text-white text-[15px] font-medium items-center tracking-wide"
           }
         >
-          {/* Item 1: Soluciones */}
           <li className={mobile ? "relative w-full border-b border-white/10" : "relative group py-2"}>
             <div
               className={`flex items-center cursor-pointer transition-colors duration-300 hover:text-orange-500 
@@ -104,10 +103,6 @@ export const Nav = ({ mobile = false }: NavProps) => {
             </div>
           </li>
 
-          <li className={`w-full hover:text-orange-500 transition-colors duration-300 ${mobile ? 'py-4 border-b border-white/10' : 'py-4'} ${isActive('/novedades') ? 'text-orange-500' : ''}`}>
-            <Link to="/novedades" className="block w-full">INFORMATIVOS</Link>
-          </li>
-
           <li className={mobile ? "relative w-full border-b border-white/10" : "relative group py-4"}>
             <div
               className={`flex items-center cursor-pointer transition-colors duration-300 hover:text-orange-500 
@@ -140,6 +135,10 @@ export const Nav = ({ mobile = false }: NavProps) => {
                 <li><Link to="/soluciones/sistema-normativo" className={`${isActive('/soluciones/sistema-normativo') ? 'text-orange-500 bg-orange-50' : ''} ${mobile ? "hover:text-orange-500 transition-colors block py-1" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}`}>Sistema Normativo</Link></li>
               </ul>
             </div>
+          </li>
+
+          <li className={`w-full hover:text-orange-500 transition-colors duration-300 ${mobile ? 'py-4 border-b border-white/10' : 'py-4'} ${isActive('/novedades') ? 'text-orange-500' : ''}`}>
+            <Link to="/novedades" className="block w-full">INFORMATIVOS</Link>
           </li>
 
           <li className={`w-full hover:text-orange-500 transition-colors duration-300 ${mobile ? 'py-4 mb-2' : 'py-4'} ${isActive('/nosotros') ? 'text-orange-500' : ''}`}>
