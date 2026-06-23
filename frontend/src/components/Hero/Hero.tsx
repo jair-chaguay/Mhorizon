@@ -3,7 +3,7 @@ import { ScrollReveal } from "../ScrollReveal";
 
 export const Hero = () => {
   return (
-<ScrollReveal as={"section"} className="-mt-px relative min-h-130 md:h-130.5 overflow-hidden flex items-center bg-[url('/images/HomeHero.webp')] bg-cover bg-center overflow-hidden">      
+    <ScrollReveal as={"section"} className="-mt-px relative min-h-130 md:h-131 overflow-hidden flex items-center bg-[url('/images/HomeHero.webp')] bg-cover bg-center overflow-hidden">
 
 
       <div className="absolute w-full h-full inset-0 bg-linear-to-r from-blue-200/95 from-0% via-blue-200/70 via-35% to-transparent to-70% z-0"></div>
@@ -22,8 +22,7 @@ export const Hero = () => {
         </p>
 
         <div className="flex gap-4 sm:gap-7 items-center">
-          <Button texto="AGENDAR ASESORÍA" estilosPersonalizados="bg-orange-500 cursor-pointer text-white text-[0.95rem] sm:text-[1.05rem] font-bold tracking-wider uppercase px-8 py-4 shadow-2xl rounded-sm w-full sm:w-auto transition-all hover:bg-white hover:text-orange-600 duration-300"/>
-            
+          <Button texto="AGENDAR ASESORÍA" estilosPersonalizados="bg-orange-500 cursor-pointer text-white text-[0.95rem] sm:text-[1.05rem] font-bold tracking-wider uppercase px-8 py-4 shadow-2xl rounded-sm w-full sm:w-auto transition-all hover:bg-white hover:text-orange-600 duration-300" />
         </div>
       </div>
     </ScrollReveal>

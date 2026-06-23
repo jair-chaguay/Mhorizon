@@ -18,7 +18,7 @@ const leadersProp: LeaderProps[] = [
   {
     name: 'Milton Montecé Q.',
     cargo: 'Partner Manager',
-    urlImg: 'images/Milton_Montece.png',
+    urlImg: 'images/Milton_Montece.webp',
     link: 'https://ec.linkedin.com/in/milton-montec%C3%A9-94283029',
     tiktok: 'https://www.tiktok.com/@milton_montece',
     tiktokUser: '@milton_montece', 
@@ -29,7 +29,7 @@ const leadersProp: LeaderProps[] = [
   {
     name: 'Violeta Rodriguez',
     cargo: 'Tax Partner',
-    urlImg: 'images/Violeta_Rodriguez.png',
+    urlImg: 'images/Violeta_Rodriguez.webp',
     link: 'https://ec.linkedin.com/in/violeta-rodriguez-35a658a1',
     email: "vrodriguez@mhorizon.com.ec"
   },

@@ -3,7 +3,7 @@ import { ScrollReveal } from "../ScrollReveal"
 export const Eslogan = () => {
   return (
     <ScrollReveal>
-      <section className="bg-orange-500 py-2 relative z-20 shadow-xl reveal-element">
+      <section className="-mt-1 bg-orange-500 py-2 relative z-20 shadow-xl reveal-element">
             <div className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-white/20">
                     <div className="px-4">
