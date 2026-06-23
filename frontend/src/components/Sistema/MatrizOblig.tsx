@@ -46,7 +46,7 @@ export const MatrizOblig = () => {
                         </thead>
                         <tbody>
                             <tr className={trClasses}>
-                                <td rowSpan={15} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>MENSUAL</td>
+                                <td rowSpan={10} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>MENSUAL (SRI)</td>
                                 <td className={tdClasses}>Declaración del IVA</td>
                                 <td className={tdClasses}>SRI</td>
                                 <td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td>
@@ -57,15 +57,23 @@ export const MatrizOblig = () => {
                             <tr className={trClasses}><td className={tdClasses}>Anexo Transaccional Simplificado (ATS)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes subsiguiente (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Anexo Impuesto Consumos Especiales</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Anexo Impuesto Redimible a las Botellas Plásticas</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Pago de aportes al IESS</td><td className={tdClasses}>IESS</td><td className={`${tdClasses} text-sm`}>Hasta el día 15 del mes siguiente</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Fondos de reserva</td><td className={tdClasses}>IESS</td><td className={`${tdClasses} text-sm`}>Hasta el día 15 del mes siguiente</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>ICE (Impuesto a los Consumos Especiales - ICE)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>ISD (Impuesto a la Salida de Divisas)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Impuesto a los Activos en el Exterior</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente </td></tr>
 
-                            <tr className={trClasses}><td className={tdClasses}>Reporte Operaciones Inusuales Injustificadas (ROI)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente </td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Reporte Operaciones Iguales o Superiores al Umbral Legal</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente </td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Reporte Ventas a Crédito</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mes siguiente </td></tr>
+                            <tr className={trClasses}>
+                                <td rowSpan={2} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>MENSUAL (IESS)</td>
+                                <td className={tdClasses}>Pago de aportes al IESS</td><td className={tdClasses}>IESS</td><td className={`${tdClasses} text-sm`}>Hasta el día 15 del mes siguiente</td>
+                            </tr>                            
+                            <tr className={trClasses}><td className={tdClasses}>Fondos de reserva</td><td className={tdClasses}>IESS</td><td className={`${tdClasses} text-sm`}>Hasta el día 15 del mes siguiente</td></tr>
+                            
+
+                            <tr className={trClasses}>
+                                <td rowSpan={3} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>MENSUAL (Control / Reportes)</td>
+                                <td className={tdClasses}>Reporte Operaciones Inusuales Injustificadas (ROI)</td><td className={tdClasses}>UAFE</td><td className={`${tdClasses} text-sm`}>Mes siguiente </td>
+                            </tr> 
+                            <tr className={trClasses}><td className={tdClasses}>Reporte Operaciones Iguales o Superiores al Umbral Legal</td><td className={tdClasses}>UAFE</td><td className={`${tdClasses} text-sm`}>Mes siguiente </td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Reporte Ventas a Crédito</td><td className={tdClasses}>DINARDAP</td><td className={`${tdClasses} text-sm`}>Mes siguiente </td></tr>
                             
                             <tr className={trClasses}>
                                 <td rowSpan={4} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>SEMESTRAL</td>
@@ -78,22 +86,27 @@ export const MatrizOblig = () => {
                             <tr className={trClasses}><td className={tdClasses}>Anexo Transaccional Simplificado - ATS (RIMPE)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Enero y Julio (Según 9no dígito)</td></tr>
 
                             <tr className={trClasses}>
-                                <td rowSpan={12} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>
+                                <td rowSpan={15} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>
                                     ANUAL<br /><span className="font-normal text-xs">(SRI)</span>
                                 </td>
-                                <td className={tdClasses}>Declaración de IR personas naturales</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Marzo (Según 9no dígito)</td>
+                                <td className={tdClasses}>Anexo de Precios de Venta al Público (ICE - PVP)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Enero (Según 9no dígito)</td>
                             </tr>
-                            <tr className={trClasses}><td className={tdClasses}>Declaración de IR sociedades</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Abril (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Declaración de IR personas naturales Régimen RIMPE</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mayo (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Anexo de gastos personales</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Febrero (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Anexo de accionistas (APS)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Febrero (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Anexo de Gastos Personales</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Febrero (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Reporte Beneficiarios Finales y Composición Societaria (REBEFICS)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Febrero (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Anexo RDEP (relación de dependencia)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Febrero (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Anexo de Operaciones y Transacciones Económicas Financieras (ROTEF)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Febrero (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Declaración de Impuesto a la Renta (Personas Naturales)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Marzo (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Declaración de Impuesto a la Renta (Sociedades)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Abril (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Impuesto a la Salida de Divisas - ISD Tarjetas de Crédito</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Abril (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Declaración de Impuesto a la Renta (Personas Naturales Régimen RIMPE anual)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mayo (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Anexo de Dividendos (ADI)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mayo (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Declaración Patrimonial Personas Naturales</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mayo (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Anexo de Operaciones con partes relacionadas</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Junio (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Informe de Precios de Transferencia</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Junio (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Declaración Patrimonial Personas Naturales</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Mayo (Según 9no dígito)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Impuesto a la Salida de Divisas Exportaciones - ISD Presuntivo</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Julio (Según 9no dígito)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Declaración del Pago a cuenta sobre utilidades no distribuidas</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Agosto (Según 9no dígito)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>ISD (Impuesto a la Salida de Divisas)</td><td className={tdClasses}>SRI</td><td className={`${tdClasses} text-sm`}>Abril (Junto a declaración de Renta)</td></tr>
+
+
 
                             <tr className={trClasses}>
                                 <td rowSpan={2} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>
@@ -110,21 +123,21 @@ export const MatrizOblig = () => {
                                 <td className={tdClasses}>Patente municipal</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Mayo</td>
                             </tr>
                             <tr className={trClasses}><td className={tdClasses}>Impuesto 1.5 por mil sobre activos</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Mayo</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Impuesto predial urbano</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Hasta Junio (Con descuentos iniciales)</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Impuesto predial rural</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Junio</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Tasa de habilitación / LUAE</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Mayo</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Permiso de funcionamiento</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Mayo</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Tasa de bomberos</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Mayo</td></tr>
-                            <tr className={trClasses}><td className={tdClasses}>Impuesto a la publicidad exterior</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Octubre</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Impuesto predial urbano</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Hasta Junio (Con descuentos iniciales)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Impuesto predial rural</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Junio</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Tasa Municipal por publicidad exterior</td><td className={tdClasses}>Municipio</td><td className={`${tdClasses} text-sm`}>Octubre</td></tr>
 
                             <tr className={trClasses}>
                                 <td rowSpan={3} className={`${tdClasses} font-bold text-center align-middle bg-gray-100`}>
                                     ANUAL<br /><span className="font-normal text-xs">(Laborales)</span>
                                 </td>
-                                <td className={tdClasses}>Décimo tercer sueldo</td><td className={tdClasses}>MDT</td><td className={`${tdClasses} text-sm`}>Hasta el 24 de Diciembre</td>
+                                <td className={tdClasses}>Décimo cuarto sueldo</td><td className={tdClasses}>MDT</td><td className={`${tdClasses} text-sm`}>15 de Marzo (Costa) / 15 de Agosto (Sierra)</td>
                             </tr>
-                            <tr className={trClasses}><td className={tdClasses}>Décimo cuarto sueldo</td><td className={tdClasses}>MDT</td><td className={`${tdClasses} text-sm`}>15 de Marzo (Costa) / 15 de Agosto (Sierra)</td></tr>
                             <tr className={trClasses}><td className={tdClasses}>Participación de utilidades (15%)</td><td className={tdClasses}>MDT</td><td className={`${tdClasses} text-sm`}>Hasta el 15 de Abril (Pago)</td></tr>
+                            <tr className={trClasses}><td className={tdClasses}>Décimo tercer sueldo</td><td className={tdClasses}>MDT</td><td className={`${tdClasses} text-sm`}>Hasta el 24 de Diciembre</td></tr>
                         </tbody>
                     </table>
                 </div>

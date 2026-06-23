@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('usuario_id')->constrained('usuarios')->onDelete('cascade');
             $table->enum('tipo_impuesto', [
                 //mensuales
-                'IVA (MENSUAL)',
-                'RETENCIONES FUENTE IR (MENSUAL)',
+                'DECLARACIÓN DEL IVA',
+                'DECLARACIÓN DE RETENCIONES EN LA FUENTE DEL IR',
                 'DECLARACIÓN DE AUTORETENCIONES EN LA FUENTE DEL IR',
                 'DECLARACIÓN DEL IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS',
                 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (MENSUAL)',
@@ -34,9 +34,9 @@ return new class extends Migration
                 'REPORTE VENTAS A CRÉDITO',
                 
                 //SEMESTRALES
-                'IVA (RÉGIMEN RIMPE)',  
-                'IMPUESTO A LA RENTA (RÉGIMEN RIMPE SEMESTRAL)',
-                'RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)',
+                'DECLARACIÓN DEL IVA (RÉGIMEN RIMPE)',  
+                'DECLARACIÓN DE IMPUESTO A LA RENTA (RÉGIMEN RIMPE)',
+                'DECLARACIÓN DE RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)',
                 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (RÉGIMEN RIMPE)',
 
                 //ANUALES
@@ -45,15 +45,15 @@ return new class extends Migration
                 'REPORTE BENEFICIARIOS FINALES Y COMPOSICIÓN SOCIETARIA (REBEFICS)',
                 'ANEXO DE RELACION DE DEPENDENCIA (RDEP)',
                 'ANEXO DE OPERACIONES Y TRANSACCIONES ECONÓMICAS FINANCIERAS (ROTEF)',
-                'IMPUESTO A LA RENTA (PERSONAS NATURALES)',
+                'DECLARACIÓN DE IMPUESTO A LA RENTA (PERSONAS NATURALES)',
                 'DÉCIMO CUARTO SUELDO (COSTA)',
                 'DÉCIMO CUARTO SUELDO (SIERRA)',
-                'IMPUESTO A LA RENTA (SOCIEDADES)',    
+                'DECLARACIÓN DE IMPUESTO A LA RENTA (SOCIEDADES)',    
                 'IMPUESTO A LA SALIDA DE DIVISAS - ISD TARJETAS DE CRÉDITO',
-                'IMPUESTO A LA SALIDA DE DIVISAS - ISD PRESUNTIVO',
-                'PRESENTACIÓN ESTADOS FINANCIEROS',
+                'IMPUESTO A LA SALIDA DE DIVISAS EXPORTACIONES - ISD PRESUNTIVO',
+                'PRESENTACIÓN DE ESTADOS FINANCIEROS',
                 'PARTICIPACIÓN DE UTILIDADES (15%)',
-                'IMPUESTO A LA RENTA (PERSONAS NATURALES RÉGIMEN RIMPE ANUAL)',
+                'DECLARACIÓN DE IMPUESTO A LA RENTA (PERSONAS NATURALES RÉGIMEN RIMPE ANUAL)',
                 'ANEXO DE DIVIDENDOS (ADI)',
                 'DECLARACIÓN PATRIMONIAL PERSONAS NATURALES',
                 'PATENTE MUNICIPAL',
