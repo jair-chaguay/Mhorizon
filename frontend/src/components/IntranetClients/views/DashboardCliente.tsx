@@ -4,6 +4,8 @@ import { type ViewClienteID } from '../type';
 import { ScrollReveal } from '../../ScrollReveal';
 import api from '../../../api/axios';
 
+import Score from '../modals/Score';
+
 interface Props {
     onNavigate: (viewId: ViewClienteID, title: string) => void;
 }
@@ -15,7 +17,8 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
     const [declaracion, setDeclaracion] = useState<string>('Cargando...');
     const [vence, setVence] = useState<string>('Cargando...');
     const [loading, setLoading] = useState<boolean>(true);
-    
+    const [isScoreOpen, setIsScoreOpen] = useState(false);
+
     // Estados para la biblioteca dinámica
     const [carpetasActuales, setCarpetasActuales] = useState<any[]>([]);
     const [ultimosArchivos, setUltimosArchivos] = useState<any[]>([]);
@@ -173,7 +176,11 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
                             <div className="overflow-hidden">
                                 <p className="text-[0.75rem] text-gray-500 font-bold uppercase tracking-widest leading-none mb-1">Score Tributario</p>
                                 <p className="text-sm font-semibold text-gray-700">Estado: {getScoreStatus()}</p>
-                                <p className="text-xs text-gray-500">Calculado con catastro tributario.</p>
+                                <button 
+                                    onClick={()=> setIsScoreOpen(true)}
+                                    className='bg-blue-200 hover:bg-orange-500 transition-colors duration-300 cursor-pointer py-1 px-3 rounded-sm  mt-2 text-white'>
+                                        Calificar
+                                </button>
                             </div>
                         </div>
 
@@ -256,6 +263,11 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
                     </div>
                 </div>
             </div>
+
+
+            {isScoreOpen && (
+                <Score onClose={()=>setIsScoreOpen(false)}/>
+            )}
         </ScrollReveal>
     );
 };

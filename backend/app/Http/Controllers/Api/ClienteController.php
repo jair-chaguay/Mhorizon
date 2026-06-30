@@ -207,4 +207,67 @@ class ClienteController extends Controller
             ], 500);
         }
     }
+
+    public function evaluarScore(Request $request, $id){
+        $request->validate([
+            'respuestas' => 'required|array|size:5',
+            'respuestas.*.pregunta_id' => 'required|exists:preguntas_score,id',
+            'respuestas.*.valor' => 'required|integer|min:1|max:5',
+        ]);
+
+        $cliente = Cliente::find($id);
+        
+        if (!$cliente) {
+            return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
+        }
+
+        $scoreTotal = 0;
+        $detalleRespuestas = [];
+
+        foreach ($request->respuestas as $respuesta) {
+            $pregunta = DB::table('preguntas_score')->where('id', $respuesta['pregunta_id'])->first();
+            
+            $puntosObtenidos = ($respuesta['valor'] / 5) * $pregunta->peso_maximo;
+            
+            $scoreTotal += $puntosObtenidos;
+
+            $detalleRespuestas[] = [
+                'pregunta_id' => $pregunta->id,
+                'enunciado' => $pregunta->enunciado,
+                'peso_maximo' => $pregunta->peso_maximo,
+                'valor_seleccionado' => $respuesta['valor'],
+                'puntos_obtenidos' => $puntosObtenidos
+            ];
+        }
+
+        DB::beginTransaction();
+        try {
+            DB::table('evaluaciones_score')->insert([
+                'cliente_id' => $cliente->id,
+                'score_total' => $scoreTotal,
+                'detalle_respuestas' => json_encode($detalleRespuestas),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            $cliente->score_tributario = $scoreTotal;
+            $cliente->save();
+
+            DB::commit();
+
+            return response()->json([
+                'message' => 'Score calculado y actualizado exitosamente',
+                'nuevo_score' => $scoreTotal,
+                'status' => 200
+            ], 200);
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'message' => 'Error al guardar el score', 
+                'error' => $e->getMessage(),
+                'status' => 500
+            ], 500);
+        }
+    }
 }

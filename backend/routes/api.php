@@ -67,6 +67,8 @@ Route::post('/obligacion', [ObligacionController::class, 'store']);
 Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstado']);
 Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
 
+Route::get('/preguntas-score', [PreguntaScoreController::class, 'obtenerPreguntas']);
+Route::post('/clientes/{id}/evaluar-score', [ClienteController::class, 'evaluarScore']);
 
 Route::post('/informativo', [InformativoController::class, 'store']);
 Route::put('/informativo/{id}', [InformativoController::class, 'update']);
