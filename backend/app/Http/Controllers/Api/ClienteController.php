@@ -225,7 +225,7 @@ class ClienteController extends Controller
         $detalleRespuestas = [];
 
         foreach ($request->respuestas as $respuesta) {
-            $pregunta = DB::table('pregunta_score')->where('id', $respuesta['pregunta_id'])->first();
+            $pregunta = DB::table('pregunta_scores')->where('id', $respuesta['pregunta_id'])->first();
             
             $puntosObtenidos = ($respuesta['valor'] / 5) * $pregunta->peso_maximo;
             
