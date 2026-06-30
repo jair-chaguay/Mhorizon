@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom"; 
 import api from '../../../api/axios'; 
 
 interface Pregunta {
@@ -66,11 +67,11 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
 
     const todasRespondidas = preguntas.length > 0 && Object.keys(respuestas).length === preguntas.length;
 
-    return (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex justify-center items-center p-4 transition-opacity duration-300 overflow-y-auto">
+    const modalContent = (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-100 flex justify-center items-center p-4 transition-opacity duration-300 overflow-y-auto">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-8 relative my-8">
                 
-                <button onClick={onClose} type="button" className="absolute top-5 right-5 text-gray-400 hover:text-orange-500 transition-colors">
+                <button onClick={onClose} type="button" className="cursor-pointer absolute top-5 right-5 text-gray-400 hover:text-orange-500 transition-colors">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
@@ -95,7 +96,7 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
                         <div className="space-y-6 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
                             {preguntas.map((pregunta, index) => (
                                 <div key={pregunta.id} className="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                                    <p className="font-semibold text-blue-900 mb-3 text-sm">
+                                    <p className="font-semibold text-blue-200 mb-3 text-sm">
                                         {index + 1}. {pregunta.enunciado}
                                     </p>
                                     <div className="flex gap-2 sm:gap-4 justify-center sm:justify-start">
@@ -139,6 +140,8 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
             </div>
         </div>
     );
+
+    return ReactDOM.createPortal(modalContent, document.body);
 }
 
 export default Score;
