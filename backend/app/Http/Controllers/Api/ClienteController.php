@@ -211,7 +211,7 @@ class ClienteController extends Controller
     public function evaluarScore(Request $request, $id){
         $request->validate([
             'respuestas' => 'required|array|size:5',
-            'respuestas.*.pregunta_id' => 'required|exists:pregunta_score,id',
+            'respuestas.*.pregunta_id' => 'required|exists:pregunta_scores,id',
             'respuestas.*.valor' => 'required|integer|min:1|max:5',
         ]);
 
