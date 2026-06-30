@@ -19,18 +19,11 @@ return new class extends Migration
             $table->timestamps();
         });
         DB::table('pregunta_scores')->insert([
-            [ "enunciado" => "Milton", "peso_maximo" => "20"],
-            [ "enunciado" => "Marcos", "peso_maximo" => "30"],
-            [ "enunciado" => "Richard", "peso_maximo" => "40"],
-            [ "enunciado" => "Milton", "peso_maximo" => "10"],
-            [ "enunciado" => "Marcos", "peso_maximo" => "20"],
-            [ "enunciado" => "Richard", "peso_maximo" => "15"],
-            [ "enunciado" => "Milton", "peso_maximo" => "30"],
-            [ "enunciado" => "Marcos", "peso_maximo" => "42"],
-            [ "enunciado" => "Richard", "peso_maximo" => "25"],
-            [ "enunciado" => "Milton", "peso_maximo" => "15"],
-            [ "enunciado" => "Marcos", "peso_maximo" => "10"],
-            [ "enunciado" => "Richard", "peso_maximo" => "5"],
+            [ "enunciado" => "Pregunta 1", "peso_maximo" => "20"],
+            [ "enunciado" => "Pregunta 2", "peso_maximo" => "30"],
+            [ "enunciado" => "Pregunta 3", "peso_maximo" => "20"],
+            [ "enunciado" => "Pregunta 4", "peso_maximo" => "10"],
+            [ "enunciado" => "Pregunta 5", "peso_maximo" => "20"]
         ]);
     }
 

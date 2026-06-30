@@ -10,7 +10,6 @@ class PreguntaScoreController extends Controller
 {
     public function obtenerPreguntas(){
         $preguntas = PreguntaScore::where('activa', true)
-                                ->inRandomOrder()
                                 ->limit(5)
                                 ->get();
         return response()->json([
