@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { type ViewClienteID } from '../type';
 import { ScrollReveal } from '../../ScrollReveal';
 import api from '../../../api/axios';
@@ -19,7 +19,9 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
     const [loading, setLoading] = useState<boolean>(true);
     const [isScoreOpen, setIsScoreOpen] = useState(false);
 
-    // Estados para la biblioteca dinámica
+    const [clienteId, setClienteId] = useState<number | null>(null);
+    const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
+
     const [carpetasActuales, setCarpetasActuales] = useState<any[]>([]);
     const [ultimosArchivos, setUltimosArchivos] = useState<any[]>([]);
 
@@ -31,13 +33,16 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
             const userStr = localStorage.getItem('user');
             if (!userStr) return;
             const user = JSON.parse(userStr);
-            const clienteId = user.cliente_id;
-            if (!clienteId) return;
+            const currentClienteId = user.cliente_id;
+            
+            if (!currentClienteId) return;
+            
+            setClienteId(currentClienteId); // Guardamos el ID en el estado
 
             try {
                 setLoading(true);
                 
-                const clienteRes = await api.get(`/cliente/${clienteId}`);
+                const clienteRes = await api.get(`/cliente/${currentClienteId}`);
                 const scoreReal = clienteRes.data.cliente.score_tributario || 0;
                 setScore(scoreReal);
 
@@ -46,7 +51,7 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
                     setGaugeOffset(offset);
                 }, 100);
 
-                const obligacionRes = await api.get(`/cliente/${clienteId}/obligaciones`);
+                const obligacionRes = await api.get(`/cliente/${currentClienteId}/obligaciones`);
                 const obligaciones = obligacionRes.data.obligaciones || [];
 
                 const pendientes = obligaciones
@@ -78,7 +83,7 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
                     setDays('-');
                 }
 
-                const arbolRes = await api.get(`/biblioteca/arbol/${clienteId}`);
+                const arbolRes = await api.get(`/biblioteca/arbol/${currentClienteId}`);
                 const tree = arbolRes.data.biblioteca || [];
 
                 const currentYear = new Date().getFullYear().toString();
@@ -115,7 +120,7 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
         };
 
         fetchDashboardData();
-    }, []);
+    }, [refreshTrigger]); // <-- Se volverá a ejecutar si refreshTrigger cambia
 
     const getScoreStatus = () => {
         if (score >= 80) return <span className="text-emerald-600">Óptimo</span>;
@@ -129,6 +134,10 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
         { bg: 'bg-amber-50', border: 'border-amber-100', text: 'text-amber-700', textDark: 'text-amber-900' },
         { bg: 'bg-purple-50', border: 'border-purple-100', text: 'text-purple-700', textDark: 'text-purple-900' }
     ];
+
+    const handleScoreActualizado = useCallback(() => {
+        setRefreshTrigger(prev => prev + 1);
+    }, []);
 
     return (
         <ScrollReveal>
@@ -265,8 +274,11 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
             </div>
 
 
-            {isScoreOpen && (
-                <Score onClose={()=>setIsScoreOpen(false)}/>
+            {isScoreOpen && clienteId !== null && (
+                <Score onClose={()=>setIsScoreOpen(false)}
+                clienteId={clienteId}
+                    onScoreActualizado={handleScoreActualizado}/>
+                
             )}
         </ScrollReveal>
     );
