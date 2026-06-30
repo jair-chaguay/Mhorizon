@@ -105,7 +105,7 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
                                             return (
                                                 <label 
                                                     key={numero} 
-                                                    className={`cursor-pointer w-10 h-10 flex items-center justify-center rounded-full border-2 transition-all duration-200 ${
+                                                    className={`cursor-pointer w-8 h-8 text-[12px] flex items-center justify-center rounded-full border-2 transition-all duration-200 ${
                                                         estaSeleccionada 
                                                         ? "border-orange-500 bg-orange-500 text-white shadow-md transform scale-110" 
                                                         : "border-gray-200 text-gray-500 hover:border-orange-300 hover:bg-orange-50"
@@ -124,8 +124,11 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
                                             )
                                         })}
                                     </div>
+                                   
                                 </div>
                             ))}
+                             <label className="mb-2.5 text-sm font-medium">Escribe tu recomendación</label>
+                            <textarea name="" id="" placeholder="Escribe tu recomendación" ></textarea>
                         </div>
 
                         <button

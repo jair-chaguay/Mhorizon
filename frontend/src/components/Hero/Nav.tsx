@@ -131,7 +131,6 @@ export const Nav = ({ mobile = false }: NavProps) => {
                   : "bg-white text-blue-200 shadow-xl rounded-md overflow-hidden flex flex-col border border-gray-100"
               }>
                 <li><Link to="/calculadora" className={`${isActive('/calculadora') ? 'text-orange-500 bg-orange-50' : ''} ${mobile ? "hover:text-orange-500 transition-colors block py-1" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}`}>Calculadora</Link></li>
-                {/* Se mantuvo la ruta original de sistema normativo para no romper tus enlaces */}
                 <li><Link to="/soluciones/sistema-normativo" className={`${isActive('/soluciones/sistema-normativo') ? 'text-orange-500 bg-orange-50' : ''} ${mobile ? "hover:text-orange-500 transition-colors block py-1" : "block px-5 py-4 text-[0.85rem] hover:bg-orange-50 hover:text-orange-500 transition-colors font-medium border-b border-gray-50 uppercase tracking-wide"}`}>Sistema Normativo</Link></li>
               </ul>
             </div>
@@ -144,6 +143,10 @@ export const Nav = ({ mobile = false }: NavProps) => {
           <li className={`w-full hover:text-orange-500 transition-colors duration-300 ${mobile ? 'py-4 mb-2' : 'py-4'} ${isActive('/nosotros') ? 'text-orange-500' : ''}`}>
             <Link to="/nosotros" className="block w-full">NOSOTROS</Link>
           </li>
+
+          <a href="https://prueba2.miltonmontece.com/" target="_blank" className="w-full hover:text-[#4DA09C] transition-colors duration-300">EXPERIENCE</a>
+
+
 
           <li className={`hover:bg-white hover:text-orange-500 transition-all duration-300 bg-orange-500 rounded-sm px-4 py-3 w-full md:w-auto text-center md:text-left whitespace-nowrap ${mobile ? 'mt-2' : ''}`}>
             <Link to="/loginPage" className="block w-full">PORTAL CLIENTE</Link>

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AlertaScoreCliente;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cliente;
@@ -246,6 +247,13 @@ class ClienteController extends Controller
             $cliente->save();
 
             DB::commit();
+
+            try {
+                $correoDestino = env('JEFE_CORREO');
+                Mail::to($correoDestino)->send(new AlertaScoreCliente($cliente, $scoreTotal, $detalleRespuestas));
+            } catch (\Exception $e) {
+                \Log::error('Error al enviar correo de Score: ' . $e->getMessage());
+            }
 
             return response()->json([
                 'message' => 'Score calculado y actualizado exitosamente',
