@@ -10,7 +10,7 @@ class PreguntaScore extends Model
 {
     use HasFactory;
 
-    protected $table = 'preguntas_score';
+    protected $table = 'pregunta_scores';
 
     protected $fillable = [
         'enunciado',
