@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\BibliotecaController;
 use App\Http\Controllers\Api\ObligacionController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\CorreoCalculadoraController;
+use App\Http\Controllers\Api\PreguntaScoreController;
 
 
 
