@@ -242,14 +242,6 @@ class ClienteController extends Controller
 
         DB::beginTransaction();
         try {
-            DB::table('evaluaciones_score')->insert([
-                'cliente_id' => $cliente->id,
-                'score_total' => $scoreTotal,
-                'detalle_respuestas' => json_encode($detalleRespuestas),
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-
             $cliente->score_tributario = $scoreTotal;
             $cliente->save();
 
