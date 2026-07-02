@@ -22,7 +22,7 @@ class AlertaScoreCliente extends Mailable
     {
         $this->cliente = $cliente;
         $this->scoreTotal = $scoreTotal;
-        $this->detalleRespuesta = $detalleRespuesta;
+        $this->detalleRespuestas = $detalleRespuesta;
     }
 
     /**
