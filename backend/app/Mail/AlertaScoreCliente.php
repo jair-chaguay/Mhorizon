@@ -14,15 +14,17 @@ class AlertaScoreCliente extends Mailable
     public $cliente;
     public $scoreTotal;
     public $detalleRespuestas;
+    public $comentario;
 
     /**
      * Create a new message instance.
      */
-    public function __construct(Cliente $cliente, $scoreTotal, $detalleRespuesta)
+    public function __construct(Cliente $cliente, $scoreTotal, $detalleRespuesta, $comentario = null)
     {
         $this->cliente = $cliente;
         $this->scoreTotal = $scoreTotal;
         $this->detalleRespuestas = $detalleRespuesta;
+        $this->comentario = $comentario;
     }
 
     /**

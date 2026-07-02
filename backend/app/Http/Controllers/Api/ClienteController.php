@@ -59,7 +59,6 @@ class ClienteController extends Controller
             return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
         }
 
-        // 2. Usamos DB Transaction para que si algo falla, no se guarde nada a medias
         DB::beginTransaction();
 
         try {
@@ -213,6 +212,7 @@ class ClienteController extends Controller
             'respuestas' => 'required|array|size:5',
             'respuestas.*.pregunta_id' => 'required|exists:pregunta_scores,id',
             'respuestas.*.valor' => 'required|integer|min:1|max:5',
+            'comentario' => 'nullable|string|max:1000'
         ]);
 
         $cliente = Cliente::find($id);
@@ -243,13 +243,14 @@ class ClienteController extends Controller
         DB::beginTransaction();
         try {
             $cliente->score_tributario = $scoreTotal;
+            $cliente->comentario_score = $request->comentario;
             $cliente->save();
 
             DB::commit();
 
             try {
                 $correoDestino = 'alexchaguya@outlook.es';
-                Mail::to($correoDestino)->send(new AlertaScoreCliente($cliente, $scoreTotal, $detalleRespuestas));
+                Mail::to($correoDestino)->send(new AlertaScoreCliente($cliente, $scoreTotal, $detalleRespuestas, $request->comentario));
             } catch (\Exception $e) {
                 \Log::error('Error al enviar correo de Score: ' . $e->getMessage());
             }

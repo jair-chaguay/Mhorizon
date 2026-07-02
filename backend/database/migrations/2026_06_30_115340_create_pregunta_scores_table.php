@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('enunciado');
             $table->integer('peso_maximo');
             $table->boolean('activa')->default(true);
+            $table->text('comentario_score')->nullable();
             $table->timestamps();
         });
         DB::table('pregunta_scores')->insert([

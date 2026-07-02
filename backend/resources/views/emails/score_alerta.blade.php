@@ -43,6 +43,12 @@
                 @endforeach
             </tbody>
         </table>
+        @if($comentario)
+            <div style="margin-top: 20px; background-color: #fffbeb; padding: 15px; border-left: 4px solid #D98005; border-radius: 4px;">
+                <h4 style="margin-top: 0; color: #D98005;">Comentario / Recomendación del Cliente:</h4>
+                <p style="margin-bottom: 0; font-style: italic;">"{{ $comentario }}"</p>
+            </div>
+        @endif
 
         <p style="margin-top: 30px; font-size: 12px; color: #999; text-align: center;">
             Este es un mensaje automático generado por MHorizon Portal.

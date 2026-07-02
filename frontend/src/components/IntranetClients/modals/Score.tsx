@@ -17,6 +17,7 @@ interface ModalScoreProps {
 const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualizado }) => {
     const [preguntas, setPreguntas] = useState<Pregunta[]>([]);
     const [respuestas, setRespuestas] = useState<Record<number, number>>({});
+    const [comentario, setComentario] = useState<string>('');
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -53,7 +54,8 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
         setIsSubmitting(true);
         try {
             await api.post(`/clientes/${clienteId}/evaluar-score`, {
-                respuestas: formatoRespuestas
+                respuestas: formatoRespuestas,
+                comentario: comentario
             });
             onScoreActualizado(); 
             onClose(); 
@@ -127,8 +129,17 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
                                    
                                 </div>
                             ))}
-                             <label className="mb-2.5 text-sm font-medium">Escribe tu recomendación</label>
-                            <textarea name="" id="" placeholder="Escribe tu recomendación" ></textarea>
+                            <div className= "mt-4">
+                                <label className="mb-2.5 text-sm font-medium block text-gray-700">Escribe tu recomendación (Opcional)</label>
+                                <textarea 
+                                    value={comentario}
+                                    onChange={(e) => setComentario(e.target.value)}
+                                    className="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
+                                    placeholder="Déjanos tus comentarios o sugerencias..." 
+                                    rows={3}
+                                ></textarea>
+                            </div>
+                             
                         </div>
 
                         <button
