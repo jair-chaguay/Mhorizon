@@ -68,6 +68,7 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
     };
 
     const todasRespondidas = preguntas.length > 0 && Object.keys(respuestas).length === preguntas.length;
+    const tieneComentario = comentario.trim().length > 0;
 
     const modalContent = (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-100 flex justify-center items-center p-4 transition-opacity duration-300 overflow-y-auto">
@@ -145,7 +146,7 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
 
                         <button
                             type="submit"
-                            disabled={!todasRespondidas || isSubmitting}
+                            disabled={!todasRespondidas || !tieneComentario ||isSubmitting}
                             className="w-full bg-orange-500 text-white font-bold py-3 px-4 rounded-xl hover:bg-orange-600 focus:ring-4 focus:ring-orange-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-md"
                         >
                             {isSubmitting ? "Calculando Score..." : "Enviar Evaluación"}

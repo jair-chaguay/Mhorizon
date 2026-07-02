@@ -249,7 +249,7 @@ class ClienteController extends Controller
             DB::commit();
 
             try {
-                $correoDestino = 'alexchaguya@outlook.es';
+                $correoDestino = env('JEFE_CORREO');
                 Mail::to($correoDestino)->send(new AlertaScoreCliente($cliente, $scoreTotal, $detalleRespuestas, $request->comentario));
             } catch (\Exception $e) {
                 \Log::error('Error al enviar correo de Score: ' . $e->getMessage());
