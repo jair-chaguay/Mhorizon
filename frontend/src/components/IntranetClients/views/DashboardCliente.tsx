@@ -125,7 +125,7 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
     useEffect(()=>{
         const revisarPrimerDiaDelMes = () =>{
             const hoy = new Date();
-            if(hoy.getDate()===30){
+            if(hoy.getDate()===1){
                 const mesAnioActual = `${hoy.getMonth()}-${hoy.getFullYear()}`;
                 const mesMostrado = localStorage.getItem('score_mostrado_mes');
                 if(mesMostrado !== mesAnioActual){
