@@ -20,11 +20,11 @@ return new class extends Migration
             $table->timestamps();
         });
         DB::table('pregunta_scores')->insert([
-            [ "enunciado" => "Pregunta 1", "peso_maximo" => "20"],
-            [ "enunciado" => "Pregunta 2", "peso_maximo" => "30"],
-            [ "enunciado" => "Pregunta 3", "peso_maximo" => "20"],
-            [ "enunciado" => "Pregunta 4", "peso_maximo" => "10"],
-            [ "enunciado" => "Pregunta 5", "peso_maximo" => "20"]
+            [ "enunciado" => "¿Cómo califica la calidad general del servicio de consultoría tributaria recibido?", "peso_maximo" => "20"],
+            [ "enunciado" => "¿Cómo califica el nivel de conocimiento técnico demostrado por nuestro equipo?", "peso_maximo" => "25"],
+            [ "enunciado" => "¿Cómo califica la oportunidad y rapidez en la atención de sus consultas, requerimientos y reformas legales?", "peso_maximo" => "20"],
+            [ "enunciado" => "¿Cómo califica la confianza y seguridad que le genera contar con MHORIZON como asesor tributario?", "peso_maximo" => "25"],
+            [ "enunciado" => "¿Qué tan probable es que recomiende los servicios de MHORIZON a otra empresa o persona?", "peso_maximo" => "10"]
         ]);
     }
 
