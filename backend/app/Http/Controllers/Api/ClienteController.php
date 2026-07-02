@@ -248,7 +248,7 @@ class ClienteController extends Controller
             DB::commit();
 
             try {
-                $correoDestino = 'jchaguay@espol.edu.ec';
+                $correoDestino = 'alexchaguya@outlook.es';
                 Mail::to($correoDestino)->send(new AlertaScoreCliente($cliente, $scoreTotal, $detalleRespuestas));
             } catch (\Exception $e) {
                 \Log::error('Error al enviar correo de Score: ' . $e->getMessage());
