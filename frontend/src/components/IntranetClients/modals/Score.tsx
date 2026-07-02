@@ -130,11 +130,12 @@ const Score: React.FC<ModalScoreProps> = ({ onClose, clienteId, onScoreActualiza
                                 </div>
                             ))}
                             <div className= "mt-4">
-                                <label className="mb-2.5 text-sm font-medium block text-gray-700">Escribe tu recomendación (Opcional)</label>
+                                <label className="mb-2.5 text-sm font-medium block text-gray-700">Escribe tu recomendación</label>
                                 <textarea 
+                                    required
                                     value={comentario}
                                     onChange={(e) => setComentario(e.target.value)}
-                                    className="w-full border border-gray-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all"
+                                    className="w-full border border-gray-300 rounded-lg p-3 text-sm  outline-none transition-all"
                                     placeholder="Déjanos tus comentarios o sugerencias..." 
                                     rows={3}
                                 ></textarea>
