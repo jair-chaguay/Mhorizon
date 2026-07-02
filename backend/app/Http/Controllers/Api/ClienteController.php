@@ -244,6 +244,7 @@ class ClienteController extends Controller
         try {
             $cliente->score_tributario = $scoreTotal;
             $cliente->comentario_score = $request->comentario;
+            $cliente->detalle_score = $detalleRespuestas;
             $cliente->save();
 
             DB::commit();

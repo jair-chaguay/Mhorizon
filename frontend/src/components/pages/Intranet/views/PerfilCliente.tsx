@@ -23,7 +23,6 @@ interface PerfilClienteProps {
     refreshSignal?: number;
     onBack: () => void;
     onOpenDeclaracion: () => void;
-    // MODIFICADO: Añadimos tipoImpuesto como segundo parámetro
     onOpenSubir: (obligacionId: number, tipoImpuesto: string) => void;
     onOpenEliminar: (id: number | string, title: string) => void;
     onUpdateSuccess: (updatedCliente: Cliente) => void;
@@ -372,13 +371,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </div>
                             </div>
 
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Score</p>
-                                <div className="flex items-center gap-1 border-b border-transparent focus-within:border-orange-500 pb-1">
-                                    <input type="number" name="score_tributario" value={formData.score_tributario} onChange={handleInputChange} min="0" max="100" disabled={!canEdit} className="w-full bg-transparent text-white font-black text-[1rem] outline-none disabled:opacity-60" />
-                                    <span className="text-gray-400 text-[0.75rem] font-bold">/100</span>
-                                </div>
-                            </div>
+                            
 
                             {canEdit && (
                                 <div className="sm:col-span-2 lg:col-span-3 xl:col-span-6 flex flex-col sm:flex-row gap-4 mt-2">
@@ -405,6 +398,74 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             )}
                         </div>
                     </div>
+                </div>
+
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:p-8 mt-6">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h2 className="text-[1.4rem] font-extrabold text-blue-200 tracking-tight">Score Tributario</h2>
+                            <p className="text-gray-500 text-[0.85rem] mt-1">Calificación de las preguntas respondidas por el cliente</p>
+                        </div>
+                        <div className="text-right">
+                            <span className="block text-[2.5rem] font-black text-orange-500 leading-none">
+                                {cliente.score_tributario ?? 0}
+                            </span>
+                            <span className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest">
+                                Puntaje Total
+                            </span>
+                        </div>
+                    </div>
+
+                    {cliente.detalle_score && cliente.detalle_score.length > 0 ? (
+                        <div className="space-y-4">
+                            <div className="overflow-hidden border border-gray-100 rounded-xl">
+                                <table className="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr className="bg-gray-50 border-b border-gray-100 text-[0.70rem] font-bold uppercase tracking-widest text-gray-500">
+                                            <th className="px-5 py-3">Pregunta Evaluada</th>
+                                            <th className="px-5 py-3 text-center">Escala (1-5)</th>
+                                            <th className="px-5 py-3 text-right">Puntos Calculados</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="text-[0.85rem] divide-y divide-gray-50">
+                                        {cliente.detalle_score.map((detalle, index) => (
+                                            <tr key={index} className="hover:bg-gray-50/50 transition-colors">
+                                                <td className="px-5 py-3 text-gray-700 font-medium">
+                                                    {detalle.enunciado}
+                                                </td>
+                                                <td className="px-5 py-3 text-center">
+                                                    <span className="bg-blue-50 text-blue-600 font-bold px-2 py-1 rounded text-xs">
+                                                        {detalle.valor_seleccionado} / 5
+                                                    </span>
+                                                </td>
+                                                <td className="px-5 py-3 text-right font-semibold text-orange-500">
+                                                    {detalle.puntos_obtenidos.toFixed(2)} pts
+                                                    <span className="text-gray-400 text-xs font-normal block sm:inline sm:ml-1">
+                                                        (de {detalle.peso_maximo})
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {cliente.comentario_score && (
+                                <div className="bg-orange-50/50 rounded-xl p-4 border border-orange-100 mt-4">
+                                    <span className="block text-[0.70rem] font-bold uppercase tracking-widest text-orange-500 mb-1">
+                                        Comentario de la Evaluación
+                                    </span>
+                                    <p className="text-gray-700 text-sm italic">
+                                        "{cliente.comentario_score}"
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+                    ) : (
+                        <div className="py-8 text-center border-2 border-dashed border-gray-200 rounded-xl">
+                            <p className="text-gray-400 italic text-sm">Este cliente aún no tiene un detalle de evaluación de Score Tributario registrado.</p>
+                        </div>
+                    )}
                 </div>
 
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:p-8">
@@ -543,6 +604,10 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                         </div>
                     )}
                 </div>
+
+
+
+
 
             </div>
         </ScrollReveal>

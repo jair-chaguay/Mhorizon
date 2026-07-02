@@ -6,10 +6,18 @@ export interface Cliente {
     razon_social_nombres: string;
     identificacion: string;
     score_tributario: number;
+    comentario_score?:string;
     gestores ?: Array <{
         id:number;
         nombre: string;
         apellido: string;
+    }>;
+     detalle_score?: Array<{
+      pregunta_id: number;
+      enunciado: string;
+      peso_maximo: number;
+      valor_seleccionado: number;
+      puntos_obtenidos: number;
     }>;
     creador?: {
         id: number;

@@ -19,12 +19,15 @@ class Cliente extends Model
         'direccion_matriz',
         'score_tributario',
         'proximo_vencimiento',
-        'gestionado_por_id'
+        'gestionado_por_id',
+        'comentario_score',
+        'detalle_score'
     ];
 
     protected $casts = [
         'score_tributario' => 'integer',
         'proximo_vencimiento' => 'date:Y-m-d',
+        'detalle_score' => 'array'
     ];
 
     public function usuarios()
