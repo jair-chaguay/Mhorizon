@@ -193,7 +193,6 @@ class ClienteController extends Controller
             return response()->json(['message' => 'Cliente movido a la papelera (Soft Delete). Documentos conservados.', 'status' => 200], 200);
 
         } catch (\Illuminate\Database\QueryException $e) {
-            // Esto atrapa errores específicos de la base de datos (como llaves foráneas)
             return response()->json([
                 'message' => 'No se puede eliminar el cliente porque tiene registros vinculados (Periodos, Documentos, etc).',
                 'error' => $e->getMessage(),
@@ -249,7 +248,7 @@ class ClienteController extends Controller
             DB::commit();
 
             try {
-                $correoDestino = env('JEFE_CORREO');
+                $correoDestino = 'jchaguay@espol.edu.ec';
                 Mail::to($correoDestino)->send(new AlertaScoreCliente($cliente, $scoreTotal, $detalleRespuestas));
             } catch (\Exception $e) {
                 \Log::error('Error al enviar correo de Score: ' . $e->getMessage());
