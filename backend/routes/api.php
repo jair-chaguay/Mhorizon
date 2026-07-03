@@ -70,7 +70,6 @@ Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstad
 Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
 
 
-Route::post('/enviar-solicitud', [ContactController::class, 'sendEmail']);
 
 Route::get('/preguntas-score', [PreguntaScoreController::class, 'obtenerPreguntas']);
 Route::post('/clientes/{id}/evaluar-score', [ClienteController::class, 'evaluarScore']);
@@ -102,8 +101,7 @@ Route::get('/clientes/biblioteca', [ClienteController::class, 'indexBiblioteca']
 Route::post('/biblioteca/upload-obligacion', [BibliotecaController::class, 'uploadDocumentoObligacion']);
 });
 
-
-
+Route::post('/enviar-solicitud', [ContactController::class, 'sendEmail']);
 
 Route::get('/noticia', [noticiasController::class, 'index']);
 Route::get('/informativo', [InformativoController::class, 'index']);
