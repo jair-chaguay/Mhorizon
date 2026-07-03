@@ -6,7 +6,7 @@ interface UsuarioProps {
     refreshSignal?: number;
     onOpenCrear: () => void;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onOpenEditar : (usuario: any) => void;
+    onOpenEditar: (usuario: any) => void;
     onOpenEliminar: (endpoint: string, title: string) => void;
 }
 
@@ -29,7 +29,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
         try {
             setLoading(true);
             const { data } = await api.get('/usuario');
-            const filtrados = data.usuarios.filter((u: UsuarioData) => u.rol_id === 1 || u.rol_id === 3);
+            const filtrados = data.usuarios.filter((u: UsuarioData) => [1, 2, 3].includes(u.rol_id));
             setUsuarios(filtrados);
         } catch (error) {
             console.error("Error al cargar usuarios:", error);
@@ -41,6 +41,24 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
     useEffect(() => {
         fetchUsuarios();
     }, [refreshSignal]);
+
+    const handleToggleEstado = async (usuario: UsuarioData) => {
+        const nuevoEstado = !usuario.activo;
+
+        setUsuarios(prev => prev.map(u =>
+            u.id === usuario.id ? { ...u, activo: nuevoEstado } : u
+        ));
+
+        try {
+            await api.put(`/usuario/${usuario.id}`, { activo: nuevoEstado });
+        } catch (error) {
+            console.error("Error al actualizar el estado:", error);
+            // Si la petición falla, revertimos el cambio en la interfaz
+            setUsuarios(prev => prev.map(u =>
+                u.id === usuario.id ? { ...u, activo: !nuevoEstado } : u
+            ));
+        }
+    };
 
     if (loading) {
         return (
@@ -97,9 +115,16 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                         {u.cargo || 'No asignado'}
                                     </td>
                                     <td className="px-6 py-5">
-                                        <span className={`px-3 py-1 rounded-full text-[0.65rem] font-bold uppercase ${u.activo ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+                                        <button
+                                            onClick={() => handleToggleEstado(u)}
+                                            title={u.activo ? 'Click para Desactivar' : 'Click para Activar'}
+                                            className={`cursor-pointer px-3 py-1 rounded-full text-[0.65rem] font-bold uppercase transition-all duration-300 border focus:outline-none ${u.activo
+                                                ? 'bg-green-100 text-green-600 border-green-200 hover:bg-red-100 hover:text-red-600 hover:border-red-200'
+                                                : 'bg-red-100 text-red-600 border-red-200 hover:bg-green-100 hover:text-green-600 hover:border-green-200'
+                                                }`}
+                                        >
                                             {u.activo ? 'Activo' : 'Inactivo'}
-                                        </span>
+                                        </button>
                                     </td>
                                     <td className="px-6 py-5 items-center justify-center flex">
                                         {u.rol_id === 3 && (
@@ -112,12 +137,17 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                                 Colaborador
                                             </span>
                                         )}
+                                        {u.rol_id === 2 && (
+                                            <span className="px-2 py-1 bg-orange-100 text-orange-600 text-[0.65rem] rounded-full">
+                                                Cliente
+                                            </span>
+                                        )}
                                     </td>
-                                    
+
                                     <td className="px-6 py-5">
                                         <div className="flex items-center justify-center gap-2">
                                             <button
-                                                onClick={()=> onOpenEditar(u)}
+                                                onClick={() => onOpenEditar(u)}
                                                 className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-blue-50 text-gray-400 hover:text-blue-500 transition-all"
                                                 title='Editar'
                                             >

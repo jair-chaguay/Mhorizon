@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import api from '../../api/axios';
 import { SupportModal } from '../SupportModal';
+import {Eye, EyeOff} from 'lucide-react';
 
 export const LoginPage = () => {
     const navigate = useNavigate();
     const [correo, setCorreo] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [isSupportOpen, setIsSupportOpen] = useState(false);
@@ -108,12 +110,19 @@ export const LoginPage = () => {
                                     <input
                                         id="password"
                                         name="password"
-                                        type="password"
+                                        type={showPassword ? "text" : "password"}
                                         required
                                         autoComplete="current-password"
                                         onChange={(e) => setPassword(e.target.value)}
-                                        className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200] font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300" placeholder="••••••••••••"
+                                        className="block w-full pl-12 pr-12 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200] font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300" placeholder="••••••••••••"
                                     />
+                                    <button type ="button" 
+                                        onClick= {()=>setShowPassword(!showPassword)}
+                                        className= "cursor-pointer absolute inset-y-0 right-0 pr-4 flex items-center text-gray-400 hover:text-orange-500 transition-colors duration-300 focus:outline-none"
+                                    >
+                                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                                    </button>
+                                    
                                 </div>
                             </div>
 
