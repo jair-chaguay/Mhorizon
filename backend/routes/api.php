@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\DeclaracionController;
 use App\Http\Controllers\Api\ContactoController;
 use App\Http\Controllers\Api\BibliotecaController;
 
+use App\Http\Controller\Api\ContactController;
 use App\Http\Controllers\Api\ObligacionController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\CorreoCalculadoraController;
@@ -67,6 +68,9 @@ Route::get('/cliente/{id}/obligaciones', [ObligacionController::class, 'indexCli
 Route::post('/obligacion', [ObligacionController::class, 'store']);
 Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstado']);
 Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
+
+
+Route::post('/enviar-solicitud', [ContactController::class, 'sendEmail']);
 
 Route::get('/preguntas-score', [PreguntaScoreController::class, 'obtenerPreguntas']);
 Route::post('/clientes/{id}/evaluar-score', [ClienteController::class, 'evaluarScore']);
