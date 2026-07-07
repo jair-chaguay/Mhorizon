@@ -39,7 +39,12 @@ class AuthController extends Controller
         }
 
         //Busca al usuario junto con sus relaciones (rol y cliente)
-        $usuario = Usuario::with(['rol', 'cliente'])->where('correo', $request->correo)->first();
+        $usuario = Usuario::with(['rol', 'cliente'])
+            ->where(function ($query) use ($request) {
+                $query->where('correo', $request->correo)
+                      ->orWhere('correo_personal', $request->correo);
+            })
+            ->first();
 
         if (!$usuario || !Hash::check($request->password, $usuario->password_hash)) {
             return response()->json(['message' => 'Credenciales incorrectas.', 'status' => 401], 401);

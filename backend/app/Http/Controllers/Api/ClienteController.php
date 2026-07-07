@@ -100,6 +100,7 @@ class ClienteController extends Controller
                 'nombre' => 'Representante', 
                 'apellido' => 'Cliente',     
                 'correo' => $request->correo,
+                'correo_personal' => $request->correo2,
                 'password_hash' => Hash::make($request->password),
                 'activo' => true
             ]);
