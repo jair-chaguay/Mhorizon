@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollReveal } from '../../../ScrollReveal';
 import api from '../../../../api/axios';
+import { toggleEstadoUsuarioAPI } from '../hooks/usuarioService';
 
 interface UsuarioProps {
     refreshSignal?: number;
@@ -9,6 +10,7 @@ interface UsuarioProps {
     onOpenEditar: (usuario: any) => void;
     onOpenEliminar: (endpoint: string, title: string) => void;
 }
+
 
 interface UsuarioData {
     id: number;
@@ -43,18 +45,19 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
     }, [refreshSignal]);
 
     const handleToggleEstado = async (usuario: UsuarioData) => {
-        const nuevoEstado = !usuario.activo;
+        const estadoAnterior = usuario.activo;
+        const nuevoEstado = !estadoAnterior;
 
         setUsuarios(prev => prev.map(u =>
             u.id === usuario.id ? { ...u, activo: nuevoEstado } : u
         ));
 
         try {
-            await api.put(`/usuario/${usuario.id}`, { activo: nuevoEstado });
+            await toggleEstadoUsuarioAPI(usuario.id, estadoAnterior);
         } catch (error) {
             console.error("Error al actualizar el estado:", error);
             setUsuarios(prev => prev.map(u =>
-                u.id === usuario.id ? { ...u, activo: !nuevoEstado } : u
+                u.id === usuario.id ? { ...u, activo: estadoAnterior } : u
             ));
         }
     };

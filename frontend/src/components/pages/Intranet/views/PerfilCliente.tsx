@@ -127,7 +127,18 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         identificacion: cliente.identificacion || '',
         tipo_persona: cliente.tipo_persona || 'Persona Natural',
         score_tributario: cliente.score_tributario || 100,
+        telefono_contacto: cliente.telefono_contacto || '',
+        tipo_servicio: cliente.tipo_servicio || '',
+        sector: cliente.sector || '',
+        tipo_contribuyente: cliente.tipo_contribuyente || '',
+        regimen_tributario: cliente.regimen_tributario || '',
+        agente_retencion: cliente.agente_retencion || false,
+        actividad_economica: cliente.actividad_economica || '',
+        correos_adicionales: cliente.correos ? cliente.correos.map(c => c.correo).join(', ') : '',
         correo: usuarioAsociado ? usuarioAsociado.correo : '',
+        correo_personal: usuarioAsociado?.correo_personal || '',
+        cargo: usuarioAsociado?.cargo || '',
+        activo: usuarioAsociado?.activo !== undefined ? usuarioAsociado.activo : true,
         password: ''
     });
 
@@ -190,10 +201,20 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = e.target;
+        const { name, value, type } = e.target;
+
+        let targetValue: any = value;
+        if (type === 'checkbox') {
+            targetValue = (e.target as HTMLInputElement).checked;
+        } else if (name === 'score_tributario') {
+            targetValue = Number(value);
+        } else if (name === 'activo') {
+            targetValue = value === 'true';
+        }
+
         setFormData(prev => ({
             ...prev,
-            [name]: name === 'score_tributario' ? Number(value) : value
+            [name]: targetValue
         }));
     };
 
@@ -234,10 +255,23 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
         setIsSaving(true);
         try {
-            const { data } = await api.put(`/cliente/${cliente.id}`, {
+            const correosArray = formData.correos_adicionales
+                .split(',')
+                .map(str => str.trim())
+                .filter(str => str.length > 0)
+                .map(correo => ({ correo }));
+
+            const payload = {
                 ...formData,
+                correos: correosArray,
                 gestores: gestoresSeleccionados
-            });
+            };
+
+            if (!payload.password) {
+                delete (payload as any).password;
+            }
+
+            const { data } = await api.put(`/cliente/${cliente.id}`, payload);
             alert('Perfil Actualizado Exitosamente.');
             onUpdateSuccess(data.cliente);
         } catch (error: any) {
@@ -245,7 +279,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
             const msg = error?.response?.data?.message || "Hubo un error al intentar actualizar el perfil.";
             setErrorMsg(msg);
         } finally {
-
             setIsSaving(false);
         }
     };
@@ -255,30 +288,13 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         <ScrollReveal>
             <style>{`
                 .react-custom-checkbox {
-                    appearance: none;
-                    width: 1.25rem;
-                    height: 1.25rem;
-                    border: 2px solid #D1D5DB;
-                    border-radius: 0.25rem;
-                    background-color: white;
-                    cursor: pointer;
-                    position: relative;
-                    transition: all 0.2s;
+                    appearance: none; width: 1.25rem; height: 1.25rem; border: 2px solid #D1D5DB; border-radius: 0.25rem;
+                    background-color: white; cursor: pointer; position: relative; transition: all 0.2s;
                 }
-                .react-custom-checkbox:checked {
-                    background-color: #D98005;
-                    border-color: #D98005;
-                }
+                .react-custom-checkbox:checked { background-color: #D98005; border-color: #D98005; }
                 .react-custom-checkbox:checked::after {
-                    content: '';
-                    position: absolute;
-                    left: 6px;
-                    top: 2px;
-                    width: 5px;
-                    height: 10px;
-                    border: solid white;
-                    border-width: 0 2px 2px 0;
-                    transform: rotate(45deg);
+                    content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px;
+                    border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg);
                 }
             `}</style>
 
@@ -316,26 +332,15 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             disabled={!canEdit}
                             className="w-full bg-transparent border-b-2 border-white/20 text-[2rem] sm:text-[2.5rem] font-extrabold text-white tracking-tight leading-none mb-6 outline-none focus:border-orange-500 transition-colors pb-1 disabled:opacity-60"
                         />
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-
+                        <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3 mt-2">1. Configuración Fiscal y Tributaria</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">RUC/Cédula</p>
                                 <input type="text" maxLength={13} name="identificacion" value={formData.identificacion} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo (Acceso)</p>
-                                <input type="email" name="correo" value={formData.correo} onChange={handleInputChange} placeholder="Asignar correo..." disabled={!canEdit} className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
-                            </div>
-
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Cambiar Clave</p>
-                                <input type="text" name="password" value={formData.password} onChange={handleInputChange} placeholder="Escribir nueva clave..." disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
-                            </div>
-
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de contribuyente</p>
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de Persona</p>
                                 <select name="tipo_persona" value={formData.tipo_persona} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
                                     <option value="Régimen General">Régimen General</option>
                                     <option value="RIMPE">RIMPE</option>
@@ -345,9 +350,107 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </select>
                             </div>
 
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-2">Gestionado por (Múltiple)</p>
-                                <div className="max-h-24 overflow-y-auto space-y-2 pr-2">
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de Contribuyente</p>
+                                <select name="tipo_contribuyente" value={formData.tipo_contribuyente} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
+                                    <option value="Persona Natural">Persona Natural</option>
+                                    <option value="Sociedad">Sociedad</option>
+                                </select>
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Regimen Tributario</p>
+                                <select name="regimen_tributario" value={formData.regimen_tributario} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
+                                    <option value="General">General</option>
+                                    <option value="RIMPE">RIMPE</option>
+                                    <option value="Grande Contribuyente">Grande Contribuyente</option>
+                                    <option value="Contribuyente Especial">Contribuyente Especial</option>
+                                    <option value="Exportador habitual">Exportador habitual</option>
+                                </select>
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 flex items-center justify-between col-span-1 sm:col-span-2 lg:col-span-1">
+                                <div>
+                                    <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-0.5">Agente de Retención</p>
+                                    <span className="text-xs text-white/50">¿Designación por el SRI?</span>
+                                </div>
+                                <input
+                                    type="checkbox"
+                                    name="agente_retencion"
+                                    checked={formData.agente_retencion}
+                                    onChange={handleInputChange}
+                                    disabled={!canEdit}
+                                    className="react-custom-checkbox scale-125 mr-2 disabled:opacity-50"
+                                />
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 xl:col-span-3">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Actividad Económica Principal</p>
+                                <input type="text" name="actividad_economica" value={formData.actividad_economica} onChange={handleInputChange} placeholder="Detalle de actividades comerciales..." disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.90rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                            </div>
+                        </div>
+
+                        <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3">2. Información Operativa y Comercial</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de Servicio Contratado</p>
+                                <select name="tipo_servicio" value={formData.tipo_servicio} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
+                                    <option value="Impuestos">Impuestos</option>
+                                    <option value="Outsourcing contable">Outsourcing contable</option>
+                                    <option value="Auditoria">Auditoría</option>
+                                    <option value="Trabajos especiales">Trabajos especiales</option>
+                                    <option value="Outsourcing de Nomina">Outsourcing de Nómina</option>
+                                </select>
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Sector</p>
+                                <select name="sector" value={formData.sector} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
+                                    <option value="Servicios">Servicios</option>
+                                    <option value="Comercial">Comercial</option>
+                                    <option value="Industrial">Industrial</option>
+                                    <option value="Turismo">Turismo</option>
+                                    <option value="Financiero">Financiero</option>
+                                    <option value="Otros">Otros</option>
+                                </select>
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Teléfono de Contacto</p>
+                                <input type="text" name="telefono_contacto" value={formData.telefono_contacto} onChange={handleInputChange} placeholder="Ej: 0998765432..." disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                            </div>
+                        </div>
+
+                        <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3">3. Cuenta de Acceso del Cliente</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo Principal (Usuario Acceso)</p>
+                                <input type="email" name="correo" value={formData.correo} onChange={handleInputChange} placeholder="Asignar correo corporativo..." disabled={!canEdit} className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Contraseña de Acceso</p>
+                                <input type="password" name="password" value={formData.password} onChange={handleInputChange} placeholder="Dejar en blanco para no cambiar..." disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo Personal (Opcional)</p>
+                                <input type="email" name="correo_personal" value={formData.correo_personal} onChange={handleInputChange} placeholder="Opcional..." disabled={!canEdit} className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                            </div>
+
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Estado del Acceso</p>
+                                <select name="activo" value={formData.activo ? 'true' : 'false'} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
+                                    <option value="true">Usuario Activo</option>
+                                    <option value="false">Usuario Inactivo</option>
+                                </select>
+                            </div>
+
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 lg:col-span-3 xl:col-span-4 mt-2">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-2">Gestionado por (Múltiple Responsable Interno)</p>
+                                <div className="max-h-24 overflow-y-auto space-y-2 pr-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                     {usuariosGestores.map((u) => (
                                         <label key={u.id} className="flex items-center gap-2 cursor-pointer group">
                                             <input
@@ -371,10 +474,9 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </div>
                             </div>
 
-                            
-
+                            {/* Botonera de Acciones de Guardado */}
                             {canEdit && (
-                                <div className="sm:col-span-2 lg:col-span-3 xl:col-span-6 flex flex-col sm:flex-row gap-4 mt-2">
+                                <div className="sm:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col sm:flex-row gap-4 mt-4 w-full">
                                     <button
                                         type="button"
                                         onClick={() => onOpenEliminar(`/cliente/${cliente.id}`, `Cliente ${cliente.razon_social_nombres} y su usuario`)}
@@ -400,7 +502,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                     </div>
                 </div>
 
-                
+
 
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 lg:p-8">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
