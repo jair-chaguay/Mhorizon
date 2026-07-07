@@ -90,9 +90,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                     <th className="px-6 py-4">Estado</th>
                                     
                                     <th className="px-6 py-4 flex items-center justify-center">Rol</th>
-                                    {rolId === 1 || rolId === 3 ? (
                                         <th className="px-6 py-4 text-center">Acciones</th>
-                                    ): null}
                                 </tr>
                             </thead>
                             <tbody className="text-[0.85rem] divide-y divide-gray-100">
@@ -125,10 +123,11 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                                     {rolNombre}
                                                 </span>
                                             </td>
-                                            {u.rol_id === 1 || u.rol_id === 3 ? (
+                                            
                                                 <td className="px-6 py-5">
                                                     <div className="flex items-center justify-center gap-2">
-                                                        <button
+                                                        {u.rol_id ===1 || u.rol_id === 3 ?(
+                                                            <button
                                                             onClick={() => onOpenEditar(u)}
                                                             className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-blue-50 text-gray-400 hover:text-blue-500 transition-all"
                                                             title='Editar'
@@ -137,6 +136,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                                             </svg>
                                                         </button>
+                                                        ) : null}
                                                         <button
                                                             onClick={() => onOpenEliminar(`/usuario/${u.id}`, `${u.nombre} ${u.apellido}`)}
                                                             className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-red-50 text-gray-400 hover:text-red-600 transition-all"
@@ -148,7 +148,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                                         </button>
                                                     </div>
                                                 </td>
-                                            ) : null}
+                                            
 
                                         </tr>
                                     ))
@@ -187,7 +187,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                 </button>
             </div>
 
-            {renderTablaRol("Creadores del Sistema", 3, "bg-blue-200 text-white", "Creador")}
+            {renderTablaRol("Administradores del Sistema", 3, "bg-blue-200 text-white", "Creador")}
             {renderTablaRol("Colaboradores", 1, "bg-gray-300 text-gray-700", "Colaborador")}
             {renderTablaRol("Lista de Clientes", 2, "bg-orange-100 text-orange-600", "Cliente")}
 

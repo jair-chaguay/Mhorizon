@@ -30,7 +30,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'correo' => 'required|email',
+            'usuario' => 'required|string',
             'password' => 'required|string',
         ]);
 
@@ -38,11 +38,21 @@ class AuthController extends Controller
             return response()->json(['message' => 'Datos inválidos', 'errors' => $validator->errors(), 'status' => 400], 400);
         }
 
+        $login = $request->usuario;
+
         //Busca al usuario junto con sus relaciones (rol y cliente)
         $usuario = Usuario::with(['rol', 'cliente'])
-            ->where(function ($query) use ($request) {
-                $query->where('correo', $request->correo)
-                      ->orWhere('correo_personal', $request->correo);
+            ->where(function ($query) use ($login) {
+                $query->whereHas('cliente', function ($q) use ($login){
+                    $q->where('identificacion', $login);
+                });
+            })
+            ->orWhere(function($query) use ($login){
+                $query->whereNull('cliente_id')
+                        ->where(function($subQuery) use ($login){
+                            $subQuery->where('usuario', $login)
+                                        ->orWhere('correo_personal', $login);
+                        });
             })
             ->first();
 

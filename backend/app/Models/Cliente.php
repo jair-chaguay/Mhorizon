@@ -43,11 +43,6 @@ class Cliente extends Model
         return $this->hasMany(Usuario::class, 'cliente_id');
     }
     
-    public function correos()
-    {
-        return $this->hasMany(ClienteCorreo::class, 'cliente_id');
-    }
-    
     public function periodos()
     {
         return $this->hasMany(BibliotecaPeriodo::class, 'cliente_id');

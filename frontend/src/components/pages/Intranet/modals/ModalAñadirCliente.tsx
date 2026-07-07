@@ -89,7 +89,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
     const [identificacion, setIdentificacion] = useState('');
     const [score, setScore] = useState<number>(100);
     const [correo, setCorreo] = useState('');
-    const [correo2, setCorreo2] = useState('');
     const [password, setPassword] = useState('');
     const [tipoPersona, setTipoPersona] = useState('Persona Natural');
     const [tipoServicio, setTipoServicio] = useState('');
@@ -122,7 +121,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             setIdentificacion('');
             setScore(100);
             setCorreo('');
-            setCorreo2('');
             setPassword('');
             setTipoPersona('Persona Natural');
             setGestoresSeleccionados([]);
@@ -187,7 +185,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                 identificacion: identificacionClean,
                 score_tributario: score,
                 correo: correo,
-                correo2: correo2 || null,
                 password: password,
                 gestores: gestoresSeleccionados,
                 tipo_servicio: tipoServicio,
@@ -314,16 +311,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                                 <option value="true">SI</option>
                             </select>
                         </div>
-                        <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Categoría (Filtro Interno)</label>
-                            <select value={tipoPersona} onChange={(e) => setTipoPersona(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500">
-                                <option value="Persona Natural">Persona Natural</option>
-                                <option value="Régimen General">Régimen General (Sociedad)</option>
-                                <option value="Entidad Pública">Entidad Pública</option>
-                                <option value="RIMPE">RIMPE</option>
-                                <option value="Contribuyente Especial">Contribuyente Especial</option>
-                            </select>
-                        </div>
                     </div>
 
                     <div>
@@ -361,10 +348,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                         <div>
                             <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo <span className="text-gray-400 font-normal normal-case tracking-normal">(Usuario 1)</span></label>
                             <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder="correo@empresa.com" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
-                        </div>
-                        <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo <span className="text-gray-400 font-normal normal-case tracking-normal">(Usuario 2 )</span></label>
-                            <input type="email" value={correo2} onChange={(e) => setCorreo2(e.target.value)} placeholder="correo2@empresa.com" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
                         </div>
                     </div>
 

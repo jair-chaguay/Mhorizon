@@ -17,7 +17,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::with('gestores', 'usuarios', 'correos')
+        $clientes = Cliente::with('gestores', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -30,7 +30,7 @@ class ClienteController extends Controller
     public function indexBiblioteca()
     {
         $clientes = Cliente::withTrashed()
-                           ->with('gestores', 'usuarios', 'correos')
+                           ->with('gestores', 'usuarios')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -60,7 +60,6 @@ class ClienteController extends Controller
             'telefono_contacto' => 'nullable|string|max:20',
             
             'correo' => 'required|email|max:150|unique:usuarios,correo',
-            'correo2' => 'nullable|email|max:150|unique:cliente_correos,correo',
             'password' => 'required|string|min:8'
         ]);
 
@@ -87,12 +86,6 @@ class ClienteController extends Controller
 
             $cliente->gestores()->sync($request->gestores);
 
-            if ($request->filled('correo2')) {
-                $cliente->correos()->create([
-                    'correo' => $request->correo2
-                ]);
-            }
-
             // B. Crear el Usuario asociado a ese Cliente
             $usuario = Usuario::create([
                 'rol_id' => 2, 
@@ -100,10 +93,11 @@ class ClienteController extends Controller
                 'nombre' => 'Representante', 
                 'apellido' => 'Cliente',     
                 'correo' => $request->correo,
-                'correo_personal' => $request->correo2,
                 'password_hash' => Hash::make($request->password),
                 'activo' => true
             ]);
+
+            
 
             DB::commit(); 
 
@@ -126,7 +120,7 @@ class ClienteController extends Controller
 
     public function show($id)
     {
-        $cliente = Cliente::with(['usuarios', 'gestores', 'correos'])->find($id);
+        $cliente = Cliente::with(['usuarios', 'gestores'])->find($id);
 
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 
@@ -164,7 +158,6 @@ class ClienteController extends Controller
             'actividad_economica' => 'sometimes|nullable|string',
             'sector' => 'sometimes|nullable|string|max:255',
             'telefono_contacto' => 'sometimes|nullable|string|max:20',
-            'correo2' => 'sometimes|nullable|email|max:150|unique:cliente_correos,correo,'.$id.',cliente_id'
         ]);
 
         if ($validator->fails()) return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
@@ -183,9 +176,6 @@ class ClienteController extends Controller
             if ($request->filled('correo')) {
                 $usuario->correo = $request->correo;
             }
-            if ($request->has('correo2')) {
-                $usuario->correo_personal = $request->correo2; 
-            }
             if ($request->filled('password')) {
                 $usuario->password_hash = Hash::make($request->password);
             }
@@ -197,18 +187,7 @@ class ClienteController extends Controller
             $usuario->save();
         }
 
-        if ($request->has('correo2')) {
-            if ($request->filled('correo2')) {
-                $cliente->correos()->updateOrCreate(
-                    ['cliente_id' => $cliente->id],
-                    ['correo' => $request->correo2]
-                );
-            } else {
-                $cliente->correos()->delete();
-            }
-        }
-
-        $cliente->load('usuarios', 'gestores', 'correos');
+        $cliente->load('usuarios', 'gestores');
 
         return response()->json(['message' => 'Perfil del cliente actualizado', 'cliente' => $cliente, 'status' => 200], 200);
     }
