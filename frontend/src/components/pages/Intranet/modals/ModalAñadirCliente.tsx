@@ -311,6 +311,16 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                                 <option value="true">SI</option>
                             </select>
                         </div>
+                        <div>
+                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo <span className="text-gray-400 font-normal normal-case tracking-normal">(Usuario 1)</span></label>
+                            <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder="correo@empresa.com" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Contraseña (Acceso)</label>
+                        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Clave de acceso" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required minLength={8} />
                     </div>
 
                     <div>
@@ -342,20 +352,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                                 <p className="text-xs text-gray-400 p-2">No hay gestores disponibles.</p>
                             )}
                         </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo <span className="text-gray-400 font-normal normal-case tracking-normal">(Usuario 1)</span></label>
-                            <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder="correo@empresa.com" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
-                        </div>
-                    </div>
-
-                    
-                    
-                    <div>
-                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Contraseña (Acceso)</label>
-                        <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Clave de acceso" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required minLength={8} />
                     </div>
                     
                     

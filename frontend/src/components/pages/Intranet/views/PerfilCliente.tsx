@@ -432,10 +432,12 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </select>
                             </div>
 
-
-                            <div className="bg-white/10  rounded-xl p-4 border border-white/5 sm:col-span-2 lg:col-span-3 xl:col-span-4 mt-2">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-2">Gestionado por (Múltiple Responsable Interno)</p>
-                                <div className="max-h-24 overflow-y-auto space-y-2 pr-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                            {/* --- AQUÍ ESTÁ EL CAMBIO PRINCIPAL --- */}
+                            {/* Cambiamos xl:col-span-4 por xl:col-span-1 y quitamos el mt-2 para que se alinee perfecto */}
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 lg:col-span-3 xl:col-span-1">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-2">Gestionado por</p>
+                                {/* Cambiamos el grid interno por un flex-col para que los checkboxes se apilen bien en la columna estrecha */}
+                                <div className="max-h-16 overflow-y-auto flex flex-col gap-2 pr-2 custom-scrollbar">
                                     {usuariosGestores.map((u) => (
                                         <label key={u.id} className="flex items-center gap-2 cursor-pointer group">
                                             <input
@@ -446,9 +448,9 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                     else setGestoresSeleccionados(gestoresSeleccionados.filter(id => id !== u.id));
                                                 }}
                                                 disabled={!canEdit}
-                                                className="react-custom-checkbox disabled:opacity-50"
+                                                className="react-custom-checkbox min-w-4 disabled:opacity-50"
                                             />
-                                            <span className="text-white font-semibold text-[0.85rem] group-hover:text-orange-400 transition-colors">
+                                            <span className="text-white font-semibold text-[0.85rem] leading-tight group-hover:text-orange-400 transition-colors truncate">
                                                 {u.nombre} {u.apellido}
                                             </span>
                                         </label>

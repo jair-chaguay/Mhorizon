@@ -1,6 +1,6 @@
 import { ScrollReveal } from '../ScrollReveal'
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import api from '../../api/axios';
 import { SupportModal } from '../SupportModal';
 import {Eye, EyeOff} from 'lucide-react';
@@ -13,6 +13,21 @@ export const LoginPage = () => {
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [isSupportOpen, setIsSupportOpen] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false);
+
+    useEffect(() => {
+        const savedUser = localStorage.getItem('saved_username');
+        if (savedUser) {
+            setUsuario(savedUser);
+            setRememberMe(true);
+        }
+    }, []);
+
+    const handleUsuarioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const sanitizedValue = e.target.value.replace(/[^a-zA-Z0-9@._-]/g, '');
+        setUsuario(sanitizedValue);
+    };
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -22,12 +37,20 @@ export const LoginPage = () => {
             const { data } = await api.post("/login", { usuario, password });
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.usuario));
+
+            if (rememberMe) {
+                localStorage.setItem('saved_username', usuario);
+            } else {
+                localStorage.removeItem('saved_username');
+            }
+
             const user = data.usuario;
             if (user.rol_id == 2 || user.cliente_id !== null) {
                 navigate("/intranetClientes");
             } else {
                 navigate("/intranet")
             }
+            
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             const msg =
@@ -44,8 +67,6 @@ export const LoginPage = () => {
 
     return (
         <ScrollReveal as={"section"} className="bg-blue-200 text-blue-200 overflow-x-hidden min-h-screen flex flex-col relative">
-
-
 
             <header className="relative z-10 w-full py-6 px-5 sm:px-8 md:px-12 flex justify-between items-center reveal-element">
                 <Link className="w-36 sm:w-44 md:w-35 h:6 transition-transform hover:scale-105 duration-300" to="/">
@@ -90,7 +111,8 @@ export const LoginPage = () => {
                                     </div>
                                     <input
                                         id="usuario"
-                                        onChange={(e) => setUsuario(e.target.value)}
+                                        onChange={handleUsuarioChange}
+                                        value={usuario}
                                         name="usuario"
                                         type="text"
                                         autoComplete= "username"
@@ -128,7 +150,8 @@ export const LoginPage = () => {
 
                             <div className="flex items-center justify-between mt-2 pt-1">
                                 <div className="flex items-center">
-                                    <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 custom-checkbox border-gray-300 rounded" />
+                                    <input id="remember-me" name="remember-me" type="checkbox" checked={rememberMe} 
+                                        onChange={(e) => setRememberMe(e.target.checked)} className="h-4 w-4 custom-checkbox border-gray-300 rounded" />
                                     <label htmlFor="remember-me" className="ml-2 block text-[0.85rem] text-blue-200/70 font-light cursor-pointer select-none">
                                         Recordar sesión
                                     </label>
