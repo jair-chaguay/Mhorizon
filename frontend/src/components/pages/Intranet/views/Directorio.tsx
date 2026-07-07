@@ -4,6 +4,9 @@ import api from '../../../../api/axios';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { toggleEstadoUsuarioAPI } from '../hooks/usuarioService';
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+
 
 
 export interface Cliente {
@@ -49,6 +52,7 @@ interface DirectorioProps {
 const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, refreshSignal }) => {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showDownloadMenu, setShowDownloadMenu] = useState(false);
 
   const [busqueda, setBusqueda] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -179,6 +183,86 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     doc.save('Base_Datos_Clientes_Mhorizon.pdf');
   }
 
+  const exportarExcel = async () => {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Clientes');
+
+  worksheet.columns = [
+    { header: 'Razón Social', key: 'razonSocial', width: 35 },
+    { header: 'RUC / Cédula', key: 'ruc', width: 15 },
+    { header: 'Tipo Servicio', key: 'tipoServicio', width: 20 },
+    { header: 'Tipo Contrib.', key: 'tipoContrib', width: 20 },
+    { header: 'Régimen', key: 'regimen', width: 20 },
+    { header: 'Retención', key: 'retencion', width: 10 },
+    { header: 'Actividad Económica', key: 'actividad', width: 40 },
+    { header: 'Sector', key: 'sector', width: 20 },
+    { header: 'Contacto Cliente', key: 'contacto', width: 50 },
+    { header: 'Responsable Int.', key: 'responsable', width: 30 }
+  ];
+
+  const headerRow = worksheet.getRow(1);
+  headerRow.height = 25; 
+  
+  headerRow.eachCell((cell) => {
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FF171E27' } 
+    };
+    cell.font = {
+      color: { argb: 'FFFFFFFF' }, 
+      bold: true,
+      size: 11
+    };
+    cell.alignment = { 
+      vertical: 'middle', 
+      horizontal: 'center' 
+    };
+    cell.border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' }
+    };
+  });
+
+  clientes.forEach((c) => {
+    const contactoPrincipal = c.usuarios && c.usuarios.length > 0 ? c.usuarios[0] : null;
+    const nombreContacto = contactoPrincipal ? `${contactoPrincipal.nombre} ${contactoPrincipal.apellido}` : 'N/A';
+    const correoContacto = contactoPrincipal ? contactoPrincipal.correo : 'N/A';
+    const infoContacto = `${nombreContacto}\n${correoContacto}\nTel: ${c.telefono_contacto || 'N/A'}`; 
+
+    const responsables = c.gestores && c.gestores.length > 0
+      ? c.gestores.map(g => `${g.nombre} ${g.apellido}`).join(', ')
+      : 'Sin Asignar';
+
+    const row = worksheet.addRow({
+      razonSocial: c.razon_social_nombres || 'N/A',
+      ruc: c.identificacion || 'N/A',
+      tipoServicio: c.tipo_servicio || 'N/A',
+      tipoContrib: c.tipo_contribuyente || 'N/A',
+      regimen: c.regimen_tributario || 'N/A',
+      retencion: c.agente_retencion ? 'SI' : 'NO',
+      actividad: c.actividad_economica || 'N/A',
+      sector: c.sector || 'N/A',
+      contacto: infoContacto,
+      responsable: responsables
+    });
+
+    row.eachCell({ includeEmpty: true }, (cell) => {
+      cell.alignment = { 
+        vertical: 'middle', 
+        horizontal: 'left', 
+        wrapText: true 
+      };
+    });
+  });
+
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  saveAs(blob, 'Base_Datos_Clientes_Mhorizon.xlsx');
+};
+
   const clientesFiltrados = clientes.filter(c =>
     c.razon_social_nombres.toLowerCase().includes(busqueda.toLowerCase()) ||
     c.identificacion.includes(busqueda)
@@ -220,13 +304,48 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
             </p>
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
-            <button onClick={exportarPDF} className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-5 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 w-full sm:w-auto">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-              </svg>
-              Descargar PDF
-            </button>
-            <button onClick={onOpenAñadir} className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 shrink-0">
+
+            <div className="relative w-full sm:w-auto">
+              <button
+                onClick={() => setShowDownloadMenu(!showDownloadMenu)}
+                className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-5 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+                Descargar
+                <svg className={`w-4 h-4 transition-transform duration-200 ${showDownloadMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </button>
+
+              {showDownloadMenu && (
+                <div className=" absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden z-50">
+                  <button
+                    onClick={() => {
+                      exportarPDF();
+                      setShowDownloadMenu(false); 
+                    }}
+                    className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-red-50 hover:text-red-500 transition-colors flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                    Formato PDF
+                  </button>
+                  <button
+                    onClick={() => {
+                      exportarExcel();
+                      setShowDownloadMenu(false); 
+                    }}
+                    className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-green-50 hover:text-green-600 transition-colors border-t border-gray-50 flex items-center gap-2"
+                  >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    Formato Excel
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <button onClick={onOpenAñadir} className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
               Añadir Cliente
             </button>
@@ -277,7 +396,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                         </div>
                       </div>
                     </td>
-                    
+
 
                     <td className="px-6 py-5 text-center">
                       <span className={`py-1 rounded text-[0.65rem] font-bold uppercase ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-blue-50 text-blue-200' : 'bg-orange-50 text-orange-600'}`}>
@@ -313,21 +432,21 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                       {cliente.usuarios && cliente.usuarios.length > 0 ? (
                         <div className="flex flex-col items-start gap-1.5">
                           <button
-                              onClick={() => handleToggleEstadoUsuario(cliente.id, cliente.usuarios![0])}
-                              title={cliente.usuarios[0].activo !== false ? 'Click para Desactivar' : 'Click para Activar'}
-                              className={`cursor-pointer px-3 py-1 rounded-full text-[0.60rem] font-bold uppercase transition-all duration-300 border focus:outline-none ${cliente.usuarios[0].activo !== false
-                                  ? 'bg-green-100 text-green-600 border-green-200 hover:bg-red-100 hover:text-red-600 hover:border-red-200'
-                                  : 'bg-red-100 text-red-600 border-red-200 hover:bg-green-100 hover:text-green-600 hover:border-green-200'
+                            onClick={() => handleToggleEstadoUsuario(cliente.id, cliente.usuarios![0])}
+                            title={cliente.usuarios[0].activo !== false ? 'Click para Desactivar' : 'Click para Activar'}
+                            className={`cursor-pointer px-3 py-1 rounded-full text-[0.60rem] font-bold uppercase transition-all duration-300 border focus:outline-none ${cliente.usuarios[0].activo !== false
+                              ? 'bg-green-100 text-green-600 border-green-200 hover:bg-red-100 hover:text-red-600 hover:border-red-200'
+                              : 'bg-red-100 text-red-600 border-red-200 hover:bg-green-100 hover:text-green-600 hover:border-green-200'
                               }`}
                           >
-                              {cliente.usuarios[0].activo !== false ? 'Activo' : 'Inactivo'}
+                            {cliente.usuarios[0].activo !== false ? 'Activo' : 'Inactivo'}
                           </button>
                         </div>
                       ) : (
                         <span className="text-gray-400 italic text-xs">Sin asignar</span>
                       )}
                     </td>
-                    
+
                     <td className="px-6 py-5 text-center">
                       <button
                         onClick={() => onOpenGestion(cliente)}
