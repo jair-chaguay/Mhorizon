@@ -6,7 +6,7 @@ interface ModalCrearUsuarioProps {
     isOpen: boolean;
     onClose: () => void;
     onSuccess: () => void;
-    usuarioAEditar?: any; // <-- 1. Prop para recibir datos a editar
+    usuarioAEditar?: any; 
 }
 
 const ModalCrearUsuario: React.FC<ModalCrearUsuarioProps> = ({ isOpen, onClose, onSuccess, usuarioAEditar }) => {

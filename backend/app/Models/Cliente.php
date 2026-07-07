@@ -21,18 +21,31 @@ class Cliente extends Model
         'proximo_vencimiento',
         'gestionado_por_id',
         'comentario_score',
-        'detalle_score'
+        'detalle_score',
+        'tipo_servicio',
+        'tipo_contribuyente',
+        'regimen_tributario',
+        'agente_retencion',
+        'actividad_economica',
+        'sector',
+        'telefono_contacto'
     ];
 
     protected $casts = [
         'score_tributario' => 'integer',
         'proximo_vencimiento' => 'date:Y-m-d',
-        'detalle_score' => 'array'
+        'detalle_score' => 'array',
+        'agente_retencion' => 'boolean'
     ];
 
     public function usuarios()
     {
         return $this->hasMany(Usuario::class, 'cliente_id');
+    }
+    
+    public function correos()
+    {
+        return $this->hasMany(ClienteCorreo::class, 'cliente_id');
     }
     
     public function periodos()

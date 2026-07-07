@@ -53,7 +53,6 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
             await api.put(`/usuario/${usuario.id}`, { activo: nuevoEstado });
         } catch (error) {
             console.error("Error al actualizar el estado:", error);
-            // Si la petición falla, revertimos el cambio en la interfaz
             setUsuarios(prev => prev.map(u =>
                 u.id === usuario.id ? { ...u, activo: !nuevoEstado } : u
             ));
@@ -69,9 +68,99 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
         );
     }
 
+ const renderTablaRol = (titulo: string, rolId: number, badgeClasses: string, rolNombre: string) => {
+        const usuariosDelRol = usuarios.filter(u => u.rol_id === rolId);
+
+        return (
+            <div className="mb-8">
+                <h2 className="text-[1.3rem] font-bold text-blue-200 mb-3 ml-1 tracking-tight">
+                    {titulo} 
+                </h2>
+                <div className="bg-white reveal-element rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
+                    <div className="overflow-x-auto">
+                        <table className="w-full text-left min-w-225">
+                            <thead>
+                                <tr className="bg-gray-50 border-b border-gray-200 text-[0.70rem] font-bold uppercase tracking-widest text-gray-500">
+                                    <th className="px-6 py-4">Nombre Completo</th>
+                                    <th className="px-6 py-4">Correo Electrónico</th>
+                                    <th className="px-6 py-4">Cargo</th>
+                                    <th className="px-6 py-4">Estado</th>
+                                    <th className="px-6 py-4 flex items-center justify-center">Rol</th>
+                                    <th className="px-6 py-4 text-center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-[0.85rem] divide-y divide-gray-100">
+                                {usuariosDelRol.length > 0 ? (
+                                    usuariosDelRol.map((u) => (
+                                        <tr key={u.id} className="hover:bg-gray-50/50 transition-colors group">
+                                            <td className="px-6 py-5 font-medium text-blue-200">
+                                                {u.nombre} {u.apellido}
+                                            </td>
+                                            <td className="px-6 py-5 text-gray-500 font-mono text-[0.75rem]">
+                                                {u.correo}
+                                            </td>
+                                            <td className="px-6 py-5 text-gray-600">
+                                                {u.cargo || 'No asignado'}
+                                            </td>
+                                            <td className="px-6 py-5">
+                                                <button
+                                                    onClick={() => handleToggleEstado(u)}
+                                                    title={u.activo ? 'Click para Desactivar' : 'Click para Activar'}
+                                                    className={`cursor-pointer px-3 py-1 rounded-full text-[0.65rem] font-bold uppercase transition-all duration-300 border focus:outline-none ${u.activo
+                                                        ? 'bg-green-100 text-green-600 border-green-200 hover:bg-red-100 hover:text-red-600 hover:border-red-200'
+                                                        : 'bg-red-100 text-red-600 border-red-200 hover:bg-green-100 hover:text-green-600 hover:border-green-200'
+                                                        }`}
+                                                >
+                                                    {u.activo ? 'Activo' : 'Inactivo'}
+                                                </button>
+                                            </td>
+                                            <td className="px-6 py-5 items-center justify-center flex">
+                                                <span className={`px-2 py-1 text-[0.65rem] rounded-full ${badgeClasses}`}>
+                                                    {rolNombre}
+                                                </span>
+                                            </td>
+                                            <td className="px-6 py-5">
+                                                <div className="flex items-center justify-center gap-2">
+                                                    <button
+                                                        onClick={() => onOpenEditar(u)}
+                                                        className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-blue-50 text-gray-400 hover:text-blue-500 transition-all"
+                                                        title='Editar'
+                                                    >
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                        </svg>
+                                                    </button>
+                                                    <button
+                                                        onClick={() => onOpenEliminar(`/usuario/${u.id}`, `${u.nombre} ${u.apellido}`)}
+                                                        className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-red-50 text-gray-400 hover:text-red-600 transition-all"
+                                                        title="Eliminar"
+                                                    >
+                                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan={6} className="px-6 py-8 text-center text-gray-400">
+                                            No hay usuarios asignados a este rol.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <ScrollReveal className="max-w-350 mx-auto space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 reveal-element">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 reveal-element mb-8">
                 <div>
                     <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
                         Gestor de Usuarios
@@ -89,89 +178,10 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                 </button>
             </div>
 
-            <div className="bg-white reveal-element rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
-                <div className="overflow-x-auto">
-                    <table className="w-full text-left min-w-225">
-                        <thead>
-                            <tr className="bg-gray-50 border-b border-gray-200 text-[0.70rem] font-bold uppercase tracking-widest text-gray-500">
-                                <th className="px-6 py-4">Nombre Completo</th>
-                                <th className="px-6 py-4">Correo Electrónico</th>
-                                <th className="px-6 py-4">Cargo</th>
-                                <th className="px-6 py-4">Estado</th>
-                                <th className="px-6 py-4 flex items-center justify-center">Rol</th>
-                                <th className="px-6 py-4 text-center">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody className="text-[0.85rem] divide-y divide-gray-100">
-                            {usuarios.map((u) => (
-                                <tr key={u.id} className="hover:bg-gray-50/50 transition-colors group">
-                                    <td className="px-6 py-5 font-medium text-blue-200">
-                                        {u.nombre} {u.apellido}
-                                    </td>
-                                    <td className="px-6 py-5 text-gray-500 font-mono text-[0.75rem]">
-                                        {u.correo}
-                                    </td>
-                                    <td className="px-6 py-5 text-gray-600">
-                                        {u.cargo || 'No asignado'}
-                                    </td>
-                                    <td className="px-6 py-5">
-                                        <button
-                                            onClick={() => handleToggleEstado(u)}
-                                            title={u.activo ? 'Click para Desactivar' : 'Click para Activar'}
-                                            className={`cursor-pointer px-3 py-1 rounded-full text-[0.65rem] font-bold uppercase transition-all duration-300 border focus:outline-none ${u.activo
-                                                ? 'bg-green-100 text-green-600 border-green-200 hover:bg-red-100 hover:text-red-600 hover:border-red-200'
-                                                : 'bg-red-100 text-red-600 border-red-200 hover:bg-green-100 hover:text-green-600 hover:border-green-200'
-                                                }`}
-                                        >
-                                            {u.activo ? 'Activo' : 'Inactivo'}
-                                        </button>
-                                    </td>
-                                    <td className="px-6 py-5 items-center justify-center flex">
-                                        {u.rol_id === 3 && (
-                                            <span className="px-2 py-1 bg-blue-200 text-white text-[0.65rem] rounded-full">
-                                                Creador
-                                            </span>
-                                        )}
-                                        {u.rol_id === 1 && (
-                                            <span className="px-2 py-1 bg-gray-300 text-gray-700 text-[0.65rem] rounded-full">
-                                                Colaborador
-                                            </span>
-                                        )}
-                                        {u.rol_id === 2 && (
-                                            <span className="px-2 py-1 bg-orange-100 text-orange-600 text-[0.65rem] rounded-full">
-                                                Cliente
-                                            </span>
-                                        )}
-                                    </td>
+            {renderTablaRol("Creadores del Sistema", 3, "bg-blue-200 text-white", "Creador")}
+            {renderTablaRol("Colaboradores", 1, "bg-gray-300 text-gray-700", "Colaborador")}
+            {renderTablaRol("Lista de Clientes", 2, "bg-orange-100 text-orange-600", "Cliente")}
 
-                                    <td className="px-6 py-5">
-                                        <div className="flex items-center justify-center gap-2">
-                                            <button
-                                                onClick={() => onOpenEditar(u)}
-                                                className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-blue-50 text-gray-400 hover:text-blue-500 transition-all"
-                                                title='Editar'
-                                            >
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                </svg>
-                                            </button>
-                                            <button
-                                                onClick={() => onOpenEliminar(`/usuario/${u.id}`, `${u.nombre} ${u.apellido}`)}
-                                                className="cursor-pointer w-8 h-8 rounded-lg border border-gray-200 flex items-center justify-center hover:bg-red-50 text-gray-400 hover:text-red-600 transition-all"
-                                                title="Eliminar"
-                                            >
-                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </ScrollReveal>
     );
 };

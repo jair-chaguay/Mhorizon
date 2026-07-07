@@ -17,7 +17,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::with('gestores', 'usuarios')
+        $clientes = Cliente::with('gestores', 'usuarios', 'correos')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -30,7 +30,7 @@ class ClienteController extends Controller
     public function indexBiblioteca()
     {
         $clientes = Cliente::withTrashed()
-                           ->with('gestores', 'usuarios')
+                           ->with('gestores', 'usuarios', 'correos')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -50,8 +50,17 @@ class ClienteController extends Controller
             'score_tributario' => 'required|integer|min:0|max:100',
             'gestores' => 'required|array|min:1',
             'gestores.*' => 'exists:usuarios,id',
+
+            'tipo_servicio' => 'nullable|string|max:255',
+            'tipo_contribuyente' => 'required|in:Persona Natural,Sociedad',
+            'regimen_tributario' => 'nullable|string|max:255',
+            'agente_retencion' => 'required|boolean',
+            'actividad_economica' => 'nullable|string',
+            'sector' => 'nullable|string|max:255',
+            'telefono_contacto' => 'nullable|string|max:20',
             
             'correo' => 'required|email|max:150|unique:usuarios,correo',
+            'correo2' => 'nullable|email|max:150|unique:cliente_correos,correo',
             'password' => 'required|string|min:8'
         ]);
 
@@ -67,9 +76,22 @@ class ClienteController extends Controller
                 'razon_social_nombres' => $request->razon_social_nombres,
                 'identificacion' => $request->identificacion,
                 'score_tributario' => $request->score_tributario,
+                'tipo_servicio' => $request->tipo_servicio,
+                'tipo_contribuyente' => $request->tipo_contribuyente,
+                'regimen_tributario' => $request->regimen_tributario,
+                'agente_retencion' => $request->agente_retencion,
+                'actividad_economica' => $request->actividad_economica,
+                'sector' => $request->sector,
+                'telefono_contacto' => $request->telefono_contacto,
             ]);
 
             $cliente->gestores()->sync($request->gestores);
+
+            if ($request->filled('correo2')) {
+                $cliente->correos()->create([
+                    'correo' => $request->correo2
+                ]);
+            }
 
             // B. Crear el Usuario asociado a ese Cliente
             $usuario = Usuario::create([
@@ -103,7 +125,7 @@ class ClienteController extends Controller
 
     public function show($id)
     {
-        $cliente = Cliente::with(['usuarios', 'gestores'])->find($id);
+        $cliente = Cliente::with(['usuarios', 'gestores', 'correos'])->find($id);
 
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 
@@ -132,12 +154,24 @@ class ClienteController extends Controller
             'correo' => 'sometimes|required|email|max:150',
             'password' => 'nullable|string|min:8',
             'representante' => 'nullable|string|max:200',
-            'gestores' => 'sometimes|required|array'
+            'gestores' => 'sometimes|required|array',
+
+            'tipo_servicio' => 'sometimes|nullable|string|max:255',
+            'tipo_contribuyente' => 'sometimes|required|in:Persona Natural,Sociedad',
+            'regimen_tributario' => 'sometimes|nullable|string|max:255',
+            'agente_retencion' => 'sometimes|required|boolean',
+            'actividad_economica' => 'sometimes|nullable|string',
+            'sector' => 'sometimes|nullable|string|max:255',
+            'telefono_contacto' => 'sometimes|nullable|string|max:20',
+            'correo2' => 'sometimes|nullable|email|max:150|unique:cliente_correos,correo,'.$id.',cliente_id'
         ]);
 
         if ($validator->fails()) return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
 
-        $cliente->update($request->only(['tipo_persona', 'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id']));
+        $cliente->update($request->only([
+            'tipo_persona', 'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id',
+            'tipo_servicio', 'tipo_contribuyente', 'regimen_tributario', 'agente_retencion', 'actividad_economica', 'sector', 'telefono_contacto'
+        ]));
 
         if ($request->has('gestores')) {
             $cliente->gestores()->sync($request->gestores);
@@ -159,7 +193,18 @@ class ClienteController extends Controller
             $usuario->save();
         }
 
-        $cliente->load('usuarios', 'gestores');
+        if ($request->has('correo2')) {
+            if ($request->filled('correo2')) {
+                $cliente->correos()->updateOrCreate(
+                    ['cliente_id' => $cliente->id],
+                    ['correo' => $request->correo2]
+                );
+            } else {
+                $cliente->correos()->delete();
+            }
+        }
+
+        $cliente->load('usuarios', 'gestores', 'correos');
 
         return response()->json(['message' => 'Perfil del cliente actualizado', 'cliente' => $cliente, 'status' => 200], 200);
     }
