@@ -50,7 +50,7 @@ class AuthController extends Controller
             ->orWhere(function($query) use ($login){
                 $query->whereNull('cliente_id')
                         ->where(function($subQuery) use ($login){
-                            $subQuery->where('usuario', $login)
+                            $subQuery->where('correo', $login)
                                         ->orWhere('correo_personal', $login);
                         });
             })

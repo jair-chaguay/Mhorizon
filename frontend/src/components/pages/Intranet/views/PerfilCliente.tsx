@@ -339,16 +339,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 <input type="text" maxLength={13} name="identificacion" value={formData.identificacion} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de Persona</p>
-                                <select name="tipo_persona" value={formData.tipo_persona} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
-                                    <option value="Régimen General">Régimen General</option>
-                                    <option value="RIMPE">RIMPE</option>
-                                    <option value="Contribuyente Especial">Contribuyente Especial</option>
-                                    <option value="Persona Natural">Persona Natural</option>
-                                    <option value="Entidad Pública">Entidad Pública</option>
-                                </select>
-                            </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de Contribuyente</p>
@@ -384,7 +374,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 />
                             </div>
 
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 xl:col-span-3">
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 xl:col-span-4">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Actividad Económica Principal</p>
                                 <input type="text" name="actividad_economica" value={formData.actividad_economica} onChange={handleInputChange} placeholder="Detalle de actividades comerciales..." disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.90rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
@@ -423,8 +413,8 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
                         <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3">3. Cuenta de Acceso del Cliente</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo Principal (Usuario Acceso)</p>
+                            <div className="bg-white/10 col-span-1 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo de Recuperación</p>
                                 <input type="email" name="correo" value={formData.correo} onChange={handleInputChange} placeholder="Asignar correo corporativo..." disabled={!canEdit} className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
@@ -443,7 +433,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             </div>
 
 
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 lg:col-span-3 xl:col-span-4 mt-2">
+                            <div className="bg-white/10  rounded-xl p-4 border border-white/5 sm:col-span-2 lg:col-span-3 xl:col-span-4 mt-2">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-2">Gestionado por (Múltiple Responsable Interno)</p>
                                 <div className="max-h-24 overflow-y-auto space-y-2 pr-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                                     {usuariosGestores.map((u) => (

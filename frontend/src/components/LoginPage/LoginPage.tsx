@@ -7,7 +7,7 @@ import {Eye, EyeOff} from 'lucide-react';
 
 export const LoginPage = () => {
     const navigate = useNavigate();
-    const [correo, setCorreo] = useState("");
+    const [usuario, setUsuario] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -19,7 +19,7 @@ export const LoginPage = () => {
         setLoading(true);
         setErrorMsg("");
         try {
-            const { data } = await api.post("/login", { correo, password });
+            const { data } = await api.post("/login", { usuario, password });
             localStorage.setItem('token', data.token);
             localStorage.setItem('user', JSON.stringify(data.usuario));
             const user = data.usuario;
@@ -81,19 +81,19 @@ export const LoginPage = () => {
                         <form onSubmit={handleSubmit} className="space-y-6">
 
                             <div>
-                                <label htmlFor="email" className="block text-[0.80rem] font-bold text-blue-200 uppercase tracking-widest mb-2">
-                                    Correo Institucional
+                                <label htmlFor="usuario" className="block text-[0.80rem] font-bold text-blue-200 uppercase tracking-widest mb-2">
+                                    Usuario (RUC/Correo)
                                 </label>
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400 group-focus-within:text-orange-500 transition-colors duration-300">
                                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path></svg>
                                     </div>
                                     <input
-                                        id="email"
-                                        onChange={(e) => setCorreo(e.target.value)}
-                                        name="email"
-                                        type="email"
-                                        required autoComplete="email"
+                                        id="usuario"
+                                        onChange={(e) => setUsuario(e.target.value)}
+                                        name="usuario"
+                                        type="text"
+                                        autoComplete= "username"
                                         className="block w-full pl-12 pr-4 py-3.5 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 font-medium focus:bg-white focus:ring-1 focus:ring-orange-500 focus:border-orange-500 outline-none transition-all duration-300" placeholder="ejemplo@corporacion.com"
                                     />
                                 </div>
