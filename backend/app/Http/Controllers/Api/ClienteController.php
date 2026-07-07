@@ -183,6 +183,9 @@ class ClienteController extends Controller
             if ($request->filled('correo')) {
                 $usuario->correo = $request->correo;
             }
+            if ($request->has('correo2')) {
+                $usuario->correo_personal = $request->correo2; 
+            }
             if ($request->filled('password')) {
                 $usuario->password_hash = Hash::make($request->password);
             }
