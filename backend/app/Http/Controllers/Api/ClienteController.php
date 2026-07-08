@@ -44,7 +44,6 @@ class ClienteController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'tipo_persona' => 'required|in:Régimen General,RIMPE,Contribuyente Especial,Persona Natural,Entidad Pública',
             'razon_social_nombres' => 'required|string|max:255',
             'identificacion' => 'required|string|max:13|unique:clientes,identificacion',
             'score_tributario' => 'required|integer|min:0|max:100',
@@ -71,7 +70,6 @@ class ClienteController extends Controller
 
         try {
             $cliente = Cliente::create([
-                'tipo_persona' => $request->tipo_persona,
                 'razon_social_nombres' => $request->razon_social_nombres,
                 'identificacion' => $request->identificacion,
                 'score_tributario' => $request->score_tributario,
@@ -141,7 +139,6 @@ class ClienteController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'tipo_persona' => 'sometimes|required|in:Régimen General,RIMPE,Contribuyente Especial,Persona Natural,Entidad Pública',
             'razon_social_nombres' => 'sometimes|required|string|max:255',
             'identificacion' => 'sometimes|required|string|max:13|unique:clientes,identificacion,'.$id,
             'direccion_matriz' => 'nullable|string',
@@ -163,7 +160,7 @@ class ClienteController extends Controller
         if ($validator->fails()) return response()->json(['message' => 'Error de validación', 'errors' => $validator->errors(), 'status' => 400], 400);
 
         $cliente->update($request->only([
-            'tipo_persona', 'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id',
+            'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id',
             'tipo_servicio', 'tipo_contribuyente', 'regimen_tributario', 'agente_retencion', 'actividad_economica', 'sector', 'telefono_contacto'
         ]));
 

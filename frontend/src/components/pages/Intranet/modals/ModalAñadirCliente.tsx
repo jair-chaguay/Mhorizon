@@ -90,7 +90,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
     const [score, setScore] = useState<number>(100);
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
-    const [tipoPersona, setTipoPersona] = useState('Persona Natural');
     const [tipoServicio, setTipoServicio] = useState('');
     const [tipoContribuyente, setTipoContribuyente] = useState('Persona Natural');
     const [regimenTributario, setRegimenTributario] = useState('General');
@@ -122,7 +121,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             setScore(100);
             setCorreo('');
             setPassword('');
-            setTipoPersona('Persona Natural');
             setGestoresSeleccionados([]);
             setTipoServicio('Impuestos');
             setTipoContribuyente('Persona Natural');
@@ -152,35 +150,9 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             return; 
         }
 
-        let regimenIncorrecto = false;
-        let mensajeErrorRegimen = "";
-        
-        if (validacion.tipo === "Persona Natural") {
-            if (tipoPersona === "Régimen General" || tipoPersona === "Entidad Pública") {
-                regimenIncorrecto = true;
-                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Persona Natural (3er dígito menor a 6). No puedes seleccionarlo como "${tipoPersona}".`;
-            }
-        } else if (validacion.tipo === "Sociedad Privada") {
-            if (tipoPersona === "Persona Natural" || tipoPersona === "Entidad Pública") {
-                regimenIncorrecto = true;
-                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Sociedad (3er dígito es 9). No puedes seleccionarlo como "${tipoPersona}".`;
-            }
-        } else if (validacion.tipo === "Entidad Pública") {
-            if (tipoPersona === "Persona Natural" || tipoPersona === "Régimen General") {
-                regimenIncorrecto = true;
-                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Entidad Pública (3er dígito es 6). No puedes seleccionarlo como "${tipoPersona}".`;
-            }
-        }
-
-        if (regimenIncorrecto) {
-            setErrorMsg(mensajeErrorRegimen);
-            return; 
-        }
-
         setLoading(true);
         try {
             const payload = {
-                tipo_persona: tipoPersona,
                 razon_social_nombres: razonSocial,
                 identificacion: identificacionClean,
                 score_tributario: score,
@@ -214,7 +186,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
     if (!isOpen) return null;
 
     return (
-        <div id="add-client-modal" className="fixed inset-0 bg-black/80 backdrop-blur-sm z-150 flex justify-center items-center p-4 transition-opacity duration-300">
+        <div id="add-client-modal" className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[150] flex justify-center items-center p-4 transition-opacity duration-300">
             <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transform scale-100 transition-transform duration-300 max-h-[90vh] overflow-y-auto no-scrollbar">
                 
                 <button onClick={onClose} className="absolute top-5 right-5 text-gray-400 hover:text-orange-500 focus:outline-none cursor-pointer">
@@ -231,7 +203,7 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                 <form onSubmit={handleSubmit} className="space-y-4">
                     
                     {errorMsg && (
-                        <div className="bg-red-55 text-red-600 p-3 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-2">
+                        <div className="bg-red-50 text-red-600 p-3 rounded-lg text-sm font-medium border border-red-100 flex items-start gap-2">
                             <svg className="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                             <span>{errorMsg}</span>
                         </div>
@@ -315,7 +287,6 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                             <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo <span className="text-gray-400 font-normal normal-case tracking-normal">(Usuario 1)</span></label>
                             <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder="correo@empresa.com" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
                         </div>
-
                     </div>
 
                     <div>
