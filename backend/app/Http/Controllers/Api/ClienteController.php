@@ -45,6 +45,9 @@ class ClienteController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'razon_social_nombres' => 'required|string|max:255',
+            'representante_nombre' => 'nullable|string|max:255', 
+            'representante_correo' => 'nullable|email|max:150',  
+            'representante_cargo'  => 'nullable|string|max:150', 
             'identificacion' => 'required|string|max:13|unique:clientes,identificacion',
             'score_tributario' => 'required|integer|min:0|max:100',
             'gestores' => 'required|array|min:1',
@@ -71,6 +74,9 @@ class ClienteController extends Controller
         try {
             $cliente = Cliente::create([
                 'razon_social_nombres' => $request->razon_social_nombres,
+                'representante_nombre' => $request->representante_nombre,
+                'representante_correo' => $request->representante_correo,
+                'representante_cargo'  => $request->representante_cargo,
                 'identificacion' => $request->identificacion,
                 'score_tributario' => $request->score_tributario,
                 'tipo_servicio' => $request->tipo_servicio,
@@ -141,6 +147,10 @@ class ClienteController extends Controller
         $validator = Validator::make($request->all(), [
             'razon_social_nombres' => 'sometimes|required|string|max:255',
             'identificacion' => 'sometimes|required|string|max:13|unique:clientes,identificacion,'.$id,
+            'representante_nombre' => 'nullable|string|max:255',
+            'representante_correo' => 'nullable|email|max:150',
+            'representante_cargo'  => 'nullable|string|max:150',
+
             'direccion_matriz' => 'nullable|string',
             'score_tributario' => 'sometimes|required|integer|min:0|max:100',
             'correo' => 'sometimes|required|email|max:150',
@@ -161,6 +171,7 @@ class ClienteController extends Controller
 
         $cliente->update($request->only([
             'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id',
+            'representante_nombre', 'representante_correo', 'representante_cargo',
             'tipo_servicio', 'tipo_contribuyente', 'regimen_tributario', 'agente_retencion', 'actividad_economica', 'sector', 'telefono_contacto'
         ]));
 

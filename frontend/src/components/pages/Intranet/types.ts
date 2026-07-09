@@ -2,12 +2,13 @@ export type ViewID = 'view-directorio' | 'view-repositorio-root' | 'view-informa
 
 export interface Cliente {
     id: number;
-    tipo_persona: 'Régimen General' | 'RIMPE' | 'Contribuyente Especial' | 'Persona Natural' | 'Entidad Pública';
     razon_social_nombres: string;
     identificacion: string;
     score_tributario: number;
     comentario_score?: string;
-    
+    representante_nombre?: string;
+    representante_correo?: string;
+    representante_cargo?: string;
     tipo_servicio?: string;
     tipo_contribuyente?: string;
     regimen_tributario?: string;

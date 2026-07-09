@@ -27,7 +27,11 @@ class Cliente extends Model
         'agente_retencion',
         'actividad_economica',
         'sector',
-        'telefono_contacto'
+        'telefono_contacto',
+        'razon_social_nombres',
+        'representante_nombre',
+        'representante_correo',
+        'representante_cargo',
     ];
 
     protected $casts = [

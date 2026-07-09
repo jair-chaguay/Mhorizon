@@ -15,6 +15,9 @@ export interface Cliente {
   razon_social_nombres: string;
   identificacion: string;
   score_tributario: number;
+  representante_nombre?: string;
+  representante_correo?: string;
+  representante_cargo?: string;
   tipo_servicio?: string;
   tipo_contribuyente?: string;
   regimen_tributario?: string;
@@ -64,7 +67,6 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     const estadoAnterior = usuario.activo !== false;
     const nuevoEstado = !estadoAnterior;
 
-    // 1. Actualización optimista en la estructura de clientes
     setClientes(prevClientes => prevClientes.map(c => {
       if (c.id === clienteId && c.usuarios) {
         return {
@@ -119,10 +121,12 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     doc.setFont('helvetica', 'bold');
     doc.text(`Total registrados: ${clientes.length} clientes`, 40, 60);
     const tableData = clientes.map((c) => {
-      const contactoPrincipal = c.usuarios && c.usuarios.length > 0 ? c.usuarios[0] : null;
-      const nombreContacto = contactoPrincipal ? `${contactoPrincipal.nombre} ${contactoPrincipal.apellido}` : 'N/A';
-      const correoContacto = contactoPrincipal ? contactoPrincipal.correo : 'N/A';
-      const infoContacto = `${nombreContacto}\n${correoContacto}\nTel: ${c.telefono_contacto || 'N/A'}`;
+      const fallbackUser = c.usuarios && c.usuarios.length > 0 ? c.usuarios[0] : null;
+      const nombreContacto = c.representante_nombre || (fallbackUser ? `${fallbackUser.nombre} ${fallbackUser.apellido}` : 'N/A');
+      const correoContacto = c.representante_correo || (fallbackUser ? fallbackUser.correo : 'N/A');
+      const cargoContacto = c.representante_cargo ? ` - ${c.representante_cargo}` : '';
+
+      const infoContacto = `${nombreContacto}${cargoContacto}\n${correoContacto}\nTel: ${c.telefono_contacto || 'N/A'}`;
 
       const responsables = c.gestores && c.gestores.length > 0
         ? c.gestores.map(g => `${g.nombre} ${g.apellido}`).join(', ')
@@ -135,7 +139,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
         c.tipo_contribuyente || 'N/A',
         c.regimen_tributario || 'N/A',
         c.agente_retencion ? 'SI' : 'NO',
-        c.actividad_economica ? c.actividad_economica.substring(0, 30) + '...' : 'N/A', // Se corta para que no desborde la tabla
+        c.actividad_economica ? c.actividad_economica.substring(0, 30) + '...' : 'N/A',
         c.sector || 'N/A',
         infoContacto,
         responsables
@@ -151,7 +155,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
       'Retención',
       'Actividad Económica',
       'Sector',
-      'Contacto Cliente',
+      'Contacto Legal / Cliente',
       'Responsable Int.'
     ];
 
@@ -175,7 +179,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
       columnStyles: {
         0: { cellWidth: 80 },  // Razón Social
         1: { cellWidth: 65 },  // RUC
-        8: { cellWidth: 100 }, // Contacto
+        8: { cellWidth: 110 }, // Contacto (Ligeramente más ancho por el cargo)
         9: { cellWidth: 70 }   // Responsable
       }
     });
@@ -184,84 +188,86 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
   }
 
   const exportarExcel = async () => {
-  const workbook = new ExcelJS.Workbook();
-  const worksheet = workbook.addWorksheet('Clientes');
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Clientes');
 
-  worksheet.columns = [
-    { header: 'Razón Social', key: 'razonSocial', width: 35 },
-    { header: 'RUC / Cédula', key: 'ruc', width: 15 },
-    { header: 'Tipo Servicio', key: 'tipoServicio', width: 20 },
-    { header: 'Tipo Contrib.', key: 'tipoContrib', width: 20 },
-    { header: 'Régimen', key: 'regimen', width: 20 },
-    { header: 'Retención', key: 'retencion', width: 10 },
-    { header: 'Actividad Económica', key: 'actividad', width: 40 },
-    { header: 'Sector', key: 'sector', width: 20 },
-    { header: 'Contacto Cliente', key: 'contacto', width: 50 },
-    { header: 'Responsable Int.', key: 'responsable', width: 30 }
-  ];
+    worksheet.columns = [
+      { header: 'Razón Social', key: 'razonSocial', width: 35 },
+      { header: 'RUC / Cédula', key: 'ruc', width: 15 },
+      { header: 'Tipo Servicio', key: 'tipoServicio', width: 20 },
+      { header: 'Tipo Contrib.', key: 'tipoContrib', width: 20 },
+      { header: 'Régimen', key: 'regimen', width: 20 },
+      { header: 'Retención', key: 'retencion', width: 10 },
+      { header: 'Actividad Económica', key: 'actividad', width: 40 },
+      { header: 'Sector', key: 'sector', width: 20 },
+      { header: 'Contacto Legal / Cliente', key: 'contacto', width: 50 },
+      { header: 'Responsable Int.', key: 'responsable', width: 30 }
+    ];
 
-  const headerRow = worksheet.getRow(1);
-  headerRow.height = 25; 
-  
-  headerRow.eachCell((cell) => {
-    cell.fill = {
-      type: 'pattern',
-      pattern: 'solid',
-      fgColor: { argb: 'FF171E27' } 
-    };
-    cell.font = {
-      color: { argb: 'FFFFFFFF' }, 
-      bold: true,
-      size: 11
-    };
-    cell.alignment = { 
-      vertical: 'middle', 
-      horizontal: 'center' 
-    };
-    cell.border = {
-      top: { style: 'thin' },
-      left: { style: 'thin' },
-      bottom: { style: 'thin' },
-      right: { style: 'thin' }
-    };
-  });
+    const headerRow = worksheet.getRow(1);
+    headerRow.height = 25;
 
-  clientes.forEach((c) => {
-    const contactoPrincipal = c.usuarios && c.usuarios.length > 0 ? c.usuarios[0] : null;
-    const nombreContacto = contactoPrincipal ? `${contactoPrincipal.nombre} ${contactoPrincipal.apellido}` : 'N/A';
-    const correoContacto = contactoPrincipal ? contactoPrincipal.correo : 'N/A';
-    const infoContacto = `${nombreContacto}\n${correoContacto}\nTel: ${c.telefono_contacto || 'N/A'}`; 
-
-    const responsables = c.gestores && c.gestores.length > 0
-      ? c.gestores.map(g => `${g.nombre} ${g.apellido}`).join(', ')
-      : 'Sin Asignar';
-
-    const row = worksheet.addRow({
-      razonSocial: c.razon_social_nombres || 'N/A',
-      ruc: c.identificacion || 'N/A',
-      tipoServicio: c.tipo_servicio || 'N/A',
-      tipoContrib: c.tipo_contribuyente || 'N/A',
-      regimen: c.regimen_tributario || 'N/A',
-      retencion: c.agente_retencion ? 'SI' : 'NO',
-      actividad: c.actividad_economica || 'N/A',
-      sector: c.sector || 'N/A',
-      contacto: infoContacto,
-      responsable: responsables
-    });
-
-    row.eachCell({ includeEmpty: true }, (cell) => {
-      cell.alignment = { 
-        vertical: 'middle', 
-        horizontal: 'left', 
-        wrapText: true 
+    headerRow.eachCell((cell) => {
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FF171E27' }
+      };
+      cell.font = {
+        color: { argb: 'FFFFFFFF' },
+        bold: true,
+        size: 11
+      };
+      cell.alignment = {
+        vertical: 'middle',
+        horizontal: 'center'
+      };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' }
       };
     });
-  });
 
-  const buffer = await workbook.xlsx.writeBuffer();
-  const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-  saveAs(blob, 'Base_Datos_Clientes_Mhorizon.xlsx');
-};
+    clientes.forEach((c) => {
+      const fallbackUser = c.usuarios && c.usuarios.length > 0 ? c.usuarios[0] : null;
+      const nombreContacto = c.representante_nombre || (fallbackUser ? `${fallbackUser.nombre} ${fallbackUser.apellido}` : 'N/A');
+      const correoContacto = c.representante_correo || (fallbackUser ? fallbackUser.correo : 'N/A');
+      const cargoContacto = c.representante_cargo ? ` - ${c.representante_cargo}` : '';
+
+      const infoContacto = `${nombreContacto}${cargoContacto}\n${correoContacto}\nTel: ${c.telefono_contacto || 'N/A'}`;
+
+      const responsables = c.gestores && c.gestores.length > 0
+        ? c.gestores.map(g => `${g.nombre} ${g.apellido}`).join(', ')
+        : 'Sin Asignar';
+
+      const row = worksheet.addRow({
+        razonSocial: c.razon_social_nombres || 'N/A',
+        ruc: c.identificacion || 'N/A',
+        tipoServicio: c.tipo_servicio || 'N/A',
+        tipoContrib: c.tipo_contribuyente || 'N/A',
+        regimen: c.regimen_tributario || 'N/A',
+        retencion: c.agente_retencion ? 'SI' : 'NO',
+        actividad: c.actividad_economica || 'N/A',
+        sector: c.sector || 'N/A',
+        contacto: infoContacto,
+        responsable: responsables
+      });
+
+      row.eachCell({ includeEmpty: true }, (cell) => {
+        cell.alignment = {
+          vertical: 'middle',
+          horizontal: 'left',
+          wrapText: true
+        };
+      });
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, 'Base_Datos_Clientes_Mhorizon.xlsx');
+  };
 
   const clientesFiltrados = clientes.filter(c =>
     c.razon_social_nombres.toLowerCase().includes(busqueda.toLowerCase()) ||
@@ -324,7 +330,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                   <button
                     onClick={() => {
                       exportarPDF();
-                      setShowDownloadMenu(false); 
+                      setShowDownloadMenu(false);
                     }}
                     className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-red-50 hover:text-red-500 transition-colors flex items-center gap-2"
                   >
@@ -334,7 +340,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                   <button
                     onClick={() => {
                       exportarExcel();
-                      setShowDownloadMenu(false); 
+                      setShowDownloadMenu(false);
                     }}
                     className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-green-50 hover:text-green-600 transition-colors border-t border-gray-50 flex items-center gap-2"
                   >

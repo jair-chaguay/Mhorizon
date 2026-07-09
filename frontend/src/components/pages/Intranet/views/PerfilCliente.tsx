@@ -125,7 +125,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     const [formData, setFormData] = useState({
         razon_social_nombres: cliente.razon_social_nombres || '',
         identificacion: cliente.identificacion || '',
-        tipo_persona: cliente.tipo_persona || 'Persona Natural',
         score_tributario: cliente.score_tributario || 100,
         telefono_contacto: cliente.telefono_contacto || '',
         tipo_servicio: cliente.tipo_servicio || '',
@@ -134,6 +133,9 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         regimen_tributario: cliente.regimen_tributario || '',
         agente_retencion: cliente.agente_retencion || false,
         actividad_economica: cliente.actividad_economica || '',
+        representante_nombre: (cliente as any).representante_nombre || '',
+        representante_correo: (cliente as any).representante_correo || '',
+        representante_cargo: (cliente as any).representante_cargo || '',
         correos_adicionales: cliente.correos ? cliente.correos.map(c => c.correo).join(', ') : '',
         correo: usuarioAsociado ? usuarioAsociado.correo : '',
         correo_personal: usuarioAsociado?.correo_personal || '',
@@ -222,34 +224,10 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         setErrorMsg('');
         const identificacionClean = formData.identificacion.trim();
 
+        // Validación estricta únicamente matemática del RUC
         const validacion = validarEstructuraRUC(identificacionClean);
         if (!validacion.valido) {
             setErrorMsg("RUC Inválido: " + validacion.mensaje);
-            return;
-        }
-
-        let regimenIncorrecto = false;
-        let mensajeErrorRegimen = "";
-
-        if (validacion.tipo === "Persona Natural") {
-            if (formData.tipo_persona === "Régimen General" || formData.tipo_persona === "Entidad Pública") {
-                regimenIncorrecto = true;
-                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Persona Natural (3er dígito menor a 6). No puedes seleccionarlo como "${formData.tipo_persona}".`;
-            }
-        } else if (validacion.tipo === "Sociedad Privada") {
-            if (formData.tipo_persona === "Persona Natural" || formData.tipo_persona === "Entidad Pública") {
-                regimenIncorrecto = true;
-                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Sociedad (3er dígito es 9). No puedes seleccionarlo como "${formData.tipo_persona}".`;
-            }
-        } else if (validacion.tipo === "Entidad Pública") {
-            if (formData.tipo_persona === "Persona Natural" || formData.tipo_persona === "Régimen General") {
-                regimenIncorrecto = true;
-                mensajeErrorRegimen = `Conflicto: El RUC ingresado es de una Entidad Pública (3er dígito es 6). No puedes seleccionarlo como "${formData.tipo_persona}".`;
-            }
-        }
-
-        if (regimenIncorrecto) {
-            setErrorMsg(mensajeErrorRegimen);
             return;
         }
 
@@ -319,7 +297,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
 
                         {errorMsg && (
                             <div className="bg-red-500/20 text-red-200 p-3 rounded-lg text-sm font-bold border border-red-500/50 flex items-start gap-2 mb-4">
-                                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77(1.333.192 3 1.732 3z"></path></svg>
+                                <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77(1.333.192 3 1.732 3z"></path></svg>
                                 <span>{errorMsg}</span>
                             </div>
                         )}
@@ -381,7 +359,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                         </div>
 
                         <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3">2. Información Operativa y Comercial</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-6">
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de Servicio Contratado</p>
                                 <select name="tipo_servicio" value={formData.tipo_servicio} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
@@ -403,6 +381,25 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                     <option value="Financiero">Financiero</option>
                                     <option value="Otros">Otros</option>
                                 </select>
+                            </div>
+
+                        </div>
+
+                        <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3 mt-6">2. Contacto / Representante Legal</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Nombre Completo</p>
+                                <input type="text" name="representante_nombre" value={formData.representante_nombre} onChange={handleInputChange} placeholder="Nombre del contacto..." disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Cargo</p>
+                                <input type="text" name="representante_cargo" value={formData.representante_cargo} onChange={handleInputChange} placeholder="Ej. Gerente General" disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                            </div>
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo de Contacto</p>
+                                <input type="email" name="representante_correo" value={formData.representante_correo} onChange={handleInputChange} placeholder="contacto@empresa.com" disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
@@ -432,11 +429,8 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </select>
                             </div>
 
-                            {/* --- AQUÍ ESTÁ EL CAMBIO PRINCIPAL --- */}
-                            {/* Cambiamos xl:col-span-4 por xl:col-span-1 y quitamos el mt-2 para que se alinee perfecto */}
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 lg:col-span-3 xl:col-span-1">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-2">Gestionado por</p>
-                                {/* Cambiamos el grid interno por un flex-col para que los checkboxes se apilen bien en la columna estrecha */}
                                 <div className="max-h-16 overflow-y-auto flex flex-col gap-2 pr-2 custom-scrollbar">
                                     {usuariosGestores.map((u) => (
                                         <label key={u.id} className="flex items-center gap-2 cursor-pointer group">
@@ -461,7 +455,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </div>
                             </div>
 
-                            {/* Botonera de Acciones de Guardado */}
                             {canEdit && (
                                 <div className="sm:col-span-2 lg:col-span-3 xl:col-span-4 flex flex-col sm:flex-row gap-4 mt-4 w-full">
                                     <button
@@ -561,7 +554,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                 <td className="px-5 py-4 text-center flex justify-center items-center gap-2">
                                                     {ob.estado === 'Pendiente' && (
                                                         <button
-                                                            // MODIFICADO: Pasamos el tipo_impuesto al manejador
                                                             onClick={() => onOpenSubir(ob.id, ob.tipo_impuesto)}
                                                             className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-green-500 hover:text-white hover:border-green-500 transition-all cursor-pointer"
                                                             title="Subir Anexos y Presentar"
@@ -695,10 +687,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                         </div>
                     )}
                 </div>
-
-
-
-
 
             </div>
         </ScrollReveal>
