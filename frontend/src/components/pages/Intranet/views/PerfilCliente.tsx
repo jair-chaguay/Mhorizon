@@ -96,8 +96,11 @@ const validarEstructuraRUC = (ruc: string): ValidacionResult => {
         if (!validarModulo10(ruc.substring(0, 10))) return { valido: false, mensaje: "Fallo en la validación de Cédula/Persona Natural (Módulo 10)." };
         return { valido: true, tipo: "Persona Natural" };
     } else if (tercerDigito === 9) {
-        if (!validarModulo11Sociedades(ruc)) return { valido: false, mensaje: "Fallo en la validación de Sociedad Privada (Módulo 11)." };
-        return { valido: true, tipo: "Sociedad Privada" };
+        const pasaModulo11= validarModulo11Sociedades(ruc);
+        if(!pasaModulo11){
+            console.warn(`El RUC ${ruc} no pasa el Módulo 11 clásico, pero se acepta por flexibilización del SRI.`);
+        }
+        return {valido: true, tipo: "Sociedad Privada"}
     } else if (tercerDigito === 6) {
         if (!validarModulo11Publicas(ruc)) return { valido: false, mensaje: "Fallo en la validación de Entidad Pública (Módulo 11)." };
         return { valido: true, tipo: "Entidad Pública" };
