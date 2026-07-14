@@ -17,7 +17,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        $clientes = Cliente::with('gestores', 'usuarios')
+        $clientes = Cliente::with('gestores', 'usuarios', 'representantes')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -30,7 +30,7 @@ class ClienteController extends Controller
     public function indexBiblioteca()
     {
         $clientes = Cliente::withTrashed()
-                           ->with('gestores', 'usuarios')
+                           ->with('gestores', 'usuarios','representantes')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
 
@@ -45,15 +45,18 @@ class ClienteController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'razon_social_nombres' => 'required|string|max:255',
-            'representante_nombre' => 'nullable|string|max:255', 
-            'representante_correo' => 'nullable|email|max:150',  
-            'representante_cargo'  => 'nullable|string|max:150', 
+            'representantes'=> 'nullable|array',
+            'representantes.*.nombre' => 'required|string|max:255', 
+            'representantes.*.correo' => 'nullable|email|max:150',  
+            'representantes.*.cargo'  => 'nullable|string|max:150', 
+            'representantes.*.telefono' => 'nullable|string|max:20',
             'identificacion' => 'required|string|max:13|unique:clientes,identificacion',
             'score_tributario' => 'required|integer|min:0|max:100',
             'gestores' => 'required|array|min:1',
             'gestores.*' => 'exists:usuarios,id',
 
-            'tipo_servicio' => 'nullable|string|max:255',
+            'tipo_servicio' => 'nullable|array',
+            'tipo_servicio.*' => 'string',
             'tipo_contribuyente' => 'required|in:Persona Natural,Sociedad',
             'regimen_tributario' => 'nullable|string|max:255',
             'agente_retencion' => 'required|boolean',
@@ -74,9 +77,6 @@ class ClienteController extends Controller
         try {
             $cliente = Cliente::create([
                 'razon_social_nombres' => $request->razon_social_nombres,
-                'representante_nombre' => $request->representante_nombre,
-                'representante_correo' => $request->representante_correo,
-                'representante_cargo'  => $request->representante_cargo,
                 'identificacion' => $request->identificacion,
                 'score_tributario' => $request->score_tributario,
                 'tipo_servicio' => $request->tipo_servicio,
@@ -89,6 +89,10 @@ class ClienteController extends Controller
             ]);
 
             $cliente->gestores()->sync($request->gestores);
+
+            if($request->has('representantes')){
+                $cliente->representantes()->createMany($request->representantes);
+            }
 
             // B. Crear el Usuario asociado a ese Cliente
             $usuario = Usuario::create([
@@ -104,6 +108,8 @@ class ClienteController extends Controller
             
 
             DB::commit(); 
+
+            $cliente->load('representantes', 'gestores');
 
             return response()->json([
                 'message' => 'Cliente y Usuario creados con éxito', 
@@ -124,7 +130,7 @@ class ClienteController extends Controller
 
     public function show($id)
     {
-        $cliente = Cliente::with(['usuarios', 'gestores'])->find($id);
+        $cliente = Cliente::with(['usuarios', 'gestores', 'representantes'])->find($id);
 
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);
 
@@ -147,10 +153,6 @@ class ClienteController extends Controller
         $validator = Validator::make($request->all(), [
             'razon_social_nombres' => 'sometimes|required|string|max:255',
             'identificacion' => 'sometimes|required|string|max:13|unique:clientes,identificacion,'.$id,
-            'representante_nombre' => 'nullable|string|max:255',
-            'representante_correo' => 'nullable|email|max:150',
-            'representante_cargo'  => 'nullable|string|max:150',
-
             'direccion_matriz' => 'nullable|string',
             'score_tributario' => 'sometimes|required|integer|min:0|max:100',
             'correo' => 'sometimes|required|email|max:150',
@@ -158,7 +160,15 @@ class ClienteController extends Controller
             'representante' => 'nullable|string|max:200',
             'gestores' => 'sometimes|required|array',
 
-            'tipo_servicio' => 'sometimes|nullable|string|max:255',
+            'tipo_servicio' => 'nullable|array',
+            'tipo_servicio.*' => 'string',
+            
+            'representantes' => 'nullable|array',
+            'representantes.*.nombre' => 'required|string|max:255',
+            'representantes.*.correo' => 'nullable|email|max:150',  
+            'representantes.*.cargo'  => 'nullable|string|max:150', 
+            'representantes.*.telefono' => 'nullable|string|max:20',
+
             'tipo_contribuyente' => 'sometimes|required|in:Persona Natural,Sociedad',
             'regimen_tributario' => 'sometimes|nullable|string|max:255',
             'agente_retencion' => 'sometimes|required|boolean',
@@ -171,12 +181,16 @@ class ClienteController extends Controller
 
         $cliente->update($request->only([
             'razon_social_nombres', 'identificacion', 'direccion_matriz', 'score_tributario', 'gestionado_por_id',
-            'representante_nombre', 'representante_correo', 'representante_cargo',
             'tipo_servicio', 'tipo_contribuyente', 'regimen_tributario', 'agente_retencion', 'actividad_economica', 'sector', 'telefono_contacto'
         ]));
 
         if ($request->has('gestores')) {
             $cliente->gestores()->sync($request->gestores);
+        }
+
+        if ($request->has('representantes')) {
+            $cliente->representantes()->delete();
+            $cliente->representantes()->createMany($request->representantes);
         }
         
         $usuario = \App\Models\Usuario::where('cliente_id', $cliente->id)->first();
@@ -195,7 +209,7 @@ class ClienteController extends Controller
             $usuario->save();
         }
 
-        $cliente->load('usuarios', 'gestores');
+        $cliente->load('usuarios', 'gestores', 'representantes');
 
         return response()->json(['message' => 'Perfil del cliente actualizado', 'cliente' => $cliente, 'status' => 200], 200);
     }

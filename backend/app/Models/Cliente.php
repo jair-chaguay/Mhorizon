@@ -21,7 +21,6 @@ class Cliente extends Model
         'gestionado_por_id',
         'comentario_score',
         'detalle_score',
-        'tipo_servicio',
         'tipo_contribuyente',
         'regimen_tributario',
         'agente_retencion',
@@ -38,7 +37,9 @@ class Cliente extends Model
         'score_tributario' => 'integer',
         'proximo_vencimiento' => 'date:Y-m-d',
         'detalle_score' => 'array',
-        'agente_retencion' => 'boolean'
+        'agente_retencion' => 'boolean',
+        'tipo_servicio' => 'array'
+
     ];
 
     public function usuarios()
@@ -64,5 +65,9 @@ class Cliente extends Model
 
     public function carpetasRaiz(){
         return $this->hasMany(BibliotecaSubcarpeta::class, 'cliente_id')->whereNull('parent_id');
+    }
+
+    public function representante(){
+        return $this->hasMany(Representante::class, 'cliente_id');
     }
 }

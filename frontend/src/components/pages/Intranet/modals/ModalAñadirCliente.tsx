@@ -68,10 +68,10 @@ const validarEstructuraRUC = (ruc: string): ValidacionResult => {
         return { valido: true, tipo: "Persona Natural" };
     } else if (tercerDigito === 9) {
         const pasaModulo11 = validarModulo11Sociedades(ruc);
-        if(!pasaModulo11){
+        if (!pasaModulo11) {
             console.warn(`El RUC ${ruc} no pasa el Módulo 11 clásico, pero se acepta por flexibilización del SRI.`)
         }
-        return {valido: true, tipo: "Sociedad Privada"}
+        return { valido: true, tipo: "Sociedad Privada" }
     } else if (tercerDigito === 6) {
         if (!validarModulo11Publicas(ruc)) return { valido: false, mensaje: "Fallo en la validación de Entidad Pública (Módulo 11)." };
         return { valido: true, tipo: "Entidad Pública" };
@@ -93,21 +93,40 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
     const [score, setScore] = useState<number>(100);
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
-    const [tipoServicio, setTipoServicio] = useState('');
+    const [tiposServicioSeleccionados, setTiposServicioSeleccionados] = useState<string[]>([]);
+    const [representantes, setRepresentantes] = useState([
+        { nombre: '', correo: '', cargo: '', telefono: '' }
+    ]);
     const [tipoContribuyente, setTipoContribuyente] = useState('Persona Natural');
     const [regimenTributario, setRegimenTributario] = useState('General');
     const [agenteRetencion, setAgenteRetencion] = useState(false);
     const [actividadEconomica, setActividadEconomica] = useState('');
     const [sector, setSector] = useState('Servicios');
-    const [telefonoContacto, setTelefonoContacto] = useState('');
-    const [representanteNombre, setRepresentanteNombre] = useState('');
-    const [representanteCorreo, setRepresentanteCorreo] = useState('');
-    const [representanteCargo, setRepresentanteCargo] = useState('');
+    const [telefonoContacto, setTelefonoContacto] = useState(''); // Teléfono de la empresa en general
     const [gestoresSeleccionados, setGestoresSeleccionados] = useState<number[]>([]);
     const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
-
     const [loading, setLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
+    const handleServicioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setTiposServicioSeleccionados(prev =>
+            e.target.checked ? [...prev, value] : prev.filter(s => s !== value)
+        );
+    };
+    const handleRepresentanteChange = (index: number, field: string, value: string) => {
+        const nuevosRepresentantes = [...representantes];
+        (nuevosRepresentantes[index] as any)[field] = value;
+        setRepresentantes(nuevosRepresentantes);
+    };
+    const agregarRepresentante = () => {
+        setRepresentantes([...representantes, { nombre: '', correo: '', cargo: '', telefono: '' }]);
+    };
+    const eliminarRepresentante = (index: number) => {
+        const nuevos = representantes.filter((_, i) => i !== index);
+        setRepresentantes(nuevos);
+    };
+
+
 
     useEffect(() => {
         const fetchUsuarios = async () => {
@@ -128,16 +147,14 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             setCorreo('');
             setPassword('');
             setGestoresSeleccionados([]);
-            setTipoServicio('Impuestos');
+            setTiposServicioSeleccionados([]);
+            setRepresentantes([{ nombre: '', correo: '', cargo: '', telefono: '' }]);
             setTipoContribuyente('Persona Natural');
             setRegimenTributario('General');
             setAgenteRetencion(false);
             setActividadEconomica('');
             setSector('Servicios');
             setTelefonoContacto('');
-            setRepresentanteNombre('');
-            setRepresentanteCorreo('');
-            setRepresentanteCargo('');
             setErrorMsg('');
         }
     }, [isOpen]);
@@ -150,6 +167,14 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             setErrorMsg("Debes seleccionar al menos un gestor para el cliente.");
             return;
         }
+
+
+        const representantesInvalidos = representantes.some(rep => rep.nombre.trim() === '');
+        if (representantesInvalidos) {
+            setErrorMsg("Todos los representantes añadidos deben tener al menos un nombre.");
+            return;
+        }
+
 
         const identificacionClean = identificacion.trim();
 
@@ -164,14 +189,13 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
             const payload = {
                 razon_social_nombres: razonSocial,
                 identificacion: identificacionClean,
-                representante_nombre: representanteNombre,
-                representante_correo: representanteCorreo,
-                representante_cargo: representanteCargo,
                 score_tributario: score,
                 correo: correo,
                 password: password,
                 gestores: gestoresSeleccionados,
-                tipo_servicio: tipoServicio,
+
+                tipo_servicio: tiposServicioSeleccionados,
+                representantes: representantes,
                 tipo_contribuyente: tipoContribuyente,
                 regimen_tributario: regimenTributario,
                 agente_retencion: agenteRetencion,
@@ -240,14 +264,21 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                             <input type="number" value={score} onChange={(e) => setScore(Number(e.target.value))} max="100" min="0" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
                         </div>
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Tipo de Servicio</label>
-                            <select value={tipoServicio} onChange={(e) => setTipoServicio(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500">
-                                <option value="Impuestos">Impuestos</option>
-                                <option value="Outsourcing contable">Outsourcing contable</option>
-                                <option value="Auditoria">Auditoría</option>
-                                <option value="Trabajos especiales">Trabajos especiales</option>
-                                <option value="Outsourcing de Nomina">Outsourcing de Nómina</option>
-                            </select>
+                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-2">Tipos de Servicio Contratados</label>
+                            <div className="flex flex-wrap gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                                {['Impuestos', 'Outsourcing contable', 'Auditoria', 'Trabajos especiales', 'Outsourcing de Nomina'].map(servicio => (
+                                    <label key={servicio} className="flex items-center gap-2 cursor-pointer text-blue-200 text-[0.85rem]">
+                                        <input
+                                            type="checkbox"
+                                            value={servicio}
+                                            checked={tiposServicioSeleccionados.includes(servicio)}
+                                            onChange={handleServicioChange}
+                                            className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
+                                        />
+                                        {servicio}
+                                    </label>
+                                ))}
+                            </div>
                         </div>
                     </div>
 
@@ -339,30 +370,45 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                         </div>
                     </div>
 
-                    <div className=" p-4 rounded-xl space-y-4">
-                        <h3 className="text-[0.8rem] font-bold text-blue-200 uppercase tracking-widest  pb-2">2. Contacto / Representante Legal</h3>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Nombre Completo</label>
-                                <input type="text" value={representanteNombre} onChange={(e) => setRepresentanteNombre(e.target.value)} placeholder="Nombre del contacto..." className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
-                            </div>
-                            <div>
-                                <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Cargo</label>
-                                <input type="text" value={representanteCargo} onChange={(e) => setRepresentanteCargo(e.target.value)} placeholder="Ej. Gerente General" className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
-                            </div>
+                    <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl space-y-4">
+                        <div className="flex justify-between items-center pb-2 border-b border-gray-200">
+                            <h3 className="text-[0.8rem] font-bold text-blue-200 uppercase tracking-widest">2. Directorio de Contactos</h3>
+                            <button type="button" onClick={agregarRepresentante} className="text-xs text-white bg-blue-200 px-3 py-2.5 cursor-pointer rounded hover:bg-orange-500 transition-colors">
+                                + Añadir Contacto
+                            </button>
                         </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo de Contacto</label>
-                                <input type="email" value={representanteCorreo} onChange={(e) => setRepresentanteCorreo(e.target.value)} placeholder="contacto@empresa.com" className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
+                        {representantes.map((rep, index) => (
+                            <div key={index} className="space-y-4 pb-4 border-b border-gray-200 border-dashed relative pt-2">
+                                {index > 0 && (
+                                    <button type="button" onClick={() => eliminarRepresentante(index)} className="cursor-pointer absolute top-2 right-0 text-red-500 hover:text-red-700 text-[0.70rem] font-bold uppercase tracking-wider">
+                                        Eliminar
+                                    </button>
+                                )}
+                                
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Nombre Completo</label>
+                                        <input type="text" value={rep.nombre} onChange={(e) => handleRepresentanteChange(index, 'nombre', e.target.value)} placeholder="Nombre del contacto..." className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Cargo</label>
+                                        <input type="text" value={rep.cargo} onChange={(e) => handleRepresentanteChange(index, 'cargo', e.target.value)} placeholder="Ej. Gerente General" className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo de Contacto</label>
+                                        <input type="email" value={rep.correo} onChange={(e) => handleRepresentanteChange(index, 'correo', e.target.value)} placeholder="contacto@empresa.com" className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Teléfono Personal/Móvil</label>
+                                        <input type="text" value={rep.telefono} onChange={(e) => handleRepresentanteChange(index, 'telefono', e.target.value)} placeholder="Ej. 0999999999" className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">No. Teléfono Contacto</label>
-                                <input type="text" value={telefonoContacto} onChange={(e) => setTelefonoContacto(e.target.value)} placeholder="Ej. 0999999999" className="w-full px-4 py-3 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
-                            </div>
-                        </div>
+                        ))}
                     </div>
 
 
