@@ -67,7 +67,7 @@ class Cliente extends Model
         return $this->hasMany(BibliotecaSubcarpeta::class, 'cliente_id')->whereNull('parent_id');
     }
 
-    public function representante(){
+    public function representantes(){
         return $this->hasMany(Representante::class, 'cliente_id');
     }
 }
