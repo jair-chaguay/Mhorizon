@@ -19,7 +19,7 @@ export interface ObligacionTributaria {
 }
 
 interface PerfilClienteProps {
-    cliente: Cliente;
+    cliente: Cliente | any; // Usamos any de respaldo si el type no tiene las nuevas propiedades
     refreshSignal?: number;
     onBack: () => void;
     onOpenDeclaracion: () => void;
@@ -96,11 +96,11 @@ const validarEstructuraRUC = (ruc: string): ValidacionResult => {
         if (!validarModulo10(ruc.substring(0, 10))) return { valido: false, mensaje: "Fallo en la validación de Cédula/Persona Natural (Módulo 10)." };
         return { valido: true, tipo: "Persona Natural" };
     } else if (tercerDigito === 9) {
-        const pasaModulo11= validarModulo11Sociedades(ruc);
-        if(!pasaModulo11){
+        const pasaModulo11 = validarModulo11Sociedades(ruc);
+        if (!pasaModulo11) {
             console.warn(`El RUC ${ruc} no pasa el Módulo 11 clásico, pero se acepta por flexibilización del SRI.`);
         }
-        return {valido: true, tipo: "Sociedad Privada"}
+        return { valido: true, tipo: "Sociedad Privada" }
     } else if (tercerDigito === 6) {
         if (!validarModulo11Publicas(ruc)) return { valido: false, mensaje: "Fallo en la validación de Entidad Pública (Módulo 11)." };
         return { valido: true, tipo: "Entidad Pública" };
@@ -130,16 +130,12 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         identificacion: cliente.identificacion || '',
         score_tributario: cliente.score_tributario || 100,
         telefono_contacto: cliente.telefono_contacto || '',
-        tipo_servicio: cliente.tipo_servicio || '',
         sector: cliente.sector || '',
         tipo_contribuyente: cliente.tipo_contribuyente || '',
         regimen_tributario: cliente.regimen_tributario || '',
         agente_retencion: cliente.agente_retencion || false,
         actividad_economica: cliente.actividad_economica || '',
-        representante_nombre: (cliente as any).representante_nombre || '',
-        representante_correo: (cliente as any).representante_correo || '',
-        representante_cargo: (cliente as any).representante_cargo || '',
-        correos_adicionales: cliente.correos ? cliente.correos.map(c => c.correo).join(', ') : '',
+        correos_adicionales: cliente.correos ? cliente.correos.map((c: any) => c.correo).join(', ') : '',
         correo: usuarioAsociado ? usuarioAsociado.correo : '',
         correo_personal: usuarioAsociado?.correo_personal || '',
         cargo: usuarioAsociado?.cargo || '',
@@ -147,17 +143,39 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         password: ''
     });
 
+    // NUEVOS ESTADOS PARA ARREGLOS
+    const [tiposServicioSeleccionados, setTiposServicioSeleccionados] = useState<string[]>([]);
+    const [representantes, setRepresentantes] = useState<any[]>([{ nombre: '', correo: '', cargo: '', telefono: '' }]);
+
     const [carpetasRaiz, setCarpetasRaiz] = useState<any[]>([]);
     const [obligaciones, setObligaciones] = useState<ObligacionTributaria[]>([]);
     const [isLoadingObligaciones, setIsLoadingObligaciones] = useState(true);
     const [usuariosGestores, setUsuariosGestores] = useState<any[]>([]);
     const [gestoresSeleccionados, setGestoresSeleccionados] = useState<number[]>(
-        cliente.gestores?.map((g => g.id)) || []
+        cliente.gestores?.map((g: any) => g.id) || []
     );
     const [isSaving, setIsSaving] = useState(false);
     const [errorMsg, setErrorMsg] = useState('');
-
     const [currentUser, setCurrentUser] = useState<any>(null);
+
+    // INICIALIZAR ARREGLOS CUANDO CAMBIE EL CLIENTE
+    useEffect(() => {
+        if (cliente) {
+            // Inicializar servicios
+            if (Array.isArray(cliente.tipo_servicio)) {
+                setTiposServicioSeleccionados(cliente.tipo_servicio);
+            } else {
+                setTiposServicioSeleccionados([]);
+            }
+
+            // Inicializar representantes
+            if (cliente.representantes && cliente.representantes.length > 0) {
+                setRepresentantes(cliente.representantes);
+            } else {
+                setRepresentantes([{ nombre: '', correo: '', cargo: '', telefono: '' }]);
+            }
+        }
+    }, [cliente, refreshSignal]);
 
     useEffect(() => {
         const fetchCurrentUser = async () => {
@@ -223,6 +241,30 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
         }));
     };
 
+    // HANDLERS PARA ARREGLOS
+    const handleServicioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setTiposServicioSeleccionados(prev =>
+            e.target.checked ? [...prev, value] : prev.filter(s => s !== value)
+        );
+    };
+
+    const handleRepresentanteChange = (index: number, field: string, value: string) => {
+        const nuevos = [...representantes];
+        nuevos[index] = { ...nuevos[index], [field]: value };
+        setRepresentantes(nuevos);
+    };
+
+    const agregarRepresentante = () => {
+        setRepresentantes([...representantes, { nombre: '', correo: '', cargo: '', telefono: '' }]);
+    };
+
+    const eliminarRepresentante = (index: number) => {
+        const nuevos = representantes.filter((_, i) => i !== index);
+        setRepresentantes(nuevos);
+    };
+
+
     const handleGuardarPerfil = async () => {
         setErrorMsg('');
         const identificacionClean = formData.identificacion.trim();
@@ -234,18 +276,27 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
             return;
         }
 
+        // Validar contactos
+        const representantesInvalidos = representantes.some(rep => rep.nombre.trim() === '');
+        if (representantesInvalidos) {
+            setErrorMsg("Todos los contactos añadidos deben tener al menos un nombre.");
+            return;
+        }
+
         setIsSaving(true);
         try {
             const correosArray = formData.correos_adicionales
                 .split(',')
-                .map(str => str.trim())
-                .filter(str => str.length > 0)
-                .map(correo => ({ correo }));
+                .map((str: string) => str.trim())
+                .filter((str: string) => str.length > 0)
+                .map((correo: string) => ({ correo }));
 
             const payload = {
                 ...formData,
                 correos: correosArray,
-                gestores: gestoresSeleccionados
+                gestores: gestoresSeleccionados,
+                tipo_servicio: tiposServicioSeleccionados,
+                representantes: representantes
             };
 
             if (!payload.password) {
@@ -320,7 +371,6 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 <input type="text" maxLength={13} name="identificacion" value={formData.identificacion} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
-
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de Contribuyente</p>
                                 <select name="tipo_contribuyente" value={formData.tipo_contribuyente} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
@@ -362,59 +412,89 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                         </div>
 
                         <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3">2. Información Operativa y Comercial</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 mb-6">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+                            
+                            {/* SERVICIOS DINÁMICOS */}
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Tipo de Servicio Contratado</p>
-                                <select name="tipo_servicio" value={formData.tipo_servicio} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
-                                    <option value="Impuestos">Impuestos</option>
-                                    <option value="Outsourcing contable">Outsourcing contable</option>
-                                    <option value="Auditoria">Auditoría</option>
-                                    <option value="Trabajos especiales">Trabajos especiales</option>
-                                    <option value="Outsourcing de Nomina">Outsourcing de Nómina</option>
-                                </select>
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-3">Tipos de Servicio Contratados</p>
+                                <div className="flex flex-wrap gap-3">
+                                    {['Impuestos', 'Outsourcing contable', 'Auditoria', 'Trabajos especiales', 'Outsourcing de Nomina'].map(servicio => (
+                                        <label key={servicio} className={`flex items-center gap-2 text-white text-[0.85rem] ${canEdit ? 'cursor-pointer' : 'opacity-60 cursor-not-allowed'}`}>
+                                            <input
+                                                type="checkbox"
+                                                value={servicio}
+                                                checked={tiposServicioSeleccionados.includes(servicio)}
+                                                onChange={handleServicioChange}
+                                                disabled={!canEdit}
+                                                className="react-custom-checkbox w-4 h-4 disabled:opacity-50"
+                                            />
+                                            {servicio}
+                                        </label>
+                                    ))}
+                                </div>
                             </div>
 
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Sector</p>
-                                <select name="sector" value={formData.sector} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
-                                    <option value="Servicios">Servicios</option>
-                                    <option value="Comercial">Comercial</option>
-                                    <option value="Industrial">Industrial</option>
-                                    <option value="Turismo">Turismo</option>
-                                    <option value="Financiero">Financiero</option>
-                                    <option value="Otros">Otros</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3 mt-6">2. Contacto / Representante Legal</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Nombre Completo</p>
-                                <input type="text" name="representante_nombre" value={formData.representante_nombre} onChange={handleInputChange} placeholder="Nombre del contacto..." disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
-                            </div>
-
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Cargo</p>
-                                <input type="text" name="representante_cargo" value={formData.representante_cargo} onChange={handleInputChange} placeholder="Ej. Gerente General" disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
-                            </div>
-
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo de Contacto</p>
-                                <input type="email" name="representante_correo" value={formData.representante_correo} onChange={handleInputChange} placeholder="contacto@empresa.com" disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
-                            </div>
-
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Teléfono de Contacto</p>
-                                <input type="text" name="telefono_contacto" value={formData.telefono_contacto} onChange={handleInputChange} placeholder="Ej: 0998765432..." disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Sector y Teléfono Empresarial</p>
+                                <div className="space-y-4 mt-2">
+                                    <select name="sector" value={formData.sector} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-[#2D353E] text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 appearance-none cursor-pointer disabled:opacity-60">
+                                        <option value="Servicios">Servicios</option>
+                                        <option value="Comercial">Comercial</option>
+                                        <option value="Industrial">Industrial</option>
+                                        <option value="Turismo">Turismo</option>
+                                        <option value="Financiero">Financiero</option>
+                                        <option value="Otros">Otros</option>
+                                    </select>
+                                    <input type="text" name="telefono_contacto" value={formData.telefono_contacto} onChange={handleInputChange} placeholder="Teléfono general (Ej. 022999999)" disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                                </div>
                             </div>
                         </div>
 
-                        <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3">3. Cuenta de Acceso del Cliente</h3>
+                        {/* REPRESENTANTES DINÁMICOS */}
+                        <div className="flex justify-between items-center mb-3 mt-6">
+                            <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs">3. Directorio de Contactos</h3>
+                            {canEdit && (
+                                <button type="button" onClick={agregarRepresentante} className="text-[0.70rem] font-bold text-white bg-orange-500/20 hover:bg-orange-500 px-3 py-1 rounded border border-orange-500/50 transition-colors cursor-pointer">
+                                    + Añadir Contacto
+                                </button>
+                            )}
+                        </div>
+
+                        <div className="space-y-4 mb-6">
+                            {representantes.map((rep, index) => (
+                                <div key={index} className="bg-white/10 rounded-xl p-4 border border-white/5 relative">
+                                    {canEdit && index > 0 && (
+                                        <button type="button" onClick={() => eliminarRepresentante(index)} className="absolute top-2 right-4 text-red-400 hover:text-red-500 text-[0.70rem] font-bold uppercase tracking-wider">
+                                            Eliminar
+                                        </button>
+                                    )}
+                                    
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Nombre Completo</p>
+                                            <input type="text" value={rep.nombre} onChange={(e) => handleRepresentanteChange(index, 'nombre', e.target.value)} placeholder="Nombre del contacto..." disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                                        </div>
+                                        <div>
+                                            <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Cargo</p>
+                                            <input type="text" value={rep.cargo || ''} onChange={(e) => handleRepresentanteChange(index, 'cargo', e.target.value)} placeholder="Ej. Gerente General" disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                                        </div>
+                                        <div>
+                                            <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo de Contacto</p>
+                                            <input type="email" value={rep.correo || ''} onChange={(e) => handleRepresentanteChange(index, 'correo', e.target.value)} placeholder="contacto@empresa.com" disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                                        </div>
+                                        <div>
+                                            <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Teléfono Personal/Móvil</p>
+                                            <input type="text" value={rep.telefono || ''} onChange={(e) => handleRepresentanteChange(index, 'telefono', e.target.value)} placeholder="Ej: 0998765432" disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+
+                        <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3">4. Cuenta de Acceso del Cliente</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
                             <div className="bg-white/10 col-span-1 rounded-xl p-4 border border-white/5">
-                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo de Recuperación</p>
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Correo (Usuario 1)</p>
                                 <input type="email" name="correo" value={formData.correo} onChange={handleInputChange} placeholder="Asignar correo corporativo..." disabled={!canEdit} className="w-full bg-transparent text-white font-semibold text-[0.95rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>
 
@@ -651,7 +731,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                         </tr>
                                     </thead>
                                     <tbody className="text-[0.85rem] divide-y divide-gray-50">
-                                        {cliente.detalle_score.map((detalle, index) => (
+                                        {cliente.detalle_score.map((detalle: any, index: number) => (
                                             <tr key={index} className="hover:bg-gray-50/50 transition-colors">
                                                 <td className="px-5 py-3 text-gray-700 font-medium">
                                                     {detalle.enunciado}
