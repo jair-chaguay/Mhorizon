@@ -17,7 +17,7 @@ export const Operamos = () => {
                     </div>
                     <div className="max-w-xl lg:text-right">
                         <p className="text-gray-600 text-[1.05rem] leading-relaxed">
-                            Nuestro modelo operativo integra rigor analítico institucional con tecnología de punta para optimizar costos, blindar el capital y maximizar el rendimiento de la cadena de valor.
+                            Nuestro enfoque combina análisis técnico y conocimiento de la operación para mejorar controles, información, cumplimiento y eficiencia.  
                         </p>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ export const Operamos = () => {
                                 Intervención Estratégica en Cadenas de Suministro
                             </h3>
                             <p className="text-gray-600 text-[1rem] leading-relaxed max-w-xl">
-                                Proporcionamos evaluaciones de control interno exhaustivas, asegurando que su gestión de inventarios minimice las mermas y sus estados financieros reflejen total solidez ante reguladores.
+                                Evaluamos controles de inventarios, procesos y registros financieros para identificar riesgos, mermas y oportunidades de mejora.  
                             </p>
                         </div>
                     </div>
@@ -52,8 +52,8 @@ export const Operamos = () => {
                             <h3 className="font-bold text-white text-[1.4rem] mb-4">
                                 Experiencia en Inteligencia Fiscal para Producción
                             </h3>
-                            <p className=" text-gray-300 text-[0.921rem] leading-relaxed">
-                                Optimizamos la carga fiscal de sus operaciones, gestionando eficientemente el IVA, retenciones y aprovechando los incentivos vigentes.
+                            <p className=" text-gray-300 text-[0.96rem] leading-relaxed">
+                                Analizamos el tratamiento de IVA, retenciones e incentivos aplicables a las operaciones productivas y comerciales.
                             </p>
                         </div>
                     </div>
@@ -65,10 +65,10 @@ export const Operamos = () => {
                                 <span className="w-4 h-0.5 bg-orange-500"></span> Gestión de riesgos
                             </span>
                             <h3 className="font-bold text-blue-200 text-[1.6rem] md:text-[2rem] mb-4 leading-tight">
-                                Maximización Comprobada de Márgenes Industriales
+                                Protección de Márgenes y Controles  
                             </h3>
-                            <p className=" text-gray-600 text-[0.93rem] leading-relaxed">
-                                Sistemas avanzados de detección de ineficiencias en líneas de producción y distribución. Evaluamos y reestructuramos sus controles internos para proteger el margen de ganancia de su empresa.
+                            <p className=" text-gray-600 text-[0.96rem] leading-relaxed">
+                                Evaluamos procesos y controles en producción y distribución para identificar ineficiencias y proteger el margen operativo de la empresa.
                             </p>
 
                         </div>

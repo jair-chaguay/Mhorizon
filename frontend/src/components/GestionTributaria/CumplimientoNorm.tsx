@@ -9,11 +9,11 @@ interface cumplimientoProp {
 const normativos: cumplimientoProp[] = [
     {
         title: "Auditoría Preventiva",
-        content: "Detección proactiva de inconsistencias y simulación de auditorías antes de las notificaciones oficiales del ente de control (SRI)."
+        content: "Identificamos inconsistencias y áreas de riesgo antes de requerimientos o procesos de control, de acuerdo con el alcance contratado.  "
     },
     {
-        title: "Seguridad y Control Fiscal",
-        content: "Preparación técnica de reportes requeridos para la Superintendencia de Compañías (SCVS) y entidades fiscales gubernamentales."
+        title: "Reportes y obligaciones",
+        content: "Asistimos en la preparación o revisión de reportes requeridos por el SRI, la Superintendencia de Compañías y otras entidades, según el servicio contratado."
     }
 ]
 
@@ -29,7 +29,7 @@ export const CumplimientoNorm = () => {
                         CUMPLIMIENTO <br />NORMATIVO ESTRICTO
                     </h2>
                     <p className="text-gray-600  mt-6 text-[1.05rem] text-justify lg:text-left leading-relaxed">
-                        En un entorno de transparencia fiscal total impulsado por regulaciones nacionales e internacionales, el cumplimiento normativo es la base innegociable de la reputación corporativa. Actuamos como su principal aliado estratégico.
+                        En un entorno de cambios regulatorios frecuentes, acompañamos a la empresa en la revisión de obligaciones, documentación y procesos que inciden en su cumplimiento tributario.
                     </p>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">

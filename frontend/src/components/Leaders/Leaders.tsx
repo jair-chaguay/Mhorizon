@@ -51,11 +51,11 @@ export const Leaders = () => {
 
           <div className="relative lg:absolute lg:-bottom-10 lg:-left-10 mt-8 lg:mt-0 bg-blue-200 w-full sm:max-w-105 p-6 sm:p-8 border-l-4 border-orange-500 rounded-xl shadow-2xl z-10">
             <h3 className="font-bold text-white text-[1.1rem] tracking-wide">
-              PERSPECTIVA GLOBAL
+              CONOCIMIENTO LOCAL Y VISIÓN EMPRESARIAL
             </h3>
 
             <p className="text-[0.95rem] font-light mt-3 leading-relaxed text-gray-400">
-              Combinamos visión internacional con un profundo dominio normativo local para potenciar su competitividad corporativa.
+              Conocemos el entorno tributario, regulatorio y empresarial ecuatoriano y lo convertimos en recomendaciones claras, aplicables y alineadas con los objetivos de cada organización.
             </p>
 
             <Link to={"/nosotros"}
@@ -73,12 +73,12 @@ export const Leaders = () => {
           <div className="relative pl-6 flex items-center">
             <div className="absolute left-0 w-1 h-1/2 bg-orange-500 rounded-full"></div>
             <h2 className="font-extrabold text-blue-200 text-[2rem] sm:text-[2.5rem] leading-tight">
-              AUTORIDAD <br /> ESTRATÉGICA
+              EXPERIENCIA TÉCNICA Y VISIÓN GERENCIAL
             </h2>
           </div>
 
           <p className="font-light mt-6 text-[1.1rem] leading-relaxed text-gray-600">
-            En MHORIZON traducimos la complejidad del entorno empresarial en estrategias claras. Nuestro equipo multidisciplinario combina más de dos décadas de excelencia técnica en auditoría, impuestos y finanzas corporativas.
+            Nuestro equipo combina más de dos décadas de experiencia en tributación, finanzas, contabilidad, auditoría y control para atender consultas recurrentes, proyectos especializados y situaciones de alta complejidad.
           </p>
 
           <div className="flex flex-col gap-6 mt-10">

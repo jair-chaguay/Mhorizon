@@ -10,13 +10,13 @@ interface inteProps {
 const integridad: inteProps[] = [
     {
         image: "/images/ProtocoloTransparencia.png",
-        title: "Protocolo de Transparencia",
-        content: "Implementamos sistemas avanzados de verificación y auditoría digital que van más allá de los métodos de muestreo tradicionales. Garantizamos una trazabilidad absoluta en cada movimiento financiero registrado en sus balances."
+        title: "Procedimientos de auditoría",
+        content: "Diseñamos procedimientos basados en riesgos, pruebas de control y pruebas sustantivas, utilizando herramientas tecnológicas cuando resultan apropiadas."
     },
     {
         image: "/images/MitigacionRiesgos.png",
-        title: "Mitigación de Riesgos",
-        content: "Ejecutamos análisis predictivo diseñado específicamente para identificar debilidades estructurales antes de que se conviertan en pasivos financieros, asegurando la continuidad y rentabilidad de sus operaciones corporativas."
+        title: "Identificación de Riesgos",
+        content: "Comunicamos hallazgos y recomendaciones para fortalecer controles, calidad de información y procesos financieros."
     }
 ]
 
@@ -30,10 +30,10 @@ export const IntegAudit = () => {
                         Prevención y Control
                     </span>
                     <h2 className="text-blue-200 border-l-6 border-l-orange-500 pl-4 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
-                        INTEGRIDAD Y SEGURIDAD
+                        CONFIANZA EN LA INFORMACIÓN
                     </h2>
                     <p className="mt-4 text-gray-600  text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
-                        Nuestro enfoque trasciende los métodos tradicionales. Detectamos vulnerabilidades antes de que se materialicen para proteger el patrimonio de su corporación.
+                        Aplicamos procedimientos de auditoría y revisión para identificar riesgos, debilidades de control y asuntos que requieren atención de la administración.
                     </p>
                 </div>
 

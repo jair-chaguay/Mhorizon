@@ -32,7 +32,7 @@ export const Empresariales = () => {
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Asesoría Corporativa</p>
                 <h3 className="text-blue-200 font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4 uppercase">Servicios Empresariales</h3>
                 <p className="text-gray-600 font-light text-[1.05rem] leading-relaxed mb-6">
-                    Brindamos planeación corporativa, cumplimiento normativo y outsourcing estratégico para empresas orientadas al servicio. Blindamos su patrimonio y aseguramos el cumplimiento estricto ante SCVS y el SRI.
+                    Acompañamos a empresas de servicios, tecnología, salud e inmobiliarias mediante consultoría, cumplimiento y outsourcing adaptados a su operación.  
                 </p>
                 <div className='flex flex-wrap gap-2 mb-8'>
                     <p className='px-3 py-1 bg-gray-50 border border-gray-200 text-blue-200 text-[0.75rem] uppercase tracking-wider rounded-sm'>Consultoría B2B</p>

@@ -24,11 +24,11 @@ export const EstrIm = () => {
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.8rem] uppercase mb-2 block">
                         Metodología Financiera
                     </span>
-                    <h2 className="text-[2rem] md:text-[2.5rem] font-extrabold text-white leading-tight">
-                        ESTRATEGIA DE <br /> IMPUESTOS
+                    <h2 className="text-[2rem] md:text-[2.4rem] font-extrabold text-white leading-tight">
+                        ESTRATEGIA, CUMPLIMIENTO <br /> Y DEFENSA
                     </h2>
                     <p className=" mt-6 text-[1.05rem] text-gray-200 text-justify md:text-left leading-relaxed">
-                        Nuestra metodología de Tax Strategy no se limita al cumplimiento rutinario; buscamos la creación de valor comprobable. Diseñamos estructuras fiscales que resisten el escrutinio de las autoridades de control mientras potencian la rentabilidad corporativa.
+                        Nuestra metodología parte de los hechos, la documentación y la normativa aplicable. Presentamos conclusiones claras, riesgos identificados y recomendaciones prácticas para la empresa.  
                     </p>
 
                     <ul className="flex flex-col gap-6 mt-10">
@@ -38,7 +38,7 @@ export const EstrIm = () => {
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-orange-500">Estudios de Precios de Transferencia</p>
-                                <p className="text-[0.98rem]  text-gray-200 mt-1">Elaboración técnica y soporte de anexos transaccionales para grupos multinacionales.</p>
+                                <p className="text-[0.98rem]  text-gray-200 mt-1">Preparación del informe integral y del anexo de operaciones con partes relacionadas, según corresponda, así como soporte técnico para grupos empresariales</p>
                             </div>
                         </li>
                         <li className="flex items-start gap-4 group">
@@ -47,7 +47,7 @@ export const EstrIm = () => {
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-orange-500">Reclamaciones y Devoluciones</p>
-                                <p className="text-[0.98rem] text-gray-200 mt-1">Gestión ágil para la recuperación de impuestos, por pago en exceso o indebido y Reclamos.</p>
+                                <p className="text-[0.98rem] text-gray-200 mt-1">Gestión de solicitudes de devolución y reclamos por pago en exceso o indebido.</p>
                             </div>
                         </li>
                         <li className="flex items-start gap-4 group">
@@ -56,7 +56,7 @@ export const EstrIm = () => {
                             </div>
                             <div>
                                 <p className="text-[1.05rem] font-bold text-orange-500">Patrocinio en Determinaciones</p>
-                                <p className="text-[0.98rem] text-gray-200 mt-1">Defensa técnica, financiera y jurídica exhaustiva ante procesos de auditoría del SRI.</p>
+                                <p className="text-[0.98rem] text-gray-200 mt-1">Defensa técnica y acompañamiento en procesos de determinación y control del SRI.</p>
                             </div>
                         </li>
                     </ul>

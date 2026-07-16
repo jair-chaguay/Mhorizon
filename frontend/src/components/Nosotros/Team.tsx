@@ -22,7 +22,7 @@ const teams: TeamProp[] = [
         instagram: "https://www.instagram.com/milton.montece/", 
         tiktok: "https://www.tiktok.com/@milton_montece", 
         email: "mmontece@mhhorizon.com.ec",
-        frase: "Nuestra misión es ser el faro que guía a las empresas hacia la estabilidad y el crecimiento sostenible mediante una correcta planificación tributaria."
+        frase: "Nuestra misión es ayudar a las empresas a tomar decisiones tributarias y financieras sustentadas, con una visión de estabilidad y crecimiento sostenible"
     },
     {
         image: "Violeta_Rodriguez.webp",
@@ -30,14 +30,14 @@ const teams: TeamProp[] = [
         nombre: "VIOLETA RODRIGUEZ",
         email:"vrodriguez@mhorizon.com.ec",
         linkedin: "https://ec.linkedin.com/in/violeta-rodriguez-35a658a1",
-        frase: "La precisión absoluta no es un objetivo negociable, es el estándar mínimo exigible de nuestra práctica profesional y contable."
+        frase: "Nuestro compromiso es emitir criterios claros y técnicamente sustentados, aplicables a la realidad de cada cliente"
     },
     {
         image: "Gary.webp",
         rol: "SENIOR OUTSOURCING",
         nombre: "GARY SANCHEZ",
         email:"gsanchez@mhorizon.com.ec",
-        frase: "Asumimos el control de su back-office con absoluto rigor técnico, permitiendo que su corporación escale operaciones sin fricciones administrativas."
+        frase: "Gestionamos procesos contables y administrativos con controles, seguimiento y comunicación para apoyar la operación de nuestros clientes.  "
     },
     {
         image: "Marcos_Nunez.webp",
@@ -45,7 +45,7 @@ const teams: TeamProp[] = [
         nombre: "MARCOS NUÑEZ",
         email:"mnunez@mhorizon.com.ec",
         linkedin: "https://www.linkedin.com/in/marco-núñez-zambrano-808621124/",
-        frase: "Transformamos la complejidad normativa en estrategias claras. Nuestra prioridad es blindar el patrimonio corporativo mediante una eficiencia fiscal impecable."
+        frase: "Convertimos la normativa tributaria en recomendaciones claras, identificando riesgos y alternativas aplicables a cada operación"
     },
     {
         image: "Sandra_Sarmiento.webp",
@@ -53,7 +53,7 @@ const teams: TeamProp[] = [
         nombre: "SANDRA SARMIENTO",
         email:"ssarmiento@mhorizon.com.ec",
         linkedin: "https://www.linkedin.com/in/sandra-sarmiento-755306172/",
-        frase: "El activo más valioso de toda gran estructura es su talento. Impulsamos una cultura de excelencia organizacional orientada al alto rendimiento y compromiso."
+        frase: "Promovemos una cultura de responsabilidad, aprendizaje y compromiso con el servicio profesional."
     }
 ]
 
@@ -68,11 +68,11 @@ export const Team = () => {
                     <span className="text-orange-500 font-medium text-[0.85rem] tracking-[0.2em] uppercase mb-3 block">
                         Nuestro Equipo
                     </span>
-                    <h2 className="font-bold text-[2.2rem] sm:text-[2.8rem] md:text-[3.2rem] text-blue-200 uppercase tracking-tight leading-tight">
-                        AUTORIDAD ESTRATÉGICA
+                    <h2 className="font-bold text-[2.2rem] sm:text-[2.6rem] md:text-[3rem] text-blue-200 uppercase tracking-tight leading-tight">
+                        EXPERIENCIA TÉCNICA Y VISIÓN GERENCIAL
                     </h2>
                     <p className="text-gray-600 text-[1.1rem] mt-6 max-w-3xl mx-auto leading-relaxed">
-                        La experiencia técnica combinada con una visión gerencial de alto nivel. Nuestros líderes garantizan soluciones corporativas diseñadas para blindar su empresa.
+                        Nuestro equipo combina experiencia técnica y conocimiento del negocio para atender consultas, proyectos y servicios recurrentes con participación de profesionales responsables.  
                     </p>
                 </div>
 

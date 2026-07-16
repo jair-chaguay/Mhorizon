@@ -13,17 +13,17 @@ const hero: HeroProps[] = [
     {
         img: "/images/DominacionFinanciera.png",
         title: "Dominancia financiera",
-        content: "Mejoramiento de la huella corporativa a través de estrategias basadas en datos financieros."
+        content: "Convertimos información financiera y operativa en análisis útiles para gerencia, accionistas y responsables de control."
     },
     {
         img: "/images/AgilidadCorporativa.png",
-        title: "Agilidad operativa",
-        content: "Reestructuración de los procesos principales para lograr la máxima eficiencia y reducción de costos."
+        title: "Eficiencia operativa",
+        content: "Revisamos procesos y controles para identificar duplicidades, cuellos de botella y oportunidades de mejora."
     },
     {
         img: "/images/Aceleracion.png",
-        title: "Aceleración del crecimiento",
-        content: "Hoja de ruta estratégica para un valor sostenido a largo plazo ante accionistas y organismos de control."
+        title: "Crecimiento y control",
+        content: "Diseñamos hojas de ruta financieras y operativas para acompañar el crecimiento con mejores controles e información."
     }
 ]
 
@@ -44,7 +44,7 @@ export const HeroEx = () => {
                 </h1>
 
                 <p className="text-gray-300 font-light mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full md:w-[90%] leading-relaxed">
-                    Transformamos la estructura de su organización para asegurar resiliencia, eficiencia operativa y un dominio sostenible en los mercados ecuatorianos y globales.
+                    Analizamos información financiera, procesos y controles para identificar riesgos, mejorar la gestión y respaldar decisiones de crecimiento.  
                 </p>
 
                 <Button texto="Agendar asesoría" estilosPersonalizados="cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-auto rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300"/>

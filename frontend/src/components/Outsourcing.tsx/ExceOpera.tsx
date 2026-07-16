@@ -9,10 +9,10 @@ export const ExceOpera = () => {
                         Eficiencia del Back-Office
                     </span>
                     <h2 className="text-blue-200 border-l-6 border-l-orange-500 pl-3 font-bold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
-                        EXCELENCIA OPERACIONAL
+                        GESTIÓN CONTABLE Y ADMINISTRATIVA
                     </h2>
                     <p className="mt-4 text-gray-600 text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
-                        Enfoque toda su energía en el núcleo de su negocio mientras nuestros especialistas administran su operatividad financiera y de talento humano con los más altos estándares normativos.
+                        Permita que su equipo se concentre en el negocio mientras nuestros especialistas gestionan procesos contables, tributarios y de nómina conforme al alcance acordado.
                     </p>
                 </div>
 
@@ -26,7 +26,7 @@ export const ExceOpera = () => {
                                 BPO Contable y Financiero
                             </h3>
                             <p className="mt-5 font-light text-gray-600 text-[1rem] leading-relaxed">
-                                Procesamos su contabilidad bajo estrictas normativas <span className="font-semibold">NIIF</span>. Asumimos el control del registro de transacciones, emisión de estados financieros, y la preparación y envío de declaraciones mensuales y anexos transaccionales (ATS) al <span className="font-semibold">SRI</span>, garantizando solidez ante inspecciones de la <span className="font-semibold">Superintendencia de Compañías (SCVS)</span>.
+                                Procesamos transacciones, preparamos estados financieros y elaboramos declaraciones y anexos tributarios conforme al alcance contratado y al marco de información financiera aplicable.  
                             </p>
                         </div>
                     </div>
@@ -41,7 +41,7 @@ export const ExceOpera = () => {
                                 Gestión de Nómina y Talento
                             </h3>
                             <p className="mt-5 font-light text-gray-300 text-[1rem] leading-relaxed">
-                                Administramos el rol de pagos de su corporación asegurando el cumplimiento milimétrico de las normativas del <span className="font-semibold text-white">Ministerio del Trabajo</span> y el <span className="font-semibold text-white">IESS</span>. Gestionamos avisos de entrada/salida, cálculo de horas extras, beneficios sociales, utilidades, liquidaciones y actas de finiquito con absoluta confidencialidad y puntualidad.
+                                Administramos roles de pago, avisos de entrada y salida, horas extras, beneficios sociales, utilidades, liquidaciones y actas de finiquito, con controles de confidencialidad y cumplimiento.  
                             </p>
                         </div>
                     </div>

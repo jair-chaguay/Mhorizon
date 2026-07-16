@@ -30,11 +30,11 @@ export const Estrategia = () => {
                             </p>
 
                             <h4 className="text-white font-bold text-[1.6rem] sm:text-[2rem] leading-tight">
-                                Transformación institucional
+                                Acompañamiento técnico y práctico
                             </h4>
 
-                            <p className="text-gray-300 font-light text-[1rem] sm:text-[1.1rem] w-full md:w-[85%] mt-4 leading-relaxed">
-                                No solo asesoramos; reconfiguramos el ADN operativo de su empresa para maximizar la rentabilidad y asegurar el cumplimiento normativo.
+                            <p className="text-gray-300 font-light text-[1rem] sm:text-[1.1rem] w-full md:w-[89%] mt-4 leading-relaxed">
+                                No nos limitamos a identificar problemas: presentamos recomendaciones aplicables y acompañamos su implementación cuando forma parte del alcance contratado.  
                             </p>
                         </div>
                     </div>
@@ -58,7 +58,7 @@ export const Estrategia = () => {
                             </p>
 
                             <p className="text-gray-500 leading-relaxed text-[0.95rem]">
-                                Asumimos la gestión integral de su back-office contable para que su empresa escale sus operaciones sin fricciones administrativas.
+                                Gestionamos procesos contables, tributarios y administrativos para que su equipo pueda concentrarse en las actividades principales del negocio.
                             </p>
                         </div>
 

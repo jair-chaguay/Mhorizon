@@ -48,7 +48,7 @@ export const Trayectoria = () => {
                                 Expansión de Servicios
                             </h4>
                             <p className="text-gray-300 font-light leading-relaxed text-[1.05rem]">
-                                Ampliamos nuestro portafolio especializado para incluir auditorías externas avanzadas y normativas NIIF, convirtiéndonos en un aliado integral ineludible para la toma de decisiones de la Alta Gerencia.
+                                Ampliamos nuestros servicios para atender auditorías, revisiones especiales, implementación NIIF, outsourcing y consultoría empresarial
                             </p>
                         </div>
                         <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-orange-500 shadow-[0_0_15px_rgba(217,128,5,0.8)] transform -translate-x-1.75 md:-translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 z-20 transition-transform group-hover:scale-150"></div>
@@ -73,7 +73,7 @@ export const Trayectoria = () => {
                                 Innovación Analítica
                             </h4>
                             <p className="text-gray-300 font-light leading-relaxed text-[1.05rem]">
-                                Modernizamos nuestras plataformas de análisis tributario e inteligencia financiera, garantizándole a usted confidencialidad, seguridad de datos y proyecciones fiscales de altísima precisión.
+                                Incorporamos herramientas tecnológicas para apoyar análisis tributarios y financieros, manteniendo revisión profesional y controles de confidencialidad.  
                             </p>
                         </div>
                         <div className="absolute left-4 md:left-1/2 w-4 h-4 rounded-full bg-orange-500 shadow-[0_0_15px_rgba(217,128,5,0.8)] transform -translate-x-1.75 md:-translate-x-1/2 top-6 md:top-1/2 md:-translate-y-1/2 z-20 transition-transform group-hover:scale-150"></div>

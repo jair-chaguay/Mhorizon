@@ -36,7 +36,7 @@ export const Financiero = () => {
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Cumplimiento & Riesgo</p>
                 <h3 className="text-blue-200 font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">FINANCIERO</h3>
                 <p className="text-gray-600 font-light text-[1.05rem] leading-relaxed mb-6">
-                    Garantizamos la integridad operativa, el cumplimiento normativo y la eficiencia fiscal en instituciones bancarias, aseguradoras y empresas de tecnología financiera (Fintech). Protegemos su estructura frente a regulaciones cambiantes.
+                    Apoyamos a instituciones financieras, aseguradoras y empresas de tecnología financiera en asuntos tributarios, contables, de control y cumplimiento regulatorio.
                 </p>
 
                 <div className='flex flex-wrap gap-2 mb-8'>

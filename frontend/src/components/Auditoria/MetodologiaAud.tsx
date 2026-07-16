@@ -16,7 +16,7 @@ export const MetodologiaAud = () => {
                     </h2>
 
                     <p className="mt-4 text-gray-600 font-light text-[1.05rem] leading-relaxed max-w-3xl mx-auto">
-                        Nuestro enfoque estructurado garantiza que cada dimensión financiera sea examinada bajo una perspectiva de extremo rigor y eficiencia digital moderna.
+                        Nuestra metodología considera planificación, evaluación de riesgos, ejecución de procedimientos, comunicación de hallazgos y emisión de informes.
                     </p>
                 </div>
                 <FaseAuditoria />

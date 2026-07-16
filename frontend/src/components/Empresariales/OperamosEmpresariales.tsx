@@ -14,14 +14,14 @@ const operamosP: operamosProps[] = [
   {
     icon: Recurso70,
     title: "Estrategia Avanzada en Modelos de Negocio",
-    content: "Acompañamos el crecimiento de su empresa B2B diseñando modelos de negocio eficientes y estrategias de mitigación de riesgos financieros.",
+    content: "Acompañamos el crecimiento de empresas de servicios mediante análisis de modelos de negocio, estructura financiera y riesgos relevantes.",
     list1: "Asesoría en fusiones y adquisiciones",
     list2: "Reestructuración societaria"
   },
   {
     icon: Recurso71,
-    title: "Dominio en Prevención de Riesgos Societarios",
-    content: "Blindamos su patrimonio asegurando que sus reportes, estatutos y obligaciones tributarias estén perfectamente alineados con el SRI y la SCVS.",
+    title: " Prevención de Riesgos Societarios",
+    content: "Revisamos obligaciones societarias y tributarias y coordinamos con asesores jurídicos cuando el asunto requiere análisis legal especializado.  ",
     list1: "Auditoría de estados financieros",
     list2: "Control de riesgos regulatorios"
   }
@@ -42,8 +42,8 @@ export const OperamosEmpresariales = () => {
               CÓMO OPERAMOS
             </h2>
           </div>
-          <p className="mt-4 text-gray-600 text-[1.05rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
-            Integramos asesoría corporativa, estructuración fiscal y outsourcing integral para que su empresa de servicios escale con seguridad jurídica y eficiencia operativa.
+          <p className="mt-4 text-gray-600 text-[1.1rem] leading-relaxed max-w-3xl lg:mx-0 mx-auto">
+            Integramos consultoría tributaria, financiera y outsourcing para apoyar el crecimiento con mejores controles, información y cumplimiento.
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export const OperamosEmpresariales = () => {
                 Control Integral de Back-Office
               </h3>
               <p className="mt-4 text-white/90 text-[0.95rem] leading-relaxed mb-8">
-                Asumimos el control integral de su back-office, gestión de nómina patronal y contabilidad bajo normas NIIF, permitiendo a su equipo enfocarse al 100% en captar clientes y brindar servicios.
+                Gestionamos procesos contables, de nómina y cumplimiento para que el equipo interno pueda concentrarse en la atención a clientes y el desarrollo del negocio. 
               </p>
             </div>
             <div className="absolute -right-10 -bottom-10 opacity-20 text-white">

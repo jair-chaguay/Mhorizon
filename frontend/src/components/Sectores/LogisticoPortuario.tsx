@@ -33,7 +33,7 @@ export const LogisticoPortuario = () => {
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Comercio Exterior</p>
                 <h3 className="text-white font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4 uppercase">Logísticos y Portuarios</h3>
                 <p className="text-gray-300 font-light text-[1.02rem] leading-relaxed mb-6">
-                    Aportamos rigor analítico, gestión aduanera y planeación fiscal en procesos críticos para empresas de comercio exterior, navieras y operadores logísticos a nivel nacional e internacional.
+                    Aportamos experiencia tributaria, financiera y de control para empresas de comercio exterior, navieras, operadores portuarios, agencias de carga y transporte.
                 </p>
 
                 <div className='flex flex-wrap gap-2 mb-8'>

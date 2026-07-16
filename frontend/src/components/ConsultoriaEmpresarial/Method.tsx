@@ -10,18 +10,18 @@ interface methodProp {
 const method: methodProp[] = [
     {
         fase: "1",
-        title: "AUDITORÍA & PROPUESTA",
-        content: "Auditoría profunda de las estructuras organizativas, la salud financiera y las brechas de cumplimiento normativo en el mercado."
+        title: "DIAGNÓSTICO & PROPUESTA",
+        content: "Revisamos la situación financiera, los procesos y las principales brechas de información o control relacionadas con el alcance contratado.  "
     },
     {
         fase: "2",
-        title: "ARQUITECTURA ESTRATÉGICA",
-        content: "Diseño de modelos operativos a medida que alinean la asignación de recursos y la carga fiscal con objetivos de rentabilidad."
+        title: "DISEÑO DE SOLUCIONES",
+        content: "Diseñamos alternativas de trabajo alineadas con las necesidades, recursos y objetivos de la empresa."
     },
     {
         fase: "3",
-        title: "EJECUCIÓN Y ESCALA",
-        content: "Apoyo táctico en la implementación de controles internos y monitorización continua mediante KPIs para asegurar el éxito."
+        title: "IMPLEMENTACIÓN Y SEGUIMIENTO",
+        content: "Acompañamos la implementación de controles, procesos o herramientas y definimos indicadores cuando el proyecto lo requiere."
     }
 ]
 

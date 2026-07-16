@@ -19,7 +19,7 @@ export const HeroAuditoria = () => {
                 </h1>
 
                 <p className='text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.22rem] w-full leading-relaxed drop-shadow-md text-left'>
-                    Integridad absoluta en cada registro contable. Analizamos su estructura financiera bajo una perspectiva de extremo rigor para garantizar solidez y cumplimiento global.
+                    Auditamos estados financieros y ejecutamos revisiones especiales con independencia, metodología y evidencia suficiente para emitir conclusiones profesionales.  
                 </p>
 
                 <div className="mt-10 md:mt-12 flex">

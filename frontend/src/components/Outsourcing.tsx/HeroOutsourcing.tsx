@@ -14,12 +14,12 @@ export const HeroOutsourcing = () => {
                     GESTIÓN DELEGADA DE CLASE MUNDIAL
                 </p>
 
-                <h1 className='text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.5rem] font-bold w-full tracking-tight leading-[1.1]'>
-                    OUTSOURCING BPO
+                <h1 className='text-white drop-shadow-lg text-[2.4rem] sm:text-[2.8rem] md:text-[3.2rem] font-bold w-full tracking-tight leading-[1.1]'>
+                    OUTSOURCING CONTABLE, TRIBUTARIO Y DE NÓMINA
                 </h1>
 
-                <p className='text-gray-200 mt-6 text-[1.03rem] sm:text-[1.12rem] md:text-[1.18rem] w-full leading-relaxed drop-shadow-md text-left'>
-                    Potenciamos la eficiencia de su back-office contable y financiero. Garantizamos el estricto cumplimiento ante el SRI, IESS y el Ministerio del Trabajo, optimizando sus recursos corporativos con tecnología de punta.
+                <p className='text-gray-200 mt-6 text-[1.03rem] sm:text-[1.12rem] md:text-[1.23rem] w-full leading-relaxed drop-shadow-md text-left'>
+                    Gestionamos procesos contables, tributarios y de nómina con equipos asignados, controles y reportes, para apoyar el cumplimiento ante el SRI, IESS y Ministerio del Trabajo.  
                 </p>
 
                 <div className="mt-10 md:mt-12 flex">

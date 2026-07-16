@@ -15,18 +15,18 @@ const metodologia: MetodologiaProps[] = [
   },
   {
     numero: '02',
-    title: 'Ejecución',
-    content: 'Implementamos protocolos de alta eficiencia respaldados por tecnología de análisis predictivo.'
+    title: 'Diseño',
+    content: 'Definimos el alcance, la metodología, los responsables y los entregables del servicio. '
   },
   {
     numero: '03',
-    title: 'Monitoreo',
-    content: 'Visualizamos en tiempo real el impacto de cada gestión a través del Portal del cliente'
+    title: 'Ejecución',
+    content: 'Desarrollamos el trabajo con supervisión profesional, documentación y comunicación oportuna.'
   },
   {
     numero:'04',
-    title: 'Evolución',
-    content: 'Nos ajustamos proactivamente ante cambios en la legislación nacional.'
+    title: 'Seguimiento',
+    content: 'Explicamos resultados, riesgos y próximos pasos cuando el alcance del servicio lo requiere.'
   }
 ]
 
@@ -91,8 +91,8 @@ export const Metodologia = () => {
             MÁS QUE NÚMEROS, ESTRATEGIA 
           </h2>
 
-          <p className="text-gray-300 font-light mt-5 text-[1.05rem] text-center lg:text-left leading-relaxed max-w-lg mx-auto lg:mx-0 reveal-element delay-200">
-            Combinamos el pensamiento analítico riguroso con la resolución creativa de problemas para ofrecer un impacto medible en cada etapa del ciclo de su negocio.
+          <p className="text-gray-300 font-light mt-5 text-[1.05rem] text-center lg:text-left leading-relaxed  mx-auto lg:mx-0 reveal-element delay-200">
+            Aplicamos una metodología práctica que permite comprender el problema, diseñar la solución, ejecutar el trabajo y comunicar los resultados.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">

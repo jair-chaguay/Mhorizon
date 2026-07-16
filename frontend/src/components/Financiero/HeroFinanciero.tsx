@@ -17,8 +17,8 @@ export const HeroFinanciero = () => {
                     FINANCIERO
                 </h1>
 
-                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.2rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
-                    Garantizamos la integridad operativa, el cumplimiento normativo estricto y la eficiencia fiscal para instituciones bancarias, cooperativas, aseguradoras y empresas Fintech en el mercado ecuatoriano.
+                <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-3xl">
+                    Acompañamos a instituciones bancarias, cooperativas, aseguradoras y empresas Fintech en asuntos tributarios, financieros, contables y de control.
                 </p>
 
 

@@ -15,7 +15,7 @@ const servicioAuditoria: servicioAuditoria[] = [
             "Asesoría y servicios de auditoría y revisiones especiales",
             "Evaluación de control interno",
             "Auditoría de estados financieros",
-            "Auditoria operativa",
+            "Auditoría operativa",
             "Revisiones especiales de acuerdo con procedimientos previamente acordados",
             "Due diligence",
             "Revisión de controles de inventarios y activos fijos"

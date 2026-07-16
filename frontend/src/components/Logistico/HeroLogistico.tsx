@@ -17,7 +17,7 @@ export const HeroLogistico = () => {
                     </h1>
 
                     <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.25rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
-                        Blindamos las operaciones de agencias de carga, operadores portuarios, navieras y empresas de transporte en Ecuador mediante estrategias fiscales aduaneras y auditoría de costos rigurosa.
+                        Acompañamos a agencias de carga, operadores portuarios, navieras y empresas de transporte en asuntos tributarios, contables, financieros y de control.  
                     </p>
 
 

@@ -12,12 +12,12 @@ const calculadora: CalculadoraItem[] = [
   {
     image: "images/Recurso10.png",
     title: "Análisis Predictivo",
-    subtitle: "Proyecte su Impuesto a la Renta antes del cierre del ejercicio.",
+    subtitle: "Proyecte su Impuesto a la Renta antes del cierre del ejercicio",
   },
   {
     image: "images/Recurso10.png",
-    title: "Cumplimiento Legal",
-    subtitle: "¿Cumple con las normativas vigentes del SRI para el período actual?",
+    title: "Revisión Tributaria Preventiva",
+    subtitle: "Identifique variables y posibles diferencias que conviene revisar antes del cierre fiscal.",
   },
 ]
 
@@ -34,7 +34,7 @@ export const Calculadora = () => {
             Herramienta Analítica
           </span>
           <h2 className="text-white font-extrabold text-[2.2rem] sm:text-[2.5rem] md:text-[2.8rem] leading-tight text-center lg:text-left">
-            INTELIGENCIA FISCAL: <br />PROYECCIÓN DE RENTA
+            PROYECCIÓN DEL IMPUESTO A LA RENTA
           </h2>
 
           <p className="text-gray-300 text-[1.1rem] sm:text-[1.2rem] mt-6 text-center lg:text-left max-w-2xl leading-relaxed">
@@ -56,11 +56,11 @@ export const Calculadora = () => {
             </div>
 
             <h3 className="font-bold text-blue-200 text-center text-[1.3rem] md:text-[1.4rem] tracking-tight">
-              ANTICIPE SU FUTURO FINANCIERO
+              PROYECTE ANTES DEL CIERRE
             </h3>
             <div className="w-16 h-1 bg-orange-500 mx-auto mt-4 mb-6"></div>
             <p className="text-gray-600 text-center text-[1.05rem] leading-relaxed mb-8">
-              Acceda a nuestra plataforma analítica exclusiva y tome el control estratégico de sus finanzas corporativas hoy mismo.
+              Obtenga una estimación preliminar del impuesto y detecte oportunamente posibles diferencias o decisiones pendientes.
             </p>
 
             <Link
@@ -71,7 +71,7 @@ export const Calculadora = () => {
             </Link>
 
             <p className="text-center text-gray-400 mt-6 font-medium text-[0.75rem] uppercase tracking-wider">
-              ✓ Herramienta de uso gratuito para aliados estratégicos
+              ✓ REALICE UNA ESTIMACIÓN INICIAL SIN COSTO  
             </p>
           </div>
         </div>

@@ -12,12 +12,12 @@ const estrucutras: estructurasFinancieras[] = [
     {
         icon: Resiliencia,
         title: "Gestión Integral de Back-Office",
-        content: "Asumimos la gestión integral de su nómina, contabilidad y cumplimiento patronal, permitiendo que se enfoque 100% en la producción y las ventas."
+        content: "Gestionamos nómina, contabilidad y obligaciones patronales para que el equipo interno se concentre en producción, ventas y atención al cliente.  "
     },
     {
         icon: Recurso69,
         title: "Estructuración a Gran Escala",
-        content: "Asesoramiento para la apertura de sucursales, manejo de operaciones intercompañías y alineación de precios de transferencia."
+        content: "Asesoramos en apertura de sucursales, operaciones entre compañías relacionadas y obligaciones de precios de transferencia."
     }
 ]
 
@@ -37,7 +37,7 @@ export const EstrctFinan = () => {
                     </h2>
                     </div>
                     <p className="mt-4 text-gray-500 text-[1.05rem] leading-relaxed max-w-2xl mx-auto">
-                        Fortalecemos los cimientos de su corporación mediante estrategias diseñadas para el crecimiento sostenible y la absorción de impactos del mercado.
+                        Fortalecemos procesos, controles e información para acompañar el crecimiento y la capacidad de respuesta de la empresa.
                     </p>
                 </div>
 

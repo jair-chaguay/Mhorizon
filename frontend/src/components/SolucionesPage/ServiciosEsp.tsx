@@ -16,15 +16,15 @@ const solucionProp: SolucionesProp[] = [
         icon: <Consultoria className="w-8 h-8" />,
         title: "CONSULTORÍA EMPRESARIAL",
         paragraph:
-            "Transformamos los desafíos de su industria en ventajas competitivas. Evaluamos la estructura de su organización para diseñar estrategias de mejora continua.",
+            "Analizamos la información financiera, los procesos y los controles de su empresa para identificar riesgos, mejorar la gestión de caja y respaldar decisiones de crecimiento.",
         ruta: "/soluciones/consultoria-empresarial",
         delay: "delay-100"
     },
     {
         icon: <Gestion className="w-8 h-8" />,
-        title: "GESTIÓN TRIBUTARIA",
+        title: "ESTRATEGIA Y DEFENSA TRIBUTARIA",
         paragraph:
-            "Convertimos su carga fiscal en eficiencia operativa, gestionamos la devolución de sus impuestos y le guiamos para cumplir estrictamente con las normativas del SRI, previniendo contingencias legales.",
+            "Prevenimos contingencias, resolvemos consultas, gestionamos devoluciones de impuestos y acompañamos a su empresa en procesos administrativos y controversias tributarias",
         ruta: "/soluciones/gestion-tributaria",
         delay: "delay-200"
 
@@ -34,7 +34,7 @@ const solucionProp: SolucionesProp[] = [
         icon: <Maletin className="w-8 h-8" />,
         title: "OUTSOURCING BPO",
         paragraph:
-            "Enfoque toda su energía en el core bussines de su negocio mientras nosotros gestionamos su back-office.",
+            "Permita que su equipo se concentre en el negocio mientras MHORIZON gestiona sus procesos contables, tributarios y de nómina con controles, supervisión y reportes oportunos.",
         ruta: "/soluciones/outsourcing",
         delay: "delay-300"
 
@@ -43,7 +43,7 @@ const solucionProp: SolucionesProp[] = [
         icon: <GraficoLupa className="w-8 h-8" />,
         title: "AUDITORÍA FINANCIERA",
         paragraph:
-            "Datos claros, transparentes y confiables. Evaluamos la salud financiera acorde con Normas Internacionales de Información Financiera (NIIF), detectando oportunidades de mejora.",
+            "Auditamos estados financieros bajo Normas Internacionales de Auditoría y evaluamos su presentación conforme a NIIF, fortaleciendo la confianza en la información de la empresa.",
         ruta: "/soluciones/auditoria",
         delay: "delay-400"
 
@@ -101,7 +101,7 @@ export const ServiciosEsp = () => {
                         SERVICIOS ESPECIALIZADOS
                     </h2>
                     <p className="mt-5 text-gray-500 font-light max-w-2xl mx-auto text-[1.05rem]">
-                        Respaldamos cada decisión corporativa con un rigor técnico incomparable y metodologías de consultoría de talla mundial.
+                        Comprendemos la operación, definimos el alcance y ejecutamos cada trabajo con supervisión profesional, comunicación oportuna y entregables claros.  
                     </p>
                 </div>
 

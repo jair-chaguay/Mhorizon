@@ -17,7 +17,7 @@ export const HeroIndustrial = () => {
                     </h1>
 
                     <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.3rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">
-                        Garantizamos la eficiencia operativa, el cumplimiento normativo y la optimización fiscal integral para empresas de manufactura, retail, agroindustria y consumo masivo.
+                        Atendemos necesidades tributarias, financieras, de control y outsourcing en empresas de manufactura, comercio, agroindustria y consumo masivo.  
                     </p>
 
 

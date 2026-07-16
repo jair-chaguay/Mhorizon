@@ -12,18 +12,18 @@ interface valoresProps {
 const valores: valoresProps[] = [
     {
         icon: VerifiedUser,
-        title: "Integridad Absoluta",
-        content: "Transparencia y ética profesional en cada informe emitido, garantizando una confianza institucional inquebrantable ante los entes de control."
+        title: "Integridad Profesional",
+        content: "Actuamos con ética, confidencialidad y transparencia en el desarrollo de nuestros servicios y en la comunicación de resultados"
     },
     {
         icon: GavelIcon,
-        title: "Rigor Normativo",
-        content: "Actualización constante frente a las reformas del SRI y Superintendencia de Compañías para mitigar cualquier riesgo legal."
+        title: "Actualización Técnica",
+        content: "Mantenemos revisión continua de cambios tributarios, societarios, laborales y financieros relevantes para nuestros servicios.  "
     },
     {
         icon: Eyee,
         title: "Visión estratégica",
-        content: "No solo auditamos el pasado, proyectamos su futuro financiero mediante análisis de datos precisos."
+        content: "Analizamos información financiera y tributaria para aportar perspectivas útiles a las decisiones futuras de nuestros clientes."
     },
     {
         icon: Hands,
@@ -43,13 +43,13 @@ export const ValoresContainer = () => {
                             Nuestra Cultura
                         </span>
                         <h2 className="font-extrabold text-[2.2rem] sm:text-[2.6rem] md:text-[3rem] text-blue-200 leading-tight uppercase tracking-tight">
-                            PRINCIPIOS <br />INNEGOCIABLES
+                            PRINCIPIOS <br />QUE NOS GUÍAN
                         </h2>
                     </div>
 
                     <div className="lg:col-span-7">
-                        <p className="text-blue-200/70 text-[1.1rem] leading-relaxed max-w-2xl">
-                            Estos pilares definen nuestra cultura corporativa y garantizan la excelencia probada en cada auditoría, asesoría legal y análisis financiero que entregamos.
+                        <p className="text-blue-200/70 text-[1.2rem] leading-relaxed max-w-2xl">
+                            Estos principios orientan nuestra relación con los clientes y la calidad de los servicios que prestamos.  
                         </p>
                     </div>
                 </div>

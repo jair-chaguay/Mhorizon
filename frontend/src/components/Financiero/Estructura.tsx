@@ -11,17 +11,17 @@ const estructuras: estructurasProp[] = [
     {
         numero: '01',
         title: 'Cumplimiento Normativo (SCVS y SB)',
-        content: 'Alineación total de sus cumplimientos y reportes con las exigencias de la Superintendencia de Compañías y la Superintendencia de Bancos del Ecuador.',
+        content: 'Apoyo en la revisión de reportes y obligaciones frente a la Superintendencia de Bancos, la Superintendencia de Compañías y demás entidades aplicables.  ',
     },
     {
         numero: '02',
         title: 'Innovación en Fintech y Medios de Pagos',
-        content: 'Asesoría integral para la escalabilidad tributaria de pasarelas de pago, billeteras digitales y nuevos modelos de negocio tecnológico en el país.',
+        content: 'Asesoría tributaria y financiera para pasarelas de pago, billeteras digitales y otros modelos de negocio tecnológico.',
     },
     {
         numero: '03',
         title: 'Consultoría Empresarial y Riesgos',
-        content: 'Identificación y mitigación proactiva de riesgos operativos, financieros y tributarios. Reestructuramos procesos para hacer instituciones más sólidas y rentables.',
+        content: 'Identificamos riesgos operativos, financieros y tributarios y formulamos recomendaciones para fortalecer procesos y controles.',
     }
 ]
 

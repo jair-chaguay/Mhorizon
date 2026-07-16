@@ -11,12 +11,12 @@ const arquitecturas: arquitecturaProps[] = [
     {
         numero: "01",
         title: "Inteligencia Tributaria B2B",
-        content: "Optimizamos su carga tributaria, el manejo de retenciones y la declaración de IVA, diseñando planeaciones fiscales eficientes y adaptadas a la naturaleza intangible de sus servicios."
+        content: "Analizamos IVA, retenciones, impuesto a la renta y otras obligaciones aplicables a los modelos de negocio de servicios.  "
     },
     {
         numero: "02",
-        title: "Rigor Analítico bajo Estándares Internacionales",
-        content: "Evaluamos la salud económica de su empresa con rigor internacional (NIIF). Garantizamos la máxima transparencia de su gestión ante socios directores, inversionistas y la SCVS."
+        title: "Información Financiera bajo NIF",
+        content: "Apoyamos la preparación y revisión de información financiera conforme al marco NIIF aplicable, para facilitar su uso por gerencia, socios y organismos de control."
     }
 ]
 

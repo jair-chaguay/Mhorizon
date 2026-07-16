@@ -11,17 +11,17 @@ const consultoria: consultoriaProp[] = [
     {
         num: "01",
         title: "Diagnóstico en Profundidad",
-        content: "Analizamos su estructura actual para identificar cuellos de botella y oportunidades de automatización inmediata."
+        content: "Analizamos la estructura actual para identificar cuellos de botella, riesgos y oportunidades de mejora o automatización.  "
     },
     {
         num: "02",
         title: "Configuración Personalizada",
-        content: "Implementamos equipos y tecnologías específicamente alineados con la cultura y las necesidades de su empresa."
+        content: "Definimos el equipo, los procesos, controles y herramientas de acuerdo con las necesidades de la empresa."
     },
     {
         num: "03",
         title: "Gestión de Indicadores Clave (KPI)",
-        content: "Los paneles de control en tiempo real garantizan total transparencia sobre el rendimiento y la calidad de los entregables."
+        content: "Definimos indicadores y reportes para evaluar el cumplimiento, la oportunidad y la calidad de los entregables.  "
     }
 ]
 
@@ -47,8 +47,8 @@ export const ConsultoriaEje = () => {
                         <h4 className='text-white shadow-2xl font-extrabold text-[1.6rem] md:text-[1.7rem] leading-tight'>
                             REDUCCIÓN DE COSTOS ESTRUCTURALES
                         </h4>
-                        <p className="text-gray-200 font-light mt-3 w-full lg:w-[90%] text-[0.9rem] leading-relaxed">
-                            Transformamos los altos costos fijos de un departamento interno en costos variables eficientes, reduciendo la carga operativa y los riesgos laborales sin comprometer la excelencia de la información.
+                        <p className="text-gray-200 font-light mt-3 w-full lg:w-[90%] text-[1.1rem] leading-relaxed">
+                            El outsourcing puede convertir parte de los costos fijos en un servicio ajustado a las necesidades de la empresa y reducir la carga administrativa interna.  
                         </p>
                     </div>
                 </div>

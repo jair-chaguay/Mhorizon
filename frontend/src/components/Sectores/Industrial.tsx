@@ -14,7 +14,7 @@ export const Industrial = () => {
                 <p className="text-orange-500 font-bold tracking-widest text-[0.8rem] uppercase mb-2 mt-2 lg:mt-0">Producción & Retail</p>
                 <h3 className="text-white font-extrabold text-[1.6rem] md:text-[2rem] leading-tight mb-4">INDUSTRIAL & COMERCIAL</h3>
                 <p className="text-gray-300 font-light text-[1.05rem] leading-relaxed mb-6">
-                    Optimizamos la carga tributaria y estructuramos procesos de auditoría y outsourcing para empresas de manufactura, retail y distribución masiva, impulsando su rentabilidad en mercados de alto volumen.
+                    Atendemos necesidades tributarias, financieras, de auditoría y outsourcing en empresas de manufactura, comercio, consumo masivo y agroindustria.
                 </p>
 
                 <div className='flex flex-wrap gap-2 mb-8'>

@@ -43,10 +43,10 @@ export const EstrctNegocios = () => {
                     </div>
                     <div className="w-full lg:w-1/2">
                         <h3 className="text-blue-200 font-extrabold text-[1.8rem] sm:text-[2.2rem] tracking-tight leading-tight mb-6 border-l-orange-500 border-l-4 pl-4">
-                            BLINDAJE Y DEFENSA EN COMERCIO EXTERIOR
+                            PREVENCIÓN Y DEFENSA TRIBUTARIA EN COMERCIO EXTERIOR  
                         </h3>
                         <p className="text-blue-200 font-light text-[1.05rem] leading-relaxed mb-6">
-                            Mapeamos y mitigamos las contingencias inherentes a los procesos aduaneros, contables y de facturación internacional, protegiendo a su agencia frente a multas, glosas o clausuras.
+                            Identificamos contingencias tributarias, contables y de facturación internacional y acompañamos su atención mediante revisión preventiva o defensa técnica.
                         </p>
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">

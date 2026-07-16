@@ -20,7 +20,7 @@ export const HeroNosotros = () => {
                     </h1>
 
                     <p className="text-gray-300 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.25rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-3xl">
-                        Con sede central en Guayaquil, somos la firma experta que transforma la complejidad regulatoria del mercado ecuatoriano en estrategias de crecimiento seguro, sostenible y auditable para su corporación.
+                        MHORIZON es una firma ecuatoriana de consultoría tributaria, financiera, contable y empresarial con más de 20 años de experiencia. Ayudamos a las empresas a anticipar riesgos, recuperar recursos, fortalecer controles y tomar mejores decisiones.  
                     </p>
 
                     <div className="mt-10 md:mt-12 flex flex-col sm:flex-row gap-5">

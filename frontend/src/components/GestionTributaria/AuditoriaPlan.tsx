@@ -10,13 +10,13 @@ interface autProps {
 const aut: autProps[] = [
   {
     icon: "/images/Compliance.png",
-    title: "Compliance Total",
-    content: "Aseguramos la integridad de sus operaciones frente a marcos normativos nacionales y de fiscalidad internacional, mitigando riesgos antes de que surjan.",
+    title: "Cumplimiento y Revisión",
+    content: "Revisamos obligaciones y operaciones frente a la normativa nacional y, cuando corresponde, a reglas de fiscalidad internacional, identificando riesgos y acciones preventivas.",
   },
   {
     icon: "/images/OptimizacionEstrc.png",
-    title: "Optimización estructural",
-    content: "Analizamos y rediseñamos arquitecturas fiscales para maximizar la eficiencia en la cadena de valor global de su organización.",
+    title: "Eficiencia Tributaria",
+    content: "Evaluamos alternativas permitidas por la normativa para estructurar operaciones de manera eficiente y coherente con la realidad económica del negocio.",
   }
 ]
 
@@ -28,19 +28,19 @@ export const AuditoriaPlan = () => {
       <ScrollReveal as={"div"} className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-12 lg:gap-10 items-center relative z-10 px-5 sm:px-8 md:px-12">
 
         <div className="w-full lg:w-[50%] flex flex-col gap-10 reveal-element">
-          <div className="border-l-4 border-l-orange-500 px-4 md:px-8">
+          <div className="border-l-4 border-l-orange-500 px-4 md:px-6">
             <h2 className="text-blue-200 text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] font-extrabold tracking-tight leading-tight">
-              AUTORIDAD EN <br />PLANIFICACIÓN FISCAL
+              EXPERIENCIA EN <br />CONSULTORÍA TRIBUTARIA
             </h2>
             <p className="mt-5 text-gray-700 font-light text-justify md:text-left w-full md:pr-10 leading-relaxed text-[1.05rem]">
-              En MHORIZON, redefinimos la consultoría tributaria al trascender el simple cumplimiento básico. A través de un enfoque holístico, combinamos nuestra inteligencia regulatoria del SRI y SCVS con su visión corporativa a largo plazo para blindar su patrimonio.
+              Nuestro enfoque integra conocimiento normativo, comprensión del negocio y experiencia práctica para evaluar los efectos tributarios de operaciones nacionales e internacionales.  
             </p>
           </div>
 
           <div className="bg-blue-200 border border-white/5 rounded-r-xl py-8 shadow-2xl relative overflow-hidden">
             <div className="absolute left-0 top-0 bottom-0 w-2 bg-orange-500"></div>
             <p className="text-gray-300 italic font-light px-8 md:px-12 text-[1.1rem] md:text-[1.2rem]">
-              "Anticipamos el impacto fiscal antes de que ocurra la transacción, creando verdaderas oportunidades estratégicas para nuestros clientes corporativos."
+              "Analizamos el efecto tributario antes de ejecutar operaciones relevantes y formulamos recomendaciones sustentadas para reducir riesgos y mejorar la toma de decisiones."
             </p>
           </div>
         </div>

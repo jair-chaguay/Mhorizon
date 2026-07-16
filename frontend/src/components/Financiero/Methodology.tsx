@@ -15,7 +15,7 @@ export const Methodology = () => {
                         </h2>
                     </div>
                     <p className="text-gray-600 text-[1.1rem] max-w-xl text-balance leading-relaxed">
-                        Integramos auditoría financiera rigurosa con planificación tributaria y outsourcing especializado para blindar el patrimonio de su institución frente al SRI, la Superintendencia de Bancos y la SCVS.
+                        Integramos consultoría tributaria, auditoría, revisiones especiales y outsourcing para atender las necesidades particulares de las instituciones financieras.  
                     </p>
                 </div>
 
@@ -50,7 +50,7 @@ export const Methodology = () => {
                             Estrategia de Optimización Tributaria
                         </h3>
                         <p className="text-gray-300 text-[1.02rem] leading-relaxed mb-6">
-                            Brindamos asesoría fiscal permanente diseñada para el sector financiero. Estructuramos estrategias de optimización tributaria de alto nivel, asegurando la máxima eficiencia impositiva de sus productos financieros en estricto cumplimiento legal.
+                            Brindamos asesoría tributaria permanente para analizar productos, operaciones y obligaciones del sector financiero, identificando alternativas permitidas y riesgos de cumplimiento.  
                         </p>
 
                     </div>
@@ -62,7 +62,7 @@ export const Methodology = () => {
                         </div>
                         <h3 className="text-blue-200 font-extrabold text-[1.4rem] mt-6 mb-4 leading-tight group-hover:text-orange-500 transition-colors">Protección Patrimonial ante Entes de Control</h3>
                         <p className="text-gray-600 text-[1.04rem] leading-relaxed">
-                            Protegemos el patrimonio de su entidad ante los entes de control. Lideramos el acompañamiento integral en procesos de determinación con el SRI y gestionamos de manera técnica los reclamos formales y las devoluciones tributarias.
+                            Acompañamos procesos de determinación, reclamos y solicitudes de devolución mediante análisis técnico y preparación de la documentación necesaria.
                         </p>
                     </div>
 

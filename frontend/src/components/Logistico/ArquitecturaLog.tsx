@@ -26,7 +26,7 @@ export const ArquitecturaLog = () => {
                             </div>
                             <h3 className="text-blue-200 font-extrabold text-[1.5rem] sm:text-[1.8rem] leading-tight mb-4">Dominio Financiero en Flotas y Costos Logísticos</h3>
                             <p className="text-gray-600 font-light text-[1.05rem] leading-relaxed max-w-2xl mb-8">
-                                Implementamos revisiones rigurosas sobre costos operativos, fletes internacionales y aplicación estricta de las NIIF a flotas de transporte y activos fijos portuarios. Aseguramos total transparencia financiera para el SRI y la SCVS.
+                                Revisamos costos operativos, fletes, activos fijos y aplicación del marco NIIF correspondiente, de acuerdo con el alcance contratado.  
                             </p>
 
                             <div className="grid grid-cols-2 gap-4">
@@ -36,7 +36,7 @@ export const ArquitecturaLog = () => {
                                 </div>
                                 <div className="bg-gray-800 border border-gray-100 p-4 rounded-xl">
                                     <p className="text-orange-500 font-black text-2xl mb-1">SCVS</p>
-                                    <p className="text-[0.75rem] font-bold text-blue-200 uppercase tracking-wider">Auditoría Aprobada</p>
+                                    <p className="text-[0.75rem] font-bold text-blue-200 uppercase tracking-wider">Auditoría y Control</p>
                                 </div>
                             </div>
                         </div>
@@ -51,7 +51,7 @@ export const ArquitecturaLog = () => {
                                 </div>
                                 <h3 className="text-white font-extrabold text-[1.4rem] leading-tight mb-4 pt-9">Inteligencia Aduanera y Fiscal</h3>
                                 <p className="text-gray-300 font-light text-[1rem] leading-relaxed mb-6">
-                                    Gestión experta sobre IVA en comercio exterior, retenciones aplicables al sector transporte, y planeación fiscal internacional mediante convenios para evitar la doble tributación.
+                                    Analizamos IVA, retenciones y convenios para evitar la doble imposición aplicables a operaciones de transporte y comercio exterior.
                                 </p>
                             </div>
                         </div>
@@ -62,7 +62,7 @@ export const ArquitecturaLog = () => {
                             <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.75rem] uppercase mb-2 block">Delegación Operativa</span>
                             <h3 className="text-blue-200 font-extrabold text-[1.5rem] sm:text-[1.8rem] leading-tight mb-4">Respaldo Operativo para Alto Volumen Portuario</h3>
                             <p className="text-gray-600 font-light text-[1.05rem] leading-relaxed">
-                                Asumimos el procesamiento contable de alto volumen y la gestión de nómina para transportistas y personal portuario. Garantizamos el estricto cumplimiento de las regulaciones laborales (MDT, IESS), liberando recursos para que su empresa se enfoque en su core business.
+                                Gestionamos procesos contables y de nómina para operaciones de alto volumen, con controles y reportes definidos según las necesidades del cliente.  
                             </p>
                         </div>
                         <div className="md:w-1/3 w-full flex justify-center md:justify-end">
