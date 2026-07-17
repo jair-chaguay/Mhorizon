@@ -21,6 +21,9 @@ interface UsuarioData {
     cargo: string | null;
     activo: boolean;
     rol_id: number;
+    cliente?: {
+        razon_social_nombres: string;
+    };
 }
 
 export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, onOpenEditar, onOpenEliminar }) => {
@@ -98,7 +101,15 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                     usuariosDelRol.map((u) => (
                                         <tr key={u.id} className="hover:bg-gray-50/50 transition-colors group">
                                             <td className="px-6 py-5 font-medium text-blue-200">
-                                                {u.nombre} {u.apellido}
+                                                {u.rol_id === 2 && u.cliente ? (
+                                                    <div className="flex flex-col">
+                                                        <span className="font-bold text-[0.95rem] leading-none mb-1">
+                                                            {u.cliente.razon_social_nombres}
+                                                        </span>
+                                                    </div>
+                                                ) : (
+                                                    <span>{u.nombre} {u.apellido}</span>
+                                                )}
                                             </td>
                                             <td className="px-6 py-5 text-gray-500 font-mono text-[0.75rem]">
                                                 {u.correo}

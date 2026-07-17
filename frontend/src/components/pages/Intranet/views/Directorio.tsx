@@ -15,10 +15,13 @@ export interface Cliente {
   razon_social_nombres: string;
   identificacion: string;
   score_tributario: number;
-  representante_nombre?: string;
-  representante_correo?: string;
-  representante_cargo?: string;
-  tipo_servicio?: string;
+  representantes?: Array<{ 
+    nombre: string;
+    correo?: string;
+    cargo?: string;
+    telefono?: string;
+  }>;
+  tipo_servicio?: string[];
   tipo_contribuyente?: string;
   regimen_tributario?: string;
   agente_retencion?: boolean;
@@ -115,33 +118,46 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     setCurrentPage(1);
   };
 
+  const extraerDatosReporte = (c: Cliente) => {
+    const repPrincipal = c.representantes && c.representantes.length > 0 ? c.representantes[0] : null;
+    
+    const nombreContacto = repPrincipal?.nombre || 'N/A';
+    const correoContacto = repPrincipal?.correo || 'N/A';
+    const cargoContacto = repPrincipal?.cargo ? ` - ${repPrincipal.cargo}` : '';
+    const telfContacto = repPrincipal?.telefono || c.telefono_contacto || 'N/A';
+
+    const infoContacto = `${nombreContacto}${cargoContacto}\n${correoContacto}\nTel: ${telfContacto}`;
+
+    const serviciosTexto = c.tipo_servicio && Array.isArray(c.tipo_servicio) && c.tipo_servicio.length > 0
+      ? c.tipo_servicio.join(', ')
+      : 'N/A';
+
+    const responsables = c.gestores && c.gestores.length > 0
+      ? c.gestores.map(g => `${g.nombre} ${g.apellido}`).join(', ')
+      : 'Sin Asignar';
+
+    return { infoContacto, serviciosTexto, responsables };
+  };
+
+
   const exportarPDF = () => {
     const doc = new jsPDF('landscape', 'pt', 'a4');
     doc.setFontSize(18);
     doc.setFont('helvetica', 'bold');
     doc.text(`Total registrados: ${clientes.length} clientes`, 40, 60);
     const tableData = clientes.map((c) => {
-      const fallbackUser = c.usuarios && c.usuarios.length > 0 ? c.usuarios[0] : null;
-      const nombreContacto = c.representante_nombre || (fallbackUser ? `${fallbackUser.nombre} ${fallbackUser.apellido}` : 'N/A');
-      const correoContacto = c.representante_correo || (fallbackUser ? fallbackUser.correo : 'N/A');
-      const cargoContacto = c.representante_cargo ? ` - ${c.representante_cargo}` : '';
-
-      const infoContacto = `${nombreContacto}${cargoContacto}\n${correoContacto}\nTel: ${c.telefono_contacto || 'N/A'}`;
-
-      const responsables = c.gestores && c.gestores.length > 0
-        ? c.gestores.map(g => `${g.nombre} ${g.apellido}`).join(', ')
-        : 'Sin Asignar';
+      const { infoContacto, serviciosTexto, responsables } = extraerDatosReporte(c);
 
       return [
         c.razon_social_nombres || 'N/A',
         c.identificacion || 'N/A',
-        c.tipo_servicio || 'N/A',
+        serviciosTexto, 
         c.tipo_contribuyente || 'N/A',
         c.regimen_tributario || 'N/A',
         c.agente_retencion ? 'SI' : 'NO',
         c.actividad_economica ? c.actividad_economica.substring(0, 30) + '...' : 'N/A',
         c.sector || 'N/A',
-        infoContacto,
+        infoContacto,  
         responsables
       ];
     });
@@ -177,10 +193,11 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
         halign: 'center'
       },
       columnStyles: {
-        0: { cellWidth: 80 },  // Razón Social
-        1: { cellWidth: 65 },  // RUC
-        8: { cellWidth: 110 }, // Contacto (Ligeramente más ancho por el cargo)
-        9: { cellWidth: 70 }   // Responsable
+        0: { cellWidth: 80 },  
+        1: { cellWidth: 65 },  
+        2: { cellWidth: 70 },  
+        8: { cellWidth: 110 }, 
+        9: { cellWidth: 70 }  
       }
     });
 
@@ -194,13 +211,13 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     worksheet.columns = [
       { header: 'Razón Social', key: 'razonSocial', width: 35 },
       { header: 'RUC / Cédula', key: 'ruc', width: 15 },
-      { header: 'Tipo Servicio', key: 'tipoServicio', width: 20 },
+      { header: 'Tipos de Servicio', key: 'tipoServicio', width: 25 },
       { header: 'Tipo Contrib.', key: 'tipoContrib', width: 20 },
       { header: 'Régimen', key: 'regimen', width: 20 },
       { header: 'Retención', key: 'retencion', width: 10 },
       { header: 'Actividad Económica', key: 'actividad', width: 40 },
       { header: 'Sector', key: 'sector', width: 20 },
-      { header: 'Contacto Legal / Cliente', key: 'contacto', width: 50 },
+      { header: 'Contacto Legal / Cliente', key: 'contacto', width: 45 },
       { header: 'Responsable Int.', key: 'responsable', width: 30 }
     ];
 
@@ -231,27 +248,18 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
     });
 
     clientes.forEach((c) => {
-      const fallbackUser = c.usuarios && c.usuarios.length > 0 ? c.usuarios[0] : null;
-      const nombreContacto = c.representante_nombre || (fallbackUser ? `${fallbackUser.nombre} ${fallbackUser.apellido}` : 'N/A');
-      const correoContacto = c.representante_correo || (fallbackUser ? fallbackUser.correo : 'N/A');
-      const cargoContacto = c.representante_cargo ? ` - ${c.representante_cargo}` : '';
-
-      const infoContacto = `${nombreContacto}${cargoContacto}\n${correoContacto}\nTel: ${c.telefono_contacto || 'N/A'}`;
-
-      const responsables = c.gestores && c.gestores.length > 0
-        ? c.gestores.map(g => `${g.nombre} ${g.apellido}`).join(', ')
-        : 'Sin Asignar';
+      const { infoContacto, serviciosTexto, responsables } = extraerDatosReporte(c);
 
       const row = worksheet.addRow({
         razonSocial: c.razon_social_nombres || 'N/A',
         ruc: c.identificacion || 'N/A',
-        tipoServicio: c.tipo_servicio || 'N/A',
+        tipoServicio: serviciosTexto, // <--- Arreglo convertido a texto
         tipoContrib: c.tipo_contribuyente || 'N/A',
         regimen: c.regimen_tributario || 'N/A',
         retencion: c.agente_retencion ? 'SI' : 'NO',
         actividad: c.actividad_economica || 'N/A',
         sector: c.sector || 'N/A',
-        contacto: infoContacto,
+        contacto: infoContacto, // <--- Nuevo contacto extraído correctamente
         responsable: responsables
       });
 

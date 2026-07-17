@@ -6,6 +6,7 @@ import { AnalyticsTracker, CookieBanner } from "./components/Analytics";
 import { PageSkeleton } from "./components/PageSkeleton";
 
 const Home = lazy(() => import("./components/pages/Home").then(m => ({ default: m.Home })));
+const MembresiaPage = lazy(() => import("./components/pages/MembresiaPage").then(m=> ({default: m.MembresiaPage})))
 const SolucionesPage = lazy(() => import("./components/pages/SolucionesPage").then(m => ({ default: m.SolucionesPage })));
 const SectoresPage = lazy(() => import("./components/pages/SectoresPage").then(m => ({ default: m.SectoresPage })));
 const NovedadesPage = lazy(() => import("./components/pages/NovedadesPage").then(m => ({ default: m.NovedadesPage })));
@@ -44,6 +45,7 @@ function App() {
       }>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/soluciones/membresia" element={<MembresiaPage/>}/>
           <Route path="/soluciones" element={<SolucionesPage />} />
           <Route path="/soluciones/consultoria-empresarial" element={<ConsultoriaEmpresarial />} />
           <Route path="/soluciones/gestion-tributaria" element={<GestionPage />} />

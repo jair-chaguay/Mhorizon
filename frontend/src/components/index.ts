@@ -73,3 +73,13 @@ export { PortafoliaEmpresarial } from "./ConsultoriaEmpresarial/PortafoliaEmpres
 export { PortafolioEstr } from "./GestionTributaria/PortafolioEstr";
 export { PortafolioOutso } from "./Outsourcing.tsx/PortafolioOutso";
 export { PortafolioAuditoria } from "./Auditoria/PortafolioAuditoria";
+export { MembresiaPage } from "./pages/MembresiaPage";
+export { HeroMembresia } from "./Membresia/HeroMembresia";
+export { Banner } from "./Membresia/Banner";
+export { Respaldo } from "./Membresia/Respaldo";
+export { Propuesta } from "./Membresia/Propuesta";
+export { ExperienciaS } from "./Membresia/ExperienciaS";
+export { Alcance } from "./Membresia/Alcance";
+export { PerfilIdeal } from "./Membresia/PerfilIdeal";
+export { PreguntasFre } from "./Membresia/PreguntasFre";
+export { Invitacion } from "./Membresia/Invitacion";
