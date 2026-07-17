@@ -27,15 +27,7 @@ export const HeroOutsourcing = () => {
                     
                 </div>
             </div>
-            <div className='hidden md:flex gap-5 backdrop-blur-md bg-white/10  border border-white/20 shadow-2xl absolute w-90 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300'>
-                <h2 className='text-orange-500 text-[2.8rem] font-extrabold leading-none'>
-                    35%
-                </h2>
-                <div>
-                    <p className="text-[0.75rem] font-bold text-white uppercase tracking-wider">IMPACTO DIRECTO</p>
-                    <p className="font-light text-[0.95rem] text-white leading-tight mt-1">Reducción media de costos estructurales</p>
-                </div>
-            </div>
+            
         </ScrollReveal>
     )
 }

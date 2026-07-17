@@ -64,16 +64,6 @@ export const Integrales = () => {
                 
             </div>
 
-            <div className="hidden md:flex gap-5 bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl absolute w-95 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300">
-                <div className="bg-white rounded-lg shrink-0 relative">
-                    <img className="w-11 h-11 object-contain" src="/images/flechaIntegrales.png" alt="Crecimiento Operativo" />
-                </div>
-                <div>
-                    <p className="text-[0.75rem] font-bold text-gray-300 uppercase tracking-wider">CRECIMIENTO SOSTENIDO</p>
-                    <p className="font-bold text-[1.1rem] text-white leading-tight mt-1">+45% Eficiencia Operativa</p>
-                </div>
-            </div>
-
             <div className="md:hidden flex gap-5 bg-[#0f172a]/80 backdrop-blur-md border border-white/10 shadow-2xl absolute w-[90%] sm:w-[85%] p-5 items-center rounded-xl bottom-6 left-1/2 -translate-x-1/2 z-10 reveal-element delay-300">
                 <div className="bg-orange-500 p-2 rounded-lg shrink-0">
                     <img className="w-8 h-8 object-contain" src="/images/Recurso29.png" alt="Crecimiento Operativo" />

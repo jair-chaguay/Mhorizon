@@ -24,7 +24,7 @@ export const Trayectoria = () => {
                                 Consolidación en Guayaquil
                             </h4>
                             <p className="text-gray-300 font-light leading-relaxed text-[1.05rem]">
-                                Establecimos nuestra sede central en el Edificio Quil 1, integrando servicios contables, estructuración de impuestos y consultoría corporativa para responder a la creciente demanda de cumplimiento empresarial.
+                                Nuestra sede en Guayaquil reúne equipos de tributación, outsourcing, finanzas y auditoría para atender a empresas en todo Ecuador.
                             </p>
                         </div>
 

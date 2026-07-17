@@ -11,13 +11,6 @@ export const EstrIm = () => {
                         src="/images/EstrategiaImpuestos.webp" alt="Estrategia de Impuestos"
                     />
                     <div className="absolute inset-0 bg-blue-200/10 rounded-2xl"></div>
-
-                    <div className="absolute bg-white py-6 px-8 rounded-xl w-[85%] sm:w-85 shadow-2xl -bottom-8 left-1/2 -translate-x-1/2 md:left-8 md:translate-x-0 z-10 border-l-4 border-orange-500">
-                        <h3 className="font-extrabold text-[2rem] text-blue-200 leading-tight">15%</h3>
-                        <p className="font-bold text-[0.8rem] md:text-[0.85rem] mt-1 text-gray-500 uppercase tracking-widest">
-                            OPTIMIZACIÓN PROMEDIO <br />EN FLUJO DE CAJA
-                        </p>
-                    </div>
                 </div>
 
                 <div className="w-full md:w-[50%] mt-8 md:mt-0 reveal-element delay-200">

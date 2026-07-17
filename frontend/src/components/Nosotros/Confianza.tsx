@@ -12,7 +12,7 @@ export const Confianza = () => {
                                 DESCRIPCIÓN DE LA EMPRESA
                             </span>
                             <h2 className="text-blue-200 font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[2.4rem] tracking-tight leading-tight">
-                                CONSTRUYENDO CONFIANZA <br className="hidden lg:block" /> INSTITUCIONAL
+                                CONSTRUYENDO CONFIANZA 
                             </h2>
                         </div>
                         <p className="mt-6 text-blue-200/80  text-[1.1rem] leading-relaxed">
@@ -29,7 +29,7 @@ export const Confianza = () => {
                         <div className="bg-blue-200 p-8 rounded-2xl border border-gray-200/50 shadow-sm text-center lg:text-left flex flex-col justify-center transition-transform hover:-translate-y-1 duration-300">
                             <span className="text-orange-500 text-5xl md:text-6xl font-black tracking-tighter block mb-2">100%</span>
                             <span className="text-white font-bold text-[0.85rem] uppercase tracking-widest block">Cumplimiento Legal</span>
-                            <p className="text-white/60 text-[0.9rem] font-light mt-3">Rigor absoluto ante el SRI y la SCVS.</p>
+                            <p className="text-white/60 text-[0.9rem] font-light mt-3">Revisión técnica de obligaciones y procesos frente al SRI, la SCVS y otras entidades aplicables.</p>
                         </div>
                     </div>
 

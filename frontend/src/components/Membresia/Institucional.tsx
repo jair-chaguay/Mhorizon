@@ -49,7 +49,7 @@ export const Institucional = () => {
                         <div className="group bg-gray-800 rounded-2xl overflow-hidden shadow-2xl border border-gray-200 hover:shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500 relative">
                             <div className="relative h-[600px] overflow-hidden bg-[#151E28]">
                                 <img className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 mix-blend-luminosity opacity-90 group-hover:mix-blend-normal group-hover:opacity-100"
-                                    alt="Milton Montecé Q." src="images/MILTON.png" onerror="this.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop'" />
+                                    alt="Milton Montecé Q." src="images/MILTON.png" onError={(e)=> {e.currentTarget.src='https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop'}} />
                                 <div className="absolute inset-0 bg-gradient-to-t from-[#151E28] via-[#151E28]/50 to-transparent"></div>
                             </div>
                             <div className="absolute bottom-0 inset-x-0 p-8 md:p-10 flex flex-col justify-end text-white">

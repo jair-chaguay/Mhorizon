@@ -32,7 +32,7 @@ const solucionProp: SolucionesProp[] = [
     {
 
         icon: <Maletin className="w-8 h-8" />,
-        title: "OUTSOURCING BPO",
+        title: "OUTSOURCING CONTABLE, TRIBUTARIO Y DE NÓMINA",
         paragraph:
             "Permita que su equipo se concentre en el negocio mientras MHORIZON gestiona sus procesos contables, tributarios y de nómina con controles, supervisión y reportes oportunos.",
         ruta: "/soluciones/outsourcing",

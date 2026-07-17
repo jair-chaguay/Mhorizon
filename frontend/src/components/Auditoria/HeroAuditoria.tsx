@@ -4,7 +4,7 @@ import { ScrollReveal } from "../ScrollReveal"
 export const HeroAuditoria = () => {
 
     return (
-        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-137.5 md:h-137.5 bg-[url('/images/AuditoriaHero.webp')] bg-cover bg-center overflow-hidden">
+        <ScrollReveal as={"section"} className="relative flex items-center px-5 sm:px-8 md:px-20 w-full min-h-133.5 md:h-133.5 bg-[url('/images/AuditoriaHero.webp')] bg-cover bg-center overflow-hidden">
 
             <div className="absolute inset-0 bg-linear-to-r from-blue-200/95 via-blue-200/70 to-transparent">
             </div>
@@ -27,15 +27,7 @@ export const HeroAuditoria = () => {
                 </div>
             </div>
 
-            <div className='hidden md:flex gap-5 bg-white/10 backdrop-blur-md border border-white/10 shadow-2xl absolute w-90 p-6 items-center rounded-xl bottom-16 right-20 z-10 reveal-element delay-300'>
-                <h2 className='text-orange-500 text-[2.8rem] font-extrabold leading-none'>
-                    99.8%
-                </h2>
-                <div>
-                    <p className="text-[0.75rem] font-bold text-gray-300 uppercase tracking-wider">MÁXIMO RIGOR</p>
-                    <p className="font-light text-[0.95rem] text-white leading-tight mt-1">Precisión probada de nuestros informes forenses.</p>
-                </div>
-            </div>
+            
 
         </ScrollReveal>
     )

@@ -87,8 +87,8 @@ export const Metodologia = () => {
             METODOLOGÍA MHORIZON
           </span>
 
-          <h2 className="text-white font-extrabold mt-2 text-[2rem] sm:text-[2.3rem] leading-tight text-center lg:text-left tracking-tight uppercase reveal-element delay-100">
-            MÁS QUE NÚMEROS, ESTRATEGIA 
+          <h2 className="text-white font-extrabold mt-2 text-[2rem] sm:text-[2.2rem] leading-tight text-center lg:text-left tracking-tight uppercase reveal-element delay-100">
+           DEL DIAGNÓSTICO A LA EJECUCIÓN 
           </h2>
 
           <p className="text-gray-300 font-light mt-5 text-[1.05rem] text-center lg:text-left leading-relaxed  mx-auto lg:mx-0 reveal-element delay-200">

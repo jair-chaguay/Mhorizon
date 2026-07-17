@@ -13,10 +13,7 @@ export const HeroMembresia = () => {
                 <div className="w-full lg:w-[55%] reveal-element">
                     
                     <div className="inline-flex items-center gap-2 bg-white/10 border border-orange-500/30 px-4 py-1.5 rounded-sm mb-6 backdrop-blur-sm shadow-lg">
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
-                        </span>
+                        
                         <p className="text-orange-500 font-bold tracking-widest uppercase text-[0.75rem] font-jakarta">
                             NUEVO SERVICIO EXCLUSIVO
                         </p>
@@ -33,11 +30,7 @@ export const HeroMembresia = () => {
                         La experiencia tributaria que ha acompañado a grandes corporaciones, ahora disponible mediante un servicio recurrente, estructurado y con cobertura nacional.
                     </p>
 
-                    <div className="mt-8 flex items-center gap-5 text-[0.85rem] text-gray-300 uppercase tracking-widest font-bold flex-wrap font-jakarta">
-                        <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div> Atención remota</span>
-                        <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div> Un solo RUC</span>
-                        <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-orange-500"></div> Facturación mensual</span>
-                    </div>
+                    
 
                     <div className="mt-10 md:mt-12 flex flex-col sm:flex-row gap-4 font-jakarta">
                         <button id="agenda-hero-btn" className="bg-orange-500 text-white font-bold tracking-wider uppercase w-full sm:w-auto px-8 py-4 rounded-sm hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-orange-500/20 transition-all duration-300">

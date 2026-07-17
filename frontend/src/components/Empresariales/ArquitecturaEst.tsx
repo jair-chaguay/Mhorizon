@@ -10,7 +10,7 @@ interface arquitecturaProps {
 const arquitecturas: arquitecturaProps[] = [
     {
         numero: "01",
-        title: "Inteligencia Tributaria B2B",
+        title: "Gestión tributaria para empresas de servicios",
         content: "Analizamos IVA, retenciones, impuesto a la renta y otras obligaciones aplicables a los modelos de negocio de servicios.  "
     },
     {
@@ -33,24 +33,7 @@ export const ArquitecturaEst = () => {
 
                             <div className="absolute bottom-6 right-6 left-6 sm:left-auto bg-white/10 backdrop-blur-md p-6 sm:p-8 text-white rounded-lg shadow-2xl border border-white/10">
 
-                                <div className="grid grid-cols-2 gap-8">
-                                    <div>
-                                        <p className="text-orange-500 text-3xl sm:text-4xl font-extrabold mb-1">
-                                            100%
-                                        </p>
-                                        <p className="text-[0.65rem] sm:text-[0.7rem] uppercase tracking-widest font-bold text-gray-300">
-                                            Cumplimiento Tributario
-                                        </p>
-                                    </div>
-                                    <div>
-                                        <p className="text-orange-500 text-3xl sm:text-4xl font-extrabold mb-1">
-                                            +45%
-                                        </p>
-                                        <p className="text-[0.65rem] sm:text-[0.7rem] uppercase tracking-widest font-bold text-gray-300">
-                                            Eficiencia Financiera
-                                        </p>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                         <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-gray-50 rounded-xl z-0"></div>

@@ -9,7 +9,7 @@ export interface Cliente {
     representante_nombre?: string;
     representante_correo?: string;
     representante_cargo?: string;
-    tipo_servicio?: string;
+    tipo_servicio?: string[];
     tipo_contribuyente?: string;
     regimen_tributario?: string;
     agente_retencion?: boolean;
