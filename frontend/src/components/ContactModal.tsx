@@ -17,7 +17,7 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     const [loading, setLoading] = useState(false);
 
     const isWhatsAppReady = nombre.trim() !== "" && correo.trim() !== "";
-    const phoneNumber = "593999999999";
+    const phoneNumber = "593983643310";
     const whatsappMessage = encodeURIComponent(
         `Hola, soy ${nombre} ${apellido}.
         Correo: ${correo}

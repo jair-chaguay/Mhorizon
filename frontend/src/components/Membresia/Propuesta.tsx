@@ -23,8 +23,8 @@ export const Propuesta = () => {
                             10
                         </div>
                         <div className="relative z-10 flex flex-col h-full">
-                            <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm font-jakarta">Volumen</h4>
-                            <h3 className="text-white text-[1.3rem] font-bold mb-4">Hasta 10 Consultas</h3>
+                            <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm font-jakarta">Alcance</h4>
+                            <h3 className="text-white text-[1.3rem] font-bold mb-4">Absolución de Consultas tributarias</h3>
                             <p className="text-gray-300 font-light text-[0.95rem] leading-relaxed flex-1">
                                 Consultas tributarias puntuales disponibles para ser utilizadas en cada período mensual facturado, cubriendo las dudas operativas.
                             </p>
@@ -36,7 +36,7 @@ export const Propuesta = () => {
                             §
                         </div>
                         <div className="relative z-10 flex flex-col h-full">
-                            <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm font-jakarta">Soporte</h4>
+                            <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm font-jakarta">Respaldo</h4>
                             <h3 className="text-white text-[1.3rem] font-bold mb-4">Sustento Normativo</h3>
                             <p className="text-gray-300 font-light text-[0.95rem] leading-relaxed flex-1">
                                 Respuestas escritas detalladas con base legal firme, análisis técnico profundo y opinión profesional conclusiva que blinda su decisión.
@@ -62,7 +62,7 @@ export const Propuesta = () => {
                             EC
                         </div>
                         <div className="relative z-10 flex flex-col h-full">
-                            <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm font-jakarta">Alcance</h4>
+                            <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm font-jakarta">Soporte en</h4>
                             <h3 className="text-white text-[1.3rem] font-bold mb-4">Todo el Ecuador</h3>
                             <p className="text-gray-300 font-light text-[0.95rem] leading-relaxed flex-1">
                                 Atención 100% remota diseñada para un solo RUC, garantizando la misma excelencia sin importar en qué provincia opere.
