@@ -107,7 +107,7 @@ Route::get('/noticia', [noticiasController::class, 'index']);
 Route::get('/informativo', [InformativoController::class, 'index']);
 Route::get('/informativo/{id}', [InformativoController::class, 'show']);
 
-
+Route::post('/membresia/solicitar', [MembresiaController::class, 'solicitar']);
 
 Route::post('/contacto', [ContactoController::class, 'store']);
 

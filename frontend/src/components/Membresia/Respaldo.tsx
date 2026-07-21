@@ -15,8 +15,8 @@ export const Respaldo = () => {
                             RESPALDO TRIBUTARIO OPORTUNO
                         </h2>
                         
-                        <div className="rounded-xl overflow-hidden shadow-2xl mb-8 relative group">
-                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1000&auto=format&fit=crop" alt="Consultoría" className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-700"/>
+                        <div className="rounded-xl overflow-hidden shadow-2xl mb-10 relative group">
+                            <img src="/images/Resplado.avif" alt="Consultoría" className="w-full h-84 object-cover group-hover:scale-105 transition-transform duration-700"/>
                             <div className="absolute inset-0 bg-[#151E28]/40"></div>
                         </div>
 
