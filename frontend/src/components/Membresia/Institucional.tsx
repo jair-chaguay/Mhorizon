@@ -24,7 +24,7 @@ export const Institucional = () => {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div className="flex items-center gap-5 bg-[#151E28] border border-white/5 p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition-transform">
                                 <div className="bg-orange-500 w-15 h-12 rounded-lg flex items-center justify-center text-white font-extrabold text-xl mb-4 shadow-sm font-jakarta">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-route-icon lucide-route"><circle cx="6" cy="19" r="3" /><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /><circle cx="18" cy="5" r="3" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-route-icon lucide-route"><circle cx="6" cy="19" r="3" /><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15" /><circle cx="18" cy="5" r="3" /></svg>
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-[1.05rem] mb-2">Trayectoria</h4>
@@ -33,7 +33,7 @@ export const Institucional = () => {
                             </div>
                             <div className="flex items-center gap-5 bg-[#151E28] border border-white/5 p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition-transform">
                                 <div className="bg-orange-500 w-15 h-12 rounded-lg flex items-center justify-center text-white font-extrabold text-xl mb-4 shadow-sm font-jakarta">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-globe-icon lucide-globe"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-globe-icon lucide-globe"><circle cx="12" cy="12" r="10" /><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" /><path d="M2 12h20" /></svg>
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-[1.05rem] mb-2">Firmas Globales</h4>
@@ -42,7 +42,7 @@ export const Institucional = () => {
                             </div>
                             <div className="flex items-center gap-5 bg-[#151E28] border border-white/5 p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition-transform">
                                 <div className="bg-orange-500 w-15 h-12 rounded-lg flex items-center justify-center text-white font-extrabold text-xl mb-4 shadow-sm font-jakarta">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="28" height="28">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="28" height="28">
 
                                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                                         <polyline points="14 2 14 8 20 8" />
@@ -68,7 +68,7 @@ export const Institucional = () => {
                             </div>
                             <div className="flex items-center gap-5 bg-[#151E28] border border-white/5 p-6 rounded-2xl shadow-xl hover:-translate-y-1 transition-transform">
                                 <div className="bg-orange-500 w-15 h-12 rounded-lg flex items-center justify-center text-white font-extrabold text-xl mb-4 shadow-sm font-jakarta">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-building2-icon lucide-building-2"><path d="M10 12h4" /><path d="M10 8h4" /><path d="M14 21v-3a2 2 0 0 0-4 0v3" /><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-building2-icon lucide-building-2"><path d="M10 12h4" /><path d="M10 8h4" /><path d="M14 21v-3a2 2 0 0 0-4 0v3" /><path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2" /><path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16" /></svg>
                                 </div>
                                 <div>
                                     <h4 className="font-bold text-white text-[1.05rem] mb-2">Empresarial</h4>

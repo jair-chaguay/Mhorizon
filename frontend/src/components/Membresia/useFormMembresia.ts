@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import api from '../../api/axios';
 
 export const useFormMembresia = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -15,25 +16,18 @@ export const useFormMembresia = () => {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('/api/membresia/solicitar', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+            await api.post('/membresia/solicitar', data);
 
-            if (response.ok) {
-                setIsSuccess(true);
-                e.currentTarget.reset(); 
+            setIsSuccess(true);
+            e.currentTarget.reset(); 
+            
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            if (error.response && error.response.data) {
+                setErrorMessage(error.response.data.message || 'Ocurrió un error al enviar la solicitud.');
             } else {
-                const errorData = await response.json();
-                setErrorMessage(errorData.message || 'Ocurrió un error al enviar la solicitud.');
+                setErrorMessage('Error de conexión con el servidor.');
             }
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        } catch (error) {
-            setErrorMessage('Error de conexión con el servidor.',);
         } finally {
             setIsLoading(false);
         }

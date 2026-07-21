@@ -43,7 +43,7 @@ export const Respaldo = () => {
 
                         <div className="bg-[#151E28] pt-10 pb-8 px-8 md:px-10 shadow-xl rounded-2xl relative border border-white/10 reveal-element delay-100 hover:-translate-y-1 transition-transform group">
                             <div className="absolute -top-6 left-8 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:scale-110 transition-transform">
-                                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
                             </div>
                             <div className="mt-2 text-white">
                                 <h3 className="font-bold text-[1.25rem] md:text-[1.35rem]">Decisiones con efectos tributarios</h3>
@@ -55,7 +55,7 @@ export const Respaldo = () => {
 
                         <div className="bg-[#151E28] pt-10 pb-8 px-8 md:px-10 shadow-xl rounded-2xl relative border border-white/10 reveal-element delay-200 hover:-translate-y-1 transition-transform group">
                             <div className="absolute -top-6 left-8 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:scale-110 transition-transform">
-                                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                                <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
                             <div className="mt-2 text-white">
                                 <h3 className="font-bold text-[1.25rem] md:text-[1.35rem]">Acceso limitado fuera de grandes ciudades</h3>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\noticiasController;
 use App\Http\Controllers\Api\DeclaracionController;
 use App\Http\Controllers\Api\ContactoController;
 use App\Http\Controllers\Api\BibliotecaController;
+use App\Http\Controllers\Api\MembresiaController;
 
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\ObligacionController;

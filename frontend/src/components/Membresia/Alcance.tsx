@@ -3,7 +3,7 @@ import { ScrollReveal } from "../ScrollReveal"
 export const Alcance = () => {
   return (
     <ScrollReveal as={"section"} id="incluye" className="py-24 bg-gray-50 border-b border-gray-200 overflow-hidden">
-            <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12">
+            <div className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
                 <div className="text-center mb-16 reveal-element">
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block font-jakarta">
                         ALCANCE DEL SERVICIO
@@ -21,7 +21,7 @@ export const Alcance = () => {
                     <div className="bg-[#151E28] pt-12 pb-10 px-8 md:px-10 shadow-2xl rounded-2xl relative border border-white/5 border-t-4 border-t-orange-500 hover:-translate-y-1 transition-transform">
                         <div className="flex items-center gap-4 mb-8">
                             <div className="w-12 h-12 rounded-xl bg-orange-500 text-white flex items-center justify-center shadow-lg">
-                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
                             </div>
                             <h3 className="font-extrabold text-[1.5rem] text-white">La membresía incluye</h3>
                         </div>
@@ -38,7 +38,7 @@ export const Alcance = () => {
                     <div className="bg-[#151E28] pt-12 pb-10 px-8 md:px-10 shadow-2xl rounded-2xl relative border border-white/5 border-t-4 border-t-gray-500 hover:-translate-y-1 transition-transform">
                         <div className="flex items-center gap-4 mb-8">
                             <div className="w-12 h-12 rounded-xl bg-gray-700 text-white flex items-center justify-center shadow-lg">
-                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12"></path></svg>
                             </div>
                             <h3 className="font-extrabold text-[1.5rem] text-white">Se cotiza por separado</h3>
                         </div>

@@ -3,7 +3,7 @@ import { ScrollReveal } from "../ScrollReveal"
 export const PreguntasFre = () => {
     return (
         <ScrollReveal as={"section"} className="py-24 bg-white border-t border-gray-200" id="preguntas">
-            <div className="max-w-[1000px] mx-auto px-5 sm:px-8">
+            <div className="max-w-250 mx-auto px-5 sm:px-8">
                 <div className="text-center mb-16 reveal-element">
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block font-jakarta">
                         Preguntas Frecuentes
@@ -19,7 +19,7 @@ export const PreguntasFre = () => {
                         <summary className="flex items-center justify-between cursor-pointer p-6 sm:p-8 font-bold text-white text-[1.1rem]">
                             ¿La membresía es mensual o anual?
                             <span className="transition-transform duration-300 group-open:rotate-180 text-orange-500 bg-white/10 p-2 rounded-full shrink-0">
-                                <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                <svg fill="none" height="20" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                             </span>
                         </summary>
                         <div className="px-6 sm:px-8 pb-8 text-gray-300 font-light text-[1rem] leading-relaxed border-t border-white/5 pt-5 mt-2">
@@ -31,7 +31,7 @@ export const PreguntasFre = () => {
                         <summary className="flex items-center justify-between cursor-pointer p-6 sm:p-8 font-bold text-white text-[1.1rem]">
                             ¿Puedo suspender el servicio?
                             <span className="transition-transform duration-300 group-open:rotate-180 text-orange-500 bg-white/10 p-2 rounded-full shrink-0">
-                                <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                <svg fill="none" height="20" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                             </span>
                         </summary>
                         <div className="px-6 sm:px-8 pb-8 text-gray-300 font-light text-[1rem] leading-relaxed border-t border-white/5 pt-5 mt-2">
@@ -43,7 +43,7 @@ export const PreguntasFre = () => {
                         <summary className="flex items-center justify-between cursor-pointer p-6 sm:p-8 font-bold text-white text-[1.1rem]">
                             ¿Las consultas no utilizadas se acumulan para el mes siguiente?
                             <span className="transition-transform duration-300 group-open:rotate-180 text-orange-500 bg-white/10 p-2 rounded-full shrink-0">
-                                <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                <svg fill="none" height="20" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                             </span>
                         </summary>
                         <div className="px-6 sm:px-8 pb-8 text-gray-300 font-light text-[1rem] leading-relaxed border-t border-white/5 pt-5 mt-2">
@@ -55,7 +55,7 @@ export const PreguntasFre = () => {
                         <summary className="flex items-center justify-between cursor-pointer p-6 sm:p-8 font-bold text-white text-[1.1rem]">
                             ¿Puede utilizarse la misma membresía para varias compañías?
                             <span className="transition-transform duration-300 group-open:rotate-180 text-orange-500 bg-white/10 p-2 rounded-full shrink-0">
-                                <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                <svg fill="none" height="20" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                             </span>
                         </summary>
                         <div className="px-6 sm:px-8 pb-8 text-gray-300 font-light text-[1rem] leading-relaxed border-t border-white/5 pt-5 mt-2">
@@ -67,7 +67,7 @@ export const PreguntasFre = () => {
                         <summary className="flex items-center justify-between cursor-pointer p-6 sm:p-8 font-bold text-white text-[1.1rem]">
                             ¿Todas las consultas son respondidas directamente por Milton Montecé?
                             <span className="transition-transform duration-300 group-open:rotate-180 text-orange-500 bg-white/10 p-2 rounded-full shrink-0">
-                                <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                <svg fill="none" height="20" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                             </span>
                         </summary>
                         <div className="px-6 sm:px-8 pb-8 text-gray-300 font-light text-[1rem] leading-relaxed border-t border-white/5 pt-5 mt-2">
