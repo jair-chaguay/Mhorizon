@@ -42,7 +42,7 @@ export const PerfilIdeal = () => {
                             <div className="absolute inset-0 bg-linear-to-t from-[#151E28] via-[#151E28]/40 to-transparent"></div>
                         </div>
                         <div className="px-8 pb-8 pt-2 flex-1 flex flex-col text-center">
-                            <div className="w-14 h-14 rounded-xl bg-gray-200 text-[#151E28] flex items-center justify-center font-extrabold text-xl mx-auto mb-4 shadow-lg -mt-10 relative z-10 border-4 border-[#151E28] font-jakarta">
+                            <div className="w-14 h-14 rounded-xl bg-orange-500 text-white flex items-center justify-center font-extrabold text-xl mx-auto mb-4 shadow-lg -mt-10 relative z-10 border-4 border-[#151E28] font-jakarta">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-users-icon lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
                             </div>
                             <h3 className="font-bold text-white text-[1.25rem] mb-3">Gerentes</h3>
@@ -75,7 +75,7 @@ export const PerfilIdeal = () => {
                             <div className="absolute inset-0 bg-linear-to-t from-[#151E28] via-[#151E28]/40 to-transparent"></div>
                         </div>
                         <div className="px-8 pb-8 pt-2 flex-1 flex flex-col text-center">
-                            <div className="w-14 h-14 rounded-xl bg-gray-200 text-[#151E28] flex items-center justify-center font-extrabold text-xl mx-auto mb-4 shadow-lg -mt-10 relative z-10 border-4 border-[#151E28] font-jakarta">
+                            <div className="w-14 h-14 rounded-xl bg-orange-500 text-white flex items-center justify-center font-extrabold text-xl mx-auto mb-4 shadow-lg -mt-10 relative z-10 border-4 border-[#151E28] font-jakarta">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M9 3L3 6v15l6-3 6 3 6-3V3l-6 3-6-3z" />
                                     <path d="M9 3v15" />

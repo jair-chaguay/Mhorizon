@@ -26,10 +26,10 @@ export const HeroMembresia = () => {
                         </div>
 
                         <h1 className="text-white drop-shadow-2xl text-[2.6rem] sm:text-[3rem] md:text-[3.8rem] font-extrabold w-full tracking-tight leading-[1.05]">
-                            Criterio tributario senior <br className="hidden md:block" />
-                            <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-orange-600">
+                            Criterio tributario senior 
+            
                                 al alcance de su empresa.
-                            </span>
+                            
                         </h1>
 
                         <p className="text-gray-200 mt-6 text-[1.05rem] sm:text-[1.15rem] md:text-[1.25rem] w-full leading-relaxed drop-shadow-md text-left font-light max-w-2xl">

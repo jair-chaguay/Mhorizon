@@ -63,16 +63,6 @@ export const Integrales = () => {
                 <Button estilosPersonalizados='cursor-pointer bg-orange-500 text-white font-bold tracking-wider uppercase mt-8 py-4 px-8 w-full sm:w-70 rounded-md hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300 ' texto='Agendar asesoría'/>
                 
             </div>
-
-            <div className="md:hidden flex gap-5 bg-[#0f172a]/80 backdrop-blur-md border border-white/10 shadow-2xl absolute w-[90%] sm:w-[85%] p-5 items-center rounded-xl bottom-6 left-1/2 -translate-x-1/2 z-10 reveal-element delay-300">
-                <div className="bg-orange-500 p-2 rounded-lg shrink-0">
-                    <img className="w-8 h-8 object-contain" src="/images/Recurso29.png" alt="Crecimiento Operativo" />
-                </div>
-                <div>
-                    <p className="text-[0.7rem] font-bold text-gray-300 uppercase tracking-wider">CRECIMIENTO SOSTENIDO</p>
-                    <p className="font-extrabold text-[1rem] text-white leading-tight mt-1">+45% Eficiencia Operativa</p>
-                </div>
-            </div>
         </section >
     )
 }

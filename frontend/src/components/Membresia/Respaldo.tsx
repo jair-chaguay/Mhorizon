@@ -2,12 +2,12 @@ import { ScrollReveal } from "../ScrollReveal"
 
 export const Respaldo = () => {
   return (
-    <ScrollReveal as={"section"} className="py-24 bg-gray-50 border-b border-gray-200 overflow-hidden" id="problema">
-            <div className="max-w-350 mx-auto px-5 sm:px-8 md:px-12">
+    <ScrollReveal as={"section"} className="py-12 sm:py-16 lg:py-24 bg-gray-50 border-b border-gray-200 overflow-hidden" id="problema">
+            <div className="max-w-350 mx-auto px-4 sm:px-6 lg:px-8 md:px-12">
                 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
                     
-                    <div className="lg:col-span-5 sticky top-32 reveal-element">
+                    <div className="lg:col-span-5 lg:sticky lg:top-32 reveal-element">
                         <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block font-jakarta">
                             El problema que resolvemos
                         </span>
@@ -27,7 +27,7 @@ export const Respaldo = () => {
                         </div>
                     </div>
 
-                    <div className="lg:col-span-7 flex flex-col gap-8 pt-4">
+                    <div className="lg:col-span-7 flex flex-col gap-8 sm:gap-10 pt-4 lg:pt-0">
                         
                         <div className="bg-[#151E28] pt-10 pb-8 px-8 md:px-10 shadow-xl rounded-2xl relative border border-white/10 reveal-element hover:-translate-y-1 transition-transform group">
                             <div className="absolute -top-6 left-8 bg-orange-500 w-14 h-14 flex items-center justify-center rounded-xl shadow-lg group-hover:scale-110 transition-transform">

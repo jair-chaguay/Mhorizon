@@ -11,7 +11,7 @@ export const HeroNosotros = () => {
 
             <div className="relative z-10 w-full md:w-[85%] lg:w-[70%] reveal-element">
                 <div className="max-w-6xl">
-                    <p className="inline-block bg-white/10 text-orange-500 border border-orange-500/30 px-4 py-2 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-6 backdrop-blur-sm shadow-lg">
+                    <p className="inline-block bg-white/10 sm:mt-0 mt-5 text-orange-500 border border-orange-500/30 px-4 py-2 text-center rounded-sm text-[0.75rem] font-bold tracking-widest uppercase mb-6 backdrop-blur-sm shadow-lg">
                         CREANDO NUEVOS HORIZONTES
                     </p>
 
@@ -23,7 +23,7 @@ export const HeroNosotros = () => {
                         MHORIZON es una firma ecuatoriana de consultoría tributaria, financiera, contable y empresarial con más de 20 años de experiencia. Ayudamos a las empresas a anticipar riesgos, recuperar recursos, fortalecer controles y tomar mejores decisiones.  
                     </p>
 
-                    <div className="mt-10 md:mt-12 flex flex-col sm:flex-row gap-5">
+                    <div className="mt-10 md:mt-12 flex flex-col sm:flex-row gap-5 sm:mb-0 mb-8">
                         <Button texto='AGENDAR ASESORÍA' estilosPersonalizados='cursor-pointer bg-orange-500 text-white text-center font-bold tracking-wider uppercase w-full sm:w-70 py-4 rounded-sm hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1'/>
                 </div>
                 </div>

@@ -128,7 +128,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
     const [formData, setFormData] = useState({
         razon_social_nombres: cliente.razon_social_nombres || '',
         identificacion: cliente.identificacion || '',
-        score_tributario: cliente.score_tributario || 100,
+        score_tributario: cliente.score_tributario ,
         telefono_contacto: cliente.telefono_contacto || '',
         sector: cliente.sector || '',
         tipo_contribuyente: cliente.tipo_contribuyente || '',
@@ -365,7 +365,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             className="w-full bg-transparent border-b-2 border-white/20 text-[2rem] sm:text-[2.5rem] font-extrabold text-white tracking-tight leading-none mb-6 outline-none focus:border-orange-500 transition-colors pb-1 disabled:opacity-60"
                         />
                         <h3 className="text-white/60 font-bold uppercase tracking-wider text-xs mb-3 mt-2">1. Configuración Fiscal y Tributaria</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">RUC/Cédula</p>
                                 <input type="text" maxLength={13} name="identificacion" value={formData.identificacion} onChange={handleInputChange} disabled={!canEdit} className="w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
@@ -390,6 +390,11 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 </select>
                             </div>
 
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5">
+                                <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Score Tirbutario</p>
+                                <input type="text" maxLength={3} name="score_tributario" value={formData.score_tributario} onChange={handleInputChange} disabled={!canEdit} className="font-bold w-full bg-transparent text-white font-mono text-[1rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
+                            </div>
+
                             <div className="bg-white/10 rounded-xl p-4 border border-white/5 flex items-center justify-between col-span-1 sm:col-span-2 lg:col-span-1">
                                 <div>
                                     <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-0.5">Agente de Retención</p>
@@ -405,7 +410,9 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                 />
                             </div>
 
-                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 xl:col-span-4">
+                            
+
+                            <div className="bg-white/10 rounded-xl p-4 border border-white/5 sm:col-span-2 xl:col-span-5">
                                 <p className="text-gray-400 text-[0.70rem] font-bold uppercase tracking-widest mb-1">Actividad Económica Principal</p>
                                 <input type="text" name="actividad_economica" value={formData.actividad_economica} onChange={handleInputChange} placeholder="Detalle de actividades comerciales..." disabled={!canEdit} className="w-full bg-transparent text-white font-medium text-[0.90rem] outline-none border-b border-transparent focus:border-orange-500 pb-1 disabled:opacity-60" />
                             </div>

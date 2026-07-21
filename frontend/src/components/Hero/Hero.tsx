@@ -10,7 +10,7 @@ export const Hero = () => {
 
       <div className="relative h-full flex flex-col justify-center text-white max-w-350 w-full mx-auto px-5 sm:px-8 md:px-10 2xl:max-w-550 2xl:px-9 text-left z-10 reveal-element">
 
-        <p className="w-fit flex flex-col items-center justify-center text-orange-500 tracking-[0.2em] text-[0.85rem] sm:text-[0.95rem] uppercase mb-4 border border-orange-500/30 rounded-sm font-bold backdrop-blur-sm shadow-lg py-1.5 px-4">
+        <p className="w-fit flex flex-col items-center justify-center mt-5 sm:mt-0 text-orange-500 tracking-[0.2em] text-[0.85rem] sm:text-[0.95rem] uppercase mb-4 border border-orange-500/30 rounded-sm font-bold backdrop-blur-sm shadow-lg py-1.5 px-4">
           CONSULTORÍA TRIBUTARIA, FINANCIERA Y EMPRESARIAL
         </p>
         
@@ -22,7 +22,7 @@ export const Hero = () => {
           Más de 20 años acompañando a empresas ecuatorianas y multinacionales en la solución de contingencias tributarias, recuperación de impuestos, fortalecimiento de controles y toma de decisiones
         </p>
 
-        <div className="flex gap-4 sm:gap-7 items-center">
+        <div className="flex gap-4 sm:gap-7 items-center mb-10 sm:mb-0">
           <Button texto="AGENDAR ASESORÍA" estilosPersonalizados="bg-orange-500 cursor-pointer text-white text-[0.95rem] sm:text-[1.05rem] font-bold tracking-wider uppercase px-8 py-4 shadow-2xl rounded-sm w-full sm:w-auto transition-all hover:bg-white hover:text-orange-600 duration-300" />
         </div>
       </div>
