@@ -21,7 +21,7 @@ class MembresiaController extends Controller
             'mensaje'  => 'nullable|string'
         ]);
 
-        Mail::to('jairchaguay@gmail.com')->send(new NotificacionMembresia($validated));
+        Mail::to('informativo@mhorizon.com.ec')->send(new NotificacionMembresia($validated));
 
         return response()->json([
             'success' => true,
