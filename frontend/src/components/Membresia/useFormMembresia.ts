@@ -25,8 +25,6 @@ export const useFormMembresia = () => {
         } catch (error: any) {
             if (error.response && error.response.data) {
                 setErrorMessage(error.response.data.message || 'Ocurrió un error al enviar la solicitud.');
-            } else {
-                setErrorMessage('Error de conexión con el servidor.');
             }
         } finally {
             setIsLoading(false);

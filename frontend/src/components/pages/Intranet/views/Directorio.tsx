@@ -15,7 +15,7 @@ export interface Cliente {
   razon_social_nombres: string;
   identificacion: string;
   score_tributario: number;
-  representantes?: Array<{ 
+  representantes?: Array<{
     nombre: string;
     correo?: string;
     cargo?: string;
@@ -64,7 +64,8 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;
 
-
+  const userSession = JSON.parse(localStorage.getItem('user') || '{}');
+  const userRolId = userSession?.rol_id;
 
   const handleToggleEstadoUsuario = async (clienteId: number, usuario: NonNullable<Cliente['usuarios']>[0]) => {
     const estadoAnterior = usuario.activo !== false;
@@ -120,7 +121,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
 
   const extraerDatosReporte = (c: Cliente) => {
     const repPrincipal = c.representantes && c.representantes.length > 0 ? c.representantes[0] : null;
-    
+
     const nombreContacto = repPrincipal?.nombre || 'N/A';
     const correoContacto = repPrincipal?.correo || 'N/A';
     const cargoContacto = repPrincipal?.cargo ? ` - ${repPrincipal.cargo}` : '';
@@ -151,13 +152,13 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
       return [
         c.razon_social_nombres || 'N/A',
         c.identificacion || 'N/A',
-        serviciosTexto, 
+        serviciosTexto,
         c.tipo_contribuyente || 'N/A',
         c.regimen_tributario || 'N/A',
         c.agente_retencion ? 'SI' : 'NO',
         c.actividad_economica ? c.actividad_economica.substring(0, 30) + '...' : 'N/A',
         c.sector || 'N/A',
-        infoContacto,  
+        infoContacto,
         responsables
       ];
     });
@@ -193,11 +194,11 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
         halign: 'center'
       },
       columnStyles: {
-        0: { cellWidth: 80 },  
-        1: { cellWidth: 65 },  
-        2: { cellWidth: 70 },  
-        8: { cellWidth: 110 }, 
-        9: { cellWidth: 70 }  
+        0: { cellWidth: 80 },
+        1: { cellWidth: 65 },
+        2: { cellWidth: 70 },
+        8: { cellWidth: 110 },
+        9: { cellWidth: 70 }
       }
     });
 
@@ -319,45 +320,47 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
           </div>
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
 
-            <div className="relative w-full sm:w-auto">
-              <button
-                onClick={() => setShowDownloadMenu(!showDownloadMenu)}
-                className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-5 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                </svg>
-                Descargar
-                <svg className={`w-4 h-4 transition-transform duration-200 ${showDownloadMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
+            {userRolId === 3 && (
+              <div className="relative w-full sm:w-auto">
+                <button
+                  onClick={() => setShowDownloadMenu(!showDownloadMenu)}
+                  className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-5 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  Descargar
+                  <svg className={`w-4 h-4 transition-transform duration-200 ${showDownloadMenu ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </svg>
+                </button>
 
-              {showDownloadMenu && (
-                <div className=" absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden z-50">
-                  <button
-                    onClick={() => {
-                      exportarPDF();
-                      setShowDownloadMenu(false);
-                    }}
-                    className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-red-50 hover:text-red-500 transition-colors flex items-center gap-2"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                    Formato PDF
-                  </button>
-                  <button
-                    onClick={() => {
-                      exportarExcel();
-                      setShowDownloadMenu(false);
-                    }}
-                    className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-green-50 hover:text-green-600 transition-colors border-t border-gray-50 flex items-center gap-2"
-                  >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Formato Excel
-                  </button>
-                </div>
-              )}
-            </div>
+                {showDownloadMenu && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden z-50">
+                    <button
+                      onClick={() => {
+                        exportarPDF();
+                        setShowDownloadMenu(false);
+                      }}
+                      className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-red-50 hover:text-red-500 transition-colors flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                      Formato PDF
+                    </button>
+                    <button
+                      onClick={() => {
+                        exportarExcel();
+                        setShowDownloadMenu(false);
+                      }}
+                      className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-green-50 hover:text-green-600 transition-colors border-t border-gray-50 flex items-center gap-2"
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                      Formato Excel
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
 
             <button onClick={onOpenAñadir} className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>

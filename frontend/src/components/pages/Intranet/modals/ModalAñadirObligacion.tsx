@@ -18,7 +18,7 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
     gestoresCliente = [] 
 }) => {
     const [formData, setFormData] = useState({
-        tipo_impuesto: 'IVA (MENSUAL)', 
+        tipo_impuesto: 'DECLARACIÓN DEL IVA', 
         dia_vencimiento: '',
         usuario_id: '' 
     });
@@ -30,7 +30,7 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
             const defaultGestor = gestoresCliente.length > 0 ? gestoresCliente[0].id.toString() : '';
             
             setFormData({ 
-                tipo_impuesto: 'IVA (MENSUAL)', 
+                tipo_impuesto: 'DECLARACIÓN DEL IVA', 
                 dia_vencimiento: '', 
                 usuario_id: defaultGestor 
             });
@@ -93,8 +93,8 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
                             className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500"
                         >
                             <optgroup label="Mensuales">
-                                <option value="IVA (MENSUAL)">IVA (Mensual)</option>
-                                <option value="RETENCIONES FUENTE IR (MENSUAL)">Retenciones Fuente IR (Mensual)</option>
+                                <option value="DECLARACIÓN DEL IVA">DECLARACIÓN DEL IVA</option>
+                                <option value="DECLARACIÓN DE RETENCIONES EN LA FUENTE DEL IR">DECLARACIÓN DE RETENCIONES EN LA FUENTE DEL IR</option>
                                 <option value="DECLARACIÓN DE AUTORETENCIONES EN LA FUENTE DEL IR">Declaración de Autoretenciones en la FUente del IR</option>
                                 <option value="DECLARACIÓN DEL IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS">Declaración del Impuesto Redimible a las Botellas Plásticas</option>
                                 <option value="ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (MENSUAL)">Anexo Transaccional Simplificado - ATS (Mensual)</option>
@@ -110,9 +110,9 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
                                 <option value="REPORTE VENTAS A CRÉDITO">Reporte Ventas a Crédito</option>
                             </optgroup>
                             <optgroup label="Semestrales">
-                                <option value="IVA (RÉGIMEN RIMPE)">IVA (Régimen RIMPE)</option>
-                                <option value="IMPUESTO A LA RENTA (RÉGIMEN RIMPE SEMESTRAL)">Impuesto a la Renta (Régimen RIMPE Semestral)</option>
-                                <option value="RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)">Retenciones en la Fuente del IR (Régimen RIMPE)</option>
+                                <option value="DECLARACIÓN DEL IVA (RÉGIMEN RIMPE)">Declaración del IVA (Régimen RIMPE)</option>
+                                <option value="DECLARACIÓN DE IMPUESTO A LA RENTA (RÉGIMEN RIMPE)">Declaración de Impuesto a la Renta (Régimen RIMPE)</option>
+                                <option value="DECLARACIÓN DE RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)">Declaración de Retenciones en la Fuente del IR (Régimen RIMPE)</option>
                                 <option value="ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (RÉGIMEN RIMPE)">Anexo Transaccional Simplificado - ATS (Régimen RIMPE)</option>
                             </optgroup>
                             <optgroup label="Anuales">
@@ -121,15 +121,15 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
                                 <option value="REPORTE BENEFICIARIOS FINALES Y COMPOSICIÓN SOCIETARIA (REBEFICS)">APS</option>
                                 <option value="ANEXO DE RELACION DE DEPENDENCIA (RDEP)">RDEP</option>
                                 <option value="ANEXO DE OPERACIONES Y TRANSACCIONES ECONÓMICAS FINANCIERAS (ROTEF)">ROTEF</option>
-                                <option value="IMPUESTO A LA RENTA (PERSONAS NATURALES)">IR (Personas Naturales)</option>
+                                <option value="DECLARACIÓN DE IMPUESTO A LA RENTA (PERSONAS NATURALES)">Declaración del Impuesto a la Renta (Personas Naturales)</option>
                                 <option value="DÉCIMO CUARTO SUELDO (COSTA)">Décimo Cuarto Sueldo (Costa)</option>
                                 <option value="DÉCIMO CUARTO SUELDO (SIERRA)">Décimo Cuarto Sueldo (Sierra)</option>
-                                <option value="IMPUESTO A LA RENTA (SOCIEDADES)">Impuesto a la Renta (Sociedades)</option>
+                                <option value="DECLARACIÓN DE IMPUESTO A LA RENTA (SOCIEDADES)">Declaración del Impuesto a la Renta (Sociedades)</option>
                                 <option value="IMPUESTO A LA SALIDA DE DIVISAS - ISD TARJETAS DE CRÉDITO">Impuesto a la Salida de Divisas - ISD Tarjetas de Crédito</option>
-                                <option value="IMPUESTO A LA SALIDA DE DIVISAS - ISD PRESUNTIVO">Impuesto a la Salida de Divisas - ISD Presuntivo</option>
-                                <option value="PRESENTACIÓN ESTADOS FINANCIEROS">Presentación Estados Financieros</option>
+                                <option value="IMPUESTO A LA SALIDA DE DIVISAS EXPORTACIONES - ISD PRESUNTIVO">Impuesto a la Salida de Divisas Exportaciones - ISD Presuntivo</option>
+                                <option value="PRESENTACIÓN DE ESTADOS FINANCIEROS">Presentación de Estados Financieros</option>
                                 <option value="PARTICIPACIÓN DE UTILIDADES (15%)">Participación de Utilidades (15%)</option>
-                                <option value="IMPUESTO A LA RENTA (PERSONAS NATURALES RÉGIMEN RIMPE ANUAL)">Impuesto a la Renta (Personas Naturales Régimen Rimpe Anual)</option>
+                                <option value="DECLARACIÓN DE IMPUESTO A LA RENTA (PERSONAS NATURALES RÉGIMEN RIMPE ANUAL)">Declaración del Impuesto a la Renta (Personas Naturales Régimen Rimpe Anual)</option>
                                 <option value="ANEXO DE DIVIDENDOS (ADI)">Anexo de Dividendos (ADI)</option>
                                 <option value="DECLARACIÓN PATRIMONIAL PERSONAS NATURALES">Declaración Patrimonial Personas Naturales</option>
                                 <option value="PATENTE MUNICIPAL">Patente Municipal</option>
