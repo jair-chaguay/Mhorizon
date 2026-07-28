@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://mhorizon.com.ec/</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://mhorizon.com.ec/soluciones</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://mhorizon.com.ec/sectores</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://mhorizon.com.ec/calculadora</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://mhorizon.com.ec/novedades</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://mhorizon.com.ec/nosotros</loc>
+    <priority>0.80</priority>
+  </url>
+</urlset>

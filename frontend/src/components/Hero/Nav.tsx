@@ -145,7 +145,7 @@ export const Nav = ({ mobile = false }: NavProps) => {
             <Link to="/nosotros" className="block w-full">NOSOTROS</Link>
           </li>
 
-          <a href="https://prueba2.miltonmontece.com/" target="_blank" className="hover:bg-white hover:text-[#4DA09C] transition-all duration-300 bg-[#4DA09C] rounded-sm px-4 py-3 w-full md:w-auto text-center md:text-left whitespace-nowrap ${mobile ? 'mt-2' : ''} ">EXPERIENCE</a>
+          <a href="#" target="" className="hover:bg-white hover:text-[#4DA09C] transition-all duration-300 bg-[#4DA09C] rounded-sm px-4 py-3 w-full md:w-auto text-center md:text-left whitespace-nowrap ${mobile ? 'mt-2' : ''} ">EXPERIENCE</a>
 
 
 

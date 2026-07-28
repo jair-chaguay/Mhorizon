@@ -5,6 +5,9 @@
   RewriteEngine On
   RewriteBase /
   
+  RewriteRule ^webfinal/(.*)$ /$1 [R=301,L]
+  
+
   # Si es el index.html, no hace nada
   RewriteRule ^index\.html$ - [L]
   
