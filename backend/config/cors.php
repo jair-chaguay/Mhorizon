@@ -21,9 +21,9 @@ return [
 
     'allowed_origins' => [
         'https://prueba.miltonmontece.com',
-        'https://prueba2.miltonmontece.com',
+        'https://experience.mhorizon.com.ec/',
         'https://www.prueba.miltonmontece.com',
-        'https://www.prueba2.miltonmontece.com',
+        'https://www.experience.mhorizon.com.ec',
         'http://localhost:5173',
         'http://mhorizon.com.ec',
         'https://mhorizon.com.ec'
