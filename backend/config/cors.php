@@ -24,7 +24,9 @@ return [
         'https://prueba2.miltonmontece.com',
         'https://www.prueba.miltonmontece.com',
         'https://www.prueba2.miltonmontece.com',
-        'http://localhost:5173'
+        'http://localhost:5173',
+        'http://mhorizon.com.ec',
+        'https://mhorizon.com.ec'
         ],
 
     'allowed_origins_patterns' => [],
