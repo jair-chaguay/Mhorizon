@@ -59,6 +59,8 @@ Route::middleware('auth:sanctum')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/cliente', [ClienteController::class, 'store']);
 
+
+
 Route::get('/user', function (Request $request) {
         return $request->user();
     });
@@ -119,3 +121,4 @@ Route::delete('/deleteDocumento/{id}', [BibliotecaController::class, 'deleteDocu
 
 
 
+Route::post('/enviar-factura', [MailController::class, 'enviarFactura']);
