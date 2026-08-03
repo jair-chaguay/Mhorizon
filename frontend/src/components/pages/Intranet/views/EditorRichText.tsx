@@ -41,7 +41,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
-      const imageUrl = `https://api.miltonmontece.com${response.data.url}`;
+      const imageUrl = `https://api.mhorizon.com.ec${response.data.url}`;
 
       editor.chain().focus().setImage({ src: imageUrl }).run();
       

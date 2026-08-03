@@ -4,7 +4,7 @@ import { ScrollReveal } from '../../ScrollReveal';
 import api from '../../../api/axios';
 
 const BibliotecaCliente: React.FC = () => {
-    const BASE_URL = 'https://api.miltonmontece.com';
+    const BASE_URL = 'https://api.mhorizon.com.ec';
     
     const [loading, setLoading] = useState(false);
     const [clienteName, setClienteName] = useState<string>('');

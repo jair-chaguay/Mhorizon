@@ -18,7 +18,7 @@ interface AnalisisBoletinProps {
 }
 
 export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo }) => {
-  const BASE_URL = 'https://api.miltonmontece.com';
+  const BASE_URL = 'https://api.mhorizon.com.ec';
   const cleanHTML = DOMPurify.sanitize(informativo.contenido);
 
   return (

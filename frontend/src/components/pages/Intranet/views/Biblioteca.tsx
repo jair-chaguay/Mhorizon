@@ -14,7 +14,7 @@ interface BibliotecaProps {
 }
 
 const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refreshSignal, directTo, onOpenEliminar, onOpenEditar }) => {
-  const BASE_URL = 'https://api.miltonmontece.com';
+  const BASE_URL = 'https://api.mhorizon.com.ec';
   const [userRole, setUserRole] = useState<number | null>(null);
   const [loading, setLoading] = useState(false);
   const [clientes, setClientes] = useState<any[]>([]);
