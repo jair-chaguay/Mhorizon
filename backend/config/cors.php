@@ -20,7 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'https://prueba.miltonmontece.com',
+        'https://api.mhorizon.com.ec',
         'https://experience.mhorizon.com.ec',
         'https://www.prueba.miltonmontece.com',
         'http://localhost:5173',
