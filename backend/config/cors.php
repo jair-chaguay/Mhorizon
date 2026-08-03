@@ -22,10 +22,10 @@ return [
     'allowed_origins' => [
         'https://api.mhorizon.com.ec',
         'https://experience.mhorizon.com.ec',
-        'https://www.prueba.miltonmontece.com',
         'http://localhost:5173',
         'http://mhorizon.com.ec',
-        'https://mhorizon.com.ec'
+        'https://mhorizon.com.ec',
+        'http://localhost:45678'
         ],
 
     'allowed_origins_patterns' => [],
