@@ -20,7 +20,7 @@ export interface NoticiasDB {
 export const Radar = () => {
     const [noticias, setNoticias] = useState<NoticiasDB[]>([]);
     const [loading, setLoading] = useState(true);
-    const BASE_URL = 'https://api.miltonmontece.com';
+    const BASE_URL = 'https://api.mhorizon.com.ec';
 
 
     const fetchNoticias = async () =>{
