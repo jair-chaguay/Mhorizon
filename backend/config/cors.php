@@ -17,7 +17,7 @@ return [
 
     'paths' => ['api/*', 'storage/*' ,'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*', 'https://mhorizon.com.ec'],
+    'allowed_methods' => ['*'],
 
     'allowed_origins' => [
         'https://api.mhorizon.com.ec',

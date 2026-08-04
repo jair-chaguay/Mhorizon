@@ -119,7 +119,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     }
   }, [directTo]);
 
-  const handleDownload = async (url: string, filename: string, rutaRelativa: string) => {
+  const handleDownload = async (_url: string, filename: string, rutaRelativa: string) => {
     try {
       const response = await api.get(`/descargar-archivo?ruta=${encodeURIComponent(rutaRelativa)}`, {
         responseType: 'blob' // Importante para recibir archivos binarios
