@@ -21,7 +21,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
   const [clienteActual, setClienteActual] = useState<any | null>(null);
   const [pathStack, setPathStack] = useState<any[]>([]);
   const [currentItems, setCurrentItems] = useState<{ carpetas: any[], archivos: any[] }>({ carpetas: [], archivos: [] });
-  
+
   const [searchTerm, setSearchTerm] = useState('');
   // NUEVO: Estado para alternar entre Cuadrícula ('grid') y Lista ('list')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -119,8 +119,27 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     }
   }, [directTo]);
 
+  const handleDownload = async (url: string, filename: string) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = filename || 'documento';
+      document.body.appendChild(link);
+      link.click();
+
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Error al descargar el archivo:", error);
+    }
+  };
+
   const handleClientClick = async (cliente: any) => {
-    setSearchTerm(''); 
+    setSearchTerm('');
     setClienteActual(cliente);
     setPathStack([]);
     setLoading(true);
@@ -145,10 +164,10 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     setSearchTerm('');
     if (pathStack.length > 0) {
       const newStack = [...pathStack];
-      newStack.pop(); 
+      newStack.pop();
       refreshTree(clienteActual.id, newStack);
     } else {
-      setClienteActual(null); 
+      setClienteActual(null);
     }
   };
 
@@ -175,15 +194,15 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     }
   };
 
-  const filteredClientes = clientes?.filter(c => 
+  const filteredClientes = clientes?.filter(c =>
     c.razon_social_nombres?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredCarpetas = currentItems.carpetas?.filter(c => 
+  const filteredCarpetas = currentItems.carpetas?.filter(c =>
     c.nombre?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredArchivos = currentItems.archivos?.filter(a => 
+  const filteredArchivos = currentItems.archivos?.filter(a =>
     a.nombre_archivo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     a.observacion_cliente?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     a.subido_por?.nombre?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -229,21 +248,21 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
           <div className="flex-1">
             <h1 className="text-[1.3rem] sm:text-[1.7rem] font-extrabold text-blue-200 tracking-tight leading-tight break-words">
-              {!clienteActual ? 'Biblioteca de Operatividad' : 
-                pathStack.length === 0 ? 'Directorios Principales' : 
-                pathStack[pathStack.length - 1].nombre}
+              {!clienteActual ? 'Biblioteca de Operatividad' :
+                pathStack.length === 0 ? 'Directorios Principales' :
+                  pathStack[pathStack.length - 1].nombre}
             </h1>
             <p className="text-gray-500 font-light mt-1 text-[0.98rem]">
-              {!clienteActual ? 'Nivel 1: Seleccione el Directorio del Cliente.' : 
-               pathStack.length === 0 ? 'Nivel 2: Seleccione la carpeta raíz operativa.' : 
-               'Navegando en los archivos del cliente.'}
+              {!clienteActual ? 'Nivel 1: Seleccione el Directorio del Cliente.' :
+                pathStack.length === 0 ? 'Nivel 2: Seleccione la carpeta raíz operativa.' :
+                  'Navegando en los archivos del cliente.'}
             </p>
           </div>
-          
+
           <div className="flex gap-2 shrink-0">
             {clienteActual && (pathStack.length >= 4 || (pathStack.length === 3 && currentItems.carpetas.length === 0)) && (
-              <button 
-                onClick={() => onOpenSubir(pathStack[pathStack.length - 1].id)} 
+              <button
+                onClick={() => onOpenSubir(pathStack[pathStack.length - 1].id)}
                 className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" /></svg>
@@ -276,18 +295,18 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          
+
           {/* NUEVO: Toggle de Vistas (Grid / List) */}
           <div className="flex bg-gray-100 p-1.5 rounded-xl border border-gray-200 shrink-0 self-end sm:self-auto">
-            <button 
-              onClick={() => setViewMode('grid')} 
+            <button
+              onClick={() => setViewMode('grid')}
               className={`p-2 rounded-lg flex items-center justify-center transition-all cursor-pointer ${viewMode === 'grid' ? 'bg-white shadow-sm text-orange-500' : 'text-gray-400 hover:text-gray-600'}`}
               title="Vista de Cuadrícula"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
             </button>
-            <button 
-              onClick={() => setViewMode('list')} 
+            <button
+              onClick={() => setViewMode('list')}
               className={`p-2 rounded-lg flex items-center justify-center transition-all cursor-pointer ${viewMode === 'list' ? 'bg-white shadow-sm text-orange-500' : 'text-gray-400 hover:text-gray-600'}`}
               title="Vista de Lista"
             >
@@ -297,14 +316,14 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
         </div>
 
         <div className={`bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden ${(!clienteActual || currentItems.carpetas.length > 0) ? 'p-6 lg:p-8' : ''} animate-fadeIn`}>
-          
+
           {/* CLIENTES */}
           {!clienteActual && (
             <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" : "flex flex-col gap-4"}>
               {filteredClientes?.map((cliente) => (
-                <div 
-                  key={cliente.id} 
-                  onClick={() => handleClientClick(cliente)} 
+                <div
+                  key={cliente.id}
+                  onClick={() => handleClientClick(cliente)}
                   className={`relative border border-gray-200 rounded-2xl hover:border-orange-500 hover:shadow-lg transition-all cursor-pointer group bg-gray-50 hover:bg-white flex 
                     ${viewMode === 'grid' ? 'p-6 flex-col items-center text-center' : 'p-4 flex-row items-center gap-5 text-left'}`}
                 >
@@ -329,15 +348,15 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
           {/* CARPETAS Y ARCHIVOS */}
           {clienteActual && (
             <div className="flex flex-col gap-8">
-              
+
               {/* Render de Carpetas */}
               {currentItems.carpetas.length > 0 && (
                 <div>
                   <h3 className="text-sm font-bold text-gray-400 uppercase tracking-widest mb-4">Carpetas</h3>
                   <div className={viewMode === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" : "flex flex-col gap-3"}>
                     {filteredCarpetas.map((carpeta) => (
-                      <div 
-                        key={carpeta.id} 
+                      <div
+                        key={carpeta.id}
                         className={`relative border border-gray-200 bg-gray-50 rounded-xl p-4 hover:bg-white hover:border-orange-500 hover:shadow-md transition-all group flex items-center 
                           ${viewMode === 'grid' ? 'gap-3' : 'justify-between'}`}
                       >
@@ -398,15 +417,19 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                             <button onClick={() => onOpenEliminar && onOpenEliminar(`/deleteDocumento/${archivo.id}`, `Archivo ${archivo.nombre_archivo}`)} className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer mr-2" title="Eliminar">
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </button>
-                            <a href={`${BASE_URL}/storage/${archivo.url_archivo}`} download={archivo.nombre_archivo} className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-all" title="Descargar">
+                            <button
+                              onClick={() => handleDownload(`${BASE_URL}/storage/${archivo.url_archivo}`, archivo.nombre_archivo)}
+                              className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-all cursor-pointer"
+                              title="Descargar"
+                            >
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            </a>
+                            </button>
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
-                  
+
                   {filteredArchivos.length === 0 && currentItems.archivos.length > 0 && searchTerm && (
                     <div className="py-8 text-center text-gray-500">No hay archivos que coincidan con la búsqueda.</div>
                   )}
