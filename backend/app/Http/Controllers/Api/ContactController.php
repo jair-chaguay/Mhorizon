@@ -20,7 +20,7 @@ class ContactController extends Controller
         ]);
 
         try {
-            $destinatario = 'alexchaguya@outlook.es';
+            $destinatario = 'consultores@mhorizon.com.ec';
 
             Mail::to($destinatario)->send(new ContactFormMail($validated));
 
