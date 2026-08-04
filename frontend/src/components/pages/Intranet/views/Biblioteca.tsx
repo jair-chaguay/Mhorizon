@@ -119,15 +119,18 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
     }
   }, [directTo]);
 
-  const handleDownload = async (url: string, filename: string) => {
+  const handleDownload = async (url: string, filename: string, rutaRelativa: string) => {
     try {
-      const response = await fetch(url);
-      const blob = await response.blob();
+      const response = await api.get(`/descargar-archivo?ruta=${encodeURIComponent(rutaRelativa)}`, {
+        responseType: 'blob' // Importante para recibir archivos binarios
+      });
+
+      const blob = new Blob([response.data]);
       const blobUrl = window.URL.createObjectURL(blob);
 
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.download = filename || 'documento';
+      link.download = filename || 'documento.pdf';
       document.body.appendChild(link);
       link.click();
 
@@ -418,7 +421,7 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </button>
                             <button
-                              onClick={() => handleDownload(`${BASE_URL}/storage/${archivo.url_archivo}`, archivo.nombre_archivo)}
+                              onClick={() => handleDownload(`${BASE_URL}/storage/${archivo.url_archivo}`, archivo.nombre_archivo, archivo.url_archivo)}
                               className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-gray-200 text-gray-500 hover:bg-orange-500 hover:text-white transition-all cursor-pointer"
                               title="Descargar"
                             >

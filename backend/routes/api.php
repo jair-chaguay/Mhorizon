@@ -58,7 +58,17 @@ Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 Route::middleware('auth:sanctum')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout']);
 Route::post('/cliente', [ClienteController::class, 'store']);
+Route::get('/descargar-archivo', function (Request $request) {
+        $request->validate(['ruta' => 'required|string']);
+        
+        $rutaArchivo = $request->query('ruta'); 
 
+        if (!Storage::disk('public')->exists($rutaArchivo)) {
+            return response()->json(['error' => 'Archivo no encontrado'], 404);
+        }
+
+        return Storage::disk('public')->download($rutaArchivo);
+    });
 
 
 Route::get('/user', function (Request $request) {
