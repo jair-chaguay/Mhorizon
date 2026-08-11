@@ -58,7 +58,11 @@ export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo })
               Documentos Adjuntos
             </h3>
             <a 
-              href={`${BASE_URL}/storage/${informativo.pdf_url}`} 
+              href={
+                informativo.pdf_url.startsWith('http') 
+                  ? informativo.pdf_url 
+                  : `${BASE_URL}/${informativo.pdf_url}`
+              }
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-orange-500 border border-red-100 text-white hover:bg-blue-200 hover:text-white duration-300 px-6 py-3 rounded-lg font-bold text-sm transition-all shadow-sm"

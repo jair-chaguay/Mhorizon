@@ -55,7 +55,7 @@ class InformativoController extends Controller
             'resolucion_oficial' => $request->resolucion_oficial,
             'contenido' => $request->contenido,
             'imagen_portada_url' => $rutaImagen ? 'storage/' . $rutaImagen : null,
-            'pdf_url' => $rutaPdf ? 'storage/' . $rutaPdf : null
+            'pdf_url' => $rutaPdf ? secure_asset('storage/' .$rutaPdf) : null
         ]);
 
         return response()->json(['message' => 'Creado con éxito', 'informativo' => $informativo], 201);
