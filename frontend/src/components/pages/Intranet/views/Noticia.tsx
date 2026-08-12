@@ -26,7 +26,7 @@ const Noticias: React.FC<NoticiasProps> = ({ onOpenRedactar, onOpenEliminar }) =
   const [noticias, setNoticias] = useState<Noticia[]>([]);
   const [loading, setLoading] = useState(false);
 
-  const BASE_URL = 'https://api.miltonmontece.com';
+  const BASE_URL = 'https://api.mhorizon.com.ec';
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 5;

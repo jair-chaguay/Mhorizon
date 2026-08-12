@@ -31,6 +31,7 @@ class Cliente extends Model
         'representante_nombre',
         'representante_correo',
         'representante_cargo',
+        'tipo_servicio'
     ];
 
     protected $casts = [
