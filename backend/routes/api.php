@@ -74,7 +74,7 @@ Route::get('/descargar-archivo', function (Request $request) {
 Route::get('/user', function (Request $request) {
         return $request->user();
     });
-
+    Route::put('/usuario/{id}/password', [UsuarioController::class, 'updatePassword']);
 Route::put('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'updateCarpeta']);
 Route::put('/cliente/{id}', [ClienteController::class, 'update']);
 Route::get('/cliente/{id}/obligaciones', [ObligacionController::class, 'indexCliente']);
