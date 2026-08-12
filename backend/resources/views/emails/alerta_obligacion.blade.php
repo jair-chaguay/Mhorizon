@@ -62,7 +62,7 @@
 
         <p>Por favor, ingresa al gestor documental, sube el archivo correspondiente y marca la obligación como "Presentada" para detener estas notificaciones.</p>
 
-        <a href="{{ url('/') }}" class="boton">Ir al Gestor Documental</a>
+        <a href="{{ url('https://mhorizon.com.ec/loginPage') }}" class="boton">Ir al Gestor Documental</a>
 
         <div class="footer">
             Nota: Este correo se enviará diariamente hasta que la obligación sea marcada como Presentada.
