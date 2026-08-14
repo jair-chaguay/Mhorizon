@@ -228,6 +228,8 @@ class BibliotecaController extends Controller
         $obligacion->estado = 'Presentado';
         $obligacion->save();
 
+        $obligacion->load('cliente.representantes');
+
         // 4. NOTIFICAR (Se envía una sola vez aunque haya 5 archivos)
         $admins = \App\Models\Usuario::whereHas('rol', function ($q) {
             $q->where('nombre', 'like', '%admin%');
@@ -240,6 +242,12 @@ class BibliotecaController extends Controller
         }
         if ($jefeCorreo) {
              \Illuminate\Support\Facades\Mail::to($jefeCorreo)->send(new \App\Mail\ObligacionSubidaMail($obligacion));
+        }
+
+        if($obligacion->cliente && $obligacion->cliente->representantes){
+            foreach($obligacion->cliente->representantes as $representante){
+                \Illuminate\Support\Facades\Mail::to($representante->correo)->send(new \App\Mail\ObligacionSubidaMail($obligacion));
+            }
         }
 
         return response()->json(['message' => 'Obligación subida y completada', 'documentos' => $archivosSubidos], 201);

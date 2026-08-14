@@ -17,6 +17,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
+        
         $clientes = Cliente::with('gestores', 'usuarios', 'representantes')
                            ->orderBy('razon_social_nombres', 'asc')
                            ->get();
