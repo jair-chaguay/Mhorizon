@@ -20,7 +20,10 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
     const [formData, setFormData] = useState({
         tipo_impuesto: 'DECLARACIÓN DEL IVA', 
         dia_vencimiento: '',
-        usuario_id: '' 
+        usuario_id: '' ,
+        es_historico: false,
+        anio_historico: new Date().getFullYear(),
+        mes_historico: 1,
     });
     
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -32,7 +35,10 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
             setFormData({ 
                 tipo_impuesto: 'DECLARACIÓN DEL IVA', 
                 dia_vencimiento: '', 
-                usuario_id: defaultGestor 
+                usuario_id: defaultGestor,
+                es_historico: false,
+                anio_historico: new Date().getFullYear(),
+                mes_historico: 1,
             });
         }
     }, [isOpen, gestoresCliente]);
@@ -58,7 +64,10 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
                 tipo_impuesto: formData.tipo_impuesto,
                 dia_vencimiento: Number(formData.dia_vencimiento), 
                 cliente_id: clienteId,
-                usuario_id: Number(formData.usuario_id)
+                usuario_id: Number(formData.usuario_id),
+                es_historico: formData.es_historico,
+                anio_historico: formData.es_historico ? formData.anio_historico : null,
+                mes_historico: formData.es_historico ? formData.mes_historico : null
             });
             
             onSuccess(); 
@@ -176,6 +185,48 @@ const ModalAñadirObligacion: React.FC<ModalAñadirObligacionProps> = ({
                                 ))}
                             </select>
                         </div>
+                    </div>
+
+                    <div className="mt-2 p-4 bg-orange-50/50 border border-orange-100 rounded-xl transition-all">
+                        <label className="flex items-center gap-2 cursor-pointer">
+                            <input 
+                                type="checkbox" 
+                                checked={formData.es_historico}
+                                onChange={(e) => setFormData({...formData, es_historico: e.target.checked})}
+                                className="w-4 h-4 text-orange-500 rounded focus:ring-orange-500"
+                            />
+                            <span className="text-[0.80rem] font-bold text-blue-200">Es un registro anterior (Histórico)</span>
+                        </label>
+
+                        {formData.es_historico && (
+                            <div className="grid grid-cols-2 gap-4 mt-4 animate-fadeIn">
+                                <div>
+                                    <label className="block text-[0.70rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Mes de Referencia</label>
+                                    <select 
+                                        value={formData.mes_historico}
+                                        onChange={(e) => setFormData({...formData, mes_historico: Number(e.target.value)})}
+                                        className="w-full px-3 py-2 bg-white border border-orange-200 rounded-lg text-[0.85rem] outline-none focus:border-orange-500"
+                                    >
+                                        <option value={1}>Enero</option><option value={2}>Febrero</option>
+                                        <option value={3}>Marzo</option><option value={4}>Abril</option>
+                                        <option value={5}>Mayo</option><option value={6}>Junio</option>
+                                        <option value={7}>Julio</option><option value={8}>Agosto</option>
+                                        <option value={9}>Septiembre</option><option value={10}>Octubre</option>
+                                        <option value={11}>Noviembre</option><option value={12}>Diciembre</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-[0.70rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Año</label>
+                                    <input 
+                                        type="number" 
+                                        min="2010" max={new Date().getFullYear()}
+                                        value={formData.anio_historico}
+                                        onChange={(e) => setFormData({...formData, anio_historico: Number(e.target.value)})}
+                                        className="w-full px-3 py-2 bg-white border border-orange-200 rounded-lg text-[0.85rem] outline-none focus:border-orange-500"
+                                    />
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <div className="flex gap-3 pt-4">

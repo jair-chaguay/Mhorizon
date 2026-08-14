@@ -48,6 +48,9 @@ class ObligacionController extends Controller
                 'DECLARACIÓN DEL PAGO A CUENTA SOBRE UTILIDADES NO DISTRIBUIDAS', 'CONTRIBUCIÓN SOCIETARIA', 'TASA MUNICIPAL POR PUBLICIDAD EXTERIOR', 'DÉCIMO TERCER SUELDO'
             ])],
              'dia_vencimiento' => 'required|integer|min:1|max:31',
+             'es_historico' => 'nullable|boolean',
+            'anio_historico' => 'nullable|required_if:es_historico,true|integer',
+            'mes_historico' => 'nullable|required_if:es_historico,true|integer|min:1|max:12',
         ]);
 
         if ($validator->fails()) {
@@ -58,7 +61,13 @@ class ObligacionController extends Controller
             ], 400);
         }
 
-        $fechaExacta = \App\Models\ObligacionTributaria::calcularFechaVencimiento($request->tipo_impuesto, $request->dia_vencimiento);
+        $fechaBase = null;
+        if ($request->es_historico) {
+            $mes = str_pad($request->mes_historico, 2, '0', STR_PAD_LEFT);
+            $fechaBase = "{$request->anio_historico}-{$mes}-01";
+        }
+
+        $fechaExacta = \App\Models\ObligacionTributaria::calcularFechaVencimiento($request->tipo_impuesto, $request->dia_vencimiento, $fechaBase);
 
         \Carbon\Carbon::setLocale('es');
         $tipoUpper = strtoupper(trim($request->tipo_impuesto));

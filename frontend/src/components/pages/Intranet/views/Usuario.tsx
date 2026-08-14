@@ -89,7 +89,9 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                 <tr className="bg-gray-50 border-b border-gray-200 text-[0.70rem] font-bold uppercase tracking-widest text-gray-500">
                                     <th className="px-6 py-4">Nombre Completo</th>
                                     <th className="px-6 py-4">Correo Electrónico</th>
-                                    <th className="px-6 py-4">Cargo</th>
+                                    {rolId === 1 || rolId === 3 ? (
+                                        <th className="px-6 py-4">Cargo</th>
+                                    ):null}
                                     <th className="px-6 py-4">Estado</th>
                                     
                                     <th className="px-6 py-4 flex items-center justify-center">Rol</th>
@@ -114,9 +116,11 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                             <td className="px-6 py-5 text-gray-500 font-mono text-[0.75rem]">
                                                 {u.correo}
                                             </td>
-                                            <td className="px-6 py-5 text-gray-600">
-                                                {u.cargo || 'No asignado'}
-                                            </td>
+                                            {rolId === 1 || rolId === 3 ? (
+                                                <td className="px-6 py-5 text-gray-500 font-mono text-[0.75rem]">
+                                                    {u.cargo ? u.cargo : 'No asignado'}
+                                                </td>
+                                            ): null }
                                             <td className="px-6 py-5">
                                                 <button
                                                     onClick={() => handleToggleEstado(u)}

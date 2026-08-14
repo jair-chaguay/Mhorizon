@@ -89,7 +89,7 @@ class ObligacionTributaria extends Model
      */
     public static function calcularFechaVencimiento($tipoImpuesto, $dia)
     {
-        $hoy = Carbon::now();
+        $hoy = $fechaBase ? Carbon::parse($fechaBase) : Carbon::now();
         $anioActual = $hoy->year;
         $mesActual = $hoy->month;
         $tipo = strtoupper(trim($tipoImpuesto));
