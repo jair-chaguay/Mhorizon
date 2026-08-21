@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../api/axios';
 import { Header, Footer, AnalisisBoletin, Frase, InfoRelaci } from '../../components'
+import { Helmet} from 'react-helmet-async';
 
 export const NovedadeSubPage = () => {
     const { id } = useParams();
@@ -30,6 +31,14 @@ export const NovedadeSubPage = () => {
     return (
         <main className='m-auto '>
             <Header />
+            {informativo && (
+                <Helmet>
+                    <title>{informativo.titulo} | MHORIZON</title>
+                    <meta name="description" content={informativo.descripcion_portada} />
+                    <meta property="og:title" content={informativo.titulo} />
+                    <meta property="og:description" content={informativo.descripcion_portada} />
+                </Helmet>
+            )}
 
             {loading ? (
                 <div className="py-32 flex justify-center items-center min-h-screen">

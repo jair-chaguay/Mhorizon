@@ -4,9 +4,10 @@ import { ScrollToTop } from "./components/ScrollTop";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { AnalyticsTracker, CookieBanner } from "./components/Analytics";
 import { PageSkeleton } from "./components/PageSkeleton";
+import {HelmetProvider} from "react-helmet-async";
 
 const Home = lazy(() => import("./components/pages/Home").then(m => ({ default: m.Home })));
-const MembresiaPage = lazy(() => import("./components/pages/MembresiaPage").then(m=> ({default: m.MembresiaPage})))
+const MembresiaPage = lazy(() => import("./components/pages/MembresiaPage").then(m => ({ default: m.MembresiaPage })))
 const SolucionesPage = lazy(() => import("./components/pages/SolucionesPage").then(m => ({ default: m.SolucionesPage })));
 const SectoresPage = lazy(() => import("./components/pages/SectoresPage").then(m => ({ default: m.SectoresPage })));
 const NovedadesPage = lazy(() => import("./components/pages/NovedadesPage").then(m => ({ default: m.NovedadesPage })));
@@ -36,52 +37,54 @@ const TerminosPage = lazy(() => import("./components/pages/TerminosPage").then(m
 
 function App() {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <AnalyticsTracker />
-      
-      <Suspense fallback={
-        <PageSkeleton />
-      }>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/soluciones/membresia" element={<MembresiaPage/>}/>
-          <Route path="/soluciones" element={<SolucionesPage />} />
-          <Route path="/soluciones/consultoria-empresarial" element={<ConsultoriaEmpresarial />} />
-          <Route path="/soluciones/gestion-tributaria" element={<GestionPage />} />
-          <Route path="/soluciones/outsourcing" element={<OutsourcingPage />} />
-          <Route path="/soluciones/auditoria" element={<AuditoriaPage />} />
-          <Route path="/sectores" element={<SectoresPage />} />
-          <Route path="/soluciones/sistema-normativo" element={<SistemaPage />} />
-          <Route path="/novedades" element={<NovedadesPage />} />
-          <Route path="/sectores/financiero" element={<FinancieroPage />} />
-          <Route path="/sectores/industrial-comercial" element={<IndustrialPage />} />
-          <Route path="/sectores/servicios-empresariales" element={<EmpresarialesPage />} />
-          <Route path="/sectores/logistico-portuario" element={<LogisticoPage />} />
-          <Route path="/politicas-de-privacidad" element={<PoliticasPage />} />
-          <Route path="/terminos-de-uso" element={<TerminosPage />} />
+    <HelmetProvider>
+      <BrowserRouter>
+        <ScrollToTop />
+        <AnalyticsTracker />
 
-          <Route path="/novedades-sub/:id" element={<NovedadeSubPage />} />
-          <Route path="/calculadora" element={<CalculadoraPage />} />
-          <Route path="/nosotros" element={<NosotrosPage />} />
-          <Route path="/loginPage" element={<LoginPage />} />
-          <Route path="/login/recover-credentials" element={<RecoverCredentials />} />
-          <Route path="/login/resetPassword" element={<ResetPassword />} />
-          <Route path="/login/OTP" element={<OTPVerification />} />
-          <Route path="/login/success" element={<SuccessVerification />} />
+        <Suspense fallback={
+          <PageSkeleton />
+        }>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/soluciones/membresia" element={<MembresiaPage />} />
+            <Route path="/soluciones" element={<SolucionesPage />} />
+            <Route path="/soluciones/consultoria-empresarial" element={<ConsultoriaEmpresarial />} />
+            <Route path="/soluciones/gestion-tributaria" element={<GestionPage />} />
+            <Route path="/soluciones/outsourcing" element={<OutsourcingPage />} />
+            <Route path="/soluciones/auditoria" element={<AuditoriaPage />} />
+            <Route path="/sectores" element={<SectoresPage />} />
+            <Route path="/soluciones/sistema-normativo" element={<SistemaPage />} />
+            <Route path="/novedades" element={<NovedadesPage />} />
+            <Route path="/sectores/financiero" element={<FinancieroPage />} />
+            <Route path="/sectores/industrial-comercial" element={<IndustrialPage />} />
+            <Route path="/sectores/servicios-empresariales" element={<EmpresarialesPage />} />
+            <Route path="/sectores/logistico-portuario" element={<LogisticoPage />} />
+            <Route path="/politicas-de-privacidad" element={<PoliticasPage />} />
+            <Route path="/terminos-de-uso" element={<TerminosPage />} />
 
-          <Route element={<ProtectedRoute allowedRoles={[1, 3]} />}>
-            <Route path="/intranet" element={<IntranetLayout />} />
-          </Route>
+            <Route path="/novedades-sub/:id" element={<NovedadeSubPage />} />
+            <Route path="/calculadora" element={<CalculadoraPage />} />
+            <Route path="/nosotros" element={<NosotrosPage />} />
+            <Route path="/loginPage" element={<LoginPage />} />
+            <Route path="/login/recover-credentials" element={<RecoverCredentials />} />
+            <Route path="/login/resetPassword" element={<ResetPassword />} />
+            <Route path="/login/OTP" element={<OTPVerification />} />
+            <Route path="/login/success" element={<SuccessVerification />} />
 
-          <Route element={<ProtectedRoute allowedRoles={[2]} />}>
-            <Route path="/intranetClientes" element={<LayoutCliente />} />
-          </Route>
-        </Routes>
-      </Suspense>
+            <Route element={<ProtectedRoute allowedRoles={[1, 3]} />}>
+              <Route path="/intranet" element={<IntranetLayout />} />
+            </Route>
 
-      <CookieBanner />
-    </BrowserRouter>
+            <Route element={<ProtectedRoute allowedRoles={[2]} />}>
+              <Route path="/intranetClientes" element={<LayoutCliente />} />
+            </Route>
+          </Routes>
+        </Suspense>
+
+        <CookieBanner />
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 
