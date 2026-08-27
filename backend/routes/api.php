@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\SitemapController;
 
 //LOGIN
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/sitemap', [SitemapController::class, 'index']);
 
 Route::post('/auth/forgot-password', [PasswordResetController::class, 'sendOtp']);
 Route::post('/auth/verify-otp', [PasswordResetController::class, 'verifyOtp']);
@@ -84,7 +85,6 @@ Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstad
 Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
 
 
-Route::get('/sitemap', [SitemapController::class, 'index']);
 Route::get('/preguntas-score', [PreguntaScoreController::class, 'obtenerPreguntas']);
 Route::post('/clientes/{id}/evaluar-score', [ClienteController::class, 'evaluarScore']);
 
