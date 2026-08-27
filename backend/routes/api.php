@@ -18,6 +18,7 @@ use App\Http\Controllers\Api\ObligacionController;
 use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\CorreoCalculadoraController;
 use App\Http\Controllers\Api\PreguntaScoreController;
+use App\Http\Controllers\Api\SitemapController;
 
 
 
@@ -83,7 +84,7 @@ Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstad
 Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
 
 
-
+Route::get('/sitemap', [SitemapController::class, 'index']);
 Route::get('/preguntas-score', [PreguntaScoreController::class, 'obtenerPreguntas']);
 Route::post('/clientes/{id}/evaluar-score', [ClienteController::class, 'evaluarScore']);
 

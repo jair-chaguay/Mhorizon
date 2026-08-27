@@ -1,20 +1,14 @@
 <IfModule mod_rewrite.c>
-  # Desactiva MultiViews, que suele causar conflictos de ruteo en GoDaddy
   Options -MultiViews
-
   RewriteEngine On
   RewriteBase /
   
+  # Esta línea nueva conecta a Google con tu archivo PHP
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+  
   RewriteRule ^webfinal/(.*)$ /$1 [R=301,L]
-  
-
-  # Si es el index.html, no hace nada
   RewriteRule ^index\.html$ - [L]
-  
-  # Si el archivo o directorio solicitado NO existe físicamente...
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  
-  # ...redirige todo al index.html de React
   RewriteRule . /index.html [L]
 </IfModule>
