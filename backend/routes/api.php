@@ -19,8 +19,11 @@ use App\Http\Controllers\Api\PasswordResetController;
 use App\Http\Controllers\Api\CorreoCalculadoraController;
 use App\Http\Controllers\Api\PreguntaScoreController;
 use App\Http\Controllers\Api\SitemapController;
+use App\Http\Controllers\Api\CorreoInformativoController;
 
 
+Route::post('/correo-informativo', [CorreoInformativoController::class, 'store']);
+Route::get('/correo-informativo', [CorreoInformativoController::class, 'index']);
 
 
 //LOGIN
