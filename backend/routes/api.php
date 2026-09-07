@@ -22,8 +22,6 @@ use App\Http\Controllers\Api\SitemapController;
 use App\Http\Controllers\Api\CorreoInformativoController;
 
 
-Route::post('/correo-informativo', [CorreoInformativoController::class, 'store']);
-Route::get('/correo-informativo', [CorreoInformativoController::class, 'index']);
 
 
 //LOGIN
@@ -123,6 +121,9 @@ Route::post('/enviar-solicitud', [ContactController::class, 'sendEmail']);
 Route::get('/noticia', [noticiasController::class, 'index']);
 Route::get('/informativo', [InformativoController::class, 'index']);
 Route::get('/informativo/{id}', [InformativoController::class, 'show']);
+
+Route::post('/correo-informativo', [CorreoInformativoController::class, 'store']);
+Route::get('/correo-informativo', [CorreoInformativoController::class, 'index']);
 
 Route::post('/membresia/solicitar', [MembresiaController::class, 'solicitar']);
 
