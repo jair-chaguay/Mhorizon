@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ScrollReveal } from "../ScrollReveal";
 import DOMPurify from 'dompurify';
 
@@ -13,6 +13,7 @@ interface Informativo {
   created_at: string;
 }
 
+
 interface AnalisisBoletinProps {
   informativo: Informativo;
 }
@@ -21,26 +22,9 @@ export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo })
   const BASE_URL = 'https://api.mhorizon.com.ec';
   const cleanHTML = DOMPurify.sanitize(informativo.contenido);
 
-  useEffect(() => {
-    if (informativo) {
-      document.title = `${informativo.titulo} | MHORIZON`;
 
-      let metaDescription = document.querySelector('meta[name="description"]');
-      
-      if (!metaDescription) {
-        metaDescription = document.createElement('meta');
-        metaDescription.setAttribute('name', 'description');
-        document.head.appendChild(metaDescription);
-      }
-      
-      metaDescription.setAttribute('content', informativo.descripcion_portada || 'Informativo Oficial de MHORIZON');
-    }
-    
-    return () => {
-      document.title = 'MHorizon';
-    };
-  }, [informativo]);
-  // ---------------------------------------------------------
+
+
 
   return (
     <article className="max-w-225 mx-auto px-5 sm:px-8 py-16 md:py-20 md:mt-10 lg:mt-10 sm:p-0 bg-gray-100">
