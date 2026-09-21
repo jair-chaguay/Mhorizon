@@ -20,10 +20,11 @@ use App\Http\Controllers\Api\CorreoCalculadoraController;
 use App\Http\Controllers\Api\PreguntaScoreController;
 use App\Http\Controllers\Api\SitemapController;
 use App\Http\Controllers\Api\CorreoInformativoController;
+use App\Http\Controllers\Api\TrackingController;
 
 
-
-
+Route::get('/track/open', [TrackingController::class, 'trackOpen']);
+Route::get('/track/click', [TrackingController::class, 'trackClick']);
 //LOGIN
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/sitemap', [SitemapController::class, 'index']);
