@@ -12,6 +12,8 @@ class TrackingController extends Controller
         $leads = DB::table('leads')
                     ->orderBy('updated_at', 'desc')
                     ->get();
+
+        return response()->json($leads);
     }
     public function trackOpen(Request $request)
     {
