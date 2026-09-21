@@ -25,6 +25,7 @@ use App\Http\Controllers\Api\TrackingController;
 
 Route::get('/track/open', [TrackingController::class, 'trackOpen']);
 Route::get('/track/click', [TrackingController::class, 'trackClick']);
+Route::get('/leads', [TrackingController::class, 'getDashboardData']);
 //LOGIN
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/sitemap', [SitemapController::class, 'index']);
