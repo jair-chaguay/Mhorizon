@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\DB;
 
 class TrackingController extends Controller 
 {
+    public function getDashboardData(){
+        $leads = DB::table('leads')
+                    ->orderBy('updated_at', 'desc')
+                    ->get();
+    }
     public function trackOpen(Request $request)
     {
         $email = $request->query('email');
