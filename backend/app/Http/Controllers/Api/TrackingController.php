@@ -12,35 +12,31 @@ class TrackingController extends Controller
         $leads = DB::table('leads')
                     ->orderBy('updated_at', 'desc')
                     ->get();
+        $linkClicks = DB::table('link_clicks')->get();
 
-        return response()->json($leads);
+        return response()->json([
+            'leads'=>$leads,
+            'link_clicks' =>$linkClicks
+        ]);
     }
 
     public function registerLead(Request $request){
         $email = $request->query('email');
-        $fase = $request->query('fase', 1);
+        $targetUrl = $request->query('url', 'https://mhorizon.com.ec');
+        
         if($email) {
-            $lead = \Illuminate\Support\Facades\DB::table('leads')->where('email', $email)->first();
+            DB::table('leads')
+                ->where('email', $email)
+                ->increment('clicks', 1, ['updated_at' => now()]);
 
-            if (!$lead) {
-                \Illuminate\Support\Facades\DB::table('leads')->insert([
-                    'email' => $email,
-                    'fase' => $fase,
-                    'status' => 'Contactado',
-                    'opens' => 0,
-                    'clicks' => 0,
-                    'created_at' => now(),
-                    'updated_at' => now()
-                ]);
-            } else {
-                // Si ya existe, solo actualizamos su fase y fecha
-                \Illuminate\Support\Facades\DB::table('leads')->where('email', $email)->update([
-                    'fase' => $fase,
-                    'updated_at' => now()
-                ]);
-            }
+            DB::table('link_clicks')->insert([
+                'email'=>$email,
+                'url'=>urldecode($targetUrl),
+                'created_at'=>now(),
+                'updated_at'=>now()
+            ]);
         }
-        return response()->json(['status'=>'registrado']);
+        return redirect()->away($targetUrl);
     }
     public function trackOpen(Request $request)
     {
