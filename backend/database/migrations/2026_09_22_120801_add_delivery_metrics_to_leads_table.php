@@ -12,12 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('leads', function (Blueprint $table) {
-            $table->integer('sent')->default(1)->after('status');
-            $table->integer('delivered')->default(1)->after('sent');
-            $table->integer('blocked')->default(0)->after('delivered');
-            $table->integer('failed')->default(0)->after('blocked');
-            $table->integer('spam')->default(0)->after('failed');
-            $table->integer('unsubscribed')->default(0)->after('spam');
+            if (!Schema::hasColumn('leads', 'sent')) {
+                $table->integer('sent')->default(1)->after('status');
+            }
+            if (!Schema::hasColumn('leads', 'delivered')) {
+                $table->integer('delivered')->default(1)->after('sent');
+            }
+            if (!Schema::hasColumn('leads', 'blocked')) {
+                $table->integer('blocked')->default(0)->after('delivered');
+            }
+            if (!Schema::hasColumn('leads', 'failed')) {
+                $table->integer('failed')->default(0)->after('blocked');
+            }
+            if (!Schema::hasColumn('leads', 'spam')) {
+                $table->integer('spam')->default(0)->after('failed');
+            }
+            if (!Schema::hasColumn('leads', 'unsubscribed')) {
+                $table->integer('unsubscribed')->default(0)->after('spam');
+            }
             //
         });
 
@@ -37,14 +49,18 @@ return new class extends Migration
 
         Schema::dropIfExists('link_clicks');
         Schema::table('leads', function (Blueprint $table) {
-            $table->dropColumn([
-                'sent',
-                'delivered',
-                'blocked',
-                'failed',
-                'spam',
-                'unsubscribed'
-            ]);
+            $columnsToDrop = [];
+            
+            if (Schema::hasColumn('leads', 'sent')) $columnsToDrop[] = 'sent';
+            if (Schema::hasColumn('leads', 'delivered')) $columnsToDrop[] = 'delivered';
+            if (Schema::hasColumn('leads', 'blocked')) $columnsToDrop[] = 'blocked';
+            if (Schema::hasColumn('leads', 'failed')) $columnsToDrop[] = 'failed';
+            if (Schema::hasColumn('leads', 'spam')) $columnsToDrop[] = 'spam';
+            if (Schema::hasColumn('leads', 'unsubscribed')) $columnsToDrop[] = 'unsubscribed';
+
+            if (!empty($columnsToDrop)) {
+                $table->dropColumn($columnsToDrop);
+            }
         });
     }
 };
