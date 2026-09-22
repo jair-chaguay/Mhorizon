@@ -13,38 +13,65 @@ class TrackingController extends Controller
                     ->orderBy('updated_at', 'desc')
                     ->get();
         $linkClicks = DB::table('link_clicks')->get();
+        $emailLogs = DB::table('email_logs')->orderBy('created_at', 'asc')->get();
 
         return response()->json([
             'leads'=>$leads,
+            'email_logs'=>$emailLogs,
             'link_clicks' =>$linkClicks
         ]);
     }
 
     public function registerLead(Request $request){
         $email = $request->query('email');
-        $targetUrl = $request->query('url', 'https://mhorizon.com.ec');
+        $fase = $request->query('fase', 1);
+        $campaign = $request->query('campaign', 'Campaña General');
         
         if($email) {
-            DB::table('leads')
-                ->where('email', $email)
-                ->increment('clicks', 1, ['updated_at' => now()]);
-
-            DB::table('link_clicks')->insert([
-                'email'=>$email,
-                'url'=>urldecode($targetUrl),
-                'created_at'=>now(),
-                'updated_at'=>now()
+            $lead = DB::table('leads')->where('email', $email)->first();
+            if (!$lead) {
+                DB::table('leads')->insert([
+                    'email' => $email,
+                    'fase' => $fase,
+                    'status' => 'Contactado',
+                    'opens' => 0,
+                    'clicks' => 0,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            } else {
+                DB::table('leads')->where('email', $email)->update([
+                    'fase' => $fase,
+                    'updated_at' => now()
+                ]);
+            }
+            DB::table('email_logs')->insert([
+                'email' => $email,
+                'campaign_name' => urldecode($campaign),
+                'event_type' => 'sent',
+                'created_at' => now(),
+                'updated_at' => now()
             ]);
         }
         return redirect()->away($targetUrl);
     }
+
     public function trackOpen(Request $request)
     {
         $email = $request->query('email');
+        $campaign = $request->query('campaign', 'Campaña General');
         if($email){
             DB::table('leads')
             ->where('email', $email)
             ->increment('opens', 1, ['updated_at' => now()]);
+
+            DB::table('email_logs')->insert([
+                'email'=>$email,
+                'campaign_name'=>urldecode($campaign),
+                'event_type' =>'open',
+                'created_at' =>now(),
+                'updated_at' => now()
+            ]);
         }
 
         $pixel = base64_decode('R0lGODlhAQABAJAAAP8AAAAAACH5BAUQAAAALAAAAAABAAEAAAICBAEAOw==');
@@ -59,11 +86,29 @@ class TrackingController extends Controller
     public function trackClick(Request $request){
         $email = $request->query('email');
         $targetUrl = $request->query('url', 'https://mhorizon.com.ec');
+        $campaign = $request->query('campaing', 'Campaña General');
 
         if ($email){
             DB::table('leads')
                 ->where('email', $email)
                 ->increment('clicks', 1, ['updated_at' => now()]);
+
+            DB::table('link_clicks')->insert([
+                'email' => $email,
+                'url' => urldecode($targetUrl),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+
+
+            DB::table('email_logs'->insert([
+                'email'=>$email,
+                'campaign_name'=>urldecode($campaign),
+                'event_type'=>'click',
+                'url'=>urldecode($targetUrl),
+                'created_at'=>now(),
+                'updated_at' => now()
+            ]));
         }
 
         return redirect()->away($targetUrl);
