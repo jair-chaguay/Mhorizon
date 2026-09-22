@@ -15,6 +15,22 @@ class TrackingController extends Controller
 
         return response()->json($leads);
     }
+
+    public function registerLead(Request $request){
+        $email = $request->query('email');
+        $fase = $request->query('fase', 1);
+        if($email) {
+            \Illuminate\Support\Facades\DB::table('leads')->updateOrInsert(
+                ['email'=>$email],
+                [
+                    'fase'=>$fase,
+                    'status'=>'Contactado',
+                    'updated_at'=>now()
+                ]
+            );
+        }
+        return response()->json(['status'=>'registrado']);
+    }
     public function trackOpen(Request $request)
     {
         $email = $request->query('email');
