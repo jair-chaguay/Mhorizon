@@ -21,7 +21,7 @@ return new class extends Migration
             //
         });
 
-        Scehema::create('link_clicks', function(Blueprint $table){
+        Schema::create('link_clicks', function(Blueprint $table){
             $table->id();
             $table->string('email');
             $table->text('url');
