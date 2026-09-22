@@ -20,14 +20,25 @@ class TrackingController extends Controller
         $email = $request->query('email');
         $fase = $request->query('fase', 1);
         if($email) {
-            \Illuminate\Support\Facades\DB::table('leads')->updateOrInsert(
-                ['email'=>$email],
-                [
-                    'fase'=>$fase,
-                    'status'=>'Contactado',
-                    'updated_at'=>now()
-                ]
-            );
+            $lead = \Illuminate\Support\Facades\DB::table('leads')->where('email', $email)->first();
+
+            if (!$lead) {
+                \Illuminate\Support\Facades\DB::table('leads')->insert([
+                    'email' => $email,
+                    'fase' => $fase,
+                    'status' => 'Contactado',
+                    'opens' => 0,
+                    'clicks' => 0,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            } else {
+                // Si ya existe, solo actualizamos su fase y fecha
+                \Illuminate\Support\Facades\DB::table('leads')->where('email', $email)->update([
+                    'fase' => $fase,
+                    'updated_at' => now()
+                ]);
+            }
         }
         return response()->json(['status'=>'registrado']);
     }
