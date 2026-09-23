@@ -22,6 +22,7 @@ return [
     'allowed_origins' => [
         'https://api.mhorizon.com.ec',
         'https://experience.mhorizon.com.ec',
+        'https://dashboard.mhorizon.com.ec',
         'http://localhost:5173',
         'http://mhorizon.com.ec',
         'https://mhorizon.com.ec',
