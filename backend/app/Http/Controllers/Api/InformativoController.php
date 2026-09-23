@@ -34,8 +34,8 @@ class InformativoController extends Controller
             'titulo' => 'required|string|max:255',
             'descripcion_portada' => 'required|string',
             'contenido' => 'required|string',
-            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'archivo_pdf' => 'nullable|mimes:pdf|max:10000' // Validación para PDF
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
+            'archivo_pdf' => 'nullable|mimes:pdf|max:100000' // Validación para PDF
         ]);
 
         if($validator->fails()) return response()->json(['errors' => $validator->errors()], 400);

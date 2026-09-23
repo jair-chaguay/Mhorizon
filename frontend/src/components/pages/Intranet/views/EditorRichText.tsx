@@ -27,7 +27,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
     if (!file) return;
 
     // Validación básica de tamaño (máximo 2MB)
-    if (file.size > 2 * 1024 * 1024) {
+    if (file.size > 2 * 4096 * 4096) {
       alert("La imagen no debe superar los 2MB");
       return;
     }
