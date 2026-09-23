@@ -60,6 +60,8 @@ class TrackingController extends Controller
     {
         $email = $request->query('email');
         $campaign = $request->query('campaign', 'Campaña General');
+        $userAgent = $request->header('User-Agent');
+
         if($email){
             DB::table('leads')
             ->where('email', $email)
@@ -69,6 +71,7 @@ class TrackingController extends Controller
                 'email'=>$email,
                 'campaign_name'=>urldecode($campaign),
                 'event_type' =>'open',
+                'user_agent'=>$userAgent,
                 'created_at' =>now(),
                 'updated_at' => now()
             ]);
@@ -87,6 +90,7 @@ class TrackingController extends Controller
         $email = $request->query('email');
         $targetUrl = $request->query('url', 'https://mhorizon.com.ec');
         $campaign = $request->query('campaing', 'Campaña General');
+        $userAgent = $request->header('User-Agent');
 
         if ($email){
             DB::table('leads')
@@ -106,6 +110,7 @@ class TrackingController extends Controller
                 'campaign_name'=>urldecode($campaign),
                 'event_type'=>'click',
                 'url'=>urldecode($targetUrl),
+                'user_agent'=>$userAgent,
                 'created_at'=>now(),
                 'updated_at' => now()
             ]));
