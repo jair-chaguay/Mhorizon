@@ -25,7 +25,7 @@ use App\Http\Controllers\Api\TrackingController;
 
 Route::get('/track/open', [TrackingController::class, 'trackOpen']);
 Route::get('/track/click', [TrackingController::class, 'trackClick']);
-Route::get('/leads', [TrackingController::class, 'getDashboardData']);
+
 Route::get('/track/register', [TrackingController::class, 'registerLead']);
 //LOGIN
 Route::post('/login', [AuthController::class, 'login']);
@@ -39,6 +39,7 @@ Route::get('/correoC', [CorreoCalculadoraController::class, 'index']);
 Route::post('/correoC', [CorreoCalculadoraController::class, 'store']);
 Route::get('/correoC/{id}', [CorreoCalculadoraController::class, 'show']);
 Route::delete('/correoC/{id}', [CorreoCalculadoraController::class, 'destroy']);
+
 
 
 
@@ -62,9 +63,12 @@ Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-Route::post('/logout', [AuthController::class, 'logout']);
-Route::post('/cliente', [ClienteController::class, 'store']);
-Route::get('/descargar-archivo', function (Request $request) {
+    Route::get('/leads', [TrackingController::class, 'getDashboardData']);
+
+
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/cliente', [ClienteController::class, 'store']);
+    Route::get('/descargar-archivo', function (Request $request) {
         $request->validate(['ruta' => 'required|string']);
         
         $rutaArchivo = $request->query('ruta'); 
@@ -77,46 +81,46 @@ Route::get('/descargar-archivo', function (Request $request) {
     });
 
 
-Route::get('/user', function (Request $request) {
+    Route::get('/user', function (Request $request) {
         return $request->user();
     });
     Route::put('/usuario/{id}/password', [UsuarioController::class, 'updatePassword']);
-Route::put('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'updateCarpeta']);
-Route::put('/cliente/{id}', [ClienteController::class, 'update']);
-Route::get('/cliente/{id}/obligaciones', [ObligacionController::class, 'indexCliente']);
-Route::post('/obligacion', [ObligacionController::class, 'store']);
-Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstado']);
-Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
+    Route::put('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'updateCarpeta']);
+    Route::put('/cliente/{id}', [ClienteController::class, 'update']);
+    Route::get('/cliente/{id}/obligaciones', [ObligacionController::class, 'indexCliente']);
+    Route::post('/obligacion', [ObligacionController::class, 'store']);
+    Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstado']);
+    Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
 
 
-Route::get('/preguntas-score', [PreguntaScoreController::class, 'obtenerPreguntas']);
-Route::post('/clientes/{id}/evaluar-score', [ClienteController::class, 'evaluarScore']);
+    Route::get('/preguntas-score', [PreguntaScoreController::class, 'obtenerPreguntas']);
+    Route::post('/clientes/{id}/evaluar-score', [ClienteController::class, 'evaluarScore']);
 
-Route::post('/informativo', [InformativoController::class, 'store']);
-Route::put('/informativo/{id}', [InformativoController::class, 'update']);
-Route::delete('/informativo/{id}', [InformativoController::class, 'destroy']);
+    Route::post('/informativo', [InformativoController::class, 'store']);
+    Route::put('/informativo/{id}', [InformativoController::class, 'update']);
+    Route::delete('/informativo/{id}', [InformativoController::class, 'destroy']);
 
-Route::get('/noticia/{id}', [noticiasController::class, 'show']);
-Route::post('/noticia', [noticiasController::class, 'store']);
-Route::put('/noticia/{id}', [noticiasController::class, 'update']);
-Route::delete('/noticia/{id}', [noticiasController::class, 'destroy']);
+    Route::get('/noticia/{id}', [noticiasController::class, 'show']);
+    Route::post('/noticia', [noticiasController::class, 'store']);
+    Route::put('/noticia/{id}', [noticiasController::class, 'update']);
+    Route::delete('/noticia/{id}', [noticiasController::class, 'destroy']);
 
-Route::get('/contacto', [ContactoController::class, 'index']);
-Route::get('/contacto/{id}', [ContactoController::class, 'show']);
-Route::put('/contacto/{id}', [ContactoController::class, 'update']);
-Route::delete('/contacto/{id}', [ContactoController::class, 'destroy']);
+    Route::get('/contacto', [ContactoController::class, 'index']);
+    Route::get('/contacto/{id}', [ContactoController::class, 'show']);
+    Route::put('/contacto/{id}', [ContactoController::class, 'update']);
+    Route::delete('/contacto/{id}', [ContactoController::class, 'destroy']);
 
 
-Route::post('/biblioteca/periodo', [BibliotecaController::class, 'storePeriodo']);
-Route::post('/biblioteca/subcarpeta', [BibliotecaController::class, 'storeSubcarpeta']);
-Route::post('/biblioteca/upload-documento', [BibliotecaController::class, 'uploadDocumento']);
-Route::delete('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'deleteCarpeta']);
-Route::put('/obligacion/{id}', [ObligacionController::class, 'update']);
-Route::post('/informativo/upload-imagen-editor', [InformativoController::class, 'uploadEditorImage']);
+    Route::post('/biblioteca/periodo', [BibliotecaController::class, 'storePeriodo']);
+    Route::post('/biblioteca/subcarpeta', [BibliotecaController::class, 'storeSubcarpeta']);
+    Route::post('/biblioteca/upload-documento', [BibliotecaController::class, 'uploadDocumento']);
+    Route::delete('/biblioteca/carpeta/{tipo}/{id}', [BibliotecaController::class, 'deleteCarpeta']);
+    Route::put('/obligacion/{id}', [ObligacionController::class, 'update']);
+    Route::post('/informativo/upload-imagen-editor', [InformativoController::class, 'uploadEditorImage']);
 
-Route::get('/clientes/biblioteca', [ClienteController::class, 'indexBiblioteca']);
+    Route::get('/clientes/biblioteca', [ClienteController::class, 'indexBiblioteca']);
 
-Route::post('/biblioteca/upload-obligacion', [BibliotecaController::class, 'uploadDocumentoObligacion']);
+    Route::post('/biblioteca/upload-obligacion', [BibliotecaController::class, 'uploadDocumentoObligacion']);
 });
 
 Route::post('/enviar-solicitud', [ContactController::class, 'sendEmail']);
