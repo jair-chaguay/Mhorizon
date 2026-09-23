@@ -34,7 +34,7 @@ class InformativoController extends Controller
             'titulo' => 'required|string|max:255',
             'descripcion_portada' => 'required|string',
             'contenido' => 'required|string',
-            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'archivo_pdf' => 'nullable|mimes:pdf|max:100000' // Validación para PDF
         ]);
 
@@ -75,7 +75,7 @@ class InformativoController extends Controller
         if(!$informativo) return response()->json(['message' => 'No encontrado'], 404);
 
         $validator = Validator::make($request->all(), [
-            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:5120',
             'archivo_pdf' => 'nullable|mimes:pdf|max:10000'
         ]);
 
@@ -112,7 +112,7 @@ class InformativoController extends Controller
     public function uploadEditorImage(Request $request)
     {
         $request->validate([
-            'imagen_editor' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'imagen_editor' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120'
         ]);
 
         if ($request->hasFile('imagen_editor')) {
