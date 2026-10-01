@@ -21,6 +21,9 @@ use App\Http\Controllers\Api\PreguntaScoreController;
 use App\Http\Controllers\Api\SitemapController;
 use App\Http\Controllers\Api\CorreoInformativoController;
 use App\Http\Controllers\Api\TrackingController;
+use App\Http\Controllers\Api\LeadController;
+use App\Http\Controllers\Api\ImapController;
+use App\Http\Controllers\Api\CampaignController;
 
 
 Route::get('/track/open', [TrackingController::class, 'trackOpen']);
@@ -41,6 +44,17 @@ Route::get('/correoC/{id}', [CorreoCalculadoraController::class, 'show']);
 Route::delete('/correoC/{id}', [CorreoCalculadoraController::class, 'destroy']);
 
 
+// Rutas para los Leads (Subir CSV y ver la tabla de audiencia)
+Route::get('/leads', [LeadController::class, 'index']);
+Route::post('/leads/upload', [LeadController::class, 'uploadCsv']);
+
+// Rutas para el Agente IMAP (Panel de Inbound)
+Route::get('/imap/status', [ImapController::class, 'getStatus']);
+Route::post('/imap/toggle', [ImapController::class, 'toggleStatus']);
+
+// Rutas para las Campañas (Difusión Manual y Autónoma)
+Route::post('/campaign/manual', [CampaignController::class, 'encolarEnvioManual']);
+Route::post('/campaign/ia', [CampaignController::class, 'lanzarCampanaIA']);
 
 
 //ROLES
