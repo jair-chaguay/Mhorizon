@@ -53,7 +53,7 @@ class TrackingController extends Controller
                 'updated_at' => now()
             ]);
         }
-        return redirect()->away($targetUrl);
+        return response()->json(['message' => 'Registrado correctamente']);
     }
 
     public function trackOpen(Request $request)
@@ -105,7 +105,7 @@ class TrackingController extends Controller
             ]);
 
 
-            DB::table('email_logs'->insert([
+            DB::table('email_logs')->insert([
                 'email'=>$email,
                 'campaign_name'=>urldecode($campaign),
                 'event_type'=>'click',
@@ -113,7 +113,7 @@ class TrackingController extends Controller
                 'user_agent'=>$userAgent,
                 'created_at'=>now(),
                 'updated_at' => now()
-            ]));
+            ]);
         }
 
         return redirect()->away($targetUrl);
