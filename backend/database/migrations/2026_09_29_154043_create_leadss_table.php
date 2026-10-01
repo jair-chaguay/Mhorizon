@@ -12,7 +12,7 @@ return new class extends Migration
 
     public function up()
     {
-        Schema::create('leads', function (Blueprint $table) {
+        Schema::create('leadss', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
             $table->integer('fase')->default(1);
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('leads');
+        Schema::dropIfExists('leadss');
     }
 };

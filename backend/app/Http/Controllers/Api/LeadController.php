@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class LeadController extends Controller
 {
     public function index(){
-        $leads = DB::table('leads')->orderBy('id', 'desc')->get();
+        $leads = DB::table('leadss')->orderBy('id', 'desc')->get();
         return response()->json($leads);
     }
     public function uploadCsv(Request $request){
@@ -28,7 +28,7 @@ class LeadController extends Controller
                 continue;
             }
             $email = trim($fila[0]);
-            DB::table('leads')->updateOrInsert(
+            DB::table('leadss')->updateOrInsert(
                 ['email'=>$email],
                 ['fase'=>1,
                 'status'=>'Pendiente',
