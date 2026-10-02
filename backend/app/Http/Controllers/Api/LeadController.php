@@ -43,7 +43,7 @@ class LeadController extends Controller
             if($lead){
                 $etiquetasActuales = $lead->etiquetas ? json_decode($lead->etiquetas, true) : [];
                 $etiquetasFinales = array_values(array_unique(array_merge($etiquetasActuales, $etiquetasNuevas)));
-                DB::table('leads')->where('email', $email)->update([
+                DB::table('leadss')->where('email', $email)->update([
                     'etiquetas'=>json_encode($etiquetasFinales),
                     'updated_at'=>now()
                 ]);
