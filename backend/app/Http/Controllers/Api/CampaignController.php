@@ -12,14 +12,24 @@ class CampaignController extends Controller
         $request->validate([
             'asunto' => 'required|string',
             'cuerpo' => 'required|string',
-            'fase'=> 'required|integer'
+            'fase'=> 'required|integer',
+            'adjuntos.*' => 'file|max:10240'
         ]);
+
+        $adjuntosRutas = [];
+        if($request->hasFile('adjuntos')){
+            foreach ($request->file('adjuntos') as $archivo){
+                $ruta = $archivo->store('adjuntos_campanas', 'public');
+                $adjuntosRutas[] = storage_path('app/public/' . $ruta);
+            }
+        }
 
         DB::table('tareas_envio')->insert([
             'tipo' =>'manual',
             'fase_objetivo' =>$request->fase,
             'asunto'=>$request->asunto,
             'cuerpo'=>$request->cuerpo,
+            'adjuntos'=>json_encode($adjuntosRutas),
             'estado'=>'pendiente',
             'created_at'=>now(),
             'updated_at'=>now()
