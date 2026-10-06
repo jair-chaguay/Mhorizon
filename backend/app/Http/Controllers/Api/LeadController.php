@@ -102,4 +102,18 @@ class LeadController extends Controller
         }
         return response()->json(['error'=>'Prospecto no encontrado'], 404);
     }
+
+    public function eliminarProspecto(Request $request){
+        $request->validate([
+            'email'=>'required|email'
+        ]);
+
+        $eliminado = DB::table('leadss')->where('email', $request->email)->delete();
+
+        if($eliminado){
+            return response()->json(['message'=>'Prospecto eliminado correctamente']);
+        }
+
+        return response()->json(['error'=>'Prospecto no encontrado'], 404);
+    }
 }
