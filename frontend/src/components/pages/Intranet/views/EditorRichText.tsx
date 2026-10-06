@@ -13,10 +13,11 @@ import api from '../../../../api/axios';
 interface EditorProps {
   value: string;
   onChange: (content: string) => void;
+  onImageSelected?: (file: File) => void;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const MenuBar = ({ editor }: { editor: any }) => {
+const MenuBar = ({ editor, onImageSelected }: { editor: any, onImageSelected?: (file: File) =>void }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -30,6 +31,10 @@ const MenuBar = ({ editor }: { editor: any }) => {
     if (file.size > 5 * 1024 * 1024) {
       alert("La imagen no debe superar los 5MB");
       return;
+    }
+
+    if (onImageSelected){
+      onImageSelected(file);
     }
 
     try {
@@ -133,7 +138,7 @@ const MenuBar = ({ editor }: { editor: any }) => {
   );
 };
 
-const EditorRichText: React.FC<EditorProps> = ({ value, onChange }) => {
+const EditorRichText: React.FC<EditorProps> = ({ value, onChange, onImageSelected }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -165,7 +170,7 @@ const EditorRichText: React.FC<EditorProps> = ({ value, onChange }) => {
 
   return (
     <div className="border border-gray-200 rounded-lg overflow-hidden bg-white focus-within:border-orange-500 transition-colors tiptap-editor">
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} onImageSelected={onImageSelected} />
       <EditorContent editor={editor} />
     </div>
   );

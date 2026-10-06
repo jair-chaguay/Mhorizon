@@ -94,38 +94,6 @@ class ObligacionController extends Controller
             'estado'             => 'Pendiente' 
         ]);
 
-        // Asegurar que exista la carpeta raíz de Obligaciones
-        $carpetaMadre = BibliotecaSubcarpeta::firstOrCreate(
-            ['cliente_id' => $obligacion->cliente_id, 'parent_id' => null, 'nombre' => 'Obligaciones Tributarias'],
-            ['creado_por_id' => Auth::id() ?? 1]
-        );
-
-        $carpetaImpuesto = BibliotecaSubcarpeta::firstOrCreate(
-            ['parent_id' => $carpetaMadre->id, 'nombre' => $obligacion->tipo_impuesto],
-            ['creado_por_id' => Auth::id() ?? 1]
-        );
-
-        $anio = $fechaExacta->format('Y');
-        $carpetaAnio = BibliotecaSubcarpeta::firstOrCreate(
-            ['parent_id' => $carpetaImpuesto->id, 'nombre' => $anio],
-            ['creado_por_id' => Auth::id() ?? 1]
-        );
-
-        $esMensual = in_array($tipoUpper, [
-            'DECLARACIÓN DEL IVA', 'DECLARACIÓN DE RETENCIONES EN LA FUENTE DEL IR', 'DECLARACIÓN DE AUTORETENCIONES EN LA FUENTE DEL IR', 'DECLARACIÓN DEL IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS', 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (MENSUAL)', 
-            'ANEXO IMPUESTO CONSUMOS ESPECIALES (ICE)', 'ANEXO IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS', 'PAGO DE APORTE AL IESS', 
-            'FONDOS DE RESERVA', 'IMPUESTO A LOS CONSUMOS ESPECIALES - ICE (MENSUAL)', 'IMPUESTO A LA SALIDA DE DIVISAS - ISD (MENSUAL)', 'IMPUESTO A LOS ACTIVOS EN EL EXTERIOR', 'REPORTE OPERACIONES INUSUALES INJUSTIFICADAS (ROI)',
-            'REPORTE OPERACIONES IGUALES O SUPERIORES AL UMBRAL LEGAL', 'REPORTE VENTAS A CRÉDITO'
-        ]);
-
-        $esSemestral = in_array($tipoUpper, $semestrales);
-
-        if ($esMensual || $esSemestral) {
-            BibliotecaSubcarpeta::firstOrCreate(
-                ['parent_id' => $carpetaAnio->id, 'nombre' => $periodoTexto], // Ej: "Enero 2024"
-                ['creado_por_id' => Auth::id() ?? 1]
-            );
-        }
         
         return response()->json([
             'message'    => 'Obligación añadida y estructura base sincronizada con éxito',

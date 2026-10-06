@@ -170,30 +170,14 @@ class BibliotecaController extends Controller
             ['creado_por_id' => $userId]
         );
 
-        $tipoUpper = strtoupper(trim($obligacion->tipo_impuesto));
+        $carpetaDestino = $carpetaAnio;
 
-        $semestrales = [
-            'IVA (RÉGIMEN RIMPE)', 'IMPUESTO A LA RENTA (RÉGIMEN RIMPE SEMESTRAL)', 
-            'RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)', 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (RÉGIMEN RIMPE)'
-        ];
-        
-        $mensuales = [
-            'IVA (MENSUAL)', 'RETENCIONES FUENTE IR (MENSUAL)', 'DECLARACIÓN DE AUTORETENCIONES EN LA FUENTE DEL IR', 'DECLARACIÓN DEL IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS', 'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (MENSUAL)', 
-            'ANEXO IMPUESTO CONSUMOS ESPECIALES (ICE)', 'ANEXO IMPUESTO REDIMIBLE A LAS BOTELLAS PLÁSTICAS', 'PAGO DE APORTE AL IESS', 'FONDOS DE RESERVA', 'IMPUESTO A LOS CONSUMOS ESPECIALES - ICE (MENSUAL)', 
-            'IMPUESTO A LA SALIDA DE DIVISAS - ISD (MENSUAL)', 'IMPUESTO A LOS ACTIVOS EN EL EXTERIOR', 'REPORTE OPERACIONES INUSUALES INJUSTIFICADAS (ROI)', 'REPORTE OPERACIONES IGUALES O SUPERIORES AL UMBRAL LEGAL', 
-            'REPORTE VENTAS A CRÉDITO'
-        ];
+        $mesesFrecuencia = $obligacion -> obtenerMesesFrecuencia();
 
-
-        $esMensual = in_array($tipoUpper, $mensuales);
-        $esSemestral = in_array($tipoUpper, $semestrales);
-
-        $carpetaDestino = $carpetaAnio; 
-
-        if ($esMensual || $esSemestral) {
-            $carpetaMes = BibliotecaSubcarpeta::firstOrCreate(
-                ['parent_id' => $carpetaAnio->id, 'nombre' => $obligacion->fecha_presentacion],
-                ['creado_por_id' => $userId]
+        if ($mesesFrecuencia === 1 || $mesesFrecuencia === 6) {
+            $carpetaMes = BibliotecaSubcarpeta::firsOrCreate(
+                ['parent_id'=> $carpetaAnio->id, 'nombre'=>$obligacion->fecha_presentacion],
+                ['creado_por_id'=>$userId]
             );
             $carpetaDestino = $carpetaMes;
         }

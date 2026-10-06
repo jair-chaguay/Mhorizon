@@ -149,6 +149,7 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
               <EditorRichText
                 value={contenido}
                 onChange={setContenido}
+                onImageSelected={setImagen}
               />
             </div>
 
@@ -162,6 +163,11 @@ const ModalRedactarInformativo: React.FC<Props> = ({ isOpen, onClose, onSuccess,
                     onChange={(e) => setImagen(e.target.files ? e.target.files[0] : null)}
                     className="w-full text-[0.8rem] text-gray-500 file:mr-4 file:py-1.5 file:px-4 file:rounded-md file:border-0 file:bg-blue-200 file:text-white hover:file:bg-orange-500 cursor-pointer"
                   />
+                  {imagen && (
+                    <span className='text-xs font-semibold text-green-600 truncate w-full px-2'>
+                      Portada lista: {imagen.name}
+                    </span>
+                  )}
                 </div>
               </div>
 

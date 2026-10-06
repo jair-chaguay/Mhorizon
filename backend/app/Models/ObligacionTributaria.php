@@ -89,6 +89,7 @@ class ObligacionTributaria extends Model
      */
     public static function calcularFechaVencimiento($tipoImpuesto, $dia, $fechaBase = null)
     {
+        $esHistorico = !is_null($fechaBase);
         $hoy = $fechaBase ? Carbon::parse($fechaBase) : Carbon::now();
         $anioActual = $hoy->year;
         $mesActual = $hoy->month;
@@ -100,7 +101,12 @@ class ObligacionTributaria extends Model
             'DECLARACIÓN DE RETENCIONES EN LA FUENTE DEL IR (RÉGIMEN RIMPE)',
             'ANEXO TRANSACCIONAL SIMPLIFICADO - ATS (RÉGIMEN RIMPE)'
         ];
+
         if(in_array($tipo, $semestrales)){
+            if($esHistorico){
+                $mesSemestre = ($mesActual >= 7) ? 7 : 1;
+                return Carbon::createFromDate($anioActual, $mesSemestre, $dia);
+            }
             if($mesActual < 1 || ($mesActual == 1 && $hoy->day < $dia)){
                 return Carbon::createFromDate($anioActual, 1, $dia);
             } 
@@ -147,14 +153,14 @@ class ObligacionTributaria extends Model
         if (array_key_exists($tipo, $mesesFijos)) {
             $fechaCalculada = Carbon::createFromDate($anioActual, $mesesFijos[$tipo], $dia);
             
-            if ($fechaCalculada->lessThan(Carbon::today())) {
+            if (!$esHistorico && $fechaCalculada->lessThan(Carbon::today())) {
                 $fechaCalculada->addYear();
             }
             return $fechaCalculada;
         }
 
         $fechaCalculada = Carbon::createFromDate($anioActual, $mesActual, $dia)->startOfDay();
-        if ($fechaCalculada->lessThan(Carbon::today())) {
+        if (!$esHistorico && $fechaCalculada->lessThan(Carbon::today())) {
             $fechaCalculada->addMonth();
         }
         
