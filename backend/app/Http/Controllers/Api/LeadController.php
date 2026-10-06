@@ -82,4 +82,24 @@ class LeadController extends Controller
         }
         return response()->json(['error'=>'Prospecto no encontrado'], 404);
     }
+
+    public function quitarEtiqueta(Request $request){
+        $request->validate(['email'=>'required|email', 'etiqueta'=>'required|string']);
+        $lead = DB::table('leadss')->where('email', $request->email)->first();
+
+        if($lead && $lead->etiquetas){
+            $etiquetasActuales = json_decode($lead->etiquetas, true);
+
+            $etiquetasFinales = array_values(array_filter($etiquetasActuales, function($t) use ($request){
+                return $t !== $request->etiqueta;
+            }));
+
+            DB::table('leadss')->where('email', $request->email)->update([
+                'etiquetas'=>json_encode($etiquetasFinales),
+                'updated_at'=>now()
+            ]);
+            return response()->json(['message'=>'Etiqueta eliminada']);
+        }
+        return response()->json(['error'=>'Prospecto no encontrado'], 404);
+    }
 }

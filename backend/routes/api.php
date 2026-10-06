@@ -79,6 +79,8 @@ Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/tracking/dashboard', [TrackingController::class, 'getDashboardData']);
     Route::post('/leads/etiquetas', [LeadController::class, 'agregarEtiquetaManual']);
+    Route::post('/leads/etiquetas/remove', [LeadController::class, 'quitarEtiqueta']);
+
 
 
     Route::post('/logout', [AuthController::class, 'logout']);
