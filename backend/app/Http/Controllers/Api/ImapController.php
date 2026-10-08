@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\DB;
 class ImapController extends Controller
 {
     public function getStatus(){
-        $config = DB::table('configuraciones')->where('clave', 'agente_imap_activo')->first();
-        $isActive = $config ? (bool)$config->valor : false;
+        $ajuste = DB::table('ajustes_sistema')->where('clave', 'agente_imap_activo')->first();
+        $activo = $ajuste ? (bool)$ajuste->valor : false;
 
-        return response()->json(['is_active' => $isActive]);
+        return response()->json(['activo' => $activo]);
     }
 
     public function toggleStatus(){
-        $config = DB::table('configuraciones')->where('clave', 'agente_imap_activo')->first();
-        $nuevoEstado = $config ? !$config->valor : true;
+        $ajuste = DB::table('ajustes_sistema')->where('clave', 'agente_imap_activo')->first();
+        $nuevoEstado = $ajuste ? !$ajuste->valor : true;
 
-        DB::table('configuraciones')->updateOrInsert(
+        DB::table('ajustes_sistema')->updateOrInsert(
             ['clave'=>'agente_imap_activo'],
             [
                 'valor'=>$nuevoEstado,
@@ -28,8 +28,8 @@ class ImapController extends Controller
             ]
         );
         return response()->json([
-            'is_active'=>(bool)$nuevoEstado,
-            'message' => 'Estado del agente IMAP actualizado correctamente'
+            'message' => $nuevoEstado ? 'Agente activado' : 'Agente pausado',
+            'activo'  => $nuevoEstado
         ]);
     }
 }
