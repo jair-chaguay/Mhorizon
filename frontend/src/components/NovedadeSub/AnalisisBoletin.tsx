@@ -75,6 +75,15 @@ export const AnalisisBoletin: React.FC<AnalisisBoletinProps> = ({ informativo })
           </h1>
         </div>
 
+        {informativo.imagen_portada_url && (
+          <div className="w-full h-auto max-h-125 overflow-hidden rounded-xl mb-10 shadow-sm reveal-element">
+            <img src={informativo.imagen_portada_url.startsWith('http')
+              ? informativo.imagen_portada_url : `${BASE_URL}/${informativo.imagen_portada_url}`
+            } alt={informativo.titulo} 
+            className='w-full h-full object-cover'/>
+          </div>
+        )}
+
         <div 
           className="prose prose-lg max-w-none text-blue-200 prose-headings:text-blue-200 prose-strong:text-blue-200 prose-a:text-orange-500 prose-a:no-underline hover:prose-a:underline reveal-element delay-100"
           dangerouslySetInnerHTML={{ __html: cleanHTML }} 
