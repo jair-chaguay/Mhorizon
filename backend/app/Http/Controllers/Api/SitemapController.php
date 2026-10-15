@@ -14,12 +14,13 @@ class SitemapController extends Controller
         
         $estaticas = ['/', '/soluciones', '/sectores', '/novedades', '/nosotros', '/calculadora'];
         foreach ($estaticas as $ruta) {
-            $xml .= '<url><loc>https://mhorizon.com.ec' . $ruta . '</loc><priority>0.80</priority></url>';
+            $rutaCanonica = $ruta === '/' ? '/' : rtrim($ruta, '/') . '/';
+            $xml .= '<url><loc>https://mhorizon.com.ec' . $rutaCanonica . '</loc><priority>0.80</priority></url>';
         }
 
         foreach ($informativos as $info) {
             $xml .= '<url>';
-            $xml .= '<loc>https://mhorizon.com.ec/novedades-sub/' . $info->id . '</loc>';
+            $xml .= '<loc>https://mhorizon.com.ec/novedades-sub/' . $info->id . '/</loc>';
             $xml .= '<lastmod>' . $info->updated_at->tz('UTC')->toAtomString() . '</lastmod>';
             $xml .= '<priority>0.90</priority>';
             $xml .= '</url>';

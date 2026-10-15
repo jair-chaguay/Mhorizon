@@ -8,7 +8,7 @@
   
   RewriteRule ^webfinal/(.*)$ /$1 [R=301,L]
   
-  RewriteRule ^novedades-sub/([0-9]+)$ seo-boletin.php?id=$1 [L]
+  RewriteRule ^novedades-sub/([0-9]+)/?$ seo-boletin.php?id=$1 [L]
 
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
