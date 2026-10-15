@@ -5,6 +5,7 @@
   
   # Esta línea nueva conecta a Google con tu archivo PHP
   RewriteRule ^sitemap\.xml$ sitemap.php [L]
+  RewriteRule ^robots\.txt$ - [L]
   
   RewriteRule ^webfinal/(.*)$ /$1 [R=301,L]
   
