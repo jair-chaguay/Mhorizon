@@ -16,21 +16,14 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
     const [mensaje, setMensaje] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const isWhatsAppReady = nombre.trim() !== "" && correo.trim() !== "";
     const phoneNumber = "593983643310";
     const whatsappMessage = encodeURIComponent(
-        `Hola, soy ${nombre} ${apellido}.
-        Correo: ${correo}
-        ${mensaje ? `Mensaje: ${mensaje}` : ""}`
+        ``
     );
     const whatsappLink = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
 
 
     const handleWhatsAppClick = () => {
-        if (!isWhatsAppReady) {
-            alert("Por favor completa al menos tu nombre y correo.");
-            return;
-        }
 
         window.open(whatsappLink, "_blank");
     };
@@ -193,12 +186,8 @@ export const ContactModal = ({ isOpen, onClose }: ContactModalProps) => {
                         <button
                             type="button"
                             onClick={handleWhatsAppClick}
-                            disabled={!isWhatsAppReady}
                             className={`cursor-pointer font-bold tracking-wider uppercase px-6 py-4 rounded-md shadow-xl transition-all duration-300 transform w-full sm:w-auto flex items-center justify-center gap-3
-    ${isWhatsAppReady
-                                    ? "bg-green-500 hover:bg-green-600 hover:shadow-2xl hover:-translate-y-1 text-white"
-                                    : "bg-gray-300 text-gray-500 cursor-not-allowed"}
-    `}
+    bg-green-500 hover:bg-green-600 hover:shadow-2xl hover:-translate-y-1 text-white`}
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

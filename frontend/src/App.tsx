@@ -6,6 +6,7 @@ import { AnalyticsTracker, CookieBanner } from "./components/Analytics";
 import { PageSkeleton } from "./components/PageSkeleton";
 import {HelmetProvider} from "react-helmet-async";
 import { MetaPixelTracker } from "./MetaPixelTracker";
+import { WhatsAppFlot } from "./components/WhatsAppFlot";
 
 const Home = lazy(() => import("./components/pages/Home").then(m => ({ default: m.Home })));
 const MembresiaPage = lazy(() => import("./components/pages/MembresiaPage").then(m => ({ default: m.MembresiaPage })))
@@ -43,6 +44,7 @@ function App() {
         <ScrollToTop />
         <AnalyticsTracker />
         <MetaPixelTracker />
+        <WhatsAppFlot />
 
         <Suspense fallback={
           <PageSkeleton />
