@@ -26,14 +26,31 @@ class TrackingController extends Controller
         $email = $request->query('email');
         $fase = $request->query('fase', 1);
         $campaign = $request->query('campaign', 'Campaña General');
+        $status = $request->query('status', 'sent');
+
         
         if($email) {
+
+            if (!$campaign) {
+                $ultimoLog = DB::table('email_logs')
+                    ->where('email', $email)
+                    ->where('event_type', 'sent')
+                    ->orderBy('id', 'desc')
+                    ->first();
+                $campaignName = $ultimoLog ? $ultimoLog->campaign_name : 'Campaña General';
+            } else {
+                $campaignName = urldecode($campaign);
+            }
+
+
+            $estadoTexto = $status === 'sent' ? 'Contactado' : ($status === 'blocked' ? 'Bloqueado' : 'Falló');
+
             $lead = DB::table('leads')->where('email', $email)->first();
             if (!$lead) {
                 DB::table('leads')->insert([
                     'email' => $email,
                     'fase' => $fase,
-                    'status' => 'Contactado',
+                    'status' => $estadoTexto,
                     'opens' => 0,
                     'clicks' => 0,
                     'created_at' => now(),
@@ -42,19 +59,58 @@ class TrackingController extends Controller
             } else {
                 DB::table('leads')->where('email', $email)->update([
                     'fase' => $fase,
+                    'status'=> $estadoLead,
                     'updated_at' => now()
                 ]);
             }
-            DB::table('email_logs')->insert([
-                'email' => $email,
-                'campaign_name' => urldecode($campaign),
-                'event_type' => 'sent',
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
+
+            if ($status === 'sent') {
+                DB::table('email_logs')->insert([
+                    'email' => $email,
+                    'campaign_name' => $campaignName,
+                    'event_type' => 'sent',
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+            } else {
+                $existeSent = DB::table('email_logs')
+                    ->where('email', $email)
+                    ->where('campaign_name', $campaignName)
+                    ->where('event_type', 'sent')
+                    ->exists();
+
+                if (!$existeSent) {
+                    DB::table('email_logs')->insert([
+                        'email' => $email,
+                        'campaign_name' => $campaignName,
+                        'event_type' => 'sent',
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                }
+
+                // Registramos el evento de bloqueo o fallo para que el Dashboard lo pinte
+                DB::table('email_logs')->insert([
+                    'email' => $email,
+                    'campaign_name' => $campaignName,
+                    'event_type' => $status, // 'blocked' o 'failed'
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
+
+                // Retiramos al prospecto de la automatización en la tabla principal del CRM (Fase 99)
+                DB::table('leadss')->where('email', $email)->update([
+                    'fase' => 99,
+                    'status' => "Retirado ($estadoTexto)",
+                    'updated_at' => now()
+                ]);
+            }
+
         }
         return response()->json(['message' => 'Registrado correctamente']);
     }
+
+
 
     public function trackOpen(Request $request)
     {
@@ -89,7 +145,7 @@ class TrackingController extends Controller
     public function trackClick(Request $request){
         $email = $request->query('email');
         $targetUrl = $request->query('url', 'https://mhorizon.com.ec');
-        $campaign = $request->query('campaing', 'Campaña General');
+        $campaign = $request->query('campaign', 'Campaña General');
         $userAgent = $request->header('User-Agent');
 
         if ($email){

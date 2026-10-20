@@ -83,6 +83,52 @@ class LeadController extends Controller
         return response()->json(['error'=>'Prospecto no encontrado'], 404);
     }
 
+    public function eliminarProspectosPorEtiqueta(Request $request) {
+        $request->validate(['etiqueta' => 'required|string']);
+
+        // Busca todos los leads que contengan esa etiqueta en su JSON y los elimina
+        $eliminados = DB::table('leadss')
+            ->where('etiquetas', 'LIKE', '%"' . $request->etiqueta . '"%')
+            ->delete();
+
+        return response()->json([
+            'message' => "Se eliminaron $eliminados prospectos con la etiqueta '{$request->etiqueta}'"
+        ]);
+    }
+
+    public function quitarEtiquetaMasiva(Request $request){
+        $request->validate([
+            'emails' => 'required|array', 
+            'emails.*' => 'email',
+            'etiqueta' => 'required|string'
+        ]);
+        $leads = DB::table('leadss')->whereIn('email', $request->emails)->get();
+
+        $actualizados = 0;
+
+        foreach ($leads as $lead) {
+            if ($lead->etiquetas) {
+                $etiquetasActuales = json_decode($lead->etiquetas, true);
+                
+                if (in_array($request->etiqueta, $etiquetasActuales)) {
+                    $etiquetasFinales = array_values(array_filter($etiquetasActuales, function($t) use ($request) {
+                        return $t !== $request->etiqueta;
+                    }));
+
+                    DB::table('leadss')->where('id', $lead->id)->update([
+                        'etiquetas' => json_encode($etiquetasFinales),
+                        'updated_at' => now()
+                    ]);
+                    $actualizados++;
+                }
+            }
+        }
+
+        return response()->json([
+            'message' => "Etiqueta '{$request->etiqueta}' eliminada correctamente de $actualizados prospectos."
+        ]);
+    }
+
     public function quitarEtiqueta(Request $request){
         $request->validate(['email'=>'required|email', 'etiqueta'=>'required|string']);
         $lead = DB::table('leadss')->where('email', $request->email)->first();

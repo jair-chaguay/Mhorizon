@@ -97,6 +97,9 @@ Route::middleware('auth:sanctum')->group(function () {
         return Storage::disk('public')->download($rutaArchivo);
     });
 
+    // En api.php (dentro de tu grupo middleware auth:sanctum)
+    Route::post('/leads/delete-by-tag', [LeadController::class, 'eliminarProspectosPorEtiqueta']);
+
 
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -108,7 +111,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/obligacion', [ObligacionController::class, 'store']);
     Route::put('/obligacion/{id}/toggle', [ObligacionController::class, 'toggleEstado']);
     Route::delete('/obligacion/{id}', [ObligacionController::class, 'destroy']);
-
+    Route::post('/leads/etiquetas/remove-bulk', [LeadController::class, 'quitarEtiquetaMasiva']);
 
     Route::get('/preguntas-score', [PreguntaScoreController::class, 'obtenerPreguntas']);
     Route::post('/clientes/{id}/evaluar-score', [ClienteController::class, 'evaluarScore']);
