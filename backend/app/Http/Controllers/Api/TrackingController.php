@@ -59,7 +59,7 @@ class TrackingController extends Controller
             } else {
                 DB::table('leads')->where('email', $email)->update([
                     'fase' => $fase,
-                    'status'=> $estadoLead,
+                    'status'=> $estadoTexto,
                     'updated_at' => now()
                 ]);
             }
