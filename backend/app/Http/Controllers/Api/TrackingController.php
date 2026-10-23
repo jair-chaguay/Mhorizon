@@ -9,8 +9,18 @@ use Illuminate\Support\Facades\DB;
 class TrackingController extends Controller 
 {
     public function getDashboardData(){
+        // El estado que se muestra es el del CRM (leadss): ahí el agente IMAP marca quién respondió.
+        // tracking_status conserva el de esta tabla (Contactado / Bloqueado / Falló)
         $leads = DB::table('leads')
-                    ->orderBy('updated_at', 'desc')
+                    ->leftJoin('leadss as crm', 'crm.email', '=', 'leads.email')
+                    ->select(
+                        'leads.id', 'leads.email', 'leads.fase', 'leads.sent', 'leads.delivered', 'leads.blocked', 'leads.failed',
+                        'leads.spam', 'leads.unsubscribed', 'leads.opens', 'leads.clicks', 'leads.created_at', 'leads.updated_at',
+                        'leads.status as tracking_status',
+                        DB::raw('COALESCE(crm.status, leads.status) as status'),
+                        'crm.nombre', 'crm.empresa', 'crm.telefono', 'crm.responsable', 'crm.proxima_accion', 'crm.proxima_fecha'
+                    )
+                    ->orderBy('leads.updated_at', 'desc')
                     ->get();
         $linkClicks = DB::table('link_clicks')->get();
         $emailLogs = DB::table('email_logs')->orderBy('created_at', 'asc')->get();
@@ -25,10 +35,12 @@ class TrackingController extends Controller
     public function registerLead(Request $request){
         $email = $request->query('email');
         $fase = $request->query('fase', 1);
-        $campaign = $request->query('campaign', 'Campaña General');
+        // Sin campaña (por ejemplo, un rebote detectado por IMAP) se usa la del último envío a ese correo
+        $campaign = $request->query('campaign');
         $status = $request->query('status', 'sent');
+        $reason = $request->query('reason');
 
-        
+
         if($email) {
 
             if (!$campaign) {
@@ -93,7 +105,8 @@ class TrackingController extends Controller
                 DB::table('email_logs')->insert([
                     'email' => $email,
                     'campaign_name' => $campaignName,
-                    'event_type' => $status, // 'blocked' o 'failed'
+                    'event_type' => $status, // 'blocked' (rebote duro) o 'failed' (rebote suave)
+                    'bounce_reason' => $reason ? mb_substr($reason, 0, 1000) : null,
                     'created_at' => now(),
                     'updated_at' => now()
                 ]);
@@ -173,6 +186,56 @@ class TrackingController extends Controller
         }
 
         return redirect()->away($targetUrl);
-        
+
+    }
+
+    // Enlace "Darse de baja" del pie de los correos. El GET solo muestra la confirmación
+    // (los antivirus de correo abren los enlaces solos); la baja se registra con el POST del botón
+    public function unsubscribe(Request $request){
+        $email = trim((string) $request->input('email'));
+        $campaign = $request->input('campaign');
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return response($this->unsubscribePage('Enlace no válido', 'No pudimos identificar tu correo.'), 400);
+        }
+
+        if ($request->isMethod('get')) {
+            $form = '<form method="POST"><input type="hidden" name="email" value="' . e($email) . '">'
+                . '<input type="hidden" name="campaign" value="' . e((string) $campaign) . '">'
+                . '<button type="submit">Confirmar baja</button></form>';
+            return response($this->unsubscribePage('¿Dejar de recibir nuestros correos?', 'Correo: <strong>' . e($email) . '</strong>', $form));
+        }
+
+        $yaRegistrado = DB::table('email_logs')->where('email', $email)->where('event_type', 'unsubscribe')->exists();
+        if (!$yaRegistrado) {
+            if (!$campaign) {
+                $ultimoLog = DB::table('email_logs')->where('email', $email)->where('event_type', 'sent')->orderBy('id', 'desc')->first();
+                $campaign = $ultimoLog ? $ultimoLog->campaign_name : 'Campaña General';
+            }
+            DB::table('email_logs')->insert([
+                'email' => $email,
+                'campaign_name' => urldecode($campaign),
+                'event_type' => 'unsubscribe',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+
+        // Mismo estado que usa el agente IMAP cuando alguien pide no ser contactado
+        DB::table('leadss')->where('email', $email)->update([
+            'fase' => 99,
+            'status' => 'NO CONTACTAR',
+            'updated_at' => now()
+        ]);
+
+        return response($this->unsubscribePage('Listo, te dimos de baja', 'No volverás a recibir correos de MHORIZON en <strong>' . e($email) . '</strong>.'));
+    }
+
+    private function unsubscribePage($titulo, $texto, $extra = ''){
+        return '<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
+            . '<title>MHORIZON</title><style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#f4f5f7;font-family:system-ui,sans-serif;color:#1e293b}'
+            . '.card{max-width:420px;margin:16px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:28px;text-align:center}'
+            . 'h1{font-size:20px;margin:0 0 8px}p{color:#475569;font-size:15px}button{margin-top:12px;height:42px;padding:0 20px;border:0;border-radius:8px;background:#d4681c;color:#fff;font-weight:600;font-size:15px;cursor:pointer}</style></head>'
+            . '<body><div class="card"><h1>' . e($titulo) . '</h1><p>' . $texto . '</p>' . $extra . '</div></body></html>';
     }
 }

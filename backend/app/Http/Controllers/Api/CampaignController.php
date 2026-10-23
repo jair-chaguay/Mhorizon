@@ -13,6 +13,7 @@ class CampaignController extends Controller
             'asunto' => 'required|string',
             'cuerpo' => 'required|string',
             'fase'=> 'required|integer',
+            'etiqueta' => 'nullable|string|max:255',
             'adjuntos.*' => 'file|max:10240'
         ]);
 
@@ -27,6 +28,8 @@ class CampaignController extends Controller
         DB::table('tareas_envio')->insert([
             'tipo' =>'manual',
             'fase_objetivo' =>$request->fase,
+            // Etiquetas separadas por coma; el worker de Python solo envía a quienes tengan alguna
+            'etiqueta_filtro'=>$request->filled('etiqueta') ? $request->etiqueta : null,
             'asunto'=>$request->asunto,
             'cuerpo'=>$request->cuerpo,
             'adjuntos'=>json_encode($adjuntosRutas),

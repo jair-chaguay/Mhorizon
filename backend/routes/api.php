@@ -30,6 +30,7 @@ Route::get('/track/open', [TrackingController::class, 'trackOpen']);
 Route::get('/track/click', [TrackingController::class, 'trackClick']);
 
 Route::get('/track/register', [TrackingController::class, 'registerLead']);
+Route::match(['get', 'post'], '/track/unsubscribe', [TrackingController::class, 'unsubscribe']);
 //LOGIN
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/sitemap', [SitemapController::class, 'index']);
@@ -43,18 +44,6 @@ Route::post('/correoC', [CorreoCalculadoraController::class, 'store']);
 Route::get('/correoC/{id}', [CorreoCalculadoraController::class, 'show']);
 Route::delete('/correoC/{id}', [CorreoCalculadoraController::class, 'destroy']);
 
-
-// Rutas para los Leads (Subir CSV y ver la tabla de audiencia)
-Route::get('/leads', [LeadController::class, 'index']);
-Route::post('/leads/upload', [LeadController::class, 'uploadCsv']);
-
-// Rutas para el Agente IMAP (Panel de Inbound)
-Route::get('/imap/status', [ImapController::class, 'getStatus']);
-Route::post('/imap/toggle', [ImapController::class, 'toggleStatus']);
-
-// Rutas para las Campañas (Difusión Manual y Autónoma)
-Route::post('/campaign/manual', [CampaignController::class, 'encolarEnvioManual']);
-Route::post('/campaign/ia', [CampaignController::class, 'lanzarCampanaIA']);
 
 
 //ROLES
@@ -81,6 +70,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/leads/etiquetas', [LeadController::class, 'agregarEtiquetaManual']);
     Route::post('/leads/etiquetas/remove', [LeadController::class, 'quitarEtiqueta']);
     Route::post('/leads/delete', [LeadController::class, 'eliminarProspecto']);
+
+    // CRM: prospectos, agente IMAP y campañas (solo con sesión iniciada)
+    Route::get('/leads', [LeadController::class, 'index']);
+    Route::post('/leads/upload', [LeadController::class, 'uploadCsv']);
+    Route::post('/leads/update', [LeadController::class, 'actualizarContacto']);
+    Route::get('/imap/status', [ImapController::class, 'getStatus']);
+    Route::post('/imap/toggle', [ImapController::class, 'toggleStatus']);
+    Route::post('/campaign/manual', [CampaignController::class, 'encolarEnvioManual']);
+    Route::post('/campaign/ia', [CampaignController::class, 'lanzarCampanaIA']);
 
 
     Route::post('/logout', [AuthController::class, 'logout']);
