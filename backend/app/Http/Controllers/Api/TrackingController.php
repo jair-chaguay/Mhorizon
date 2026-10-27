@@ -34,7 +34,8 @@ class TrackingController extends Controller
 
     public function registerLead(Request $request){
         $email = $request->query('email');
-        $fase = $request->query('fase', 1);
+        // Los rebotes leídos por IMAP llegan sin fase: en ese caso no se cambia la que ya tiene
+        $fase = $request->query('fase');
         // Sin campaña (por ejemplo, un rebote detectado por IMAP) se usa la del último envío a ese correo
         $campaign = $request->query('campaign');
         $status = $request->query('status', 'sent');
@@ -61,7 +62,7 @@ class TrackingController extends Controller
             if (!$lead) {
                 DB::table('leads')->insert([
                     'email' => $email,
-                    'fase' => $fase,
+                    'fase' => $fase ?? 1,
                     'status' => $estadoTexto,
                     'opens' => 0,
                     'clicks' => 0,
@@ -69,8 +70,7 @@ class TrackingController extends Controller
                     'updated_at' => now()
                 ]);
             } else {
-                DB::table('leads')->where('email', $email)->update([
-                    'fase' => $fase,
+                DB::table('leads')->where('email', $email)->update(($fase !== null ? ['fase' => $fase] : []) + [
                     'status'=> $estadoTexto,
                     'updated_at' => now()
                 ]);
@@ -111,12 +111,15 @@ class TrackingController extends Controller
                     'updated_at' => now()
                 ]);
 
-                // Retiramos al prospecto de la automatización en la tabla principal del CRM (Fase 99)
-                DB::table('leadss')->where('email', $email)->update([
-                    'fase' => 99,
-                    'status' => "Retirado ($estadoTexto)",
-                    'updated_at' => now()
-                ]);
+                // Rebote duro: se retira al prospecto de la automatización (Fase 99).
+                // Rebote suave: sigue en su fase; el worker no contó el envío y lo reintenta en el próximo lote
+                if ($status === 'blocked') {
+                    DB::table('leadss')->where('email', $email)->update([
+                        'fase' => 99,
+                        'status' => "Retirado ($estadoTexto)",
+                        'updated_at' => now()
+                    ]);
+                }
             }
 
         }
