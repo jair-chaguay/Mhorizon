@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class TrackingController extends Controller 
 {
@@ -24,7 +25,10 @@ class TrackingController extends Controller
                     ->get();
         $linkClicks = DB::table('link_clicks')->get();
         $emailLogs = DB::table('email_logs')->orderBy('created_at', 'asc')->get();
-        $campaignAliases = DB::table('campaign_aliases')->pluck('alias', 'campaign_name');
+        // Si aún no se corrió la migración de nombres provisionales, el dashboard sigue funcionando
+        $campaignAliases = Schema::hasTable('campaign_aliases')
+            ? DB::table('campaign_aliases')->pluck('alias', 'campaign_name')
+            : collect();
 
         return response()->json([
             'leads'=>$leads,
