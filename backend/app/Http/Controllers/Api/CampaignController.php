@@ -52,5 +52,25 @@ class CampaignController extends Controller
         ]);
         return response()->json(['message'=>'Motor de IA activado y encolado']);
     }
-    
+
+    // Guarda (o borra, si llega vacío) el nombre provisional de una campaña
+    public function guardarAlias(Request $request){
+        $request->validate([
+            'campaign_name' => 'required|string|max:255',
+            'alias' => 'nullable|string|max:255',
+        ]);
+
+        $alias = trim((string) $request->alias);
+        if ($alias === '') {
+            DB::table('campaign_aliases')->where('campaign_name', $request->campaign_name)->delete();
+            return response()->json(['message' => 'Nombre provisional eliminado', 'alias' => null]);
+        }
+
+        DB::table('campaign_aliases')->updateOrInsert(
+            ['campaign_name' => $request->campaign_name],
+            ['alias' => $alias, 'updated_at' => now(), 'created_at' => now()]
+        );
+        return response()->json(['message' => 'Nombre provisional guardado', 'alias' => $alias]);
+    }
+
 }

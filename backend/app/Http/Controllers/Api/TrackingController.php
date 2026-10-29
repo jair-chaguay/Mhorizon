@@ -24,11 +24,13 @@ class TrackingController extends Controller
                     ->get();
         $linkClicks = DB::table('link_clicks')->get();
         $emailLogs = DB::table('email_logs')->orderBy('created_at', 'asc')->get();
+        $campaignAliases = DB::table('campaign_aliases')->pluck('alias', 'campaign_name');
 
         return response()->json([
             'leads'=>$leads,
             'email_logs'=>$emailLogs,
-            'link_clicks' =>$linkClicks
+            'link_clicks' =>$linkClicks,
+            'campaign_aliases' => (object) $campaignAliases->all()
         ]);
     }
 

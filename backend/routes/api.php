@@ -79,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/imap/toggle', [ImapController::class, 'toggleStatus']);
     Route::post('/campaign/manual', [CampaignController::class, 'encolarEnvioManual']);
     Route::post('/campaign/ia', [CampaignController::class, 'lanzarCampanaIA']);
+    Route::post('/campaign/alias', [CampaignController::class, 'guardarAlias']);
 
 
     Route::post('/logout', [AuthController::class, 'logout']);
