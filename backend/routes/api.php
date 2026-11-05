@@ -75,6 +75,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/leads', [LeadController::class, 'index']);
     Route::post('/leads/upload', [LeadController::class, 'uploadCsv']);
     Route::post('/leads/update', [LeadController::class, 'actualizarContacto']);
+    Route::post('/leads/fases', [LeadController::class, 'cambiarFlujoFases']);
     Route::get('/imap/status', [ImapController::class, 'getStatus']);
     Route::post('/imap/toggle', [ImapController::class, 'toggleStatus']);
     Route::post('/campaign/manual', [CampaignController::class, 'encolarEnvioManual']);

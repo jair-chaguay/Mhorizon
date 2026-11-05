@@ -19,12 +19,12 @@ class CampaignController extends Controller
         ]);
 
         // El envío manual es solo por etiquetas, pero el worker de Python filtra por una fase exacta:
-        // se encola una tarea por cada fase (1 a 5) que tenga prospectos con esas etiquetas
+        // se encola una tarea por cada fase (0 a 5) que tenga prospectos con esas etiquetas. La 0 son los que no están en el flujo
         $etiquetas = array_values(array_filter(array_map('trim', explode(',', $request->etiqueta))));
         $fases = [];
         if (!empty($etiquetas)) {
             $fases = DB::table('leadss')
-                ->whereBetween('fase', [1, 5])
+                ->whereBetween('fase', [0, 5])
                 ->where(function ($query) use ($etiquetas) {
                     foreach ($etiquetas as $etiqueta) {
                         $query->orWhereJsonContains('etiquetas', $etiqueta);
@@ -85,7 +85,16 @@ class CampaignController extends Controller
         }
 
         // El nombre automático no pisa uno que ya exista para ese asunto
-        $automatico = 'Campaña Etiquetas ' . implode(', ', $etiquetas) . ' ' . (count($fases) === 1 ? 'Fase' : 'Fases') . ' ' . implode(', ', $fases);
+        $fases = array_map('intval', $fases);
+        $conFase = array_values(array_filter($fases));
+        $partes = [];
+        if (!empty($conFase)) {
+            $partes[] = (count($conFase) === 1 ? 'Fase' : 'Fases') . ' ' . implode(', ', $conFase);
+        }
+        if (in_array(0, $fases, true)) {
+            $partes[] = empty($conFase) ? 'Sin fases' : 'sin fases';
+        }
+        $automatico = 'Campaña Etiquetas ' . implode(', ', $etiquetas) . ' ' . implode(' y ', $partes);
         DB::table('campaign_aliases')->insertOrIgnore([
             'campaign_name' => $campaignName,
             'alias' => mb_substr($automatico, 0, 255),

@@ -60,8 +60,12 @@ class LeadController extends Controller
     public function uploadCsv(Request $request){
         $request->validate([
             'csv_file'=>'required|file|mimes:csv,txt',
-            'etiquetas'=> 'nullable|string'
+            'etiquetas'=> 'nullable|string',
+            'pasar_a_fases'=> 'nullable|boolean'
         ]);
+        // Fase 0 = solo envíos manuales: el worker de la IA únicamente revisa las fases 1 a 5
+        $pasarAFases = $request->boolean('pasar_a_fases', true);
+        $yaEnFases = 0;
         $etiquetasNuevas = [];
         if($request->etiquetas){
             $etiquetasNuevas = array_map('trim', explode(',', $request->etiquetas));
@@ -107,14 +111,20 @@ class LeadController extends Controller
             if($lead){
                 $etiquetasActuales = $lead->etiquetas ? json_decode($lead->etiquetas, true) : [];
                 $etiquetasFinales = array_values(array_unique(array_merge($etiquetasActuales, $etiquetasNuevas)));
-                DB::table('leadss')->where('email', $email)->update($contacto + [
+                // Quien ya está en el flujo no se saca al cargar un archivo: eso se hace desde la tabla
+                $faseActual = (int) $lead->fase;
+                $cambioFase = $pasarAFases && $faseActual === 0 ? ['fase' => 1] : [];
+                if (!$pasarAFases && $faseActual >= 1 && $faseActual <= 5) {
+                    $yaEnFases++;
+                }
+                DB::table('leadss')->where('email', $email)->update($contacto + $cambioFase + [
                     'etiquetas'=>json_encode($etiquetasFinales),
                     'updated_at'=>now()
                 ]);
             }else{
                 DB::table('leadss')->insert($contacto + [
                     'email' => $email,
-                    'fase'=> 1,
+                    'fase'=> $pasarAFases ? 1 : 0,
                     'status' =>'Pendiente',
                     'etiquetas'=>json_encode($etiquetasNuevas),
                     'created_at'=>now(),
@@ -122,7 +132,28 @@ class LeadController extends Controller
                 ]);
             }
         }
-        return response()->json(['message'=>'Base de datos cargada y sincronizada correctamente.']);
+        return response()->json(['message'=>'Base de datos cargada y sincronizada correctamente.', 'ya_en_fases'=>$yaEnFases]);
+    }
+
+    // Pasa prospectos al flujo de fases (entran en la Fase 1) o los saca (quedan solo para envíos manuales).
+    // Los de fase 99 ya salieron por rebote, baja o fin de secuencia y no se tocan
+    public function cambiarFlujoFases(Request $request){
+        $request->validate([
+            'emails' => 'required|array',
+            'emails.*' => 'email',
+            'en_fases' => 'required|boolean',
+        ]);
+
+        $query = DB::table('leadss')->whereIn('email', $request->emails);
+        $enFases = $request->boolean('en_fases');
+        $enFases ? $query->where('fase', 0) : $query->whereBetween('fase', [1, 5]);
+
+        $actualizados = $query->update([
+            'fase' => $enFases ? 1 : 0,
+            'envios_fase_actual' => 0,
+            'updated_at' => now(),
+        ]);
+        return response()->json(['message' => 'Prospectos actualizados', 'actualizados' => $actualizados]);
     }
 
     public function agregarEtiquetaManual(Request $request){
