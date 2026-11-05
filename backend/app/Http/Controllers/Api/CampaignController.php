@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class CampaignController extends Controller
 {
@@ -12,10 +13,31 @@ class CampaignController extends Controller
         $request->validate([
             'asunto' => 'required|string',
             'cuerpo' => 'required|string',
-            'fase'=> 'required|integer',
-            'etiqueta' => 'nullable|string|max:255',
+            'etiqueta' => 'required|string|max:255',
+            'nombre_provisional' => 'nullable|string|max:255',
             'adjuntos.*' => 'file|max:10240'
         ]);
+
+        // El envío manual es solo por etiquetas, pero el worker de Python filtra por una fase exacta:
+        // se encola una tarea por cada fase (1 a 5) que tenga prospectos con esas etiquetas
+        $etiquetas = array_values(array_filter(array_map('trim', explode(',', $request->etiqueta))));
+        $fases = [];
+        if (!empty($etiquetas)) {
+            $fases = DB::table('leadss')
+                ->whereBetween('fase', [1, 5])
+                ->where(function ($query) use ($etiquetas) {
+                    foreach ($etiquetas as $etiqueta) {
+                        $query->orWhereJsonContains('etiquetas', $etiqueta);
+                    }
+                })
+                ->distinct()
+                ->orderBy('fase')
+                ->pluck('fase')
+                ->all();
+        }
+        if (empty($fases)) {
+            return response()->json(['message' => 'Ningún prospecto activo tiene esas etiquetas'], 422);
+        }
 
         $adjuntosRutas = [];
         if($request->hasFile('adjuntos')){
@@ -25,19 +47,51 @@ class CampaignController extends Controller
             }
         }
 
-        DB::table('tareas_envio')->insert([
+        DB::table('tareas_envio')->insert(array_map(fn ($fase) => [
             'tipo' =>'manual',
-            'fase_objetivo' =>$request->fase,
+            'fase_objetivo' =>$fase,
             // Etiquetas separadas por coma; el worker de Python solo envía a quienes tengan alguna
-            'etiqueta_filtro'=>$request->filled('etiqueta') ? $request->etiqueta : null,
+            'etiqueta_filtro'=>implode(',', $etiquetas),
             'asunto'=>$request->asunto,
             'cuerpo'=>$request->cuerpo,
             'adjuntos'=>json_encode($adjuntosRutas),
             'estado'=>'pendiente',
             'created_at'=>now(),
             'updated_at'=>now()
-        ]);
+        ], $fases));
+
+        $this->guardarNombreDeEnvio($request, $etiquetas, $fases);
+
         return response()->json(['message'=>'Campaña encolada para que Python la procese']);
+    }
+
+    // Nombre provisional del envío: el que escribió el usuario o "Campaña Etiquetas X Fase N"
+    private function guardarNombreDeEnvio(Request $request, array $etiquetas, array $fases) {
+        // Si aún no se corrió la migración de nombres provisionales, el envío sigue funcionando
+        if (!Schema::hasTable('campaign_aliases')) {
+            return;
+        }
+
+        // Debe coincidir con el campaign_name que registra email_manager.py (el asunto sin "Re:")
+        $campaignName = trim(preg_replace('/^(re|rv|resp|fw|fwd)\s*:\s*/i', '', $request->asunto));
+        $nombre = trim((string) $request->nombre_provisional);
+
+        if ($nombre !== '') {
+            DB::table('campaign_aliases')->updateOrInsert(
+                ['campaign_name' => $campaignName],
+                ['alias' => $nombre, 'updated_at' => now(), 'created_at' => now()]
+            );
+            return;
+        }
+
+        // El nombre automático no pisa uno que ya exista para ese asunto
+        $automatico = 'Campaña Etiquetas ' . implode(', ', $etiquetas) . ' ' . (count($fases) === 1 ? 'Fase' : 'Fases') . ' ' . implode(', ', $fases);
+        DB::table('campaign_aliases')->insertOrIgnore([
+            'campaign_name' => $campaignName,
+            'alias' => mb_substr($automatico, 0, 255),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     public function lanzarCampanaIA(Request $request){
