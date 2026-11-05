@@ -7,8 +7,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
-class TrackingController extends Controller 
+class TrackingController extends Controller
 {
+    // Etiqueta que queda en el prospecto cuando se da de baja desde el pie del correo
+    const ETIQUETA_BAJA = 'Desuscrito';
+
     public function getDashboardData(){
         // El estado que se muestra es el del CRM (leadss): ahí el agente IMAP marca quién respondió.
         // tracking_status conserva el de esta tabla (Contactado / Bloqueado / Falló)
@@ -251,10 +254,14 @@ class TrackingController extends Controller
             ]);
         }
 
-        // Mismo estado que usa el agente IMAP cuando alguien pide no ser contactado
+        // Mismo estado que usa el agente IMAP cuando alguien pide no ser contactado. Con fase 99 queda fuera
+        // de la secuencia de la IA y de las difusiones manuales (solo van a las fases 0 a 5).
+        // Sus etiquetas se cambian por "Desuscrito", así tampoco entra en las difusiones por etiqueta.
+        // No se borra el registro: así se ve quién se dio de baja y una nueva importación no lo vuelve a meter en los envíos
         DB::table('leadss')->where('email', $email)->update([
             'fase' => 99,
             'status' => 'NO CONTACTAR',
+            'etiquetas' => json_encode([self::ETIQUETA_BAJA], JSON_UNESCAPED_UNICODE),
             'updated_at' => now()
         ]);
 
