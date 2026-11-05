@@ -34,8 +34,29 @@ class TrackingController extends Controller
             'leads'=>$leads,
             'email_logs'=>$emailLogs,
             'link_clicks' =>$linkClicks,
-            'campaign_aliases' => (object) $campaignAliases->all()
+            'campaign_aliases' => (object) $campaignAliases->all(),
+            'campaign_types' => (object) $this->tiposDeCampana()
         ]);
+    }
+
+    // Campañas enviadas desde Difusión manual, con su formato ('personal' o 'campana').
+    // El resto de campañas son de la secuencia de la IA. La clave es el campaign_name que registra
+    // email_manager.py: el asunto sin "Re:" (igual que en CampaignController@guardarNombreDeEnvio)
+    private function tiposDeCampana(){
+        $conFormato = Schema::hasColumn('tareas_envio', 'formato');
+        $tareas = DB::table('tareas_envio')
+            ->where('tipo', 'manual')
+            ->select('asunto', $conFormato ? 'formato' : DB::raw('NULL as formato'))
+            ->orderBy('id')
+            ->get();
+        $tipos = [];
+        foreach ($tareas as $tarea) {
+            $nombre = trim(preg_replace('/^(re|rv|resp|fw|fwd)\s*:\s*/i', '', (string) $tarea->asunto));
+            if ($nombre !== '') {
+                $tipos[$nombre] = $tarea->formato ?: 'personal';
+            }
+        }
+        return $tipos;
     }
 
     public function registerLead(Request $request){
