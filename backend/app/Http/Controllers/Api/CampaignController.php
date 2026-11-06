@@ -152,6 +152,14 @@ class CampaignController extends Controller
         ]);
     }
 
+    // Formato de cada envío calculado en SQL. Los correos con diseño enviados antes de que existiera la columna
+    // `formato` (o antes de correr su migración) quedaron sin formato: se reconocen porque el editor de diseño
+    // arma el correo con tablas y el editor del correo personal nunca las genera
+    public static function sqlFormato(): string {
+        $conFormato = Schema::hasColumn('tareas_envio', 'formato');
+        return "CASE WHEN " . ($conFormato ? "formato = 'campana' OR " : '') . "cuerpo LIKE '%<table%' THEN 'campana' ELSE 'personal' END as formato";
+    }
+
     // Debe coincidir con el campaign_name que registra email_manager.py (el asunto sin "Re:")
     public static function nombreDeCampana($asunto): string {
         return trim(preg_replace('/^(re|rv|resp|fw|fwd)\s*:\s*/i', '', (string) $asunto));
@@ -159,14 +167,10 @@ class CampaignController extends Controller
 
     // Difusiones ya enviadas cuyo diseño se puede reutilizar (la más reciente de cada campaña)
     public function reutilizables() {
-        $conFormato = Schema::hasColumn('tareas_envio', 'formato');
-        $conDiseno = Schema::hasColumn('tareas_envio', 'diseno');
         $tareas = DB::table('tareas_envio')
             ->where('tipo', 'manual')
             ->orderByDesc('id')
-            ->get(array_merge(['asunto', 'created_at'],
-                [$conFormato ? 'formato' : DB::raw('NULL as formato')],
-                [$conDiseno ? DB::raw('diseno IS NOT NULL as con_diseno') : DB::raw('0 as con_diseno')]));
+            ->get(['asunto', 'created_at', DB::raw(self::sqlFormato())]);
         $alias = Schema::hasTable('campaign_aliases') ? DB::table('campaign_aliases')->pluck('alias', 'campaign_name') : collect();
 
         $lista = [];
@@ -175,38 +179,37 @@ class CampaignController extends Controller
             if ($nombre === '' || isset($lista[$nombre])) {
                 continue;
             }
-            $formato = $t->formato ?: 'personal';
             $lista[$nombre] = [
                 'nombre' => $nombre,
                 'alias' => $alias[$nombre] ?? null,
-                'formato' => $formato,
+                'formato' => $t->formato,
                 'fecha' => $t->created_at,
-                // Las campañas con diseño enviadas antes de guardar los bloques no se pueden abrir en el editor
-                'reutilizable' => $formato === 'personal' || (bool) $t->con_diseno,
+                // Todas se pueden reutilizar: si un correo con diseño no guardó sus bloques, el frontend los arma desde su HTML
+                'reutilizable' => true,
             ];
         }
         return response()->json(array_values($lista));
     }
 
-    // El diseño de una difusión enviada: cuerpo del correo personal o bloques y estilos del correo con diseño
+    // El diseño de una difusión enviada: el HTML que se envió y, si es un correo con diseño enviado
+    // con esta versión, sus bloques y estilos (sin ellos, el frontend rearma los bloques desde el HTML)
     public function diseno(Request $request) {
         $request->validate(['nombre' => 'required|string|max:255']);
         $conDiseno = Schema::hasColumn('tareas_envio', 'diseno');
-        $tareas = DB::table('tareas_envio')->where('tipo', 'manual')->orderByDesc('id')->cursor();
+        $tareas = DB::table('tareas_envio')->where('tipo', 'manual')->orderByDesc('id')
+            ->select(['id', 'asunto'])->cursor();
         foreach ($tareas as $t) {
             if (self::nombreDeCampana($t->asunto) !== $request->nombre) {
                 continue;
             }
-            $formato = ($t->formato ?? null) ?: 'personal';
-            $diseno = $conDiseno && $t->diseno ? json_decode($t->diseno, true) : null;
-            if ($formato === 'campana' && !$diseno) {
-                return response()->json(['message' => 'Esta campaña se envió antes de que se guardara su diseño y no se puede abrir en el editor'], 422);
-            }
+            $tarea = DB::table('tareas_envio')->where('id', $t->id)
+                ->first(array_merge(['cuerpo', DB::raw(self::sqlFormato())], $conDiseno ? ['diseno'] : []));
+            $diseno = $conDiseno && $tarea->diseno ? json_decode($tarea->diseno, true) : null;
             return response()->json([
                 'nombre' => $request->nombre,
-                'formato' => $formato,
-                'cuerpo' => $formato === 'personal' ? $t->cuerpo : null,
-                'diseno' => $diseno,
+                'formato' => $tarea->formato,
+                'cuerpo' => $tarea->cuerpo,
+                'diseno' => $tarea->formato === 'campana' ? $diseno : null,
             ]);
         }
         return response()->json(['message' => 'No se encontró esa campaña'], 404);

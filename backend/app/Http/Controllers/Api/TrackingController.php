@@ -46,17 +46,16 @@ class TrackingController extends Controller
     // El resto de campañas son de la secuencia de la IA. La clave es el campaign_name que registra
     // email_manager.py: el asunto sin "Re:" (igual que en CampaignController@guardarNombreDeEnvio)
     private function tiposDeCampana(){
-        $conFormato = Schema::hasColumn('tareas_envio', 'formato');
         $tareas = DB::table('tareas_envio')
             ->where('tipo', 'manual')
-            ->select('asunto', $conFormato ? 'formato' : DB::raw('NULL as formato'))
+            ->select('asunto', DB::raw(CampaignController::sqlFormato()))
             ->orderBy('id')
             ->get();
         $tipos = [];
         foreach ($tareas as $tarea) {
             $nombre = CampaignController::nombreDeCampana($tarea->asunto);
             if ($nombre !== '') {
-                $tipos[$nombre] = $tarea->formato ?: 'personal';
+                $tipos[$nombre] = $tarea->formato;
             }
         }
         return $tipos;
