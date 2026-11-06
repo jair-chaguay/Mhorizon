@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class CampaignController extends Controller
 {
@@ -15,6 +16,7 @@ class CampaignController extends Controller
             'cuerpo' => 'required|string',
             'etiqueta' => 'required|string|max:255',
             'nombre_provisional' => 'nullable|string|max:255',
+            'formato' => 'nullable|in:personal,campana',
             'adjuntos.*' => 'file|max:10240'
         ]);
 
@@ -47,13 +49,17 @@ class CampaignController extends Controller
             }
         }
 
-        DB::table('tareas_envio')->insert(array_map(fn ($fase) => [
+        // Gmail y Outlook no muestran imágenes incrustadas (data:image): se publican y se cambian por su enlace
+        $cuerpo = $this->publicarImagenes($request->cuerpo);
+        $conFormato = Schema::hasColumn('tareas_envio', 'formato');
+
+        DB::table('tareas_envio')->insert(array_map(fn ($fase) => ($conFormato ? ['formato' => $request->input('formato', 'personal')] : []) + [
             'tipo' =>'manual',
             'fase_objetivo' =>$fase,
             // Etiquetas separadas por coma; el worker de Python solo envía a quienes tengan alguna
             'etiqueta_filtro'=>implode(',', $etiquetas),
             'asunto'=>$request->asunto,
-            'cuerpo'=>$request->cuerpo,
+            'cuerpo'=>$cuerpo,
             'adjuntos'=>json_encode($adjuntosRutas),
             'estado'=>'pendiente',
             'created_at'=>now(),
@@ -63,6 +69,24 @@ class CampaignController extends Controller
         $this->guardarNombreDeEnvio($request, $etiquetas, $fases);
 
         return response()->json(['message'=>'Campaña encolada para que Python la procese']);
+    }
+
+    // Las imágenes subidas en el editor (y las del pie: logo e íconos de redes) llegan en base64.
+    // Se guardan en storage/app/public/campanas/img con el hash como nombre, así la misma imagen se guarda una sola vez
+    private function publicarImagenes(string $cuerpo): string {
+        return preg_replace_callback('#data:image/(png|jpe?g|gif|webp);base64,([A-Za-z0-9+/=]++)#', function ($m) {
+            $bytes = base64_decode($m[2], true);
+            if ($bytes === false) {
+                return '';
+            }
+            $ext = $m[1] === 'jpeg' ? 'jpg' : $m[1];
+            $ruta = 'campanas/img/' . sha1($bytes) . '.' . $ext;
+            if (!Storage::disk('public')->exists($ruta)) {
+                Storage::disk('public')->put($ruta, $bytes);
+            }
+            // Requiere `php artisan storage:link` y APP_URL con el dominio público (https)
+            return asset('storage/' . $ruta);
+        }, $cuerpo) ?? $cuerpo;
     }
 
     // Nombre provisional del envío: el que escribió el usuario o "Campaña Etiquetas X Fase N"

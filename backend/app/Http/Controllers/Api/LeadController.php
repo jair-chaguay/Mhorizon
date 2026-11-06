@@ -110,7 +110,10 @@ class LeadController extends Controller
 
             if($lead){
                 $etiquetasActuales = $lead->etiquetas ? json_decode($lead->etiquetas, true) : [];
-                $etiquetasFinales = array_values(array_unique(array_merge($etiquetasActuales, $etiquetasNuevas)));
+                // Quien se dio de baja conserva solo la etiqueta "Desuscrito" aunque vuelva a venir en un archivo
+                $etiquetasFinales = in_array(TrackingController::ETIQUETA_BAJA, (array) $etiquetasActuales, true)
+                    ? $etiquetasActuales
+                    : array_values(array_unique(array_merge($etiquetasActuales, $etiquetasNuevas)));
                 // Quien ya está en el flujo no se saca al cargar un archivo: eso se hace desde la tabla
                 $faseActual = (int) $lead->fase;
                 $cambioFase = $pasarAFases && $faseActual === 0 ? ['fase' => 1] : [];
