@@ -54,7 +54,7 @@ class TrackingController extends Controller
             ->get();
         $tipos = [];
         foreach ($tareas as $tarea) {
-            $nombre = trim(preg_replace('/^(re|rv|resp|fw|fwd)\s*:\s*/i', '', (string) $tarea->asunto));
+            $nombre = CampaignController::nombreDeCampana($tarea->asunto);
             if ($nombre !== '') {
                 $tipos[$nombre] = $tarea->formato ?: 'personal';
             }

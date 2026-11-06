@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\TrackingController;
 use App\Http\Controllers\Api\LeadController;
 use App\Http\Controllers\Api\ImapController;
 use App\Http\Controllers\Api\CampaignController;
+use App\Http\Controllers\Api\RemitenteController;
 
 
 Route::get('/track/open', [TrackingController::class, 'trackOpen']);
@@ -81,6 +82,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/campaign/manual', [CampaignController::class, 'encolarEnvioManual']);
     Route::post('/campaign/ia', [CampaignController::class, 'lanzarCampanaIA']);
     Route::post('/campaign/alias', [CampaignController::class, 'guardarAlias']);
+    Route::get('/campaign/reutilizables', [CampaignController::class, 'reutilizables']);
+    Route::get('/campaign/diseno', [CampaignController::class, 'diseno']);
+    Route::get('/remitentes', [RemitenteController::class, 'index']);
+    Route::post('/remitentes', [RemitenteController::class, 'store']);
+    Route::delete('/remitentes/{id}', [RemitenteController::class, 'destroy']);
 
 
     Route::post('/logout', [AuthController::class, 'logout']);
