@@ -120,12 +120,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, isOpen, set
 
         <div className="mx-3 mb-3 pt-3 px-2 border-t border-white/10 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 shrink-0 rounded-lg bg-white/10 flex items-center justify-center overflow-hidden">
-              <p className="text-white font-medium text-xs">
-                {userData?.nombre?.charAt(0)}
-                {userData?.apellido?.charAt(0)}
-              </p>
-            </div>
+            
             <div className="min-w-0 overflow-hidden">
               <p className="text-sm font-semibold text-white truncate">{nombreCompleto}</p>
               <p className="text-xs text-slate-400 truncate">{userData.cargo}</p>

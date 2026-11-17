@@ -86,26 +86,26 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                     <div className="overflow-x-auto">
                         <table className="w-full text-left min-w-225">
                             <thead>
-                                <tr className="bg-slate-50 border-b border-slate-200 text-xs font-medium text-slate-500">
-                                    <th className="px-6 py-4">Nombre Completo</th>
-                                    <th className="px-6 py-4">Correo Electrónico</th>
+                                <tr className="bg-slate-50/60 border-b border-slate-100 text-xs font-medium text-slate-500">
+                                    <th className="px-5 py-2.5 whitespace-nowrap">Nombre Completo</th>
+                                    <th className="px-5 py-2.5 whitespace-nowrap">Correo Electrónico</th>
                                     {rolId === 1 || rolId === 3 ? (
-                                        <th className="px-6 py-4">Cargo</th>
+                                        <th className="px-5 py-2.5 whitespace-nowrap">Cargo</th>
                                     ):null}
-                                    <th className="px-6 py-4">Estado</th>
+                                    <th className="px-5 py-2.5 whitespace-nowrap">Estado</th>
                                     
-                                    <th className="px-6 py-4 flex items-center justify-center">Rol</th>
-                                        <th className="px-6 py-4 text-center">Acciones</th>
+                                    <th className="px-5 py-2.5 flex items-center justify-center">Rol</th>
+                                        <th className="px-5 py-2.5 text-center whitespace-nowrap">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody className="text-sm divide-y divide-slate-100">
                                 {usuariosDelRol.length > 0 ? (
                                     usuariosDelRol.map((u) => (
-                                        <tr key={u.id} className="hover:bg-slate-50/50 transition-colors group">
-                                            <td className="px-6 py-5 font-medium text-slate-900">
+                                        <tr key={u.id} className="hover:bg-slate-50 transition-colors group">
+                                            <td className="px-5 py-3 font-medium text-slate-800">
                                                 {u.rol_id === 2 && u.cliente ? (
                                                     <div className="flex flex-col">
-                                                        <span className="font-semibold text-[15px] leading-none mb-1">
+                                                        <span className="font-medium text-[15px] leading-none mb-1">
                                                             {u.cliente.razon_social_nombres}
                                                         </span>
                                                     </div>
@@ -113,19 +113,19 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                                     <span>{u.nombre} {u.apellido}</span>
                                                 )}
                                             </td>
-                                            <td className="px-6 py-5 text-slate-500 font-mono text-xs">
+                                            <td className="px-5 py-3 text-slate-500 font-mono text-xs">
                                                 {u.correo}
                                             </td>
                                             {rolId === 1 || rolId === 3 ? (
-                                                <td className="px-6 py-5 text-slate-500 font-mono text-xs">
+                                                <td className="px-5 py-3 text-slate-500 font-mono text-xs">
                                                     {u.cargo ? u.cargo : 'No asignado'}
                                                 </td>
                                             ): null }
-                                            <td className="px-6 py-5">
+                                            <td className="px-5 py-3">
                                                 <button
                                                     onClick={() => handleToggleEstado(u)}
                                                     title={u.activo ? 'Click para Desactivar' : 'Click para Activar'}
-                                                    className={`cursor-pointer px-3 py-2 rounded-full text-xs font-semibold transition-all duration-300 border focus:outline-none ${u.activo
+                                                    className={`cursor-pointer px-3 py-2 rounded-full text-xs font-medium transition-all duration-300 border focus:outline-none ${u.activo
                                                         ? ' border-green-200 rounded-md px-1.5 py-0.5 text-xs  bg-emerald-50 text-emerald-700 hover:bg-red-100 hover:text-red-600 hover:border-red-200'
                                                         : 'bg-red-100 text-red-600 border-red-200 hover:bg-green-100 hover:text-green-600 hover:border-green-200'
                                                         }`}
@@ -133,13 +133,13 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                                     {u.activo ? 'Activo' : 'Inactivo'}
                                                 </button>
                                             </td>
-                                            <td className="px-6 py-5  justify-center flex">
+                                            <td className="px-5 py-3 justify-center flex">
                                                 <span className={`px-2 py-2 text-xs rounded-md ${badgeClasses}`}>
                                                     {rolNombre}
                                                 </span>
                                             </td>
                                             
-                                                <td className="px-6 py-5">
+                                                <td className="px-5 py-3">
                                                     <div className="flex items-center justify-center gap-2">
                                                         {u.rol_id ===1 || u.rol_id === 3 ?(
                                                             <button
@@ -169,7 +169,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={6} className="px-6 py-8 text-center text-slate-400">
+                                        <td colSpan={6} className="px-5 py-8 text-center text-slate-400">
                                             No hay usuarios asignados a este rol.
                                         </td>
                                     </tr>
@@ -193,7 +193,7 @@ export const Usuario: React.FC<UsuarioProps> = ({ refreshSignal, onOpenCrear, on
                 </div>
                 <button
                     onClick={onOpenCrear}
-                    className="bg-brand-600 cursor-pointer text-white text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:bg-brand-700 transition-all flex items-center justify-center gap-2 shrink-0"
+                    className="bg-brand-600 cursor-pointer text-white text-[13px] font-medium px-6 py-2.5 rounded-lg hover:bg-brand-700 transition-all flex items-center justify-center gap-2 shrink-0"
                 >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />

@@ -278,27 +278,27 @@ const Informativos: React.FC<InformativosProps> = ({ onOpenRedactar, onOpenElimi
         <div className="overflow-x-auto flex-1">
           <table className="w-full text-left min-w-225">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-xs font-medium text-slate-500">
-                <th className="px-6 py-4">Título del Informativo</th>
-                <th className="px-6 py-4">Resolución</th>
-                <th className="px-6 py-4 hidden md:table-cell">Archivos Adjuntos</th>
-                <th className="px-6 py-4">Fecha Creada</th>
-                <th className="px-6 py-4">Creado Por</th>
-                <th className="px-6 py-4 text-center">Acciones</th>
+              <tr className="bg-slate-50/60 border-b border-slate-100 text-xs font-semibold text-slate-500">
+                <th className="px-5 py-2.5 whitespace-nowrap">Título del Informativo</th>
+                <th className="px-5 py-2.5 whitespace-nowrap">Resolución</th>
+                <th className="px-5 py-2.5 hidden md:table-cell whitespace-nowrap">Archivos Adjuntos</th>
+                <th className="px-5 py-2.5 whitespace-nowrap">Fecha Creada</th>
+                <th className="px-5 py-2.5 whitespace-nowrap">Creado Por</th>
+                <th className="px-5 py-2.5 text-center whitespace-nowrap">Acciones</th>
               </tr>
             </thead>
             <tbody className="text-sm divide-y divide-slate-100">
               {currentInformativos.map((info) => (
-                <tr key={info.id} className="hover:bg-slate-50/50 transition-colors group">
-                  <td className="px-6 py-5">
+                <tr key={info.id} className="hover:bg-slate-50 transition-colors group">
+                  <td className="px-5 py-3">
                     <div className="font-medium text-slate-900 truncate max-w-xs" title={info.titulo}>
                       {info.titulo}
                     </div>
                   </td>
-                  <td className="px-6 py-5 text-slate-500 font-mono text-xs">
+                  <td className="px-5 py-3 text-slate-500 font-mono text-xs">
                     {info.resolucion_oficial || 'N/A'}
                   </td>
-                  <td className="px-6 py-5 text-xs hidden md:table-cell text-slate-400">
+                  <td className="px-5 py-3 text-xs hidden md:table-cell text-slate-400">
                     <div className="flex flex-col gap-1.5">
                       {info.imagen_portada_url && (
                         <div className="flex items-center gap-2 text-brand-600">
@@ -317,13 +317,13 @@ const Informativos: React.FC<InformativosProps> = ({ onOpenRedactar, onOpenElimi
                       )}
                     </div>
                   </td>
-                  <td className="px-6 py-5 text-slate-600 font-medium">
+                  <td className="px-5 py-3 text-slate-600">
                     {new Date(info.created_at).toLocaleDateString('es-EC', { day: '2-digit', month: 'short', year: 'numeric' })}
                   </td>
-                  <td className="px-6 py-5 font-medium text-slate-900">
+                  <td className="px-5 py-3 font-medium text-slate-900">
                     {info.creador ? `${info.creador.nombre} ${info.creador.apellido}` : 'Sistema'}
                   </td>
-                  <td className="px-6 py-5">
+                  <td className="px-5 py-3">
                     <div className="flex items-center justify-center gap-2">
                       <button
                         className="cursor-pointer w-8 h-8 rounded-lg border border-slate-200 flex items-center justify-center hover:bg-brand-50 text-slate-400 hover:text-brand-700 transition-all"
@@ -348,7 +348,7 @@ const Informativos: React.FC<InformativosProps> = ({ onOpenRedactar, onOpenElimi
         </div>
 
         {filteredInformativos.length > 0 && (
-          <div className="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+          <div className="px-5 py-3 border-t border-slate-100 bg-slate-50 flex items-center justify-between">
             <span className="text-xs text-slate-500 font-medium">
               Mostrando {startIndex + 1} a {Math.min(startIndex + itemsPerPage, filteredInformativos.length)} de {filteredInformativos.length} resultados
             </span>
@@ -356,7 +356,7 @@ const Informativos: React.FC<InformativosProps> = ({ onOpenRedactar, onOpenElimi
               <button
                 onClick={goToPreviousPage}
                 disabled={currentPage === 1}
-                className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="h-8 w-8 grid place-items-center bg-white rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
               </button>
@@ -366,7 +366,7 @@ const Informativos: React.FC<InformativosProps> = ({ onOpenRedactar, onOpenElimi
               <button
                 onClick={goToNextPage}
                 disabled={currentPage >= totalPages}
-                className="p-2 rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                className="h-8 w-8 grid place-items-center bg-white rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
               </button>

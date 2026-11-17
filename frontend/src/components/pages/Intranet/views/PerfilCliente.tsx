@@ -593,14 +593,14 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                     <div className="overflow-x-auto border border-slate-100 rounded-xl">
                         <table className="w-full text-left border-collapse min-w-175">
                             <thead>
-                                <tr className="bg-slate-50 border-b border-slate-100 text-xs font-semibold text-slate-500">
-                                    <th className="px-5 py-4">Tipo de Impuesto</th>
-                                    <th className="px-5 py-4">Periodo / Fecha Límite</th>
-                                    <th className="px-5 py-4">Estado Actual</th>
-                                    {canEdit && <th className="px-5 py-4 text-center">Acciones</th>}
+                                <tr className="bg-slate-50/60 border-b border-slate-100 text-xs font-semibold text-slate-500">
+                                    <th className="px-5 py-2.5 whitespace-nowrap">Tipo de Impuesto</th>
+                                    <th className="px-5 py-2.5 whitespace-nowrap">Periodo / Fecha Límite</th>
+                                    <th className="px-5 py-2.5 whitespace-nowrap">Estado Actual</th>
+                                    {canEdit && <th className="px-5 py-2.5 text-center whitespace-nowrap">Acciones</th>}
                                 </tr>
                             </thead>
-                            <tbody className="text-sm divide-y divide-slate-50">
+                            <tbody className="text-sm divide-y divide-slate-100">
                                 {isLoadingObligaciones ? (
                                     <tr>
                                         <td colSpan={canEdit ? 4 : 3} className="text-center py-8 text-slate-400 font-medium text-xs">Cargando obligaciones...</td>
@@ -611,10 +611,10 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                     </tr>
                                 ) : (
                                     obligaciones.map((ob) => (
-                                        <tr key={ob.id} className="hover:bg-slate-50/50 transition-colors group">
-                                            <td className="px-5 py-4 font-semibold text-slate-900">{ob.tipo_impuesto}</td>
+                                        <tr key={ob.id} className="hover:bg-slate-50 transition-colors group">
+                                            <td className="px-5 py-3 font-semibold text-slate-900">{ob.tipo_impuesto}</td>
 
-                                            <td className="px-10 py-4 text-slate-600">
+                                            <td className="px-5 py-3 text-slate-600">
                                                 <div className='flex flex-col'>
                                                     <span className='font-semibold text-slate-700'>
                                                         {new Date(ob.fecha_vencimiento_exacta + 'T00:00:00').toLocaleDateString('es-ES', {
@@ -626,7 +626,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                                 </div>
                                             </td>
 
-                                            <td className="px-5 py-4">
+                                            <td className="px-5 py-3">
                                                 {ob.estado === 'Presentado' ? (
                                                     <span className="bg-green-50 text-green-600 border border-green-200 px-2.5 py-1 rounded-md text-xs font-medium flex items-center w-max gap-1">
                                                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path></svg>
@@ -641,7 +641,7 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                                             </td>
 
                                             {canEdit && (
-                                                <td className="px-5 py-4 text-center flex justify-center items-center gap-2">
+                                                <td className="px-5 py-3 text-center flex justify-center items-center gap-2">
                                                     {ob.estado === 'Pendiente' && (
                                                         <button
                                                             onClick={() => onOpenSubir(ob.id, ob.tipo_impuesto)}
@@ -731,15 +731,15 @@ const PerfilCliente: React.FC<PerfilClienteProps> = ({
                             <div className="overflow-hidden border border-slate-100 rounded-xl">
                                 <table className="w-full text-left border-collapse">
                                     <thead>
-                                        <tr className="bg-slate-50 border-b border-slate-100 text-xs font-semibold text-slate-500">
-                                            <th className="px-5 py-3">Pregunta Evaluada</th>
-                                            <th className="px-5 py-3 text-center">Escala (1-5)</th>
-                                            <th className="px-5 py-3 text-right">Puntos Calculados</th>
+                                        <tr className="bg-slate-50/60 border-b border-slate-100 text-xs font-semibold text-slate-500">
+                                            <th className="px-5 py-2.5 whitespace-nowrap">Pregunta Evaluada</th>
+                                            <th className="px-5 py-2.5 text-center whitespace-nowrap">Escala (1-5)</th>
+                                            <th className="px-5 py-2.5 text-right whitespace-nowrap">Puntos Calculados</th>
                                         </tr>
                                     </thead>
-                                    <tbody className="text-sm divide-y divide-slate-50">
+                                    <tbody className="text-sm divide-y divide-slate-100">
                                         {cliente.detalle_score.map((detalle: any, index: number) => (
-                                            <tr key={index} className="hover:bg-slate-50/50 transition-colors">
+                                            <tr key={index} className="hover:bg-slate-50 transition-colors">
                                                 <td className="px-5 py-3 text-slate-700 font-medium">
                                                     {detalle.enunciado}
                                                 </td>

@@ -395,28 +395,28 @@ const Biblioteca: React.FC<BibliotecaProps> = ({ onOpenCrear, onOpenSubir, refre
                   <table className="w-full text-left border-collapse min-w-237.5">
                     {filteredArchivos.length > 0 && (
                       <thead>
-                        <tr className="bg-slate-50 border-y border-slate-200 text-xs font-semibold text-slate-500">
-                          <th className="px-6 py-4 w-[35%]">Archivo</th>
-                          <th className="px-6 py-4 w-[20%]">Subido Por</th>
-                          <th className="px-6 py-4 w-[15%]">Fecha</th>
-                          <th className="px-6 py-4 w-[20%]">Observación</th>
-                          <th className="px-6 py-4 text-center w-[10%]">Acciones</th>
+                        <tr className="bg-slate-50/60 border-b border-slate-100 text-xs font-semibold text-slate-500">
+                          <th className="px-5 py-2.5 w-[35%] whitespace-nowrap">Archivo</th>
+                          <th className="px-5 py-2.5 w-[20%] whitespace-nowrap">Subido Por</th>
+                          <th className="px-5 py-2.5 w-[15%] whitespace-nowrap">Fecha</th>
+                          <th className="px-5 py-2.5 w-[20%] whitespace-nowrap">Observación</th>
+                          <th className="px-5 py-2.5 text-center w-[10%] whitespace-nowrap">Acciones</th>
                         </tr>
                       </thead>
                     )}
                     <tbody className="text-sm divide-y divide-slate-100">
                       {filteredArchivos.map(archivo => (
-                        <tr key={archivo.id} className="hover:bg-slate-50/50 transition-colors group">
-                          <td className="px-6 py-4 font-semibold text-slate-900 flex items-center gap-3">
+                        <tr key={archivo.id} className="hover:bg-slate-50 transition-colors group">
+                          <td className="px-5 py-3 font-semibold text-slate-900 flex items-center gap-3">
                             <div className={`w-8 h-8 rounded flex items-center justify-center border shrink-0 ${archivo.tipo === 'pdf' ? 'bg-red-50 text-red-500 border-red-100' : 'bg-green-50 text-green-600 border-green-100'}`}>
                               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 384 512"><path d="M181.9 256.1c-5-16-4.9-46.9-2-46.9 8.4 0 7.6 36.9 2 46.9zm-1.7 47.2c-7.7 20.2-17.3 43.3-28.4 62.7 18.3-7 39-17.2 62.9-41.9-22.7-1-40.4-8.8-34.5-20.8zm-78.8 115.3c-.5-1.1 1-3 1-3 11.1-20.9 25.9-46.4 46.3-80.1-15.6 15-32 30-47.3 83.1zM384 121.9v358.1c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V32C0 14.3 14.3 0 32 0h224l128 121.9z" /></svg>
                             </div>
                             <span className="cursor-pointer group-hover:text-brand-600 transition-colors truncate">{archivo.nombre_archivo}</span>
                           </td>
-                          <td className="px-6 py-4 text-slate-900 font-semibold">{archivo.subido_por?.nombre} {archivo.subido_por?.apellido}</td>
-                          <td className="px-6 py-4 text-slate-600 font-medium">{new Date(archivo.created_at).toLocaleDateString()}</td>
-                          <td className="px-6 py-4 text-slate-500 text-[13px] italic">{archivo.observacion_cliente || 'Sin observación.'}</td>
-                          <td className="px-6 py-4 text-center">
+                          <td className="px-5 py-3 text-slate-900 font-semibold">{archivo.subido_por?.nombre} {archivo.subido_por?.apellido}</td>
+                          <td className="px-5 py-3 text-slate-600">{new Date(archivo.created_at).toLocaleDateString()}</td>
+                          <td className="px-5 py-3 text-slate-500 text-[13px] italic">{archivo.observacion_cliente || 'Sin observación.'}</td>
+                          <td className="px-5 py-3 text-center">
                             <button onClick={() => onOpenEliminar && onOpenEliminar(`/deleteDocumento/${archivo.id}`, `Archivo ${archivo.nombre_archivo}`)} className="inline-flex items-center justify-center w-8 h-8 rounded-lg border border-slate-200 text-slate-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all cursor-pointer mr-2" title="Eliminar">
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                             </button>
