@@ -82,6 +82,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/campaign/manual', [CampaignController::class, 'encolarEnvioManual']);
     Route::post('/campaign/ia', [CampaignController::class, 'lanzarCampanaIA']);
     Route::post('/campaign/alias', [CampaignController::class, 'guardarAlias']);
+    Route::post('/campaign/prueba', [CampaignController::class, 'enviarPrueba']);
     Route::get('/campaign/reutilizables', [CampaignController::class, 'reutilizables']);
     Route::get('/campaign/diseno', [CampaignController::class, 'diseno']);
     Route::get('/remitentes', [RemitenteController::class, 'index']);

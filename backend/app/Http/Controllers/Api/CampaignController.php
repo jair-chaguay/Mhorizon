@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 
 class CampaignController extends Controller
 {
+    private const MAX_DESTINATARIOS_PRUEBA = 5;
+
     public function encolarEnvioManual(Request $request) {
         $request->validate([
             'asunto' => 'required|string',
@@ -44,14 +46,6 @@ class CampaignController extends Controller
             return response()->json(['message' => 'Ningún prospecto activo tiene esas etiquetas'], 422);
         }
 
-        $adjuntosRutas = [];
-        if($request->hasFile('adjuntos')){
-            foreach ($request->file('adjuntos') as $archivo){
-                $ruta = $archivo->store('adjuntos_campanas', 'public');
-                $adjuntosRutas[] = storage_path('app/public/' . $ruta);
-            }
-        }
-
         // Gmail y Outlook no muestran imágenes incrustadas (data:image): se publican y se cambian por su enlace
         $cuerpo = $this->publicarImagenes($request->cuerpo);
         $extra = Schema::hasColumn('tareas_envio', 'formato') ? ['formato' => $request->input('formato', 'personal')] : [];
@@ -61,23 +55,12 @@ class CampaignController extends Controller
             $extra['diseno'] = $this->publicarImagenes($request->diseno);
         }
 
-        // Remitente: la cuenta elegida (o la predeterminada) y el nombre que verá el destinatario
-        if (Schema::hasColumn('tareas_envio', 'remitente_id') && Schema::hasTable('remitentes')) {
-            $remitente = $request->filled('remitente_id')
-                ? DB::table('remitentes')->where('id', $request->remitente_id)->first()
-                : DB::table('remitentes')->orderByDesc('predeterminado')->orderBy('id')->first();
-            if ($request->filled('remitente_id') && !$remitente) {
-                return response()->json(['message' => 'El remitente elegido ya no existe'], 422);
-            }
-            if ($remitente) {
-                $nombre = trim((string) $request->remitente_nombre);
-                $extra += [
-                    'remitente_id' => $remitente->id,
-                    'remitente_email' => $remitente->email,
-                    'remitente_nombre' => $nombre !== '' ? $nombre : $remitente->nombre,
-                ];
-            }
+        $remitente = $this->datosRemitente($request);
+        if ($remitente === null) {
+            return response()->json(['message' => 'El remitente elegido ya no existe'], 422);
         }
+        $extra += $remitente;
+        $adjuntosRutas = $this->guardarAdjuntos($request);
 
         DB::table('tareas_envio')->insert(array_map(fn ($fase) => $extra + [
             'tipo' =>'manual',
@@ -95,6 +78,87 @@ class CampaignController extends Controller
         $this->guardarNombreDeEnvio($request, $etiquetas, $fases);
 
         return response()->json(['message'=>'Campaña encolada para que Python la procese']);
+    }
+
+    // Correo de prueba de Difusión manual: el mismo correo, solo a las direcciones escritas.
+    // Es una tarea tipo 'prueba': no es campaña (el dashboard solo lee las 'manual') y el worker no la registra
+    public function enviarPrueba(Request $request) {
+        $request->validate([
+            'asunto' => 'required|string',
+            'cuerpo' => 'required|string',
+            'destinatarios' => 'required|string|max:500',
+            'formato' => 'nullable|in:personal,campana',
+            'remitente_id' => 'nullable|integer',
+            'remitente_nombre' => 'nullable|string|max:120',
+            'adjuntos.*' => 'file|max:10240'
+        ]);
+
+        if (!Schema::hasColumn('tareas_envio', 'destinatarios_prueba')) {
+            return response()->json(['message' => 'Falta ejecutar php artisan migrate en el servidor'], 422);
+        }
+
+        $destinatarios = array_values(array_unique(array_filter(preg_split('/[\s,;]+/', strtolower($request->destinatarios)))));
+        $invalidos = array_filter($destinatarios, fn ($d) => !filter_var($d, FILTER_VALIDATE_EMAIL));
+        if (empty($destinatarios) || !empty($invalidos)) {
+            return response()->json(['message' => 'Revisa los correos: ' . (implode(', ', $invalidos) ?: 'no escribiste ninguno')], 422);
+        }
+        if (count($destinatarios) > self::MAX_DESTINATARIOS_PRUEBA) {
+            return response()->json(['message' => 'Máximo ' . self::MAX_DESTINATARIOS_PRUEBA . ' correos por prueba'], 422);
+        }
+
+        $remitente = $this->datosRemitente($request);
+        if ($remitente === null) {
+            return response()->json(['message' => 'El remitente elegido ya no existe'], 422);
+        }
+        $extra = $remitente + (Schema::hasColumn('tareas_envio', 'formato') ? ['formato' => $request->input('formato', 'personal')] : []);
+
+        DB::table('tareas_envio')->insert($extra + [
+            'tipo' => 'prueba',
+            'fase_objetivo' => 0,
+            'destinatarios_prueba' => implode(',', $destinatarios),
+            'asunto' => $request->asunto,
+            'cuerpo' => $this->publicarImagenes($request->cuerpo),
+            'adjuntos' => json_encode($this->guardarAdjuntos($request)),
+            'estado' => 'pendiente',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        return response()->json(['message' => 'Correo de prueba encolado', 'destinatarios' => $destinatarios]);
+    }
+
+    // Remitente: la cuenta elegida (o la predeterminada) y el nombre que verá el destinatario.
+    // Devuelve null si el remitente elegido ya no existe; vacío si el servidor aún no tiene remitentes
+    private function datosRemitente(Request $request): ?array {
+        if (!Schema::hasColumn('tareas_envio', 'remitente_id') || !Schema::hasTable('remitentes')) {
+            return [];
+        }
+        $remitente = $request->filled('remitente_id')
+            ? DB::table('remitentes')->where('id', $request->remitente_id)->first()
+            : DB::table('remitentes')->orderByDesc('predeterminado')->orderBy('id')->first();
+        if ($request->filled('remitente_id') && !$remitente) {
+            return null;
+        }
+        if (!$remitente) {
+            return [];
+        }
+        $nombre = trim((string) $request->remitente_nombre);
+        return [
+            'remitente_id' => $remitente->id,
+            'remitente_email' => $remitente->email,
+            'remitente_nombre' => $nombre !== '' ? $nombre : $remitente->nombre,
+        ];
+    }
+
+    private function guardarAdjuntos(Request $request): array {
+        $adjuntosRutas = [];
+        if($request->hasFile('adjuntos')){
+            foreach ($request->file('adjuntos') as $archivo){
+                $ruta = $archivo->store('adjuntos_campanas', 'public');
+                $adjuntosRutas[] = storage_path('app/public/' . $ruta);
+            }
+        }
+        return $adjuntosRutas;
     }
 
     // Las imágenes subidas en el editor (y las del pie: logo e íconos de redes) llegan en base64.
