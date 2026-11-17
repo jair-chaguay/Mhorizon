@@ -300,8 +300,8 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
   if (loading) {
     return (
       <div className="flex flex-col justify-center items-center h-64 gap-4">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
-        <p className="text-gray-400 text-sm animate-pulse uppercase tracking-widest">Cargando Directorio...</p>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-600"></div>
+        <p className="text-slate-400 text-sm animate-pulse">Cargando Directorio...</p>
       </div>
     );
   }
@@ -311,10 +311,10 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
       <div className="max-w-350 mx-auto space-y-6 reveal-element delay-300">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
-            <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
+            <h1 className="text-[22px] font-medium text-slate-900 tracking-tight">
               Directorio de Clientes
             </h1>
-            <p className="text-gray-500 font-light mt-1">
+            <p className="text-sm text-slate-500 mt-1 max-w-2xl">
               Gestión de {clientes.length} entidades registradas en el sistema.
             </p>
           </div>
@@ -324,7 +324,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
               <div className="relative w-full sm:w-auto">
                 <button
                   onClick={() => setShowDownloadMenu(!showDownloadMenu)}
-                  className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-5 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                  className="bg-brand-600 cursor-pointer text-white text-[13px] font-semibold px-5 py-2.5 rounded-lg hover:bg-brand-700 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
@@ -336,13 +336,13 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                 </button>
 
                 {showDownloadMenu && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-gray-100 overflow-hidden z-50">
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-xl border border-slate-100 overflow-hidden z-50">
                     <button
                       onClick={() => {
                         exportarPDF();
                         setShowDownloadMenu(false);
                       }}
-                      className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-red-50 hover:text-red-500 transition-colors flex items-center gap-2"
+                      className="cursor-pointer w-full text-left px-4 py-3 text-[13px] font-semibold text-slate-600 hover:bg-red-50 hover:text-red-500 transition-colors flex items-center gap-2"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                       Formato PDF
@@ -352,7 +352,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                         exportarExcel();
                         setShowDownloadMenu(false);
                       }}
-                      className="cursor-pointer w-full text-left px-4 py-3 text-[0.8rem] font-bold text-gray-600 hover:bg-green-50 hover:text-green-600 transition-colors border-t border-gray-50 flex items-center gap-2"
+                      className="cursor-pointer w-full text-left px-4 py-3 text-[13px] font-semibold text-slate-600 hover:bg-green-50 hover:text-green-600 transition-colors border-t border-slate-50 flex items-center gap-2"
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                       Formato Excel
@@ -362,17 +362,17 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
               </div>
             )}
 
-            <button onClick={onOpenAñadir} className="bg-blue-200 cursor-pointer text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-3.5 rounded-lg shadow-lg hover:bg-orange-500 transition-all flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto">
+            <button onClick={onOpenAñadir} className="bg-brand-600 cursor-pointer text-white text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:bg-brand-700 transition-all flex items-center justify-center gap-2 shrink-0 w-full sm:w-auto">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
               Añadir Cliente
             </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col">
-          <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between bg-white">
+        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden flex flex-col">
+          <div className="px-6 py-5 border-b border-slate-100 flex items-center justify-between bg-white">
             <div className="relative w-full lg:w-96">
-              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <input
@@ -380,7 +380,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                 value={busqueda}
                 onChange={handleBusqueda}
                 placeholder="Buscar por Razón Social, Nombres o RUC/Cédula..."
-                className="pl-9 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg text-[0.85rem] focus:ring-1 focus:ring-orange-500 outline-none w-full transition-all text-blue-200"
+                className="pl-9 pr-4 py-2.5 bg-white border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-600/20 outline-none w-full transition-all text-slate-800"
               />
             </div>
           </div>
@@ -388,7 +388,7 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse min-w-225">
               <thead>
-                <tr className="bg-gray-50 border-b border-gray-200 text-[0.70rem] font-bold uppercase tracking-widest text-gray-500">
+                <tr className="bg-slate-50 border-b border-slate-200 text-xs font-semibold text-slate-500">
                   <th className="px-6 py-4">Empresa / Cliente</th>
                   <th className="px-6 py-4 text-center">Tipo</th>
                   <th className="px-6 py-4">Score Tributario</th>
@@ -397,50 +397,50 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                   <th className="px-6 py-4 text-center">Acciones</th>
                 </tr>
               </thead>
-              <tbody className="text-[0.85rem] divide-y divide-gray-100">
+              <tbody className="text-sm divide-y divide-slate-100">
                 {clientesActuales.map((cliente) => (
-                  <tr key={cliente.id} className="hover:bg-gray-50/50 transition-colors group">
+                  <tr key={cliente.id} className="hover:bg-slate-50/50 transition-colors group">
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-4">
-                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-black text-white ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-blue-200' : 'bg-orange-400'}`}>
+                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-medium text-white ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-navy-900' : 'bg-brand-500'}`}>
                           {cliente.razon_social_nombres.substring(0, 2).toUpperCase()}
                         </div>
                         <div>
-                          <p className="font-bold text-blue-200 text-[0.95rem] leading-none mb-1">
+                          <p className="font-medium text-slate-900 text-[15px] leading-none mb-1">
                             {cliente.razon_social_nombres}
                           </p>
-                          <span className="text-xs text-gray-400 font-medium">ID: {cliente.identificacion}</span>
+                          <span className="text-xs text-slate-400 font-medium">ID: {cliente.identificacion}</span>
                         </div>
                       </div>
                     </td>
 
 
                     <td className="px-6 py-5 text-center">
-                      <span className={`py-1 rounded text-[0.65rem] font-bold uppercase ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-blue-50 text-blue-200' : 'bg-orange-50 text-orange-600'}`}>
+                      <span className={`py-1 rounded text-xs font-medium ${cliente.tipo_persona !== 'Persona Natural' ? 'bg-blue-50 text-slate-900' : 'bg-brand-50 text-brand-700'}`}>
                         {cliente.tipo_persona}
                       </span>
                     </td>
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
-                        <div className="flex-1 h-2 bg-gray-100 rounded-full max-w-15 overflow-hidden">
+                        <div className="flex-1 h-2 bg-slate-100 rounded-full max-w-15 overflow-hidden">
                           <div
-                            className={`h-full rounded-full ${cliente.score_tributario > 80 ? 'bg-green-500' : 'bg-orange-500'}`}
+                            className={`h-full font-medium rounded-full ${cliente.score_tributario > 80 ? 'bg-green-500' : 'bg-brand-600'}`}
                             style={{ width: `${cliente.score_tributario}%` }}
                           ></div>
                         </div>
-                        <span className="text-blue-200 font-black">{cliente.score_tributario}</span>
+                        <span className="text-slate-900 font-semibold">{cliente.score_tributario}</span>
                       </div>
                     </td>
                     <td className="px-6 py-5">
                       <div className="flex flex-wrap gap-1">
                         {cliente.gestores && cliente.gestores.length > 0 ? (
                           cliente.gestores.map(gestor => (
-                            <span key={gestor.id} className="text-gray-600 font-medium text-xs bg-gray-100 px-2 py-1 rounded w-max">
+                            <span key={gestor.id} className="text-slate-600 font-medium text-xs bg-slate-100 px-2 py-1 rounded w-max">
                               {gestor.nombre} {gestor.apellido}
                             </span>
                           ))
                         ) : (
-                          <span className="text-gray-400 italic text-xs">Sin Asignar</span>
+                          <span className="text-slate-400 italic text-xs">Sin Asignar</span>
                         )}
                       </div>
                     </td>
@@ -451,8 +451,8 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                           <button
                             onClick={() => handleToggleEstadoUsuario(cliente.id, cliente.usuarios![0])}
                             title={cliente.usuarios[0].activo !== false ? 'Click para Desactivar' : 'Click para Activar'}
-                            className={`cursor-pointer px-3 py-1 rounded-full text-[0.60rem] font-bold uppercase transition-all duration-300 border focus:outline-none ${cliente.usuarios[0].activo !== false
-                              ? 'bg-green-100 text-green-600 border-green-200 hover:bg-red-100 hover:text-red-600 hover:border-red-200'
+                            className={`cursor-pointer px-3 py-1 rounded-full text-xs transition-all duration-300 border focus:outline-none ${cliente.usuarios[0].activo !== false
+                              ? 'border-green-200 rounded-md px-1.5 py-0.5 text-xs  bg-emerald-50 text-emerald-700 hover:bg-red-100 hover:text-red-600 hover:border-red-200'
                               : 'bg-red-100 text-red-600 border-red-200 hover:bg-green-100 hover:text-green-600 hover:border-green-200'
                               }`}
                           >
@@ -460,14 +460,14 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
                           </button>
                         </div>
                       ) : (
-                        <span className="text-gray-400 italic text-xs">Sin asignar</span>
-                      )}
+                        <span className="text-slate-400 italic text-xs">Sin asignar</span>
+                      )} 
                     </td>
 
                     <td className="px-6 py-5 text-center">
                       <button
                         onClick={() => onOpenGestion(cliente)}
-                        className="cursor-pointer inline-flex items-center gap-2 bg-orange-50 text-orange-500 border border-orange-200 px-4 py-2 rounded-lg font-bold uppercase tracking-widest text-[0.70rem] hover:bg-orange-500 hover:text-white transition-all shadow-sm active:scale-95"
+                        className="cursor-pointer inline-flex items-center gap-2 bg-brand-50 text-brand-600 border border-brand-200 px-4 py-2 rounded-lg text-xs hover:bg-brand-600 hover:text-white transition-all active:scale-95"
                       >
                         Gestionar
                       </button>
@@ -480,23 +480,23 @@ const Directorio: React.FC<DirectorioProps> = ({ onOpenGestion, onOpenAñadir, r
 
           {clientesFiltrados.length === 0 && (
             <div className="py-20 text-center">
-              <p className="text-gray-400 italic">No se encontraron clientes que coincidan con la búsqueda.</p>
+              <p className="text-slate-400 italic">No se encontraron clientes que coincidan con la búsqueda.</p>
             </div>
           )}
 
           {clientesFiltrados.length > 0 && (
-            <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 flex items-center justify-between">
-              <span className="text-xs text-gray-500 font-medium">
+            <div className="px-6 py-4 border-t border-slate-200 bg-slate-50 flex items-center justify-between">
+              <span className="text-xs text-slate-500 font-medium">
                 Mostrando {startIndex + 1} a {Math.min(startIndex + itemsPerPage, clientesFiltrados.length)} de {clientesFiltrados.length} resultados
               </span>
               <div className="flex items-center gap-2">
-                <button onClick={goToPreviousPage} disabled={currentPage === 1} className="p-2 cursor-pointer rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                <button onClick={goToPreviousPage} disabled={currentPage === 1} className="p-2 cursor-pointer rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" /></svg>
                 </button>
-                <span className="text-xs font-bold text-gray-600 px-2">
+                <span className="text-xs font-semibold text-slate-600 px-2">
                   Página {currentPage} de {totalPages || 1}
                 </span>
-                <button onClick={goToNextPage} disabled={currentPage >= totalPages} className="p-2 cursor-pointer rounded-lg border border-gray-200 text-gray-500 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+                <button onClick={goToNextPage} disabled={currentPage >= totalPages} className="p-2 cursor-pointer rounded-lg border border-slate-200 text-slate-500 hover:bg-slate-100 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" /></svg>
                 </button>
               </div>

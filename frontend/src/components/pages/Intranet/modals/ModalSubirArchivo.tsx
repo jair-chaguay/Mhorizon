@@ -229,20 +229,20 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose, uploadType, targe
   };
 
   return (
-    <ScrollReveal className="fixed inset-0 bg-black/80 backdrop-blur-sm z-130 flex justify-center items-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl p-8 relative scale-100 transition-all reveal-element delay-100 max-h-[90vh] overflow-y-auto no-scrollbar">
+    <ScrollReveal className="fixed inset-0 bg-slate-900/50 z-130 flex justify-center items-center p-4">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl p-8 relative scale-100 transition-all reveal-element delay-100 max-h-[90vh] overflow-y-auto no-scrollbar">
         
-        <button onClick={onClose} className="cursor-pointer absolute top-5 right-5 text-gray-400 hover:text-orange-500 transition-colors focus:outline-none">
+        <button onClick={onClose} className="cursor-pointer absolute top-5 right-5 text-slate-400 hover:text-brand-600 transition-colors focus:outline-none">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
 
-        <div className="mb-5 border-b border-gray-100 pb-4">
-          <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.70rem] uppercase mb-1 block">
+        <div className="mb-5 border-b border-slate-100 pb-4">
+          <span className="text-brand-600 font-medium text-xs mb-1 block">
             {uploadType === 'obligacion' ? 'Gestión de Obligación' : 'Repositorio Histórico'}
           </span>
-          <h2 className="text-blue-200 font-extrabold text-[1.4rem] tracking-tight">
+          <h2 className="text-slate-900 font-semibold text-lg tracking-tight">
             {uploadType === 'obligacion' ? `Subir Anexos: ${tipoImpuesto}` : 'Cargar Documentos'}
           </h2>
         </div>
@@ -251,8 +251,8 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose, uploadType, targe
           
           {/* NUEVO: Dropdown de Plantillas solo visible si estás en el Repositorio Libre */}
           {uploadType === 'archivo' && (
-            <div className="p-4 bg-orange-50/50 border border-orange-100 rounded-xl">
-              <label className="block text-[0.75rem] font-bold text-orange-500 uppercase tracking-widest mb-2">
+            <div className="p-4 bg-brand-50/50 border border-brand-100 rounded-xl">
+              <label className="block text-[13px] font-semibold text-brand-600 mb-2">
                 ¿Desea usar una plantilla de obligación? (Opcional)
               </label>
               <select 
@@ -267,7 +267,7 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose, uploadType, targe
                     setExtraFiles([{ id: Date.now().toString(), name: '', file: null }]);
                   }
                 }}
-                className="w-full px-3 py-2 bg-white border border-orange-200 rounded-lg text-blue-200 text-[0.85rem] outline-none focus:border-orange-500 font-medium cursor-pointer"
+                className="w-full px-3 py-2 bg-white border border-brand-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 font-medium cursor-pointer focus:ring-2 focus:ring-brand-600/20"
               >
                 <option value="">No, subir archivos libres</option>
                 <option value="IVA">Declaración de IVA</option>
@@ -279,24 +279,24 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose, uploadType, targe
             </div>
           )}
 
-          <div className="space-y-3 bg-gray-50 p-4 rounded-xl border border-gray-200">
-            <p className="text-[0.75rem] font-bold text-gray-500 uppercase tracking-widest mb-3">
+          <div className="space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <p className="text-xs font-medium text-slate-500 mb-3">
               {slots.length > 0 ? 'Documentos Requeridos de la Plantilla' : 'Documentos a Subir'}
             </p>
             
             {slots.map((slot) => {
               const isUploaded = !!slotFiles[slot.name];
               return (
-                <div key={slot.name} className={`p-3 border rounded-xl flex items-center justify-between transition-colors ${isUploaded ? 'border-green-500 bg-green-50/30' : 'border-gray-200 bg-white'}`}>
+                <div key={slot.name} className={`p-3 border rounded-xl flex items-center justify-between transition-colors ${isUploaded ? 'border-green-500 bg-green-50/30' : 'border-slate-200 bg-white'}`}>
                   <div className="flex-1 pr-4">
-                    <p className="text-[0.80rem] font-bold text-blue-200 leading-tight">
+                    <p className="text-[13px] font-semibold text-slate-900 leading-tight">
                       {slot.name}
                       {slot.required && <span className="text-red-500 ml-1" title="Obligatorio">*</span>}
                     </p>
-                    {isUploaded && <p className="text-[0.7rem] text-gray-500 mt-1 truncate max-w-50 sm:max-w-75">{slotFiles[slot.name].name}</p>}
+                    {isUploaded && <p className="text-xs text-slate-500 mt-1 truncate max-w-50 sm:max-w-75">{slotFiles[slot.name].name}</p>}
                   </div>
                   <div>
-                    <label className={`cursor-pointer border px-3 py-2 rounded-lg text-[0.7rem] font-bold transition-colors whitespace-nowrap ${isUploaded ? 'bg-white border-green-200 text-green-600 hover:bg-green-50' : 'bg-white border-gray-200 text-gray-600 hover:text-orange-500 hover:border-orange-500'}`}>
+                    <label className={`cursor-pointer border px-3 py-2 rounded-lg text-[13px] font-semibold transition-colors whitespace-nowrap ${isUploaded ? 'bg-white border-green-200 text-green-600 hover:bg-green-50' : 'bg-white border-slate-200 text-slate-600 hover:text-brand-600 hover:border-brand-600'}`}>
                       {isUploaded ? 'Cambiar' : 'Adjuntar'}
                       <input type="file" className="hidden" accept=".pdf,.xls,.xlsx,.doc,.docx" onChange={(e) => handleSlotFileChange(slot.name, e.target.files?.[0])} />
                     </label>
@@ -306,19 +306,19 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose, uploadType, targe
             })}
 
             {extraFiles.map((ef, _index) => (
-              <div key={ef.id} className="p-3 border border-dashed border-orange-300 rounded-xl flex items-center justify-between bg-white relative">
+              <div key={ef.id} className="p-3 border border-dashed border-brand-200 rounded-xl flex items-center justify-between bg-white relative">
                 <div className="flex-1 pr-4">
                   <input 
                     type="text" 
                     placeholder={slots.length > 0 ? "Nombre del anexo (Ej. Sustento extra)" : "Nombre descriptivo del documento..."}
                     value={ef.name}
                     onChange={(e) => updateExtraFile(ef.id, 'name', e.target.value)}
-                    className="w-full text-[0.80rem] font-bold text-blue-200 border-b border-gray-200 focus:border-orange-500 outline-none pb-1 mb-1"
+                    className="w-full text-[13px] font-semibold text-slate-800 border-b border-slate-200 focus:border-brand-600 outline-none pb-1 mb-1 focus:ring-2 focus:ring-brand-600/20"
                   />
-                  {ef.file && <p className="text-[0.7rem] text-gray-500 truncate max-w-50 sm:max-w-75">{ef.file.name}</p>}
+                  {ef.file && <p className="text-xs text-slate-500 truncate max-w-50 sm:max-w-75">{ef.file.name}</p>}
                 </div>
                 <div className="flex items-center gap-2">
-                  <label className={`cursor-pointer border px-3 py-2 rounded-lg text-[0.7rem] font-bold transition-colors whitespace-nowrap ${ef.file ? 'bg-white border-green-200 text-green-600' : 'hover:border-orange-500 border-gray-300 text-gray-600 hover:text-orange-500'}`}>
+                  <label className={`cursor-pointer border px-3 py-2 rounded-lg text-[13px] font-semibold transition-colors whitespace-nowrap ${ef.file ? 'bg-white border-green-200 text-green-600' : 'hover:border-brand-600 border-slate-300 text-slate-600 hover:text-brand-600'}`}>
                     {ef.file ? 'Cambiar' : 'Adjuntar'}
                     <input type="file" className="hidden" accept=".pdf,.xls,.xlsx,.doc,.docx" onChange={(e) => updateExtraFile(ef.id, 'file', e.target.files?.[0])} />
                   </label>
@@ -333,28 +333,28 @@ const ModalSubirArchivo: React.FC<Props> = ({ isOpen, onClose, uploadType, targe
               </div>
             ))}
 
-            <button type="button" onClick={addExtraFileSlot} className="cursor-pointer w-full mt-2 py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 font-bold text-[0.75rem] hover:border-orange-400 hover:text-orange-500 transition-colors flex justify-center items-center gap-2">
+            <button type="button" onClick={addExtraFileSlot} className="cursor-pointer w-full mt-2 py-3 border-2 border-dashed border-slate-300 rounded-xl text-slate-500 font-semibold text-xs hover:border-brand-500 hover:text-brand-600 transition-colors flex justify-center items-center gap-2">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
               {slots.length > 0 ? 'Agregar otro archivo opcional' : 'Agregar otro documento'}
             </button>
           </div>
 
           <div>
-            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Observación para el cliente</label>
+            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Observación para el cliente</label>
             <textarea 
               rows={2} 
               value={observacion}
               onChange={(e) => setObservacion(e.target.value)}
-              className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.85rem] outline-none focus:bg-white focus:border-orange-500 resize-none transition-colors" 
+              className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:bg-white focus:border-brand-600 resize-none transition-colors focus:ring-2 focus:ring-brand-600/20" 
               placeholder="El cliente verá este mensaje en su portal..." 
             ></textarea>
           </div>
 
-          <div className="flex gap-3 pt-2 border-t border-gray-100 mt-4">
-            <button type="button" onClick={onClose} disabled={isSubmitting} className="cursor-pointer flex-1 py-3 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors disabled:opacity-50">
+          <div className="flex gap-3 pt-2 border-t border-slate-100 mt-4">
+            <button type="button" onClick={onClose} disabled={isSubmitting} className="cursor-pointer flex-1 py-2.5 border border-slate-200 rounded-md text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors disabled:opacity-50">
               Cancelar
             </button>
-            <button type="submit" disabled={isSubmitting} className="cursor-pointer flex-1 py-3 bg-blue-200 text-white rounded-md font-bold uppercase tracking-wider text-[0.80rem] hover:bg-orange-500 transition-all shadow-md disabled:opacity-50 flex justify-center items-center gap-2">
+            <button type="submit" disabled={isSubmitting} className="cursor-pointer flex-1 py-2.5 bg-brand-600 text-white rounded-md font-semibold text-sm hover:bg-brand-700 transition-all disabled:opacity-50 flex justify-center items-center gap-2">
               {isSubmitting ? 'Procesando...' : 'Subir Archivos'}
             </button>
           </div>

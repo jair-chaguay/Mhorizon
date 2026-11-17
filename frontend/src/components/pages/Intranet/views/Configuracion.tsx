@@ -123,47 +123,47 @@ const Configuracion: React.FC = () => {
     return (
         <ScrollReveal>
             <div className="max-w-350 mx-auto space-y-6 reveal-element">
-                <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight mb-6">
+                <h1 className="text-xl sm:text-[22px] font-medium text-slate-900 tracking-tight leading-tight mb-6">
                     Ajustes de Cuenta
                 </h1>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     <div className="lg:col-span-1 space-y-6">
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                            <h2 className="text-blue-200 font-bold text-lg mb-4 flex items-center gap-2">
-                                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="bg-white rounded-xl border border-slate-100 p-6">
+                            <h2 className="text-slate-900 font-semibold text-lg mb-4 flex items-center gap-2">
+                                <svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                                 Perfil Personal
                             </h2>
                             <div className="space-y-4">
                                 <div>
-                                    <p className="text-[0.7rem] text-gray-400 font-bold uppercase tracking-widest">Nombre Completo</p>
-                                    <p className="text-blue-200 font-medium text-sm" title={userInfo.nombreCompleto}>{userInfo.nombreCompleto}</p>
+                                    <p className="text-xs text-slate-400 font-medium">Nombre Completo</p>
+                                    <p className="text-slate-900 font-medium text-sm" title={userInfo.nombreCompleto}>{userInfo.nombreCompleto}</p>
                                 </div>
                                 <div>
-                                    <p className="text-[0.7rem] text-gray-400 font-bold uppercase tracking-widest">Cargo Operativo</p>
-                                    <p className="text-blue-200 font-medium text-sm">{userInfo.cargo}</p>
+                                    <p className="text-xs text-slate-400 font-medium">Cargo Operativo</p>
+                                    <p className="text-slate-900 font-medium text-sm">{userInfo.cargo}</p>
                                 </div>
                                 <div>
-                                    <p className="text-[0.7rem] text-gray-400 font-bold uppercase tracking-widest">Correo Corporativo</p>
-                                    <p className="text-blue-200 font-medium text-sm truncate" title={userInfo.correo}>{userInfo.correo}</p>
+                                    <p className="text-xs text-slate-400 font-medium">Correo Corporativo</p>
+                                    <p className="text-slate-900 font-medium text-sm truncate" title={userInfo.correo}>{userInfo.correo}</p>
                                 </div>
                                 <div>
-                                    <p className="text-[0.7rem] text-gray-400 font-bold uppercase tracking-widest">Correo Personal</p>
-                                    <p className="text-blue-200 font-medium text-sm truncate" title={userInfo.correoPersonal}>{userInfo.correoPersonal}</p>
+                                    <p className="text-xs text-slate-400 font-medium">Correo Personal</p>
+                                    <p className="text-slate-900 font-medium text-sm truncate" title={userInfo.correoPersonal}>{userInfo.correoPersonal}</p>
                                 </div>
                             </div>
-                            <div className="mt-6 pt-4 border-t border-gray-100">
-                                <p className="text-xs text-gray-500 italic">Para modificar la información de su perfil, comuníquese con el administrador del sistema.</p>
+                            <div className="mt-6 pt-4 border-t border-slate-100">
+                                <p className="text-xs text-slate-500 italic">Para modificar la información de su perfil, comuníquese con el administrador del sistema.</p>
                             </div>
                         </div>
                     </div>
 
                     <div className="lg:col-span-2 space-y-6">
-                        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12">
-                            <h2 className="text-blue-200 font-bold text-lg mb-4 flex items-center gap-2">
-                                <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="bg-white rounded-xl border border-slate-100 p-12">
+                            <h2 className="text-slate-900 font-semibold text-lg mb-4 flex items-center gap-2">
+                                <svg className="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
                                 Seguridad de la Cuenta
@@ -180,20 +180,20 @@ const Configuracion: React.FC = () => {
 
                             <form className="space-y-4 max-w-lg" onSubmit={handleActualizarPassword}>
                                 <div>
-                                    <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Contraseña Actual</label>
+                                    <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Contraseña Actual</label>
                                     <div className="relative">
                                         <input 
                                             type={showPassword.actual ? "text" : "password"} 
                                             placeholder="••••••••" 
                                             value={passwords.actual}
                                             onChange={(e) => handlePasswordChange('actual', e.target.value)}
-                                            className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm outline-none focus:border-orange-500 transition-colors pr-10 text-[#151E28]" 
+                                            className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm outline-none focus:border-brand-600 transition-colors pr-10 text-slate-800 focus:ring-2 focus:ring-brand-600/20" 
                                             required
                                         />
                                         <button 
                                             type="button" 
                                             onClick={() => toggleShowPassword('actual')}
-                                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer"
+                                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
                                         >
                                             {showPassword.actual ? <EyeSlashIcon /> : <EyeIcon />}
                                         </button>
@@ -202,40 +202,40 @@ const Configuracion: React.FC = () => {
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Nueva Contraseña</label>
+                                        <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Nueva Contraseña</label>
                                         <div className="relative">
                                             <input 
                                                 type={showPassword.nueva ? "text" : "password"} 
                                                 placeholder="••••••••" 
                                                 value={passwords.nueva}
                                                 onChange={(e) => handlePasswordChange('nueva', e.target.value)}
-                                                className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm outline-none focus:border-orange-500 transition-colors pr-10 text-[#151E28]" 
+                                                className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm outline-none focus:border-brand-600 transition-colors pr-10 text-slate-800 focus:ring-2 focus:ring-brand-600/20" 
                                                 required
                                             />
                                             <button 
                                                 type="button" 
                                                 onClick={() => toggleShowPassword('nueva')}
-                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer"
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
                                             >
                                                 {showPassword.nueva ? <EyeSlashIcon /> : <EyeIcon />}
                                             </button>
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Confirmar Contraseña</label>
+                                        <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Confirmar Contraseña</label>
                                         <div className="relative">
                                             <input 
                                                 type={showPassword.confirmar ? "text" : "password"} 
                                                 placeholder="••••••••" 
                                                 value={passwords.confirmar}
                                                 onChange={(e) => handlePasswordChange('confirmar', e.target.value)}
-                                                className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm outline-none focus:border-orange-500 transition-colors pr-10 text-[#151E28]" 
+                                                className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm outline-none focus:border-brand-600 transition-colors pr-10 text-slate-800 focus:ring-2 focus:ring-brand-600/20" 
                                                 required
                                             />
                                             <button 
                                                 type="button" 
                                                 onClick={() => toggleShowPassword('confirmar')}
-                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer"
+                                                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600 focus:outline-none cursor-pointer"
                                             >
                                                 {showPassword.confirmar ? <EyeSlashIcon /> : <EyeIcon />}
                                             </button>
@@ -246,7 +246,7 @@ const Configuracion: React.FC = () => {
                                     <button 
                                         type="submit" 
                                         disabled={loading}
-                                        className="bg-[#151E28] text-white text-[0.8rem] font-bold uppercase tracking-widest px-6 py-2.5 rounded-lg shadow hover:bg-orange-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 cursor-pointer"
+                                        className="bg-brand-600 text-white text-[13px] font-semibold px-6 py-2.5 rounded-lg hover:bg-brand-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 cursor-pointer"
                                     >
                                         {loading ? (
                                             <>

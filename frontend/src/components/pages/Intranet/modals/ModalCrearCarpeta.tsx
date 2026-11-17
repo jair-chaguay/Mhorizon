@@ -53,21 +53,21 @@ const ModalCrearCarpeta: React.FC<Props> = ({ isOpen, onClose, onSuccess, config
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/80 z-150 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-slate-900/50 z-150 flex items-center justify-center p-4">
             <div className="bg-white rounded-xl p-8 w-full max-w-md shadow-2xl">
-                <h2 className="text-blue-200 font-black text-xl mb-4 uppercase">{config.title}</h2>
+                <h2 className="text-slate-900 font-semibold text-xl mb-4">{config.title}</h2>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <input
                         autoFocus
-                        className="w-full p-3 bg-gray-50 border rounded-lg outline-none focus:border-orange-500"
+                        className="w-full p-3 bg-white border rounded-lg outline-none focus:border-brand-600 border-slate-200 focus:ring-2 focus:ring-brand-600/20"
                         placeholder={config.placeholder}
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
                         required
                     />
                     <div className="flex gap-2">
-                        <button type="button" onClick={onClose} className="cursor-pointer flex-1 py-3 text-gray-500 font-bold uppercase text-xs">Cancelar</button>
-                        <button type="submit" disabled={loading} className="cursor-pointer flex-1 py-3 bg-blue-200 text-white rounded-lg font-bold uppercase text-xs hover:bg-orange-500">
+                        <button type="button" onClick={onClose} className="cursor-pointer flex-1 py-2.5 text-slate-500 font-semibold text-sm">Cancelar</button>
+                        <button type="submit" disabled={loading} className="cursor-pointer flex-1 py-2.5 bg-brand-600 text-white rounded-lg font-semibold text-sm hover:bg-brand-700">
                             {loading ? 'Creando...' : 'Confirmar'}
                         </button>
                     </div>

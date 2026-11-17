@@ -7,6 +7,71 @@
   --color-blue-100: #0A2C5E;
   --font--Jakarta: "Jakarta";
   --color-gray-800: #F4F5F7;
+
+  /* Paleta del dashboard MHORIZON (la usa la intranet): naranja de marca y azul oscuro */
+  --color-brand-50: #fdf4ec;
+  --color-brand-100: #fbe5d0;
+  --color-brand-200: #f5c8a0;
+  --color-brand-500: #e07c34;
+  --color-brand-600: #d4681c;
+  --color-brand-700: #b4560f;
+  --color-navy-900: #171e27;
+  --color-navy-800: #212b38;
+  --color-navy-700: #0a2c5e;
+  --color-navy-50: #eef2f8;
+
+  /* Fuente de la intranet: Plus Jakarta Sans con cada peso en su propio archivo (ver @font-face más abajo) */
+  --font-intranet: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Plus Jakarta Sans para la intranet. La familia "Inter" de abajo solo declara normal y Bold, así que
+   ahí font-semibold (600) se ve en Bold y font-medium (500) en normal; aquí cada peso usa su archivo */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/fonts/plusJakarta/PlusJakartaSans-Light.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/fonts/plusJakarta/PlusJakartaSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/fonts/plusJakarta/PlusJakartaSans-Medium.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/fonts/plusJakarta/PlusJakartaSans-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/fonts/plusJakarta/PlusJakartaSans-Bold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("./assets/fonts/plusJakarta/PlusJakartaSans-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
 }
 
 

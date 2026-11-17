@@ -55,41 +55,41 @@ const MenuBar = ({ editor,  }: { editor: any }) => {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-2 p-2 bg-gray-50 border-b border-gray-200 rounded-t-lg">
+    <div className="flex flex-wrap items-center gap-2 p-2 bg-slate-50 border-b border-slate-200 rounded-t-lg">
       
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleBold().run()}
-        className={`px-3 py-1.5 rounded text-sm font-bold transition-colors ${editor.isActive('bold') ? 'bg-orange-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}
+        className={`px-3 py-1.5 rounded text-sm font-semibold transition-colors ${editor.isActive('bold') ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
       >
         B
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleItalic().run()}
-        className={`px-3 py-1.5 rounded text-sm italic transition-colors ${editor.isActive('italic') ? 'bg-orange-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}
+        className={`px-3 py-1.5 rounded text-sm italic transition-colors ${editor.isActive('italic') ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
       >
         I
       </button>
 
-      <div className="w-px h-6 bg-gray-300 mx-1"></div>
+      <div className="w-px h-6 bg-slate-300 mx-1"></div>
 
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={`px-3 py-1.5 rounded text-sm font-bold transition-colors ${editor.isActive('heading', { level: 2 }) ? 'bg-orange-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}
+        className={`px-3 py-1.5 rounded text-sm font-semibold transition-colors ${editor.isActive('heading', { level: 2 }) ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
       >
         H2
       </button>
       <button
         type="button"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={`px-3 py-1.5 rounded text-sm transition-colors ${editor.isActive('bulletList') ? 'bg-orange-500 text-white' : 'bg-white text-gray-600 hover:bg-gray-100'}`}
+        className={`px-3 py-1.5 rounded text-sm transition-colors ${editor.isActive('bulletList') ? 'bg-brand-600 text-white' : 'bg-white text-slate-600 hover:bg-slate-100'}`}
       >
         Lista
       </button>
 
-      <div className="w-px h-6 bg-gray-300 mx-1"></div>
+      <div className="w-px h-6 bg-slate-300 mx-1"></div>
 
       <input 
         type="file" 
@@ -103,11 +103,11 @@ const MenuBar = ({ editor,  }: { editor: any }) => {
         disabled={isUploading}
         onClick={() => fileInputRef.current?.click()}
         className={`px-3 py-1.5 rounded text-sm transition-colors flex items-center gap-2 ${
-          isUploading ? 'bg-gray-200 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-600 hover:bg-gray-100'
+          isUploading ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-white text-slate-600 hover:bg-slate-100'
         }`}
       >
         {isUploading ? (
-           <span className="w-4 h-4 border-2 border-orange-500 border-t-transparent rounded-full animate-spin"></span>
+           <span className="w-4 h-4 border-2 border-brand-600 border-t-transparent rounded-full animate-spin"></span>
         ) : "🖼️"} 
         {isUploading ? "Subiendo..." : "Imagen"}
       </button>
@@ -115,18 +115,18 @@ const MenuBar = ({ editor,  }: { editor: any }) => {
       <button
         type="button"
         onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}
-        className="px-3 py-1.5 rounded text-sm transition-colors bg-white text-gray-600 hover:bg-gray-100"
+        className="px-3 py-1.5 rounded text-sm transition-colors bg-white text-slate-600 hover:bg-slate-100"
       >
         📊 Tabla
       </button>
       
       {editor.can().addColumnBefore() && (
-        <div className="flex gap-1 ml-auto bg-gray-200 p-1 rounded">
-           <button type="button" onClick={() => editor.chain().focus().addColumnAfter().run()} className="px-2 py-1 rounded text-[0.7rem] bg-white text-gray-700 hover:bg-gray-50">+ Col</button>
-           <button type="button" onClick={() => editor.chain().focus().addRowAfter().run()} className="px-2 py-1 rounded text-[0.7rem] bg-white text-gray-700 hover:bg-gray-50">+ Fila</button>
-           <button type="button" onClick={() => editor.chain().focus().deleteColumn().run()} className="px-2 py-1 rounded text-[0.7rem] bg-red-100 text-red-600 hover:bg-red-200">- Col</button>
-           <button type="button" onClick={() => editor.chain().focus().deleteRow().run()} className="px-2 py-1 rounded text-[0.7rem] bg-red-100 text-red-600 hover:bg-red-200">- Fila</button>
-           <button type="button" onClick={() => editor.chain().focus().deleteTable().run()} className="px-2 py-1 rounded text-[0.7rem] bg-red-500 text-white hover:bg-red-600">Borrar Tabla</button>
+        <div className="flex gap-1 ml-auto bg-slate-200 p-1 rounded">
+           <button type="button" onClick={() => editor.chain().focus().addColumnAfter().run()} className="px-2 py-1 rounded text-xs bg-white text-slate-700 hover:bg-slate-50">+ Col</button>
+           <button type="button" onClick={() => editor.chain().focus().addRowAfter().run()} className="px-2 py-1 rounded text-xs bg-white text-slate-700 hover:bg-slate-50">+ Fila</button>
+           <button type="button" onClick={() => editor.chain().focus().deleteColumn().run()} className="px-2 py-1 rounded text-xs bg-red-100 text-red-600 hover:bg-red-200">- Col</button>
+           <button type="button" onClick={() => editor.chain().focus().deleteRow().run()} className="px-2 py-1 rounded text-xs bg-red-100 text-red-600 hover:bg-red-200">- Fila</button>
+           <button type="button" onClick={() => editor.chain().focus().deleteTable().run()} className="px-2 py-1 rounded text-xs bg-red-500 text-white hover:bg-red-600">Borrar Tabla</button>
         </div>
       )}
     </div>
@@ -164,7 +164,7 @@ const EditorRichText: React.FC<EditorProps> = ({ value, onChange }) => {
   }, [value, editor]);
 
   return (
-    <div className="border border-gray-200 rounded-lg overflow-hidden bg-white focus-within:border-orange-500 transition-colors tiptap-editor">
+    <div className="border border-slate-200 rounded-lg overflow-hidden bg-white focus-within:border-brand-600 transition-colors tiptap-editor">
       <MenuBar editor={editor}  />
       <EditorContent editor={editor} />
     </div>

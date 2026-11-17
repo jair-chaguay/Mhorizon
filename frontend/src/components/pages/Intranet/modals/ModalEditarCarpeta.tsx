@@ -43,13 +43,13 @@ const ModalEditarCarpeta: React.FC<ModalEditarCarpetaProps> = ({ isOpen, onClose
   };
 
   return (
-    <ScrollReveal className="fixed inset-0 bg-black/80 backdrop-blur-sm z-130 flex justify-center items-center p-4 animate-fadeIn">
-      <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative scale-100 transition-transform duration-300 reveal-element">
+    <ScrollReveal className="fixed inset-0 bg-slate-900/50 z-130 flex justify-center items-center p-4 animate-fadeIn">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg p-8 relative scale-100 transition-transform duration-300 reveal-element">
         
         {/* Botón Cerrar */}
         <button 
           onClick={onClose} 
-          className="absolute top-5 right-5 text-gray-400 hover:text-orange-500 focus:outline-none transition-colors cursor-pointer"
+          className="absolute top-5 right-5 text-slate-400 hover:text-brand-600 focus:outline-none transition-colors cursor-pointer"
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -57,41 +57,41 @@ const ModalEditarCarpeta: React.FC<ModalEditarCarpetaProps> = ({ isOpen, onClose
         </button>
         
         {/* Cabecera */}
-        <div className="mb-5 border-b border-gray-100 pb-4">
-          <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.70rem] uppercase mb-1 block">Gestión de Directorio</span>
-          <h2 className="text-blue-200 font-extrabold text-[1.4rem] tracking-tight">{config.title}</h2>
+        <div className="mb-5 border-b border-slate-100 pb-4">
+          <span className="text-brand-600 font-medium text-xs mb-1 block">Gestión de Directorio</span>
+          <h2 className="text-slate-900 font-semibold text-lg tracking-tight">{config.title}</h2>
         </div>
 
         {/* Formulario */}
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="block text-[0.70rem] font-bold text-blue-200 uppercase tracking-widest mb-1">
+            <label className="block text-[13px] font-semibold text-slate-700 mb-1">
               Nombre de la Carpeta / Periodo
             </label>
             <input 
               type="text" 
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.85rem] outline-none focus:border-orange-500 transition-colors" 
+              className="w-full px-3 py-2 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 transition-colors focus:ring-2 focus:ring-brand-600/20" 
               required 
               autoFocus
             />
           </div>
 
           {/* Botones de Acción */}
-          <div className="flex gap-3 pt-4 border-t border-gray-100 mt-6">
+          <div className="flex gap-3 pt-4 border-t border-slate-100 mt-6">
             <button 
               type="button" 
               onClick={onClose} 
               disabled={loading}
-              className="flex-1 py-3 mt-2 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors cursor-pointer disabled:opacity-50"
+              className="flex-1 py-2.5 mt-2 border border-slate-200 rounded-md text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors cursor-pointer disabled:opacity-50"
             >
               Cancelar
             </button>
             <button 
               type="submit" 
               disabled={loading || nombre.trim() === '' || nombre === config.currentName}
-              className="flex-1 py-3 mt-2 bg-blue-200 text-white rounded-md font-bold uppercase tracking-wider text-[0.80rem] hover:bg-orange-500 transition-colors cursor-pointer disabled:opacity-50 flex justify-center items-center gap-2"
+              className="flex-1 py-2.5 mt-2 bg-brand-600 text-white rounded-md font-semibold text-sm hover:bg-brand-700 transition-colors cursor-pointer disabled:opacity-50 flex justify-center items-center gap-2"
             >
               {loading ? (
                 <>

@@ -118,7 +118,7 @@ const IntranetLayout: React.FC = () => {
     };
 
     return (
-        <div className="bg-gray-800 text-blue-200 h-screen overflow-hidden flex font-inter relative">
+        <div className="font-intranet antialiased bg-[#f4f5f7] text-slate-800 h-screen overflow-hidden flex relative">
             <Sidebar
                 activeView={activeView}
                 onViewChange={handleViewChange}
@@ -126,13 +126,13 @@ const IntranetLayout: React.FC = () => {
                 setIsOpen={setIsSidebarOpen}
             />
 
-            <div className="flex-1 flex flex-col h-screen overflow-hidden bg-gray-800 relative">
+            <div className="flex-1 min-w-0 flex flex-col h-screen overflow-hidden bg-[#f4f5f7] relative">
                 <Header
                     title={viewTitle}
                     onOpenSidebar={() => setIsSidebarOpen(true)}
                 />
 
-                <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-10 no-scrollbar relative z-10 bg-gray-50">
+                <main className="flex-1 overflow-y-auto p-4 lg:p-8 no-scrollbar relative z-10 bg-[#f4f5f7]">
                     <div className="animate-fadeIn">
                         {activeView === 'view-directorio' && (
                             <Directorio onOpenGestion={handleOpenGestion}
@@ -219,7 +219,7 @@ const IntranetLayout: React.FC = () => {
 
                     </div>
 
-                    <footer className="mt-12 pt-6 border-t border-gray-200 text-center text-gray-400 text-[0.75rem] font-light max-w-350 mx-auto pb-4">
+                    <footer className="mt-10 pt-5 border-t border-slate-200/80 text-center text-slate-400 text-xs max-w-350 mx-auto pb-2">
                         &copy; 2026 MHORIZON ECUADOR. Intranet Confidencial Operativa.
                     </footer>
                 </main>

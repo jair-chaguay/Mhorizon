@@ -222,18 +222,18 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
     if (!isOpen) return null;
 
     return (
-        <div id="add-client-modal" className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[150] flex justify-center items-center p-4 transition-opacity duration-300">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative transform scale-100 transition-transform duration-300 max-h-[90vh] overflow-y-auto no-scrollbar">
+        <div id="add-client-modal" className="fixed inset-0 bg-slate-900/50 z-[150] flex justify-center items-center p-4 transition-opacity duration-300">
+            <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg p-8 relative transform scale-100 transition-transform duration-300 max-h-[90vh] overflow-y-auto no-scrollbar">
 
-                <button onClick={onClose} className="absolute top-5 right-5 text-gray-400 hover:text-orange-500 focus:outline-none cursor-pointer">
+                <button onClick={onClose} className="absolute top-5 right-5 text-slate-400 hover:text-brand-600 focus:outline-none cursor-pointer">
                     <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
 
-                <div className="mb-5 border-b border-gray-100 pb-4">
-                    <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.70rem] uppercase mb-1 block">Directorio</span>
-                    <h2 className="text-blue-200 font-extrabold text-[1.4rem] tracking-tight">Añadir Nuevo Cliente</h2>
+                <div className="mb-5 border-b border-slate-100 pb-4">
+                    <span className="text-brand-600 font-medium text-xs mb-1 block">Directorio</span>
+                    <h2 className="text-slate-900 font-semibold text-lg tracking-tight">Añadir Nuevo Cliente</h2>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -247,12 +247,12 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Razón Social</label>
-                            <input type="text" value={razonSocial} onChange={(e) => setRazonSocial(e.target.value)} placeholder="Ej. Empresa S.A." className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Razón Social</label>
+                            <input type="text" value={razonSocial} onChange={(e) => setRazonSocial(e.target.value)} placeholder="Ej. Empresa S.A." className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" required />
                         </div>
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">RUC / Cédula</label>
-                            <input type="text" maxLength={13} value={identificacion} onChange={(e) => setIdentificacion(e.target.value)} placeholder="Ej. 1790000000001" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">RUC / Cédula</label>
+                            <input type="text" maxLength={13} value={identificacion} onChange={(e) => setIdentificacion(e.target.value)} placeholder="Ej. 1790000000001" className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" required />
                         </div>
 
                     </div>
@@ -260,20 +260,20 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                     <div className="grid grid-cols-2 gap-4">
 
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Score Tributario</label>
-                            <input type="number" value={score} onChange={(e) => setScore(Number(e.target.value))} max="100" min="0" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Score Tributario</label>
+                            <input type="number" value={score} onChange={(e) => setScore(Number(e.target.value))} max="100" min="0" className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" required />
                         </div>
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-2">Tipos de Servicio Contratados</label>
-                            <div className="flex flex-wrap gap-3 bg-gray-50 p-3 rounded-lg border border-gray-200">
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-2">Tipos de Servicio Contratados</label>
+                            <div className="flex flex-wrap gap-3 bg-slate-50 p-3 rounded-lg border border-slate-200">
                                 {['Impuestos', 'Outsourcing contable', 'Auditoria', 'Trabajos especiales', 'Outsourcing de Nomina'].map(servicio => (
-                                    <label key={servicio} className="flex items-center gap-2 cursor-pointer text-blue-200 text-[0.85rem]">
+                                    <label key={servicio} className="flex items-center gap-2 cursor-pointer text-slate-700 text-sm">
                                         <input
                                             type="checkbox"
                                             value={servicio}
                                             checked={tiposServicioSeleccionados.includes(servicio)}
                                             onChange={handleServicioChange}
-                                            className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
+                                            className="w-4 h-4 text-brand-600 border-slate-300 rounded focus:ring-brand-600/20"
                                         />
                                         {servicio}
                                     </label>
@@ -285,8 +285,8 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Sector</label>
-                            <select value={sector} onChange={(e) => setSector(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500">
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Sector</label>
+                            <select value={sector} onChange={(e) => setSector(e.target.value)} className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20">
                                 <option value="Servicios">Servicios</option>
                                 <option value="Comercial">Comercial</option>
                                 <option value="Industrial">Industrial</option>
@@ -296,8 +296,8 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                             </select>
                         </div>
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Tipo Contribuyente</label>
-                            <select value={tipoContribuyente} onChange={(e) => setTipoContribuyente(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500">
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Tipo Contribuyente</label>
+                            <select value={tipoContribuyente} onChange={(e) => setTipoContribuyente(e.target.value)} className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20">
                                 <option value="Persona Natural">Persona Natural</option>
                                 <option value="Sociedad">Sociedad</option>
                             </select>
@@ -307,8 +307,8 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Régimen Tributario</label>
-                            <select value={regimenTributario} onChange={(e) => setRegimenTributario(e.target.value)} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500">
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Régimen Tributario</label>
+                            <select value={regimenTributario} onChange={(e) => setRegimenTributario(e.target.value)} className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20">
                                 <option value="General">General</option>
                                 <option value="RIMPE">RIMPE</option>
                                 <option value="Grande Contribuyente">Grande Contribuyente</option>
@@ -317,8 +317,8 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                             </select>
                         </div>
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Agente de Retención</label>
-                            <select value={agenteRetencion ? "true" : "false"} onChange={(e) => setAgenteRetencion(e.target.value === "true")} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500">
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Agente de Retención</label>
+                            <select value={agenteRetencion ? "true" : "false"} onChange={(e) => setAgenteRetencion(e.target.value === "true")} className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20">
                                 <option value="false">NO</option>
                                 <option value="true">SI</option>
                             </select>
@@ -328,27 +328,27 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo <span className="text-gray-400 font-normal normal-case tracking-normal">(Usuario 1)</span></label>
-                            <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder="correo@empresa.com" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Correo <span className="text-slate-400 font-normal normal-case tracking-normal">(Usuario 1)</span></label>
+                            <input type="email" value={correo} onChange={(e) => setCorreo(e.target.value)} placeholder="correo@empresa.com" className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" required />
                         </div>
                         <div>
-                            <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Contraseña (Acceso)</label>
-                            <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Clave de acceso" className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required minLength={8} />
+                            <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Contraseña (Acceso)</label>
+                            <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Clave de acceso" className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" required minLength={8} />
                         </div>
                     </div>
 
 
 
                     <div>
-                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Actividad Económica</label>
-                        <textarea value={actividadEconomica} onChange={(e) => setActividadEconomica(e.target.value)} placeholder="Describa brevemente la actividad económica principal..." rows={2} className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500 resize-none" />
+                        <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Actividad Económica</label>
+                        <textarea value={actividadEconomica} onChange={(e) => setActividadEconomica(e.target.value)} placeholder="Describa brevemente la actividad económica principal..." rows={2} className="w-full px-3 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 resize-none focus:ring-2 focus:ring-brand-600/20" />
                     </div>
 
                     <div>
-                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Gestionado Por (Selecciona uno o más)</label>
-                        <div className="w-full border border-gray-200 rounded-lg max-h-36 overflow-y-auto bg-gray-50 p-2 space-y-1">
+                        <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Gestionado Por (Selecciona uno o más)</label>
+                        <div className="w-full border border-slate-200 rounded-lg max-h-36 overflow-y-auto bg-slate-50 p-2 space-y-1">
                             {usuariosGestores.map((u) => (
-                                <label key={u.id} className="flex items-center gap-3 p-2 hover:bg-gray-100 rounded-md cursor-pointer transition-colors">
+                                <label key={u.id} className="flex items-center gap-3 p-2 hover:bg-slate-100 rounded-md cursor-pointer transition-colors">
                                     <input
                                         type="checkbox"
                                         checked={gestoresSeleccionados.includes(u.id)}
@@ -359,52 +359,52 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                                                 setGestoresSeleccionados(gestoresSeleccionados.filter(id => id !== u.id));
                                             }
                                         }}
-                                        className="w-4 h-4 text-orange-500 border-gray-300 rounded focus:ring-orange-500"
+                                        className="w-4 h-4 text-brand-600 border-slate-300 rounded focus:ring-brand-600/20"
                                     />
-                                    <span className="text-[0.85rem] font-medium text-blue-200">{u.nombre} {u.apellido}</span>
+                                    <span className="text-sm font-medium text-slate-900">{u.nombre} {u.apellido}</span>
                                 </label>
                             ))}
                             {usuariosGestores.length === 0 && (
-                                <p className="text-xs text-gray-400 p-2">No hay gestores disponibles.</p>
+                                <p className="text-xs text-slate-400 p-2">No hay gestores disponibles.</p>
                             )}
                         </div>
                     </div>
 
-                    <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl space-y-4">
-                        <div className="flex justify-between items-center pb-2 border-b border-gray-200">
-                            <h3 className="text-[0.8rem] font-bold text-blue-200 uppercase tracking-widest">2. Directorio de Contactos</h3>
-                            <button type="button" onClick={agregarRepresentante} className="text-xs text-white bg-blue-200 px-3 py-2.5 cursor-pointer rounded hover:bg-orange-500 transition-colors">
+                    <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl space-y-4">
+                        <div className="flex justify-between items-center pb-2 border-b border-slate-200">
+                            <h3 className="text-[13px] font-semibold text-slate-900">2. Directorio de Contactos</h3>
+                            <button type="button" onClick={agregarRepresentante} className="text-xs text-white bg-brand-600 px-3 py-2.5 cursor-pointer rounded hover:bg-brand-700 transition-colors">
                                 + Añadir Contacto
                             </button>
                         </div>
 
                         {representantes.map((rep, index) => (
-                            <div key={index} className="space-y-4 pb-4 border-b border-gray-200 border-dashed relative pt-2">
+                            <div key={index} className="space-y-4 pb-4 border-b border-slate-200 border-dashed relative pt-2">
                                 {index > 0 && (
-                                    <button type="button" onClick={() => eliminarRepresentante(index)} className="cursor-pointer absolute top-2 right-0 text-red-500 hover:text-red-700 text-[0.70rem] font-bold uppercase tracking-wider">
+                                    <button type="button" onClick={() => eliminarRepresentante(index)} className="cursor-pointer absolute top-2 right-0 text-red-500 hover:text-red-700 text-xs font-semibold">
                                         Eliminar
                                     </button>
                                 )}
                                 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Nombre Completo</label>
-                                        <input type="text" value={rep.nombre} onChange={(e) => handleRepresentanteChange(index, 'nombre', e.target.value)} placeholder="Nombre del contacto..." className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" required />
+                                        <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Nombre Completo</label>
+                                        <input type="text" value={rep.nombre} onChange={(e) => handleRepresentanteChange(index, 'nombre', e.target.value)} placeholder="Nombre del contacto..." className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" required />
                                     </div>
                                     <div>
-                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Cargo</label>
-                                        <input type="text" value={rep.cargo} onChange={(e) => handleRepresentanteChange(index, 'cargo', e.target.value)} placeholder="Ej. Gerente General" className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
+                                        <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Cargo</label>
+                                        <input type="text" value={rep.cargo} onChange={(e) => handleRepresentanteChange(index, 'cargo', e.target.value)} placeholder="Ej. Gerente General" className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" />
                                     </div>
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <div>
-                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Correo de Contacto</label>
-                                        <input type="email" value={rep.correo} onChange={(e) => handleRepresentanteChange(index, 'correo', e.target.value)} placeholder="contacto@empresa.com" className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
+                                        <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Correo de Contacto</label>
+                                        <input type="email" value={rep.correo} onChange={(e) => handleRepresentanteChange(index, 'correo', e.target.value)} placeholder="contacto@empresa.com" className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" />
                                     </div>
                                     <div>
-                                        <label className="block text-[0.75rem] font-bold text-blue-200 uppercase tracking-widest mb-1.5">Teléfono Personal/Móvil</label>
-                                        <input type="text" value={rep.telefono} onChange={(e) => handleRepresentanteChange(index, 'telefono', e.target.value)} placeholder="Ej. 0999999999" className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-blue-200 text-[0.90rem] outline-none focus:border-orange-500" />
+                                        <label className="block text-[13px] font-semibold text-slate-700 mb-1.5">Teléfono Personal/Móvil</label>
+                                        <input type="text" value={rep.telefono} onChange={(e) => handleRepresentanteChange(index, 'telefono', e.target.value)} placeholder="Ej. 0999999999" className="w-full px-4 py-2.5 bg-white border border-slate-200 rounded-lg text-slate-800 text-sm outline-none focus:border-brand-600 focus:ring-2 focus:ring-brand-600/20" />
                                     </div>
                                 </div>
                             </div>
@@ -412,12 +412,12 @@ export const ModalAñadirCliente: React.FC<ModalAñadirClienteProps> = ({ isOpen
                     </div>
 
 
-                    <div className="flex gap-3 pt-4 border-t border-gray-100">
-                        <button type="button" onClick={onClose} disabled={loading} className="flex-1 py-3 border border-gray-200 rounded-md text-gray-600 font-bold uppercase tracking-wider text-[0.80rem] hover:bg-gray-50 transition-colors cursor-pointer">
+                    <div className="flex gap-3 pt-4 border-t border-slate-100">
+                        <button type="button" onClick={onClose} disabled={loading} className="flex-1 py-2.5 border border-slate-200 rounded-md text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors cursor-pointer">
                             Cancelar
                         </button>
 
-                        <button type="submit" disabled={loading} className={`flex-1 py-3 text-white rounded-md font-bold uppercase tracking-wider text-[0.80rem] transition-colors cursor-pointer ${loading ? 'bg-gray-400' : 'bg-blue-200 hover:bg-orange-500'}`}>
+                        <button type="submit" disabled={loading} className={`flex-1 py-2.5 text-white rounded-md font-semibold text-sm transition-colors cursor-pointer ${loading ? 'bg-slate-400' : 'bg-brand-600 hover:bg-brand-700'}`}>
                             {loading ? 'Creando...' : 'Añadir Cliente'}
                         </button>
                     </div>
