@@ -129,8 +129,14 @@ class ClienteController extends Controller
     }
 
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        // El personal (1 colaborador, 3 administrador) ve cualquier cliente; un cliente, solo su propia empresa
+        $yo = $request->user();
+        if (!in_array((int) $yo->rol_id, [1, 3], true) && (int) $yo->cliente_id !== (int) $id) {
+            return response()->json(['message' => 'No tienes permiso para ver este cliente', 'status' => 403], 403);
+        }
+
         $cliente = Cliente::with(['usuarios', 'gestores', 'representantes'])->find($id);
 
         if (!$cliente) return response()->json(['message' => 'Cliente no encontrado', 'status' => 404], 404);

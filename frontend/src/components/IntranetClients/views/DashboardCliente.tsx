@@ -158,35 +158,35 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
     return (
         <ScrollReveal>
             <div className="max-w-350 mx-auto space-y-6 reveal-element">
-                <h1 className="text-[1.8rem] sm:text-[2.2rem] font-extrabold text-blue-200 tracking-tight leading-tight">
+                <h1 className="text-xl sm:text-[22px] font-bold text-slate-900 tracking-tight leading-tight">
                     Resumen Ejecutivo
                 </h1>
 
                 {loading ? (
                     <div className="animate-pulse flex gap-6">
-                        <div className="h-32 bg-gray-200 rounded-2xl w-full"></div>
-                        <div className="h-32 bg-gray-200 rounded-2xl w-full"></div>
+                        <div className="h-32 bg-slate-200 rounded-xl w-full"></div>
+                        <div className="h-32 bg-slate-200 rounded-xl w-full"></div>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-6">
-                            <div className={`w-20 h-20 rounded-full flex items-center justify-center border-4 shrink-0 ${typeof days === 'number' && days <= 3 ? 'bg-red-50 text-red-600 border-red-100' : 'bg-orange-50 text-orange-600 border-orange-100'}`}>
+                        <div className="bg-white p-6 rounded-xl border border-slate-100 flex items-center gap-6">
+                            <div className={`w-20 h-20 rounded-full flex items-center justify-center border-4 shrink-0 ${typeof days === 'number' && days <= 3 ? 'bg-red-50 text-red-600 border-red-100' : 'bg-brand-50 text-brand-700 border-brand-100'}`}>
                                 <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
                             </div>
                             <div className="overflow-hidden">
-                                <p className="text-[0.75rem] text-gray-500 font-bold uppercase tracking-widest leading-none mb-1">Días restantes</p>
-                                <p className={`text-5xl font-black leading-none mb-1 ${typeof days === 'number' && days <= 3 ? 'text-red-500' : 'text-blue-200'}`}>
+                                <p className="text-xs text-slate-500 font-medium leading-none mb-1">Días restantes</p>
+                                <p className={`text-5xl font-bold leading-none mb-1 ${typeof days === 'number' && days <= 3 ? 'text-red-500' : 'text-slate-900'}`}>
                                     {days} {typeof days === 'number' && (days === 1 ? 'Día' : 'Días')}
                                 </p>
-                                <p className="text-sm font-semibold text-gray-700 truncate">Vence: {vence}</p>
-                                <p className="text-xs text-gray-500 truncate">{declaracion}</p>
+                                <p className="text-sm font-semibold text-slate-700 truncate">Vence: {vence}</p>
+                                <p className="text-xs text-slate-500 truncate">{declaracion}</p>
                             </div>
                         </div>
 
-                        <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-6 relative">
+                        <div className="bg-white p-6 rounded-xl border border-slate-100 flex items-center gap-6 relative">
                             <div className="w-20 h-20 shrink-0 flex items-center justify-center">
                                 <svg className="w-20 h-20 transform -rotate-90" viewBox="0 0 120 120">
                                     <circle cx="60" cy="60" r="54" fill="none" stroke="#E5E7EB" strokeWidth="12"></circle>
@@ -196,14 +196,14 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
                                         style={{ strokeDasharray: circumference, strokeDashoffset: gaugeOffset }}
                                     ></circle>
                                 </svg>
-                                <span className="absolute text-2xl font-black text-blue-200">{score}</span>
+                                <span className="absolute text-2xl font-bold text-slate-900">{score}</span>
                             </div>
                             <div className="overflow-hidden">
-                                <p className="text-[0.75rem] text-gray-500 font-bold uppercase tracking-widest leading-none mb-1">Score Tributario</p>
-                                <p className="text-sm font-semibold text-gray-700">Estado: {getScoreStatus()}</p>
+                                <p className="text-xs text-slate-500 font-medium leading-none mb-1">Score Tributario</p>
+                                <p className="text-sm font-semibold text-slate-700">Estado: {getScoreStatus()}</p>
                                 <button 
                                     onClick={()=> setIsScoreOpen(true)}
-                                    className='bg-blue-200 hover:bg-orange-500 transition-colors duration-300 cursor-pointer py-1 px-3 rounded-sm  mt-2 text-white'>
+                                    className='bg-brand-600 hover:bg-brand-700 transition-colors cursor-pointer h-8 px-3 rounded-lg mt-2 text-white text-[13px] font-semibold'>
                                         Calificar
                                 </button>
                             </div>
@@ -212,15 +212,15 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
                     </div>
                 )}
 
-                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 lg:p-8 space-y-5">
-                    <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                        <h2 className="text-xl font-extrabold text-blue-200">
+                <div className="bg-white rounded-xl border border-slate-100 p-6 lg:p-8 space-y-5">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                        <h2 className="text-xl font-semibold text-slate-900">
                             Biblioteca de Archivos ({new Date().getFullYear()})
                         </h2>
                     </div>
 
                     {loading ? (
-                        <div className="h-24 bg-gray-100 animate-pulse rounded-xl"></div>
+                        <div className="h-24 bg-slate-100 animate-pulse rounded-xl"></div>
                     ) : (
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             {carpetasActuales.length > 0 ? (
@@ -230,58 +230,58 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
                                         <div 
                                             key={carpeta.id} 
                                             onClick={() => onNavigate('biblioteca-view', 'Biblioteca de Archivos')} 
-                                            className={`${theme.bg} border ${theme.border} rounded-xl p-4 text-center cursor-pointer hover:shadow-md transition-shadow group flex flex-col items-center justify-center`}
+                                            className={`${theme.bg} border ${theme.border} rounded-xl p-4 text-center cursor-pointer transition-shadow group flex flex-col items-center justify-center`}
                                         >
                                             <svg className={`w-8 h-8 ${theme.text}`} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M4 6C4 4.89543 4.89543 4 6 4H10C10.7411 4 11.4116 4.41243 11.7645 5.05943L12.2355 5.94057C12.5884 6.58757 13.2589 7 14 7H18C19.1046 7 20 7.89543 20 9V18C20 19.1046 19.1046 20 18 20H6C4.89543 20 4 19.1046 4 18V6Z" fill="currentColor" fillOpacity="0.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
-                                            <p className={`text-[0.8rem] font-bold ${theme.textDark} mt-2 truncate w-full`} title={carpeta.nombre}>
+                                            <p className={`text-[13px] font-semibold ${theme.textDark} mt-2 truncate w-full`} title={carpeta.nombre}>
                                                 {carpeta.nombre}
                                             </p>
                                         </div>
                                     );
                                 })
                             ) : (
-                                <div className="col-span-2 md:col-span-4 text-center py-6 text-gray-400 text-sm">
+                                <div className="col-span-2 md:col-span-4 text-center py-6 text-slate-400 text-sm">
                                     Aún no hay carpetas registradas para este año fiscal.
                                 </div>
                             )}
                         </div>
                     )}
 
-                    <div className="pt-4 border-t border-gray-100">
-                        <p className="text-sm font-bold text-gray-700 mb-3">Últimos archivos añadidos:</p>
+                    <div className="pt-4 border-t border-slate-100">
+                        <p className="text-sm font-semibold text-slate-700 mb-3">Últimos archivos añadidos:</p>
                         
                         {loading ? (
                             <div className="space-y-2">
-                                <div className="h-6 bg-gray-100 animate-pulse rounded w-3/4"></div>
-                                <div className="h-6 bg-gray-100 animate-pulse rounded w-1/2"></div>
+                                <div className="h-6 bg-slate-100 animate-pulse rounded w-3/4"></div>
+                                <div className="h-6 bg-slate-100 animate-pulse rounded w-1/2"></div>
                             </div>
                         ) : (
-                            <div className="text-[0.8rem] space-y-2">
+                            <div className="text-[13px] space-y-2">
                                 {ultimosArchivos.length > 0 ? (
                                     ultimosArchivos.map(archivo => (
-                                        <div key={archivo.id} className="flex items-center gap-2 text-gray-600">
+                                        <div key={archivo.id} className="flex items-center gap-2 text-slate-600">
                                             <svg className="w-5 h-5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                                             </svg>
-                                            <span className="truncate font-medium text-blue-200" title={archivo.nombre_archivo}>
+                                            <span className="truncate font-medium text-slate-900" title={archivo.nombre_archivo}>
                                                 {archivo.nombre_archivo}
                                             </span>
-                                            <span className="ml-auto font-medium text-gray-400 shrink-0">
+                                            <span className="ml-auto font-medium text-slate-400 shrink-0">
                                                 {new Date(archivo.created_at).toLocaleDateString('es-ES', { month: 'short', day: 'numeric', year: 'numeric' })}
                                             </span>
                                         </div>
                                     ))
                                 ) : (
-                                    <div className="text-gray-400 italic text-sm">No hay archivos subidos recientemente.</div>
+                                    <div className="text-slate-400 italic text-sm">No hay archivos subidos recientemente.</div>
                                 )}
                             </div>
                         )}
 
                         <button
                             onClick={() => onNavigate('biblioteca-view', 'Biblioteca de Archivos')}
-                            className="w-full cursor-pointer text-center bg-gray-100 border border-gray-200 text-blue-200 text-[0.8rem] font-bold uppercase tracking-widest p-3 rounded-lg hover:bg-orange-500 hover:text-white mt-5 transition-colors duration-400"
+                            className="w-full cursor-pointer text-center bg-white border border-slate-200 text-slate-700 text-sm font-semibold h-10 px-3 rounded-lg hover:bg-slate-50 hover:text-slate-900 mt-5 transition-colors"
                         >
                             Ir a la Biblioteca Completa
                         </button>
@@ -291,14 +291,14 @@ const DashboardCliente: React.FC<Props> = ({ onNavigate }) => {
 
             <button
                 onClick={() => setIsScoreOpen(true)}
-                className="cursor-pointer fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-orange-500 text-white p-4 rounded-full shadow-2xl shadow-orange-500/40 hover:bg-orange-600 hover:scale-110 transition-all duration-300 z-40 group flex items-center justify-center focus:outline-none"
+                className="cursor-pointer fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-brand-600 text-white p-4 rounded-full shadow-lg hover:bg-brand-700 transition-colors duration-300 z-40 group flex items-center justify-center focus:outline-none"
                 aria-label="Calificar Servicio"
             >
                 <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
                 </svg>
 
-                <span className="absolute right-full mr-4 bg-gray-800 text-blue-200 text-xs font-bold px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap shadow-lg">
+                <span className="absolute right-full mr-4 bg-[#f4f5f7] text-slate-900 text-xs font-semibold px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
                     Calificar Servicio
                 </span>
             </button>

@@ -40,30 +40,42 @@ Route::post('/auth/forgot-password', [PasswordResetController::class, 'sendOtp']
 Route::post('/auth/verify-otp', [PasswordResetController::class, 'verifyOtp']);
 Route::post('/auth/reset-password', [PasswordResetController::class, 'resetPassword']);
 
-Route::get('/correoC', [CorreoCalculadoraController::class, 'index']);
+// Formulario público de la calculadora: es lo único de este bloque que sigue abierto
 Route::post('/correoC', [CorreoCalculadoraController::class, 'store']);
-Route::get('/correoC/{id}', [CorreoCalculadoraController::class, 'show']);
-Route::delete('/correoC/{id}', [CorreoCalculadoraController::class, 'destroy']);
 
+// Usuarios, clientes, roles y correos de la calculadora: antes estaban abiertos a cualquiera.
+// Ahora piden sesión y, según la acción, el rol (1 colaborador, 2 cliente, 3 administrador)
+Route::middleware('auth:sanctum')->group(function () {
+    // Personal de MHORIZON (intranet)
+    Route::middleware('rol:1,3')->group(function () {
+        Route::get('/correoC', [CorreoCalculadoraController::class, 'index']);
+        Route::get('/correoC/{id}', [CorreoCalculadoraController::class, 'show']);
+        Route::delete('/correoC/{id}', [CorreoCalculadoraController::class, 'destroy']);
 
+        Route::get('/rol', [RolController::class, 'index']);
+        Route::get('/rol/{id}', [RolController::class, 'show']);
 
-//ROLES
-Route::get('/rol', [RolController::class, 'index']);
-Route::post('/rol', [RolController::class, 'store']);
-Route::get('/rol/{id}', [RolController::class, 'show']);
-Route::put('/rol/{id}', [RolController::class, 'update']);
-Route::delete('/rol/{id}', [RolController::class, 'destroy']);
+        Route::get('/cliente', [ClienteController::class, 'index']);
+        Route::delete('/cliente/{id}', [ClienteController::class, 'destroy']);
 
-//EMPRESAS
-Route::get('/cliente', [ClienteController::class, 'index']);
-Route::get('/cliente/{id}', [ClienteController::class, 'show']);
-Route::delete('/cliente/{id}', [ClienteController::class, 'destroy']);
+        Route::get('/usuario', [UsuarioController::class, 'index']);
+    });
 
-Route::get('/usuario', [UsuarioController::class, 'index']);
-Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
-Route::post('/usuario', [UsuarioController::class, 'store']);
-Route::put('/usuario/{id}', [UsuarioController::class, 'update']);
-Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
+    // Solo administradores (Gestor de Usuarios)
+    Route::middleware('rol:3')->group(function () {
+        Route::post('/rol', [RolController::class, 'store']);
+        Route::put('/rol/{id}', [RolController::class, 'update']);
+        Route::delete('/rol/{id}', [RolController::class, 'destroy']);
+
+        Route::post('/usuario', [UsuarioController::class, 'store']);
+        Route::delete('/usuario/{id}', [UsuarioController::class, 'destroy']);
+    });
+
+    // Personal, o el propio cliente / usuario: el controlador revisa a quién pertenece
+    Route::get('/cliente/{id}', [ClienteController::class, 'show']);
+    Route::get('/usuario/{id}', [UsuarioController::class, 'show']);
+    Route::put('/usuario/{id}', [UsuarioController::class, 'update']);
+});
 
 
 Route::middleware('auth:sanctum')->group(function () {

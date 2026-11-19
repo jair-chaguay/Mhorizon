@@ -11,6 +11,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
+    // Roles: 1 colaborador, 2 cliente, 3 administrador
+    private const ROL_ADMIN = 3;
+    private const ROLES_PERSONAL = [1, 3];
+    // Lo que un usuario que no es administrador puede cambiar de su propia cuenta (nunca su rol, cliente ni estado)
+    private const CAMPOS_PROPIOS = ['nombre', 'apellido', 'correo_personal', 'cargo', 'password'];
+
     public function index()
     {
         $usuarios = Usuario::with(['rol', 'cliente'])->get();
@@ -50,15 +56,31 @@ class UsuarioController extends Controller
         return response()->json(['message' => 'Usuario creado con éxito', 'usuario' => $usuario, 'status' => 201], 201);
     }
 
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $usuario = Usuario::with(['rol', 'cliente'])->find($id); 
+        // El personal ve a cualquiera; un cliente, solo su propia cuenta
+        $yo = $request->user();
+        if (!in_array((int) $yo->rol_id, self::ROLES_PERSONAL, true) && (int) $yo->id !== (int) $id) {
+            return response()->json(['message' => 'No tienes permiso para ver este usuario', 'status' => 403], 403);
+        }
+
+        $usuario = Usuario::with(['rol', 'cliente'])->find($id);
         if(!$usuario) return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
         return response()->json(['usuario' => $usuario, 'status' => 200], 200);
     }
 
     public function update(Request $request, $id)
     {
+        // El administrador edita a cualquiera; los demás, solo su propia cuenta y sin tocar rol, cliente ni estado
+        $yo = $request->user();
+        $esAdmin = (int) $yo->rol_id === self::ROL_ADMIN;
+        if (!$esAdmin && (int) $yo->id !== (int) $id) {
+            return response()->json(['message' => 'No tienes permiso para modificar este usuario', 'status' => 403], 403);
+        }
+        if (!$esAdmin) {
+            $request->replace($request->only(self::CAMPOS_PROPIOS));
+        }
+
         $usuario = Usuario::find($id);
         if(!$usuario) return response()->json(['message' => 'Usuario no encontrado', 'status' => 404], 404);
 
