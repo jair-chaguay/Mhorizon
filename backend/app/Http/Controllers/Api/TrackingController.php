@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
@@ -158,20 +159,26 @@ class TrackingController extends Controller
 
 
 
+    // Los filtros de seguridad de las empresas (antivirus de correo) abren solos el píxel y los enlaces
+    // apenas llega el correo. Algunos cambian las letras del correo y de la campaña; otros abren todos los
+    // enlaces en el mismo segundo. Ninguno de esos eventos es de una persona, así que no se registran.
+    const VENTANA_BOT_SEGUNDOS = 2;
+
     public function trackOpen(Request $request)
     {
         $email = $request->query('email');
         $campaign = $request->query('campaign', 'Campaña General');
         $userAgent = $request->header('User-Agent');
 
-        if($email){
+        $campana = $email ? $this->campanaDelEvento($email, $campaign) : null;
+        if ($campana && !$this->esBot($email)) {
             DB::table('leads')
             ->where('email', $email)
             ->increment('opens', 1, ['updated_at' => now()]);
 
             DB::table('email_logs')->insert([
                 'email'=>$email,
-                'campaign_name'=>urldecode($campaign),
+                'campaign_name'=>$campana,
                 'event_type' =>'open',
                 'user_agent'=>$userAgent,
                 'created_at' =>now(),
@@ -194,32 +201,93 @@ class TrackingController extends Controller
         $campaign = $request->query('campaign', 'Campaña General');
         $userAgent = $request->header('User-Agent');
 
-        if ($email){
-            DB::table('leads')
-                ->where('email', $email)
-                ->increment('clicks', 1, ['updated_at' => now()]);
+        $campana = $email ? $this->campanaDelEvento($email, $campaign) : null;
+        if ($campana && !$this->esBot($email)) {
+            if ($this->esRafagaDeClics($email, urldecode($targetUrl))) {
+                // Varios enlaces distintos en 1-2 segundos: es un escáner. Se borra lo que alcanzó a registrar
+                $this->descartarEventosRecientes($email);
+            } else {
+                DB::table('leads')
+                    ->where('email', $email)
+                    ->increment('clicks', 1, ['updated_at' => now()]);
 
-            DB::table('link_clicks')->insert([
-                'email' => $email,
-                'url' => urldecode($targetUrl),
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
+                DB::table('link_clicks')->insert([
+                    'email' => $email,
+                    'url' => urldecode($targetUrl),
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]);
 
-
-            DB::table('email_logs')->insert([
-                'email'=>$email,
-                'campaign_name'=>urldecode($campaign),
-                'event_type'=>'click',
-                'url'=>urldecode($targetUrl),
-                'user_agent'=>$userAgent,
-                'created_at'=>now(),
-                'updated_at' => now()
-            ]);
+                DB::table('email_logs')->insert([
+                    'email'=>$email,
+                    'campaign_name'=>$campana,
+                    'event_type'=>'click',
+                    'url'=>urldecode($targetUrl),
+                    'user_agent'=>$userAgent,
+                    'created_at'=>now(),
+                    'updated_at' => now()
+                ]);
+            }
         }
 
         return redirect()->away($targetUrl);
 
+    }
+
+    // Campaña con la que se registra una apertura o clic. Null si a ese correo nunca se le envió nada:
+    // así se descartan los correos que el escáner alteró (dyvaeb@datafast..., etc.).
+    // Si la campaña del enlace no coincide con un envío a ese correo, se usa la del último envío
+    private function campanaDelEvento($email, $campaign){
+        $campaign = urldecode((string) $campaign);
+        $envios = DB::table('email_logs')->where('email', $email)->where('event_type', 'sent');
+        if ((clone $envios)->where('campaign_name', $campaign)->exists()) {
+            return $campaign;
+        }
+        return $envios->orderBy('id', 'desc')->value('campaign_name');
+    }
+
+    // Otro clic del mismo correo en un enlace distinto hace un instante
+    private function esRafagaDeClics($email, $url){
+        return DB::table('email_logs')
+            ->where('email', $email)
+            ->where('event_type', 'click')
+            ->where('url', '!=', $url)
+            ->where('created_at', '>=', now()->subSeconds(self::VENTANA_BOT_SEGUNDOS))
+            ->exists();
+    }
+
+    // Borra las aperturas y clics de los últimos segundos de ese correo, descuenta sus contadores
+    // y lo marca unos segundos como bot para ignorar lo que siga llegando de la misma ráfaga
+    private function descartarEventosRecientes($email){
+        $desde = now()->subSeconds(self::VENTANA_BOT_SEGUNDOS);
+        $eventos = DB::table('email_logs')->where('email', $email)->whereIn('event_type', ['open', 'click'])->where('created_at', '>=', $desde);
+        $clics = (clone $eventos)->where('event_type', 'click')->count();
+        $aperturas = (clone $eventos)->where('event_type', 'open')->count();
+        $eventos->delete();
+        DB::table('link_clicks')->where('email', $email)->where('created_at', '>=', $desde)->delete();
+        if ($clics || $aperturas) {
+            DB::table('leads')->where('email', $email)->update([
+                'clicks' => DB::raw('GREATEST(clicks - ' . (int) $clics . ', 0)'),
+                'opens' => DB::raw('GREATEST(opens - ' . (int) $aperturas . ', 0)'),
+            ]);
+        }
+        try {
+            Cache::put($this->claveBot($email), true, now()->addSeconds(10));
+        } catch (\Throwable $e) {
+            // Sin caché igual se filtra la ráfaga; solo no se ignoran los eventos que lleguen después
+        }
+    }
+
+    private function esBot($email){
+        try {
+            return Cache::has($this->claveBot($email));
+        } catch (\Throwable $e) {
+            return false;
+        }
+    }
+
+    private function claveBot($email){
+        return 'tracking_bot:' . md5(strtolower($email));
     }
 
     // Enlace "Darse de baja" del pie de los correos. El GET solo muestra la confirmación
