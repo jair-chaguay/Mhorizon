@@ -13,5 +13,6 @@ Schedule::command('obligaciones:renovar')->daily();
 Schedule::command('notificaciones:tributarias')->dailyAt('10:00');
 Schedule::command('notificaciones:urgente-final')->cron('0 10,15,18 * * *');
 
-// PRUEBA: encola la revisión de fases de la IA cada 10 minutos. En producción cambiar a ->dailyAt('09:00')
-Schedule::command('campanas:auto')->everyFiveMinutes();
+// Encola una vez al día (10:00, hora de Ecuador) la revisión de fases de la IA: worker_campanas.py envía los correos automáticos.
+// Cada fase solo envía los días que le tocan según su calendario
+Schedule::command('campanas:auto')->dailyAt('10:00')->withoutOverlapping();
