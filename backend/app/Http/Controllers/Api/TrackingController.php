@@ -39,7 +39,9 @@ class TrackingController extends Controller
             'email_logs'=>$emailLogs,
             'link_clicks' =>$linkClicks,
             'campaign_aliases' => (object) $campaignAliases->all(),
-            'campaign_types' => (object) $this->tiposDeCampana()
+            'campaign_types' => (object) $this->tiposDeCampana(),
+            // Asunto real de cada difusión manual (el nombre de la campaña puede llevar "(2)", "(3)"...)
+            'campaign_subjects' => (object) $this->asuntosDeCampana()
         ]);
     }
 
@@ -48,20 +50,38 @@ class TrackingController extends Controller
     // email_manager.py: el asunto sin "Re:" (igual que en CampaignController@guardarNombreDeEnvio)
     private function tiposDeCampana(){
         $conFormato = Schema::hasColumn('tareas_envio', 'formato');
-        $tareas = DB::table('tareas_envio')
-            ->where('tipo', 'manual')
-            ->select('asunto', $conFormato ? 'formato' : DB::raw('NULL as formato'))
-            ->orderBy('id')
-            ->get();
         $tipos = [];
-        foreach ($tareas as $tarea) {
-            $nombre = CampaignController::nombreDeCampana($tarea->asunto);
+        foreach ($this->tareasManuales() as $tarea) {
+            $nombre = CampaignController::campanaDeTarea($tarea);
             if ($nombre !== '') {
-                $tipos[$nombre] = $tarea->formato ?: 'personal';
+                $tipos[$nombre] = ($conFormato ? $tarea->formato : null) ?: 'personal';
             }
         }
         return $tipos;
     }
+
+    private function asuntosDeCampana(){
+        $asuntos = [];
+        foreach ($this->tareasManuales() as $tarea) {
+            $nombre = CampaignController::campanaDeTarea($tarea);
+            if ($nombre !== '') {
+                $asuntos[$nombre] = CampaignController::nombreDeCampana($tarea->asunto);
+            }
+        }
+        return $asuntos;
+    }
+
+    private function tareasManuales(){
+        return $this->tareasManualesCache ??= DB::table('tareas_envio')
+            ->where('tipo', 'manual')
+            ->select('asunto',
+                Schema::hasColumn('tareas_envio', 'formato') ? 'formato' : DB::raw('NULL as formato'),
+                Schema::hasColumn('tareas_envio', 'nombre_campana') ? 'nombre_campana' : DB::raw('NULL as nombre_campana'))
+            ->orderBy('id')
+            ->get();
+    }
+
+    private $tareasManualesCache = null;
 
     public function registerLead(Request $request){
         $email = $request->query('email');

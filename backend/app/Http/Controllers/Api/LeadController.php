@@ -207,8 +207,11 @@ class LeadController extends Controller
         foreach ($leads as $lead) {
             if ($lead->etiquetas) {
                 $etiquetasActuales = json_decode($lead->etiquetas, true);
-                
-                if (in_array($request->etiqueta, $etiquetasActuales)) {
+                if (!is_array($etiquetasActuales)) {
+                    continue;
+                }
+
+                if (in_array($request->etiqueta, $etiquetasActuales, true)) {
                     $etiquetasFinales = array_values(array_filter($etiquetasActuales, function($t) use ($request) {
                         return $t !== $request->etiqueta;
                     }));
@@ -223,7 +226,8 @@ class LeadController extends Controller
         }
 
         return response()->json([
-            'message' => "Etiqueta '{$request->etiqueta}' eliminada correctamente de $actualizados prospectos."
+            'message' => "Etiqueta '{$request->etiqueta}' eliminada correctamente de $actualizados prospectos.",
+            'actualizados' => $actualizados
         ]);
     }
 

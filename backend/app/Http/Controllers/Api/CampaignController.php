@@ -62,6 +62,13 @@ class CampaignController extends Controller
         $extra += $remitente;
         $adjuntosRutas = $this->guardarAdjuntos($request);
 
+        // Cada difusión es su propia campaña, aunque repita el asunto de otra ("Asunto (2)", "Asunto (3)"...).
+        // Todas las tareas de este envío (una por fase) comparten el mismo nombre
+        $campaignName = $this->nombreUnicoDeCampana($request->asunto);
+        if (Schema::hasColumn('tareas_envio', 'nombre_campana')) {
+            $extra['nombre_campana'] = $campaignName;
+        }
+
         DB::table('tareas_envio')->insert(array_map(fn ($fase) => $extra + [
             'tipo' =>'manual',
             'fase_objetivo' =>$fase,
@@ -75,7 +82,7 @@ class CampaignController extends Controller
             'updated_at'=>now()
         ], $fases));
 
-        $this->guardarNombreDeEnvio($request, $etiquetas, $fases);
+        $this->guardarNombreDeEnvio($request, $campaignName, $etiquetas, $fases);
 
         return response()->json(['message'=>'Campaña encolada para que Python la procese']);
     }
@@ -180,13 +187,12 @@ class CampaignController extends Controller
     }
 
     // Nombre provisional del envío: el que escribió el usuario o "Campaña Etiquetas X Fase N"
-    private function guardarNombreDeEnvio(Request $request, array $etiquetas, array $fases) {
+    private function guardarNombreDeEnvio(Request $request, string $campaignName, array $etiquetas, array $fases) {
         // Si aún no se corrió la migración de nombres provisionales, el envío sigue funcionando
         if (!Schema::hasTable('campaign_aliases')) {
             return;
         }
 
-        $campaignName = self::nombreDeCampana($request->asunto);
         $nombre = trim((string) $request->nombre_provisional);
 
         if ($nombre !== '') {
@@ -221,6 +227,39 @@ class CampaignController extends Controller
         return trim(preg_replace('/^(re|rv|resp|fw|fwd)\s*:\s*/i', '', (string) $asunto));
     }
 
+    // Campaña de una tarea manual: la que se le asignó al encolarla o, en envíos anteriores a ese cambio, su asunto
+    public static function campanaDeTarea($tarea): string {
+        return ($tarea->nombre_campana ?? null) ?: self::nombreDeCampana($tarea->asunto);
+    }
+
+    // campaign_name para una difusión nueva: el asunto, o "Asunto (2)", "Asunto (3)"... si ya hay una campaña con ese nombre
+    private function nombreUnicoDeCampana($asunto): string {
+        $base = mb_substr(self::nombreDeCampana($asunto), 0, 240);
+        // Sin la migración no hay dónde guardar el nombre: se mantiene el comportamiento anterior
+        if (!Schema::hasColumn('tareas_envio', 'nombre_campana')) {
+            return $base;
+        }
+        $nombre = $base;
+        for ($n = 2; $this->campanaEnUso($nombre); $n++) {
+            $nombre = "$base ($n)";
+        }
+        return $nombre;
+    }
+
+    // Ya enviada (tiene registros) o encolada y aún sin enviar
+    private function campanaEnUso(string $nombre): bool {
+        if (DB::table('email_logs')->where('campaign_name', $nombre)->exists()) {
+            return true;
+        }
+        return DB::table('tareas_envio')
+            ->where('tipo', 'manual')
+            ->where(function ($q) use ($nombre) {
+                $q->where('nombre_campana', $nombre)
+                  ->orWhere(fn ($q2) => $q2->whereNull('nombre_campana')->where('asunto', $nombre));
+            })
+            ->exists();
+    }
+
     // Difusiones ya enviadas cuyo diseño se puede reutilizar (la más reciente de cada campaña)
     public function reutilizables() {
         $conFormato = Schema::hasColumn('tareas_envio', 'formato');
@@ -229,19 +268,21 @@ class CampaignController extends Controller
             ->where('tipo', 'manual')
             ->orderByDesc('id')
             ->get(array_merge(['asunto', 'created_at'],
+                [Schema::hasColumn('tareas_envio', 'nombre_campana') ? 'nombre_campana' : DB::raw('NULL as nombre_campana')],
                 [$conFormato ? 'formato' : DB::raw('NULL as formato')],
                 [$conDiseno ? DB::raw('diseno IS NOT NULL as con_diseno') : DB::raw('0 as con_diseno')]));
         $alias = Schema::hasTable('campaign_aliases') ? DB::table('campaign_aliases')->pluck('alias', 'campaign_name') : collect();
 
         $lista = [];
         foreach ($tareas as $t) {
-            $nombre = self::nombreDeCampana($t->asunto);
+            $nombre = self::campanaDeTarea($t);
             if ($nombre === '' || isset($lista[$nombre])) {
                 continue;
             }
             $formato = $t->formato ?: 'personal';
             $lista[$nombre] = [
                 'nombre' => $nombre,
+                'asunto' => self::nombreDeCampana($t->asunto),
                 'alias' => $alias[$nombre] ?? null,
                 'formato' => $formato,
                 'fecha' => $t->created_at,
@@ -258,7 +299,7 @@ class CampaignController extends Controller
         $conDiseno = Schema::hasColumn('tareas_envio', 'diseno');
         $tareas = DB::table('tareas_envio')->where('tipo', 'manual')->orderByDesc('id')->cursor();
         foreach ($tareas as $t) {
-            if (self::nombreDeCampana($t->asunto) !== $request->nombre) {
+            if (self::campanaDeTarea($t) !== $request->nombre) {
                 continue;
             }
             $formato = ($t->formato ?? null) ?: 'personal';
@@ -287,6 +328,59 @@ class CampaignController extends Controller
             'updated_at' =>now()
         ]);
         return response()->json(['message'=>'Motor de IA activado y encolado']);
+    }
+
+    // Borra una o varias campañas del dashboard: sus registros (envíos, aperturas, clics, rebotes, bajas),
+    // su nombre provisional y, si es una difusión manual, su tarea (deja de aparecer en "Reutilizar").
+    // Los prospectos no se tocan: siguen en su fase, con sus etiquetas y su estado
+    public function eliminarCampanas(Request $request){
+        $request->validate([
+            'nombres' => 'required|array|min:1',
+            'nombres.*' => 'string|max:255',
+        ]);
+        $nombres = array_values(array_unique($request->nombres));
+
+        // Una difusión que todavía se está enviando no se puede borrar (sus registros seguirían llegando)
+        $tareas = DB::table('tareas_envio')->where('tipo', 'manual')->get();
+        $enCurso = $tareas->filter(fn ($t) => in_array($t->estado, ['pendiente', 'procesando'], true) && in_array(self::campanaDeTarea($t), $nombres, true));
+        if ($enCurso->isNotEmpty()) {
+            return response()->json(['message' => 'Hay una campaña que todavía se está enviando. Espera a que termine para borrarla.'], 422);
+        }
+
+        DB::transaction(function () use ($nombres, $tareas) {
+            // Se descuentan de cada prospecto las aperturas y clics de esas campañas
+            $conteos = DB::table('email_logs')
+                ->whereIn('campaign_name', $nombres)
+                ->whereIn('event_type', ['open', 'click'])
+                ->select('email',
+                    DB::raw("SUM(event_type = 'open') as aperturas"),
+                    DB::raw("SUM(event_type = 'click') as clics"))
+                ->groupBy('email')
+                ->get();
+            foreach ($conteos as $c) {
+                DB::table('leads')->where('email', $c->email)->update([
+                    'opens' => DB::raw('GREATEST(opens - ' . (int) $c->aperturas . ', 0)'),
+                    'clicks' => DB::raw('GREATEST(clicks - ' . (int) $c->clics . ', 0)'),
+                ]);
+            }
+
+            // link_clicks no guarda la campaña: se borran los clics que coinciden con los de esas campañas
+            $clics = DB::table('email_logs')->whereIn('campaign_name', $nombres)->where('event_type', 'click')->get(['email', 'url', 'created_at']);
+            foreach ($clics as $clic) {
+                DB::table('link_clicks')->where('email', $clic->email)->where('url', $clic->url)->where('created_at', $clic->created_at)->limit(1)->delete();
+            }
+
+            DB::table('email_logs')->whereIn('campaign_name', $nombres)->delete();
+            if (Schema::hasTable('campaign_aliases')) {
+                DB::table('campaign_aliases')->whereIn('campaign_name', $nombres)->delete();
+            }
+            $ids = $tareas->filter(fn ($t) => in_array(self::campanaDeTarea($t), $nombres, true))->pluck('id');
+            if ($ids->isNotEmpty()) {
+                DB::table('tareas_envio')->whereIn('id', $ids)->delete();
+            }
+        });
+
+        return response()->json(['message' => count($nombres) === 1 ? 'Campaña eliminada' : count($nombres) . ' campañas eliminadas']);
     }
 
     // Guarda (o borra, si llega vacío) el nombre provisional de una campaña
