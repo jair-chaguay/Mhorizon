@@ -383,6 +383,71 @@ class CampaignController extends Controller
         return response()->json(['message' => count($nombres) === 1 ? 'Campaña eliminada' : count($nombres) . ' campañas eliminadas']);
     }
 
+    private const DIAS_INICIO_FASE_1 = [1,3];
+    private const MARCA_INICIO_FASE_1 = 'Inicio Fase 1';
+    private const NOMBRES_DIA = [1 => 'lunes', 2 => 'martes', 3 => 'miércoles', 4 => 'jueves', 5 => 'viernes', 6 => 'sábado', 7 => 'domingo'];
+
+    private function pendientesFase1(): int {
+        return DB::table('leadss')
+            ->where('fase', 1)
+            ->where(fn ($q) => $q->where('envios_fase_actual', 0)->orWhereNull('envios_fase_actual'))
+            ->count();
+    }
+
+
+    private function fase1IniciadaHoy(): bool {
+        return DB::table('tareas_envio')
+            ->where('tipo', 'ia_autonoma')
+            ->where('fase_objetivo', 1)
+            ->where('cuerpo', self::MARCA_INICIO_FASE_1)
+            ->whereDate('created_at', today())
+            ->exists();
+    }
+
+    public function estadoFase1() {
+        $proximo = null;
+        for ($i = 1; $i <= 7; $i++) {
+            $fecha = now()->addDays($i);
+            if (in_array($fecha->dayOfWeekIso, self::DIAS_INICIO_FASE_1, true)) {
+                $proximo = $fecha->toDateString();
+                break;
+            }
+        }
+        return response()->json([
+            'pendientes' => $this->pendientesFase1(),
+            'puede_hoy' => in_array(now()->dayOfWeekIso, self::DIAS_INICIO_FASE_1, true),
+            'iniciada_hoy' => $this->fase1IniciadaHoy(),
+            'dias' => array_map(fn ($d) => self::NOMBRES_DIA[$d], self::DIAS_INICIO_FASE_1),
+            'proximo_dia' => $proximo,
+        ]);
+    }
+
+    public function iniciarFase1() {
+        if (!in_array(now()->dayOfWeekIso, self::DIAS_INICIO_FASE_1, true)) {
+            $dias = implode(' y ', array_map(fn ($d) => self::NOMBRES_DIA[$d], self::DIAS_INICIO_FASE_1));
+            return response()->json(['message' => "La Fase 1 solo se puede iniciar los días: $dias."], 422);
+        }
+        if ($this->fase1IniciadaHoy()) {
+            return response()->json(['message' => 'La Fase 1 ya se inició hoy.'], 422);
+        }
+        $pendientes = $this->pendientesFase1();
+        if ($pendientes === 0) {
+            return response()->json(['message' => 'No hay prospectos por iniciar la Fase 1.'], 422);
+        }
+
+        DB::table('tareas_envio')->insert([
+            'tipo' => 'ia_autonoma',
+            'fase_objetivo' => 1,
+            'asunto' => 'Inicio Fase 1 (dashboard)',
+            'cuerpo' => self::MARCA_INICIO_FASE_1,
+            'estado' => 'pendiente',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response()->json(['message' => "Fase 1 iniciada para $pendientes prospectos.", 'pendientes' => $pendientes]);
+    }
+
     // Guarda (o borra, si llega vacío) el nombre provisional de una campaña
     public function guardarAlias(Request $request){
         $request->validate([

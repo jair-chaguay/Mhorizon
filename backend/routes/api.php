@@ -83,6 +83,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/leads/etiquetas', [LeadController::class, 'agregarEtiquetaManual']);
     Route::post('/leads/etiquetas/remove', [LeadController::class, 'quitarEtiqueta']);
     Route::post('/leads/delete', [LeadController::class, 'eliminarProspecto']);
+    Route::get('/campaign/fase1', [CampaignController::class, 'estadoFase1']);
+    Route::post('/campaign/fase1/iniciar', [CampaignController::class, 'iniciarFase1']);
 
     // CRM: prospectos, agente IMAP y campañas (solo con sesión iniciada)
     Route::get('/leads', [LeadController::class, 'index']);
