@@ -1,19 +1,28 @@
 import { Header } from "../Hero/Header"
-import { HeroMembresia, Banner, Respaldo, Propuesta, ExperienciaS, Alcance, PerfilIdeal, PreguntasFre, Invitacion, Footer, Frase } from '..'
+import { HeroMembresia, Banner, Respaldo, ExperienciaS, Alcance, PerfilIdeal, PreguntasFre, Invitacion, Footer, Frase } from '..'
 import { Institucional } from "../Membresia/Institucional"
+import { Planes } from "../Membresia/Planes"
+import { Casos } from "../Membresia/Casos"
+import { Comparativa } from "../Membresia/Comparativa"
+import { StickyCTA } from "../Membresia/StickyCTA"
+import { LogosClientes } from "../Membresia/LogosClientes"
 
-
+// Orden de venta: promesa → confianza → problema → identificación → cómo funciona
+// → comparación → precio → alcance → quién responde → objeciones → cierre.
 export const MembresiaPage = () => {
     return (
         <main className="m-auto">
             <Header />
             <HeroMembresia />
             <Banner />
+            <LogosClientes />
             <Respaldo />
-            <Propuesta />
-            <ExperienciaS />
-            <Alcance />
+            <Casos />
             <PerfilIdeal />
+            <ExperienciaS />
+            <Comparativa />
+            <Planes />
+            <Alcance />
             <Institucional />
             <PreguntasFre />
             <Invitacion />
@@ -21,8 +30,7 @@ export const MembresiaPage = () => {
                 <Frase blanco='ELEVE EL ESTÁNDAR DE SU' naranja='GESTIÓN CORPORATIVA' styles='font-extrabold text-[2.2rem] sm:text-[2.8rem] md:text-[3rem] leading-[1.1] mb-6 uppercase' />
                 <Footer />
             </section>
-
-
+            <StickyCTA />
         </main>
     )
 }

@@ -13,7 +13,13 @@ export const useFormMembresia = () => {
         setErrorMessage('');
 
         const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
+        const data: Record<string, FormDataEntryValue> = Object.fromEntries(formData.entries());
+
+        // El backend no tiene campo "plan": lo anteponemos al mensaje para que llegue en el correo.
+        if (data.plan) {
+            data.mensaje = `[Plan de interés: ${data.plan}] ${data.mensaje ?? ''}`.trim();
+            delete data.plan;
+        }
 
         try {
             await api.post('/membresia/solicitar', data);

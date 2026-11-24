@@ -20,13 +20,13 @@ export const Propuesta = () => {
                     
                     <div className="relative bg-[#151E28] border border-white/10 rounded-2xl p-8 hover:bg-[#1A2530] hover:border-orange-500/50 transition-colors group overflow-hidden shadow-xl hover:shadow-2xl">
                         <div className="absolute -right-6 -top-6 text-[100px] font-extrabold text-white/5 group-hover:text-orange-500/10 transition-colors select-none leading-none z-0 font-jakarta">
-                            10
+                            4·15
                         </div>
                         <div className="relative z-10 flex flex-col h-full">
                             <h4 className="text-orange-500 font-bold mb-1 uppercase tracking-wider text-sm font-jakarta">Alcance</h4>
                             <h3 className="text-white text-[1.3rem] font-bold mb-4">Absolución de Consultas tributarias</h3>
                             <p className="text-gray-300 font-light text-[0.95rem] leading-relaxed flex-1">
-                                Consultas tributarias puntuales disponibles para ser utilizadas en cada período mensual facturado, cubriendo las dudas operativas.
+                                De 4 a 15 consultas puntuales cada mes, según el plan que elija. Cubren las dudas que su equipo no resuelve en el día a día.
                             </p>
                         </div>
                     </div>
