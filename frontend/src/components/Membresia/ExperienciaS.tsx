@@ -9,7 +9,7 @@ export const ExperienciaS = () => {
                         CÓMO FUNCIONA
                     </span>
                     <h2 className="text-white font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight">
-                        UNA EXPERIENCIA SENCILLA
+                        ACTÍVELA HOY, CONSULTE ESTA SEMANA
                     </h2>
                     <p className="mt-4 text-gray-300 font-light text-[1.05rem] leading-relaxed max-w-3xl mx-auto">
                         El cliente activa su membresía, envía sus consultas a través del canal corporativo y recibe el criterio profesional estructurado de MHORIZON.
@@ -52,11 +52,18 @@ export const ExperienciaS = () => {
                             <div className="w-14 h-14 bg-orange-500 text-white rounded-xl flex items-center justify-center font-extrabold text-2xl mb-6 shadow-lg font-jakarta group-hover:bg-blue-200 transition-colors duration-300">3</div>
                             <h3 className="text-[#151E28] text-[1.3rem] font-bold mb-4">Reciba criterio</h3>
                             <p className="text-gray-600 font-light text-[0.95rem] leading-relaxed">
-                                Obtenga una respuesta escrita detallada y sustentada; y cuando sea necesario, coordine de inmediato una llamada para aclaraciones finales.
+                                Obtenga una respuesta escrita detallada y sustentada; y cuando sea necesario, coordine una llamada para aclaraciones finales.
                             </p>
                         </div>
                     </div>
 
+                </div>
+
+                <div className="mt-14 text-center reveal-element delay-200">
+                    <a href="#planes" className="inline-block bg-orange-500 text-white font-bold tracking-wider uppercase px-10 py-4 rounded-sm hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-orange-500/20 transition-all duration-300 font-jakarta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
+                        Elegir mi plan
+                    </a>
+                    <p className="mt-4 text-gray-400 text-[0.85rem] font-light">Sin permanencia · Pago mensual anticipado · Atención en todo el Ecuador</p>
                 </div>
             </div>
         </ScrollReveal>

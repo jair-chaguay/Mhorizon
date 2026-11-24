@@ -2,7 +2,7 @@ import { ScrollReveal } from "../ScrollReveal"
 
 export const PerfilIdeal = () => {
     return (
-        <ScrollReveal as={"section"} className="py-24 bg-white border-b border-gray-200 relative">
+        <ScrollReveal as={"section"} className="py-24 bg-gray-50 border-b border-gray-200 relative">
             <div className="max-w-350 mx-auto px-5 sm:px-8 md:px-12 relative z-10">
                 <div className="text-center mb-16 reveal-element">
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block font-jakarta">

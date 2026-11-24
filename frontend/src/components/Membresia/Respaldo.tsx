@@ -12,7 +12,7 @@ export const Respaldo = () => {
                             El problema que resolvemos
                         </span>
                         <h2 className="text-[#151E28] font-extrabold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight mb-6">
-                            RESPALDO TRIBUTARIO OPORTUNO
+                            SU CONTADOR LLEVA EL DÍA A DÍA. ¿QUIÉN VALIDA LO QUE NO ES RUTINARIO?
                         </h2>
                         
                         <div className="rounded-xl overflow-hidden shadow-2xl mb-10 relative group">
@@ -22,7 +22,7 @@ export const Respaldo = () => {
 
                         <div className="bg-white border-l-4 border-orange-500 p-6 rounded-r-xl shadow-lg relative">
                             <p className="text-[1.1rem] font-light leading-relaxed text-gray-600">
-                                Su empresa puede tener contador y, aun así, necesitar <strong className="font-bold text-[#151E28]">criterio tributario especializado</strong> antes de tomar una decisión financiera crítica.
+                                Una multa, un interés o un gasto no deducible por error <strong className="font-bold text-[#151E28]">puede costar más que un año entero de membresía.</strong> Consultar antes siempre es más barato que corregir después.
                             </p>
                         </div>
                     </div>

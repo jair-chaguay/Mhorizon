@@ -9,9 +9,12 @@ const CloseIcon = () => (
 interface ModalMembresiaProps {
     isOpen: boolean;
     onClose: () => void;
+    plan?: string;
 }
 
-export const ModalMembresia = ({ isOpen, onClose }: ModalMembresiaProps) => {
+export const PLANES_OPCIONES = ['Estándar (USD 110)', 'Básico (USD 90)', 'Corporativo (USD 150)', 'Aún no lo sé'];
+
+export const ModalMembresia = ({ isOpen, onClose, plan }: ModalMembresiaProps) => {
     const { isLoading, isSuccess, errorMessage, handleSubmit, resetForm } = useFormMembresia();
 
     if (!isOpen) return null;
@@ -43,8 +46,8 @@ export const ModalMembresia = ({ isOpen, onClose }: ModalMembresiaProps) => {
                         
                         <div className="mb-4 border-b border-gray-100 pb-6 pr-10">
                             <p className="text-orange-500 font-bold text-[0.8rem] uppercase tracking-widest mb-2 font-jakarta">SOLICITUD DE RESPALDO</p>
-                            <h2 className="text-[#151E28] text-3xl sm:text-4xl font-extrabold tracking-tighter leading-tight">Activar Membresía</h2>
-                            <p className="text-gray-500 mt-2.5 text-[0.95rem] font-light max-w-xl leading-relaxed">Por favor complete el siguiente formulario. Un especialista tributario senior revisará su solicitud y se contactará para coordinar la activación de su servicio recurrente.</p>
+                            <h2 className="text-[#151E28] text-3xl sm:text-4xl font-extrabold tracking-tighter leading-tight">{plan ? `Activar plan ${plan.split(' (')[0]}` : 'Activar Membresía'}</h2>
+                            <p className="text-gray-500 mt-2.5 text-[0.95rem] font-light max-w-xl leading-relaxed">Déjenos sus datos. Un especialista revisará su solicitud y le contactará para confirmar el plan y coordinar la activación. Sin compromiso: el pago se realiza solo cuando usted confirma.</p>
                         </div>
 
                         {/* INPUTS (Simplificados aquí por espacio, deja los mismos que ya tenías) */}
@@ -88,6 +91,13 @@ export const ModalMembresia = ({ isOpen, onClose }: ModalMembresiaProps) => {
                                     <option value="Contador Ext">Contador independiente</option><option value="Administrativo">Responsable administrativo</option><option value="Otro">Otro</option>
                                 </select>
                             </div>
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                            <label htmlFor="modal-plan" className="text-[#151E28] font-semibold text-sm">Plan de interés</label>
+                            <select id="modal-plan" name="plan" key={plan ?? 'default'} defaultValue={plan ?? PLANES_OPCIONES[0]} className="w-full bg-gray-50/50 border border-gray-200/80 rounded-xl p-3.5 text-[0.9rem] focus:border-orange-500/80 focus:ring-2 focus:ring-orange-500/20 outline-none transition-all text-[#151E28]">
+                                {PLANES_OPCIONES.map((op) => <option key={op} value={op}>{op}</option>)}
+                            </select>
                         </div>
 
                         <div className="flex flex-col gap-2">
