@@ -1,12 +1,10 @@
 import { Header } from "../Hero/Header"
-import { HeroMembresia, Banner, Respaldo, ExperienciaS, Alcance, PerfilIdeal, PreguntasFre, Invitacion, Footer, Frase } from '..'
+import { HeroMembresia, Banner, Respaldo, ExperienciaS, Alcance, PerfilIdeal, PreguntasFre, Invitacion, Footer, Frase, Clients } from '..'
 import { Institucional } from "../Membresia/Institucional"
 import { Planes } from "../Membresia/Planes"
 import { Casos } from "../Membresia/Casos"
 import { Comparativa } from "../Membresia/Comparativa"
 import { StickyCTA } from "../Membresia/StickyCTA"
-import { LogosClientes } from "../Membresia/LogosClientes"
-
 // Orden de venta: promesa → confianza → problema → identificación → cómo funciona
 // → comparación → precio → alcance → quién responde → objeciones → cierre.
 export const MembresiaPage = () => {
@@ -15,7 +13,7 @@ export const MembresiaPage = () => {
             <Header />
             <HeroMembresia />
             <Banner />
-            <LogosClientes />
+            <Clients />
             <Respaldo />
             <Casos />
             <PerfilIdeal />
