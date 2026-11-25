@@ -11,8 +11,8 @@ export const ExperienciaS = () => {
                     <h2 className="text-white font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight">
                         ACTÍVELA HOY, CONSULTE ESTA SEMANA
                     </h2>
-                    <p className="mt-4 text-gray-300 font-light text-[1.05rem] leading-relaxed max-w-3xl mx-auto">
-                        El cliente activa su membresía, envía sus consultas a través del canal corporativo y recibe el criterio profesional estructurado de MHORIZON.
+                    <p className="mt-4 text-gray-300 font-light text-[1.15rem] texto-desc max-w-3xl mx-auto">
+                        Solicítela en línea, envíe sus dudas y reciba una respuesta escrita con sustento técnico.
                     </p>
                 </div>
 
@@ -24,9 +24,9 @@ export const ExperienciaS = () => {
                         </div>
                         <div className="relative z-10">
                             <div className="w-14 h-14 bg-orange-500 text-white rounded-xl flex items-center justify-center font-extrabold text-2xl mb-6 shadow-lg font-jakarta group-hover:bg-blue-200 transition-colors duration-300">1</div>
-                            <h3 className="text-[#151E28] text-[1.3rem] font-bold mb-4">Active su membresía</h3>
-                            <p className="text-gray-600 font-light text-[0.95rem] leading-relaxed">
-                                Complete sus datos en nuestra plataforma, acepte las condiciones de nivel de servicio y realice el pago mensual anticipado para dar inicio.
+                            <h3 className="text-[#151E28] text-[1.3rem] font-bold mb-4">Solicite su membresía</h3>
+                            <p className="text-gray-600 font-light text-[1.05rem] texto-desc">
+                                Complete el formulario con sus datos. Nuestro equipo se pondrá en contacto con usted para coordinar la contratación y la activación de su membresía.
                             </p>
                         </div>
                     </div>
@@ -37,9 +37,9 @@ export const ExperienciaS = () => {
                         </div>
                         <div className="relative z-10">
                             <div className="w-14 h-14 bg-orange-500 text-white rounded-xl flex items-center justify-center font-extrabold text-2xl mb-6 shadow-lg font-jakarta group-hover:bg-blue-200 transition-colors duration-300">2</div>
-                            <h3 className="text-[#151E28] text-[1.3rem] font-bold mb-4">Envíe su consulta</h3>
-                            <p className="text-gray-600 font-light text-[0.95rem] leading-relaxed">
-                                Describa el hecho económico, la operación y la pregunta específica, adjuntando la documentación o información de respaldo necesaria.
+                            <h3 className="text-[#151E28] text-[1.3rem] font-bold mb-4">Envíe sus consultas</h3>
+                            <p className="text-gray-600 font-light text-[1.05rem] texto-desc">
+                                Con la membresía activa, envíe sus dudas tributarias o contables junto con la información o los documentos del caso.
                             </p>
                         </div>
                     </div>
@@ -50,9 +50,9 @@ export const ExperienciaS = () => {
                         </div>
                         <div className="relative z-10">
                             <div className="w-14 h-14 bg-orange-500 text-white rounded-xl flex items-center justify-center font-extrabold text-2xl mb-6 shadow-lg font-jakarta group-hover:bg-blue-200 transition-colors duration-300">3</div>
-                            <h3 className="text-[#151E28] text-[1.3rem] font-bold mb-4">Reciba criterio</h3>
-                            <p className="text-gray-600 font-light text-[0.95rem] leading-relaxed">
-                                Obtenga una respuesta escrita detallada y sustentada; y cuando sea necesario, coordine una llamada para aclaraciones finales.
+                            <h3 className="text-[#151E28] text-[1.3rem] font-bold mb-4">Reciba su respuesta</h3>
+                            <p className="text-gray-600 font-light text-[1.05rem] texto-desc">
+                                Le respondemos por escrito y con sustento técnico dentro de los 2 días hábiles siguientes. Si es una urgencia, contáctenos y la atendemos de inmediato.
                             </p>
                         </div>
                     </div>
@@ -61,9 +61,9 @@ export const ExperienciaS = () => {
 
                 <div className="mt-14 text-center reveal-element delay-200">
                     <a href="#planes" className="inline-block bg-orange-500 text-white font-bold tracking-wider uppercase px-10 py-4 rounded-sm hover:bg-white hover:text-orange-600 shadow-xl hover:shadow-orange-500/20 transition-all duration-300 font-jakarta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
-                        Elegir mi plan
+                        Ver precio de lanzamiento
                     </a>
-                    <p className="mt-4 text-gray-400 text-[0.85rem] font-light">Sin permanencia · Pago mensual anticipado · Atención en todo el Ecuador</p>
+                    <p className="mt-4 text-gray-400 text-[0.92rem] font-light texto-desc">Sin permanencia · Pago mensual anticipado · Atención en todo el Ecuador</p>
                 </div>
             </div>
         </ScrollReveal>

@@ -8,19 +8,19 @@ export const Banner = () => {
                     
                     <div className="px-4 py-4 sm:py-0 reveal-element text-center sm:text-center">
                         <strong className="block text-white font-extrabold text-[1rem] font-jakarta">+26 años de experiencia</strong>
-                        <span className="block text-white text-[0.90rem] mt-1 font-light">En tributación corporativa.</span>
+                        <span className="block text-white text-[0.95rem] mt-1 font-light texto-desc">En tributación corporativa.</span>
                     </div>
                     <div className="px-4 py-4 sm:py-0 reveal-element delay-100 text-center">
                         <strong className="block text-white font-extrabold text-[1rem] font-jakarta">Trayectoria internacional</strong>
-                        <span className="block text-white text-[0.90rem] mt-1 font-light">Deloitte y Moore.</span>
+                        <span className="block text-white text-[0.95rem] mt-1 font-light texto-desc">Deloitte y Moore.</span>
                     </div>
                     <div className="px-4 py-4 sm:py-0 reveal-element delay-100 text-center">
                         <strong className="block text-white font-extrabold text-[1rem] font-jakarta">Visión de la Administración</strong>
-                        <span className="block text-white text-[0.90rem] mt-1 font-light">Experiencia previa en el SRI.</span>
+                        <span className="block text-white text-[0.95rem] mt-1 font-light texto-desc">Experiencia previa en el SRI.</span>
                     </div>
                     <div className="px-4 py-4 sm:py-0 reveal-element delay-100 text-center">
                         <strong className="block text-white font-extrabold text-[1rem] font-jakarta">Cobertura nacional</strong>
-                        <span className="block text-white text-[0.90rem] mt-1 font-light">100% remota, en todo el Ecuador.</span>
+                        <span className="block text-white text-[0.95rem] mt-1 font-light texto-desc">100% remota, en todo el Ecuador.</span>
                     </div>
                 </div>
             </div>

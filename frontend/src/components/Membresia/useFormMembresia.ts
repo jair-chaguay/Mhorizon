@@ -17,7 +17,7 @@ export const useFormMembresia = () => {
 
         // El backend no tiene campo "plan": lo anteponemos al mensaje para que llegue en el correo.
         if (data.plan) {
-            data.mensaje = `[Plan de interés: ${data.plan}] ${data.mensaje ?? ''}`.trim();
+            data.mensaje = `[${data.plan}] ${data.mensaje ?? ''}`.trim();
             delete data.plan;
         }
 

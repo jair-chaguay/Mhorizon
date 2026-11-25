@@ -6,7 +6,7 @@ const casos = [
     { tema: 'Impuesto a la Renta', q: '¿Este gasto es deducible o lo van a glosar?' },
     { tema: 'Obligaciones', q: '¿Estamos obligados a presentar este anexo?' },
     { tema: 'Dividendos', q: '¿Cómo tributan las utilidades que vamos a repartir?' },
-    { tema: 'Pagos al exterior', q: '¿Este pago a un proveedor extranjero genera ISD?' },
+    { tema: 'Pagos al exterior', q: '¿Qué porcentaje de retención debo aplicar?' },
     { tema: 'Reformas', q: '¿Qué cambia para nuestra empresa con la nueva reforma?' },
 ]
 
@@ -22,7 +22,7 @@ export const Casos = () => {
                             <div className="absolute inset-0 bg-linear-to-t from-[#151E28]/90 via-[#151E28]/20 to-transparent"></div>
                             <div className="absolute bottom-0 inset-x-0 p-8">
                                 <p className="text-white font-extrabold text-[1.5rem] leading-tight">Antes de firmar, pagar o declarar.</p>
-                                <p className="text-gray-300 font-light text-[0.95rem] mt-2">Ese es el momento de consultar.</p>
+                                <p className="text-gray-300 font-light text-[1.05rem] mt-2 texto-desc">Ese es el momento de consultar.</p>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@ export const Casos = () => {
                             <h2 className="text-[#151E28] font-extrabold text-[2rem] sm:text-[2.2rem] md:text-[2.5rem] tracking-tight leading-tight">
                                 ¿LE SUENA ALGUNA DE ESTAS PREGUNTAS?
                             </h2>
-                            <p className="mt-4 text-gray-600 font-light text-[1.05rem] leading-relaxed max-w-2xl">
+                            <p className="mt-4 text-gray-600 font-light text-[1.15rem] texto-desc max-w-2xl">
                                 Son dudas reales del día a día de una PYME. Cada una cuenta como una consulta de su membresía y la respuesta le llega por escrito, con su base legal.
                             </p>
                         </div>
@@ -54,9 +54,9 @@ export const Casos = () => {
 
                         <div className="mt-10 flex flex-col sm:flex-row sm:items-center gap-5 reveal-element">
                             <a href="#planes" className="inline-block text-center bg-orange-500 text-white font-bold tracking-wider uppercase px-8 py-4 rounded-sm hover:bg-[#151E28] shadow-xl hover:shadow-orange-500/20 transition-all duration-300 font-jakarta focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
-                                Ver planes
+                                Ver la membresía
                             </a>
-                            <p className="text-gray-500 font-light text-[0.95rem]">Impuesto a la Renta, IVA, retenciones, ISD, ICE, comprobantes y anexos.</p>
+                            <p className="text-gray-500 font-light text-[1.05rem] texto-desc">Impuesto a la Renta, IVA, retenciones, ISD, ICE, comprobantes y anexos.</p>
                         </div>
                     </div>
 

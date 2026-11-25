@@ -1,6 +1,6 @@
 import { ScrollReveal } from '../ScrollReveal'
 import { useFormMembresia } from './useFormMembresia'; 
-import { PLANES_OPCIONES } from './ModalMembresia';
+import { PLAN_MEMBRESIA } from './ModalMembresia';
 
 export const Invitacion = () => {
     const { isLoading, isSuccess, errorMessage, handleSubmit } = useFormMembresia();
@@ -17,13 +17,14 @@ export const Invitacion = () => {
                         <h2 className="font-extrabold text-[2.5rem] sm:text-[3rem] md:text-[3.5rem] leading-[1.05] mb-6 tracking-tight">
                             Su próxima decisión tributaria merece una segunda opinión.
                         </h2>
-                        <p className="text-gray-300 text-[1.1rem] font-light mb-10 max-w-lg mx-auto xl:mx-0 leading-relaxed">
-                            Déjenos sus datos y un especialista le contactará para activar su membresía o ayudarle a elegir el plan que más le conviene.
+                        <p className="text-gray-300 text-[1.2rem] font-light mb-10 max-w-lg mx-auto xl:mx-0 texto-desc">
+                            Empiece el 2027 con respaldo tributario. Déjenos sus datos y un especialista le contactará para coordinar la contratación y la activación de su membresía.
                         </p>
                         
                         <div className="bg-white/5 border border-white/10 rounded-xl sm:rounded-2xl p-5 sm:p-8 backdrop-blur-md w-full sm:w-auto inline-block shadow-lg text-center xl:text-left">
-                            <p className="text-white font-extrabold text-3xl mb-2 font-jakarta">Desde 90 USD <span className="text-lg text-orange-400 font-bold">+ IVA al mes</span></p>
-                            <p className="text-gray-400 text-sm font-light">Plan Estándar recomendado: USD 110 · Sin penalidad por cancelar</p>
+                            <p className="text-orange-400 font-bold text-[0.8rem] uppercase tracking-widest mb-2 font-jakarta">Precio de lanzamiento</p>
+                            <p className="text-white font-extrabold text-3xl mb-2 font-jakarta">110 USD <span className="text-lg text-orange-400 font-bold">+ IVA al mes</span></p>
+                            <p className="text-gray-400 text-sm font-light">Precio regular: <span className="line-through">USD 150 + IVA</span> · Sin penalidad por cancelar</p>
                         </div>
                     </div>
 
@@ -72,12 +73,7 @@ export const Invitacion = () => {
                                 </div>
                             </div>
 
-                            <div className="flex flex-col gap-1.5 sm:gap-2">
-                                <label htmlFor="inv-plan" className="text-[#151E28] font-semibold text-xs sm:text-sm">Plan de interés</label>
-                                <select id="inv-plan" name="plan" defaultValue={PLANES_OPCIONES[0]} className="w-full bg-gray-50 border border-gray-200 rounded-lg p-2.5 sm:p-3 text-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500 outline-none transition-all text-[#151E28]">
-                                    {PLANES_OPCIONES.map((op) => <option key={op} value={op}>{op}</option>)}
-                                </select>
-                            </div>
+                            <input type="hidden" name="plan" value={PLAN_MEMBRESIA} />
 
                             <div className="flex flex-col gap-1.5 sm:gap-2">
                                 <label className="text-[#151E28] font-semibold text-xs sm:text-sm">Mensaje (Opcional)</label>

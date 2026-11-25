@@ -21,8 +21,8 @@ export const Respaldo = () => {
                         </div>
 
                         <div className="bg-white border-l-4 border-orange-500 p-6 rounded-r-xl shadow-lg relative">
-                            <p className="text-[1.1rem] font-light leading-relaxed text-gray-600">
-                                Una multa, un interés o un gasto no deducible por error <strong className="font-bold text-[#151E28]">puede costar más que un año entero de membresía.</strong> Consultar antes siempre es más barato que corregir después.
+                            <p className="text-[1.2rem] font-light texto-desc text-gray-600">
+                                Una multa, un interés o un gasto no deducible por error <strong className="font-bold text-[#151E28]">puede costar más que un año entero de membresía.</strong> Consultar antes, siempre es más barato que corregir después.
                             </p>
                         </div>
                     </div>
@@ -35,7 +35,7 @@ export const Respaldo = () => {
                             </div>
                             <div className="mt-2 text-white">
                                 <h3 className="font-bold text-[1.25rem] md:text-[1.35rem]">Dudas que exceden el cumplimiento rutinario</h3>
-                                <p className="mt-3 font-light text-gray-300 text-[1rem] leading-relaxed">
+                                <p className="mt-3 font-light text-gray-300 text-[1.08rem] texto-desc">
                                     Retenciones, IVA, deducibilidad, pagos al exterior, anexos o aplicación de nuevas normas pueden requerir una segunda opinión especializada que un contador de planta no siempre posee.
                                 </p>
                             </div>
@@ -47,7 +47,7 @@ export const Respaldo = () => {
                             </div>
                             <div className="mt-2 text-white">
                                 <h3 className="font-bold text-[1.25rem] md:text-[1.35rem]">Decisiones con efectos tributarios</h3>
-                                <p className="mt-3 font-light text-gray-300 text-[1rem] leading-relaxed">
+                                <p className="mt-3 font-light text-gray-300 text-[1.08rem] texto-desc">
                                     Una operación mal interpretada puede generar pagos innecesarios, contingencias ocultas o posteriores observaciones costosas por parte de la Administración Tributaria.
                                 </p>
                             </div>
@@ -59,8 +59,8 @@ export const Respaldo = () => {
                             </div>
                             <div className="mt-2 text-white">
                                 <h3 className="font-bold text-[1.25rem] md:text-[1.35rem]">Acceso limitado fuera de grandes ciudades</h3>
-                                <p className="mt-3 font-light text-gray-300 text-[1rem] leading-relaxed">
-                                    La modalidad remota permite que empresas de provincia accedan a una firma especializada de élite sin necesidad de desplazamientos ni pago de costosos viáticos.
+                                <p className="mt-3 font-light text-gray-300 text-[1.08rem] texto-desc">
+                                    La modalidad remota permite que empresas de provincia accedan a una firma especializada sin necesidad de desplazamientos ni pago de costosos viáticos.
                                 </p>
                             </div>
                         </div>

@@ -6,13 +6,13 @@ export const PerfilIdeal = () => {
             <div className="max-w-350 mx-auto px-5 sm:px-8 md:px-12 relative z-10">
                 <div className="text-center mb-16 reveal-element">
                     <span className="text-orange-500 font-bold tracking-[0.2em] text-[0.85rem] uppercase mb-2 block font-jakarta">
-                        ¿PARA QUIÉN ES?
+                        ¿PARA QUIÉN ESTÁ DIRIGIDO?
                     </span>
                     <h2 className="text-[#151E28] font-extrabold text-[2rem] sm:text-[2.5rem] tracking-tight leading-tight">
                         PERFIL DEL CLIENTE IDEAL
                     </h2>
-                    <p className="mt-4 text-gray-600 font-light text-[1.05rem] leading-relaxed max-w-3xl mx-auto">
-                        Una membresía estructuralmente pensada para entidades, empresarios y profesionales que requieren un nivel superior de certeza fiscal antes de actuar.
+                    <p className="mt-4 text-gray-600 font-light text-[1.15rem] texto-desc max-w-3xl mx-auto">
+                        Una membresía pensada para entidades, empresarios y profesionales que requieren un nivel superior de certeza fiscal antes de actuar.
                     </p>
                 </div>
 
@@ -30,8 +30,8 @@ export const PerfilIdeal = () => {
 
                             </div>
                             <h3 className="font-bold text-white text-[1.25rem] mb-3">PYMES</h3>
-                            <p className="text-gray-300 text-[0.95rem] font-light leading-relaxed">
-                                Empresas que necesitan criterio tributario corporativo sin el costo de contratar una asesoría integral permanente de planta.
+                            <p className="text-gray-300 text-[1.05rem] font-light texto-desc">
+                                Empresas que necesitan criterio tributario corporativo sin el costo de contratar una asesoría integral.
                             </p>
                         </div>
                     </div>
@@ -46,7 +46,7 @@ export const PerfilIdeal = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-users-icon lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
                             </div>
                             <h3 className="font-bold text-white text-[1.25rem] mb-3">Gerentes</h3>
-                            <p className="text-gray-300 text-[0.95rem] font-light leading-relaxed">
+                            <p className="text-gray-300 text-[1.05rem] font-light texto-desc">
                                 Propietarios y administradores que desean validar decisiones críticas financieras y operativas antes de ejecutarlas.
                             </p>
                         </div>
@@ -63,7 +63,7 @@ export const PerfilIdeal = () => {
                                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-receipt-icon lucide-receipt"><path d="M12 17V7" /><path d="M16 8h-6a2 2 0 0 0 0 4h4a2 2 0 0 1 0 4H8" /><path d="M4 3a1 1 0 0 1 1-1 1.3 1.3 0 0 1 .7.2l.933.6a1.3 1.3 0 0 0 1.4 0l.934-.6a1.3 1.3 0 0 1 1.4 0l.933.6a1.3 1.3 0 0 0 1.4 0l.933-.6a1.3 1.3 0 0 1 1.4 0l.934.6a1.3 1.3 0 0 0 1.4 0l.933-.6A1.3 1.3 0 0 1 19 2a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1 1.3 1.3 0 0 1-.7-.2l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.934.6a1.3 1.3 0 0 1-1.4 0l-.933-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-1.4 0l-.934-.6a1.3 1.3 0 0 0-1.4 0l-.933.6a1.3 1.3 0 0 1-.7.2 1 1 0 0 1-1-1z" /></svg>
                             </div>
                             <h3 className="font-bold text-white text-[1.25rem] mb-3">Contadores</h3>
-                            <p className="text-gray-300 text-[0.95rem] font-light leading-relaxed">
+                            <p className="text-gray-300 text-[1.05rem] font-light texto-desc">
                                 Equipos internos o asesores externos que requieren una segunda opinión experta de respaldo frente a casos inusuales.
                             </p>
                         </div>
@@ -83,9 +83,9 @@ export const PerfilIdeal = () => {
                                 </svg>
 
                             </div>
-                            <h3 className="font-bold text-white text-[1.25rem] mb-3">Provincias</h3>
-                            <p className="text-gray-300 text-[0.95rem] font-light leading-relaxed">
-                                Organizaciones fuera de urbes principales que buscan acceso remoto a especialistas top sin incurrir en viáticos.
+                            <h3 className="font-bold text-white text-[1.25rem] mb-3">Cobertura nacional</h3>
+                            <p className="text-gray-300 text-[1.05rem] font-light texto-desc">
+                                Empresas PYMES ubicadas fuera de Guayaquil que buscan acceder a consultoría tributaria y contable especializada, con atención remota y el respaldo de profesionales de alto nivel, sin incurrir en costos de traslado o viáticos.
                             </p>
                         </div>
                     </div>

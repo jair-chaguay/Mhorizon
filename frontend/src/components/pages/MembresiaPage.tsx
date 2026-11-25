@@ -1,27 +1,25 @@
 import { Header } from "../Hero/Header"
-import { HeroMembresia, Banner, Respaldo, ExperienciaS, Alcance, PerfilIdeal, PreguntasFre, Invitacion, Footer, Frase, Clients } from '..'
-import { Institucional } from "../Membresia/Institucional"
+import { HeroMembresia, Banner, Respaldo, ExperienciaS, PerfilIdeal, PreguntasFre, Invitacion, Footer, Frase } from '..'
 import { Planes } from "../Membresia/Planes"
 import { Casos } from "../Membresia/Casos"
-import { Comparativa } from "../Membresia/Comparativa"
+import { Planificacion2027 } from "../Membresia/Planificacion2027"
 import { StickyCTA } from "../Membresia/StickyCTA"
-// Orden de venta: promesa → confianza → problema → identificación → cómo funciona
-// → comparación → precio → alcance → quién responde → objeciones → cierre.
+import { PortafolioClientes } from "../Membresia/PortafolioClientes"
+// Orden de venta: promesa → confianza → problema → identificación → para quién → cómo funciona
+// → por qué ahora (2027) → precio → objeciones → cierre.
 export const MembresiaPage = () => {
     return (
         <main className="m-auto">
             <Header />
             <HeroMembresia />
             <Banner />
-            <Clients />
+            <PortafolioClientes />
             <Respaldo />
             <Casos />
             <PerfilIdeal />
             <ExperienciaS />
-            <Comparativa />
+            <Planificacion2027 />
             <Planes />
-            <Alcance />
-            <Institucional />
             <PreguntasFre />
             <Invitacion />
             <section className='bg-blue-200'>

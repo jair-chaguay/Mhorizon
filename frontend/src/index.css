@@ -147,6 +147,13 @@ body {
   transform: translateY(0);
 }
 
+/* Membresía: texto de descripción más legible (pedido de MHorizon, nov-2026) */
+.texto-desc {
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  word-spacing: 0.06em;
+}
+
 .delay-100 {
   transition-delay: 100ms;
 }

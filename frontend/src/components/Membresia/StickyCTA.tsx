@@ -22,11 +22,11 @@ export const StickyCTA = () => {
             aria-hidden={!visible}
         >
             <div className="min-w-0">
-                <p className="text-orange-500 text-[0.7rem] font-bold uppercase tracking-widest font-jakarta">Plan Estándar</p>
-                <p className="text-white font-extrabold text-[1.05rem] leading-tight font-jakarta">USD 110 <span className="text-gray-400 font-light text-[0.8rem]">+ IVA / mes</span></p>
+                <p className="text-orange-500 text-[0.7rem] font-bold uppercase tracking-widest font-jakarta whitespace-nowrap">Lanzamiento</p>
+                <p className="text-white font-extrabold text-[1.05rem] leading-tight font-jakarta">USD 110 <span className="text-gray-400 font-light text-[0.8rem] whitespace-nowrap">+ IVA / mes</span></p>
             </div>
             <a href="#planes" tabIndex={visible ? 0 : -1} className="bg-orange-500 text-white font-bold tracking-wider uppercase text-[0.8rem] px-5 py-3 rounded-sm shrink-0 font-jakarta">
-                Ver planes
+                Ver membresía
             </a>
         </div>
     )
